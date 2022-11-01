@@ -20,7 +20,7 @@ const ListToolbar = () => {
       {/* begin::Add Places */}
       <a href='Planner'
         type='button'
-        className='btn btn-sm btn-dark btn-active-light-dark '
+        className='btn btn-sm btn-dark btn-active-light-dark'
       >
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         {intl.formatMessage({id: 'AUDITS.LIST.ADD'})}
