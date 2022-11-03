@@ -6,18 +6,17 @@ import qs from 'qs'
 
 const API_URL = process.env.REACT_APP_API_URL
 const SECTION_URL = `${API_URL}/Section`
-const GET_SECTIONS_URL = `${API_URL}/Custom/getSection`
 const CREATE_SECTIONS_URL = `${API_URL}/Custom`
 
 
-const listSections = async (departmentId : string): Promise<any> => await axios.get(`${GET_SECTIONS_URL}?page=1&departmentId=${departmentId}`).then((res : AxiosResponse) => 
+const listSections = async (departmentId : string): Promise<any> => await axios.get(`${SECTION_URL}/getAll?page=1&departmentId=${departmentId}`).then((res : AxiosResponse) => 
  {
    return res.data;
  });
 
 const getSections = (query: string): Promise<QueryResponse> => {
   const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).departmentId
-  return axios.get(`${GET_SECTIONS_URL}?${query}&departmentId=${qsd}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  return axios.get(`${SECTION_URL}/getAll/DepartmentId-${qsd}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 const getSectionById = (id: ID): Promise<Model | undefined> => {

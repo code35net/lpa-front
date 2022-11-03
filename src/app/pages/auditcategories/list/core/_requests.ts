@@ -6,13 +6,13 @@ const API_URL = process.env.REACT_APP_API_URL
 const AUDITCATEGORY_URL = `${API_URL}/AuditCategory`
 const GET_AUDITCATEGORIES_URL = `${API_URL}/AuditCategory`
 
-const listAuditCategories = async (): Promise<any> => await axios.get(`${GET_AUDITCATEGORIES_URL}?page=1`).then((res : AxiosResponse) => 
+const listAuditCategories = async (): Promise<any> => await axios.get(`${GET_AUDITCATEGORIES_URL}/getAll?page=1`).then((res : AxiosResponse) => 
  {
    return res.data;
  });
 
 const getAuditCategories = (query: string): Promise<QueryResponse> => {
-  return axios.get(`${GET_AUDITCATEGORIES_URL}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  return axios.get(`${GET_AUDITCATEGORIES_URL}/getAll/?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 

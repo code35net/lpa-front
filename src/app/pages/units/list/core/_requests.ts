@@ -10,7 +10,7 @@ const GET_UNITS_URL = `${API_URL}/Custom/getUnit`
 const GET_PARTIALUNITS_URL = `${API_URL}/Custom/getPartialUnit`
 const CREATE_UNITS_URL = `${API_URL}/Custom`
 
-const listUnits = async (sectionId : string): Promise<any> => await axios.get(`${GET_UNITS_URL}?page=1&sectionId=${sectionId}`).then((res : AxiosResponse) => 
+const listUnits = async (sectionId : string): Promise<any> => await axios.get(`${UNIT_URL}/getAll?page=1&sectionId=${sectionId}`).then((res : AxiosResponse) => 
  {
    return res.data;
  });
@@ -22,7 +22,7 @@ const listUnits = async (sectionId : string): Promise<any> => await axios.get(`$
 
 const getUnits = (query: string): Promise<QueryResponse> => {
   const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
-  return axios.get(`${GET_UNITS_URL}?${query}&sectionId=${qsd}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  return axios.get(`${UNIT_URL}/getAll/SectionId-${qsd}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 const getUnitById = (id: ID): Promise<Model | undefined> => {

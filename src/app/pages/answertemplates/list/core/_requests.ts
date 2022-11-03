@@ -8,7 +8,7 @@ const GET_ANSWERTEMPLATES_URL = `${API_URL}/AnswerTemplate`
 const CREATE_ANSWERTEMPLATE_URL = `${API_URL}/Custom/createATemplate`
 //api/AnswerTemplate/{id}/AnswerTemplateOptions
 
-const listAnswerTemplates = async (): Promise<any> => await axios.get(`${GET_ANSWERTEMPLATES_URL}?page=1`).then((res : AxiosResponse) => 
+const listAnswerTemplates = async (): Promise<any> => await axios.get(`${GET_ANSWERTEMPLATES_URL}/getAll?page=1`).then((res : AxiosResponse) => 
  {
    return res.data;
  });
@@ -22,7 +22,7 @@ const listAnswerTemplates = async (): Promise<any> => await axios.get(`${GET_ANS
 
 
 const getAnswerTemplates = (query: string): Promise<QueryResponse> => {
-  return axios.get(`${GET_ANSWERTEMPLATES_URL}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  return axios.get(`${GET_ANSWERTEMPLATES_URL}/getAll/?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 

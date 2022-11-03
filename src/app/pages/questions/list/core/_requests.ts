@@ -5,12 +5,11 @@ import {Model, QueryResponse} from './_models'
 const API_URL = process.env.REACT_APP_API_URL
 const QUESTION_URL = `${API_URL}/Question`
 const CREATE_QUESTION_URL = `${API_URL}/Custom/createQuestion`
-const GET_QUESTIONS_URL = `${API_URL}/Question`
 const PUT_QUESTIONS_ANSWER = `${API_URL}/Custom/answerQuestion`
 
 
 const getQuestions = (query: string): Promise<QueryResponse> => {
-  return axios.get(`${GET_QUESTIONS_URL}?${query}`).then((d: AxiosResponse<QueryResponse>) => {
+  return axios.get(`${QUESTION_URL}/getAll/?${query}&modelstoinclude=Section.Department,AuditCategory`).then((d: AxiosResponse<QueryResponse>) => {
     const queryRaw: any = parseRequestQuery(query)
     if (queryRaw?.filter_auditcategoryid && Array.isArray(d?.data?.data)) {
       d.data.data = (d as any).data?.data?.filter(

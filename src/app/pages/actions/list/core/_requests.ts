@@ -16,12 +16,12 @@ const getAuctionDetails = async (id : string): Promise<any> => await axios.get(`
 
 const getActions = (query: string): Promise<QueryResponse> => {
   return axios
-    .get(`${GET_ACTIONS_URL}?${query}`)
+    .get(`${GET_ACTIONS_URL}/getAll/?${query}`)
     .then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 const listActions = async (): Promise<any> =>
-  await axios.get(`${GET_ACTIONS_URL}?page=1`).then((res: AxiosResponse) => {
+  await axios.get(`${GET_ACTIONS_URL}/getAll?page=1`).then((res: AxiosResponse) => {
     return res.data
   })
 

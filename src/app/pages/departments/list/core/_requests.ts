@@ -9,7 +9,7 @@ const GET_PER_REPORT = `${API_URL}/Custom/getPercentageReport`
 
 const getDepartments = (query: string): Promise<QueryResponse> => {
   return axios
-    .get(`${GET_DEPARTMENTS_URL}?${query}`)
+    .get(`${GET_DEPARTMENTS_URL}/getAll/?${query}`)
     .then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
@@ -21,7 +21,7 @@ const getPercentageReport = (): Promise<QueryResponse> => {
 
 
 const listDepartments = async (): Promise<any> =>
-  await axios.get(`${GET_DEPARTMENTS_URL}?page=1`).then((res: AxiosResponse) => {
+  await axios.get(`${GET_DEPARTMENTS_URL}/getAll?page=1`).then((res: AxiosResponse) => {
     return res.data
   })
 

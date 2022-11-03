@@ -6,13 +6,13 @@ const API_URL = process.env.REACT_APP_API_URL
 const POSITION_URL = `${API_URL}/Position`
 const GET_POSITIONS_URL = `${API_URL}/Position`
 
-const listPositions = async (): Promise<any> => await axios.get(`${GET_POSITIONS_URL}?page=1`).then((res : AxiosResponse) => 
+const listPositions = async (): Promise<any> => await axios.get(`${GET_POSITIONS_URL}/getAll?page=1`).then((res : AxiosResponse) => 
  {
    return res.data;
  });
 
 const getPlaces = (query: string): Promise<QueryResponse> => {
-  return axios.get(`${GET_POSITIONS_URL}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  return axios.get(`${GET_POSITIONS_URL}/getAll/?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 const getPlaceById = (id: ID): Promise<Model | undefined> => {

@@ -37,20 +37,20 @@ const ActionsCell: FC<Props> = ({id}) => {
     <>
 
         <div className='d-flex justify-content-end flex-shrink-0'>
-        <span className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+        <span 
            >
-            <Link to={`/user-management/userpermission/${id}`}> Authority </Link>
+            <Link className='btn btn-info btn-sm me-1' to={`/user-management/userpermission/${id}`}> Authority </Link>
             
           </span>
 
-          <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+          <a className='btn btn-icon btn-bg-light btn-active-color-warning btn-sm me-1'
            onClick={openEditModal}
            >
             <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
           </a>
 
 
-          <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+          <a className='btn btn-icon btn-bg-light btn-active-color-danger btn-sm'
           data-kt-users-table-filter='delete_row'
           onClick={async () => await deleteItem.mutateAsync()}
           >

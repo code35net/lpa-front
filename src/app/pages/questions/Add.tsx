@@ -1,6 +1,7 @@
 import React, {FC, useState, useEffect} from 'react'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import {Model, Question} from '../questions/list/core/_models'
+import {Model as Section} from '../sections/list/core/_models'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import {KTSVG} from '../../../_metronic/helpers'

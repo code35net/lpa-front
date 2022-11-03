@@ -7,13 +7,13 @@ const QUESTIONGROUP_URL = `${API_URL}/QuestionGroup`
 const GET_QUESTIONGROUPS_URL = `${API_URL}/QuestionGroup`
 
 
-const listQuestionCategories = async (): Promise<any> => await axios.get(`${GET_QUESTIONGROUPS_URL}?page=1`).then((res : AxiosResponse) => 
+const listQuestionCategories = async (): Promise<any> => await axios.get(`${GET_QUESTIONGROUPS_URL}/getAll?page=1`).then((res : AxiosResponse) => 
  {
    return res.data;
  });
 
 const getQuestionGroups = (query: string): Promise<QueryResponse> => {
-  return axios.get(`${GET_QUESTIONGROUPS_URL}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  return axios.get(`${GET_QUESTIONGROUPS_URL}/getAll/?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 const getQuestionGroupById = (id: ID): Promise<Model | undefined> => {
