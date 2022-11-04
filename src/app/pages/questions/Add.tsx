@@ -72,7 +72,6 @@ const EditForm: FC<Props> = ({item}) => {
     sectionId: undefined,
     departmentId: undefined,
     auditCategoryId: undefined,
-    answertemplateId: undefined,
     questions: [],
   } as Model)
 
@@ -121,11 +120,21 @@ const EditForm: FC<Props> = ({item}) => {
         return item;
       })
 
-      try {
-        await createQuestion(values)
-      } catch (error) {
-        console.log(error)
+      for await (const question of values?.questions)
+      {
+        try {
+          await createQuestion({
+            sectionId: values?.sectionId,
+            departmentId: values?.departmentId,
+            auditCategoryId: values?.auditCategoryId,
+            questions : [question]
+          } as any)
+        } catch (error) {
+          console.log(error)
+        }
+
       }
+     
 
       setLoading(false)
       formik.setSubmitting(false)

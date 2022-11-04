@@ -48,8 +48,6 @@ const AuditQuestionsForm = () => {
               actionUser: '',
             })
           })
-
-          console.log(tempQA.length)
           setQuestionAnswers([...tempQA])
 
           setQuestions(res?.data)
@@ -155,7 +153,7 @@ const AuditQuestionsForm = () => {
       showConfirmButton: false,
 
       timer: 1500,
-    }).then(async (result) => {
+    }).then(async () => {
       navigate('/audits/list')
     })
   }
@@ -197,108 +195,115 @@ const AuditQuestionsForm = () => {
               </div>
               {/* end::Header */}
               {/* begin::Post */}
-              <div className='mb-5'>
-                {/* begin::Text */}
-                {question.answerOptions.map((opt: any) => {
-                  return (
-                    <div key={`${opt?.id}-opt`} className='row mb-3'>
-                      <div className='col-lg-8 fv-row'>
-                        <div className='d-flex align-items-center mt-3'>
-                          <label className='form-check form-check-inline form-check-solid me-5'>
-                            <input
-                              className='form-check-input'
-                              name={`${question?.id}-q`}
-                              type='radio'
-                              value={opt?.id}
-                              onChange={() => {
-                                handleNeedAction(question?.id, opt?.id)
-                              }}
-                            />
-                            <span className='fw-bold ps-2 fs-6'>{opt?.optionName}</span>
-                          </label>
+
+              {!question?.createdAt ? (
+                <>
+                  <div className='mb-5'>
+                    {/* begin::Text */}
+                    {question.answerOptions.map((opt: any) => {
+                      return (
+                        <div key={`${opt?.id}-opt`} className='row mb-3'>
+                          <div className='col-lg-8 fv-row'>
+                            <div className='d-flex align-items-center mt-3'>
+                              <label className='form-check form-check-inline form-check-solid me-5'>
+                                <input
+                                  className='form-check-input'
+                                  name={`${question?.id}-q`}
+                                  type='radio'
+                                  value={opt?.id}
+                                  onChange={() => {
+                                    handleNeedAction(question?.id, opt?.id)
+                                  }}
+                                />
+                                <span className='fw-bold ps-2 fs-6'>{opt?.optionName}</span>
+                              </label>
+                            </div>
+                          </div>
                         </div>
+                      )
+                    })}
+                    {/* end::Text */}
+                    Notes
+                    <textarea
+                      className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
+                      rows={4}
+                      name={`${question?.id}-notes`}
+                      value={questionAnswers[i].notes}
+                      placeholder='buraya metin gelecek..'
+                      onChange={(e) => {
+                        handleNotes(question?.id, e.target.value)
+                      }}
+                    ></textarea>
+                    <div className='position-absolute top-0 end-0 me-n5'>
+                      <span className='btn btn-icon btn-sm btn-active-color-primary pe-0 me-2'>
+                        <KTSVG
+                          path='/media/icons/duotune/communication/com008.svg'
+                          className='svg-icon-3 mb-3'
+                        />
+                      </span>
+                    </div>
+                  </div>
+                  {/* end::Post */}
+                  {/* begin::Separator */}
+                  <div className='separator mb-4'></div>
+                  {/* end::Separator */}
+                  {/* begin::Reply input */}
+                  {question?.needAction && (
+                    <div>
+                      Findings
+                      <textarea
+                        className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
+                        rows={4}
+                        name={`${question?.id}-actionText`}
+                        value={questionAnswers[i].actionText}
+                        placeholder='buraya need action true olunca bulgular gelecek..'
+                        onChange={(e) => {
+                          handleActionText(question?.id, e.target.value)
+                        }}
+                      ></textarea>
+                      Staff List
+                      <select
+                        className='form-select form-select-solid form-select-md'
+                        name={`${question?.id}-actionUser`}
+                        value={questionAnswers[i].actionUser}
+                        onChange={(e) => {
+                          handleActionUser(question?.id, e.target.value)
+                        }}
+                      >
+                        <option value=''>Seçiniz</option>
+                        {pStaffList.map((user: any) => (
+                          <option value={user?.id as any} key={user?.id as any}>
+                            {user?.email as any}
+                          </option>
+                        ))}
+                      </select>
+                      <div className='fv-row mb-3'>
+                        {/* begin::Label */}
+                        <label className='required fw-bold fs-6 mb-2'>Date time</label>
+                        {/* end::Label */}
+
+                        {/* begin::Input */}
+                        <input
+                          //placeholder='Full name'
+                          type='datetime-local'
+                          name={`${question?.id}-actionDate`}
+                          value={moment(questionAnswers[i].actionDate).format(
+                            'YYYY-MM-DDTHH:mm:ss'
+                          )}
+                          onChange={(e) => {
+                            handleActionDatetime(question?.id, e.target.value)
+                          }}
+                          className={clsx('form-control form-control-solid mb-3 mb-lg-0')}
+                          autoComplete='off'
+                        />
+                        {/* end::Input */}
                       </div>
                     </div>
-                  )
-                })}
-                {/* end::Text */}
-                Notes
-                <textarea
-                  className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
-                  rows={4}
-                  name={`${question?.id}-notes`}
-                  value={questionAnswers[i].notes}
-                  placeholder='buraya metin gelecek..'
-                  onChange={(e) => {
-                    handleNotes(question?.id, e.target.value)
-                  }}
-                ></textarea>
-                <div className='position-absolute top-0 end-0 me-n5'>
-                  <span className='btn btn-icon btn-sm btn-active-color-primary pe-0 me-2'>
-                    <KTSVG
-                      path='/media/icons/duotune/communication/com008.svg'
-                      className='svg-icon-3 mb-3'
-                    />
-                  </span>
-                </div>
-              </div>
-              {/* end::Post */}
-              {/* begin::Separator */}
-              <div className='separator mb-4'></div>
-              {/* end::Separator */}
-              {/* begin::Reply input */}
-              {question?.needAction && (
-                <div>
-                  Findings
-                  <textarea
-                    className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
-                    rows={4}
-                    name={`${question?.id}-actionText`}
-                    value={questionAnswers[i].actionText}
-                    placeholder='buraya need action true olunca bulgular gelecek..'
-                    onChange={(e) => {
-                      handleActionText(question?.id, e.target.value)
-                    }}
-                  ></textarea>
-                  Staff List
-                  <select
-                    className='form-select form-select-solid form-select-md'
-                    name={`${question?.id}-actionUser`}
-                    value={questionAnswers[i].actionUser}
-                    onChange={(e) => {
-                      handleActionUser(question?.id, e.target.value)
-                    }}
-                  >
-                    <option value=''>Seçiniz</option>
-                    {pStaffList.map((user: any) => (
-                      <option value={user?.id as any} key={user?.id as any}>
-                        {user?.email as any}
-                      </option>
-                    ))}
-                  </select>
-                  <div className='fv-row mb-3'>
-                    {/* begin::Label */}
-                    <label className='required fw-bold fs-6 mb-2'>Date time</label>
-                    {/* end::Label */}
+                  )}
 
-                    {/* begin::Input */}
-                    <input
-                      //placeholder='Full name'
-                      type='datetime-local'
-                      name={`${question?.id}-actionDate`}
-                      value={moment(questionAnswers[i].actionDate).format('YYYY-MM-DDTHH:mm:ss')}
-                      onChange={(e) => {
-                        handleActionDatetime(question?.id, e.target.value)
-                      }}
-                      className={clsx('form-control form-control-solid mb-3 mb-lg-0')}
-                      autoComplete='off'
-                    />
-                    {/* end::Input */}
-                  </div>
-                </div>
-              )}
-
-              {/* edit::Reply input */}
+                  {/* edit::Reply input */}
+                </>
+              ) : null}
             </div>
             {/* end::Body */}
           </div>
