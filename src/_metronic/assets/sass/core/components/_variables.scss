@@ -695,9 +695,9 @@ $input-plaintext-color:                     $gray-700 !default;
 $input-plaintext-color-dark:                $gray-700-dark !default;
 
 // Keenthemes solid input style
-$input-solid-bg:                            $gray-100 !default;
+$input-solid-bg:                            $gray-200 !default;
 $input-solid-bg-dark:                       $gray-100-dark !default;
-$input-solid-bg-focus:                      darken($gray-100, 2%) !default;
+$input-solid-bg-focus:                      darken($gray-100, 5%) !default;
 $input-solid-bg-focus-dark:                 darken($gray-100-dark, 2%) !default;
 $input-solid-placeholder-color:             $input-placeholder-color !default; 
 $input-solid-placeholder-color-dark:        $input-placeholder-color-dark !default; 

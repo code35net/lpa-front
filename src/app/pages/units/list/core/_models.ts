@@ -4,6 +4,7 @@ export type Model = {
   name?: string
   sectionId?: number
   unitType?: number
+  shift?:number
 }
 
 export type QueryResponse = Response<Array<Model>>

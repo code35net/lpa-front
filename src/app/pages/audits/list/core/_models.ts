@@ -19,6 +19,7 @@ export type Model = {
   categoryType?:number | string
   collarType?:number
   status?: string
+  questionCount?: number
   nonPeriodicDate?:string | null
 }
 

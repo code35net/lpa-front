@@ -35,6 +35,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
   const [unitForEdit] = useState<Model>({
     name: undefined,
     unitType: undefined,
+    shift:undefined,
     ...item,
    
   })
@@ -55,7 +56,10 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
       setSubmitting(true)
      
       
-      
+      if (!values.shift) {
+        values.shift = 0
+      }
+      values.shift = parseInt(values.shift.toString())
 
       try {
         if (isNotEmpty(values.id)) {
@@ -163,6 +167,28 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                 </div>
               </div>
             </div>
+            <div className='fv-row mb-7'>
+          {/* begin::Label */}
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'UNIT.LIST.SHIFT'})}
+          </label>
+          {/* end::Label */}
+
+          {/* begin::Input */}
+          <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('shift')}
+                >
+                  <option value='0'>Morning</option>
+                  <option value='1'>Day</option>
+                  <option value='2'>Night</option>
+                </select>
+          
+          {/* end::Input row */}
+         
+         
+          {/* end::Input */}
+        </div>
         {/* begin::Input group */}
         
         {/* end::Input group */}

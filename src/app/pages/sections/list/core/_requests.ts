@@ -31,7 +31,7 @@ const createSection = (section: Model): Promise<Model | undefined> => {
   section.departmentId = parseInt(qsd?.toString())
 
   return axios
-  .put(`${CREATE_SECTIONS_URL}/createSection`, section)
+  .put(`${SECTION_URL}`, section)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response.data)
 }

@@ -3,7 +3,7 @@ import {QueryRequestProvider} from './core/QueryRequestProvider'
 import {QueryResponseProvider} from './core/QueryResponseProvider'
 import {ListHeader} from './components/header/ListHeader'
 import {Table} from './table/Table'
-import {EditModal} from '../../answertemplates/list/edit-modal/EditModal'
+import {EditModal} from '../list/edit-modal/EditModal'
 import {KTCard} from '../../../../_metronic/helpers'
 
 const List = () => {

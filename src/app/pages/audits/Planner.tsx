@@ -468,13 +468,14 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   <option value='0'>Günlük</option>
                   <option value='1'>Haftalık</option>
                   <option value='2'>Aylık</option>
-                  <option value='3'>Vardiya</option>
-                  <option value='4'>Anlık Denetim</option>
+                  <option value='3'>Çeyrklik</option>
+                  <option value='4'>Vardiya</option>
+                  <option value='5'>Anlık Denetim</option>
                 </select>
               </div>
             </div>
             {
-              parseInt(formik.values.categoryType as string) === 4 &&
+              parseInt(formik.values.categoryType as string) === 5 &&
               <div className='fv-row mb-3'>
               {/* begin::Label */}
               <label className='required fw-bold fs-6 mb-2'>Periyodik Olmayan Zaman</label>

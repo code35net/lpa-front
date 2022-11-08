@@ -7,7 +7,6 @@ import {Columns} from '../list/table/columns/_columns'
 import {useQuery} from 'react-query'
 import {useLocation, Link} from 'react-router-dom'
 import {getAuditDetails} from '../list/core/_requests'
-import {QuestionModal} from './question-modal/QuestionModal'
 import {getQuestionById} from '../../questions/list/core/_requests'
 
 const AuditDetails = () => {
@@ -64,12 +63,8 @@ const AuditDetails = () => {
 
   return (
     <>
-      <QuestionModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        question={selectedQuestion}
-      />
-
+      
+      
 <div className='card mb-5 mb-xl-10'>
       <div className='card-body pt-9 pb-0'>
         <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
@@ -103,7 +98,11 @@ const AuditDetails = () => {
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
                       
-                      <div className='fs-2 fw-bolder'>20</div>
+                      <div className='fs-2 fw-bolder'>
+                      {Array.isArray(response?.data) && response?.data?.length
+                  ? response?.data[0]?.questionCount
+                  : ''}
+                      </div>
                     </div>
 
                     <div className='fw-bold fs-6 text-gray-400'>Total Questions</div>

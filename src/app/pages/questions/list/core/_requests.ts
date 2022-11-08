@@ -4,8 +4,9 @@ import {Model, QueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL
 const QUESTION_URL = `${API_URL}/Question`
-const CREATE_QUESTION_URL = `${API_URL}/Custom/createQuestion`
 const PUT_QUESTIONS_ANSWER = `${API_URL}/Custom/answerQuestion`
+const CREATE_QUESTION_URL = `${API_URL}/Custom/createBulkQuestions`
+const COPY_QUESTION_URL = `${API_URL}/Custom/editQuestion`
 
 
 const getQuestions = (query: string): Promise<QueryResponse> => {
@@ -45,16 +46,23 @@ const addQuestionAnswers = (question : any) => {
   return axios.put(PUT_QUESTIONS_ANSWER, question).then((response: any) => response.data)
 }
 
-const createQuestion = (question: Model): Promise<Model | undefined> => {
+const createBulkQuestions = (question: Model): Promise<Model | undefined> => {
   return axios
     .put(CREATE_QUESTION_URL, question)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
-    .then((response: Response<Model>) => response.data)
+    .then((response: Response<Model>) => response as any)
+}
+
+const createQuestion = (question: Model): Promise<Model | undefined> => {
+  return axios
+    .put(COPY_QUESTION_URL, question)
+    .then((response: AxiosResponse<Response<Model>>) => response.data)
+    .then((response: Response<Model>) => response as any)
 }
 
 const updateQuestion = (question: Model): Promise<Model | undefined> => {
   return axios
-    .post(`${QUESTION_URL}/${question.id}`, question)
+    .put(`${COPY_QUESTION_URL}/${question.id}`, question)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response.data)
 }
@@ -75,5 +83,6 @@ export {
   getQuestionById,
   createQuestion,
   updateQuestion,
-  addQuestionAnswers
+  addQuestionAnswers,
+  createBulkQuestions
 }

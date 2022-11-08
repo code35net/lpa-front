@@ -26,11 +26,7 @@ export function AsideMenuMain() {
           title="Users"
           hasBullet={true}
         />
-        <AsideMenuItem
-          to='/staffs/'
-          title="Staff List"
-          hasBullet={true}
-        />
+        
         <AsideMenuItem
           to='/user-management/newuser'
           title="New User"
@@ -108,6 +104,11 @@ export function AsideMenuMain() {
         <AsideMenuItem
           to='/departments'
           title={intl.formatMessage({id: 'MENU.DEPARTMENTS'})}
+          hasBullet={true}
+        />
+        <AsideMenuItem
+          to='/staffs/'
+          title={intl.formatMessage({id: 'MENU.STAFFLIST'})}
           hasBullet={true}
         />
         <AsideMenuItem

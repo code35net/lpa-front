@@ -14,7 +14,7 @@ import {listQuestionCategories} from '../questioncategories/list/core/_requests'
 import {listAnswerTemplates} from '../answertemplates/list/core/_requests'
 import {useQueryResponse} from '../questions/list/core/QueryResponseProvider'
 import {useListView} from '../questions/list/core/ListViewProvider'
-import {createQuestion} from './list/core/_requests'
+import {createBulkQuestions} from './list/core/_requests'
 
 import {useNavigate} from 'react-router-dom'
 
@@ -123,7 +123,7 @@ const EditForm: FC<Props> = ({item}) => {
       for await (const question of values?.questions)
       {
         try {
-          await createQuestion({
+          await createBulkQuestions({
             sectionId: values?.sectionId,
             departmentId: values?.departmentId,
             auditCategoryId: values?.auditCategoryId,

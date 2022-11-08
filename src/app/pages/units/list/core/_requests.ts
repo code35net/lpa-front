@@ -32,10 +32,15 @@ const getUnitById = (id: ID): Promise<Model | undefined> => {
     .then((response: Response<Model>) => response as any)
 }
 
+
+
+
 const createUnit = (unit: Model): Promise<Model | undefined> => {
-  const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
+  const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId ?? "1"
+  unit.sectionId = parseInt(qsd?.toString())
+
   return axios
-  .put(`${CREATE_UNITS_URL}/createUnit?sectionId=${qsd}`, unit)
+  .put(`${UNIT_URL}`, unit)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response.data)
 }

@@ -8,13 +8,14 @@ import {Model as QuestionCategory} from '../../../questioncategories/list/core/_
 export type Model = {
   id?: ID
   text?: string
-  Section:Section
+  Section?:Section
   sectionId?: number
-  Department:Department
+  Department?:Department
   departmentId?: number
+  isNew?:boolean
   // AnswerTemplate:AnswerTemplate
   answerTemplateId?: number
-  auditCategory: ac
+  auditCategory?: ac
   auditCategoryId?: number
   //QuestionCategory:QuestionCategory
   questionGroupId?: number | null
