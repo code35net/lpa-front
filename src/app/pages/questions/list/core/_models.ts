@@ -20,6 +20,8 @@ export type Model = {
   //QuestionCategory:QuestionCategory
   questionGroupId?: number | null
   questions?: Array<Question>
+  isAddedQuestionCategory? : boolean
+ 
 }
 
 // type AuditCategory = {
@@ -32,7 +34,7 @@ export type Question = {
   text: string
   answerTemplateId: number
   questionGroupId: number | null 
-  isAddedQuestionCategory?: boolean
+  isAddedQuestionCategory: boolean
 }
 
 export type QueryResponse = Response<Array<Model>>

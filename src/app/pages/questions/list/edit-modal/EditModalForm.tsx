@@ -15,8 +15,6 @@ import {listAuditCategories} from '../../../auditcategories/list/core/_requests'
 import {listQuestionCategories} from '../../../questioncategories/list/core/_requests'
 import {listAnswerTemplates} from '../../../answertemplates/list/core/_requests'
 
-
-
 type Props = {
   isQuestionLoading: boolean
   item: Model
@@ -34,13 +32,11 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
 
-
   const [departments, setDepartments] = React.useState([])
   const [sections, setSections] = React.useState([])
   const [auditcategories, setAuditCategories] = React.useState([])
   const [questioncategories, setQuestionCategories] = React.useState([])
   const [answertemplates, setAnswertemplates] = React.useState([])
-
 
   useEffect(() => {
     listDepartments().then((res) => {
@@ -62,21 +58,18 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
 
     listAnswerTemplates().then((res2) => {
       setAnswertemplates(res2.data || [])
-
-
     })
   }, [])
 
-
+  console.log(item, 'test')
   const [placeForEdit] = useState<Model>({
-    ...item,
     text: undefined,
     sectionId: undefined,
-    auditCategoryId:undefined,
-    isNew:undefined
-
+    auditCategoryId: undefined,
+    isNew: undefined,
+    isAddedQuestionCategory: false,
+    ...item,
   })
-  
 
   const cancel = (withRefresh?: boolean) => {
     if (withRefresh) {
@@ -111,8 +104,6 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
       setSections(res.data)
     })
   }
-
- 
 
   return (
     <>
@@ -176,119 +167,139 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         {/* <div className='form-text'>Allowed file types: png, jpg, jpeg.</div> */}
         {/* end::Hint */}
         {/* end::Input group */}
-<input
-                                //checked={true}
-                                //onChange={(e)=> handleIsAddedQuestionCategory(question?.id,e.target.checked)}
-                                //value={'on' : 'off'}
-                                className='form-check-input bg-dark border-dark'
-                                type='checkbox'
-                                id='allowmarketing'
-                              />
-                              <label className='form-check-label'> Kopyala </label>
+
+        <div className='fv-row mb-7'>
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({
+              id: 'QUESTIONS.ADDPAGE.IS_NEW',
+            })}
+          </label>
+          <div className='form-check form-check-solid form-switch'>
+            <input
+              {...formik.getFieldProps('isNew')}
+              checked={formik.values.isNew}
+              onChange={(e) => formik.setFieldValue('isNew', e.target.checked)}
+              value={formik.values.isNew ? 'on' : 'off'}
+              className='form-check-input w-80px mt-2 bg-dark border-dark'
+              type='checkbox'
+              id='isNew'
+            />
+          </div>
+        </div>
+
+        <div className='fv-row mb-7'>
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({
+              id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
+            })}
+          </label>
+          <div className='form-check form-check-solid form-switch'>
+            <input
+              {...formik.getFieldProps('isAddedQuestionCategory')}
+              checked={formik.values.isAddedQuestionCategory}
+              onChange={(e) => formik.setFieldValue('isAddedQuestionCategory', e.target.checked)}
+              value={formik.values.isAddedQuestionCategory ? 'on' : 'off'}
+              className='form-check-input w-80px mt-2 bg-dark border-dark'
+              type='checkbox'
+              id='isAddedQuestionCategory'
+            />
+          </div>
+        </div>
         {/* begin::Input group */}
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-          {(intl.formatMessage({id: 'QUESTIONS.ADDPAGE.DEPARTMENT'}))}
-            
+            {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.DEPARTMENT'})}
           </label>
           {/* end::Label */}
 
           {/* begin::Input */}
           <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('departmentId')}
-                  value={formik.values.departmentId}
-                  onChange={handleChangeDepartmentId}
-                >
-                  <option value=''>Seçiniz</option>
-                  {departments.map((department: any) => (
-                    <option value={department?.id} key={department?.id as any}>
-                      {department?.name as any}
-                    </option>
-                  ))}
-                </select>
+            className='form-select form-select-solid form-select-md'
+            {...formik.getFieldProps('departmentId')}
+            value={formik.values.departmentId}
+            onChange={handleChangeDepartmentId}
+          >
+            <option value=''>Seçiniz</option>
+            {departments.map((department: any) => (
+              <option value={department?.id} key={department?.id as any}>
+                {department?.name as any}
+              </option>
+            ))}
+          </select>
           {/* end::Input */}
         </div>
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-          {(intl.formatMessage({id: 'QUESTIONS.ADDPAGE.SECTION'}))}
-            
+            {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.SECTION'})}
           </label>
           {/* end::Label */}
 
           {/* begin::Input */}
           <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('sectionId')}
-                  value={formik.values.sectionId}
-                  onChange={formik.handleChange}
-                >
-                  <option value=''>Seçiniz</option>
-                  {sections.map((section: any) => (
-                    <option value={section?.id} key={section?.id as any}>
-                      {section?.name as any}
-                    </option>
-                  ))}
-                </select>
+            className='form-select form-select-solid form-select-md'
+            {...formik.getFieldProps('sectionId')}
+            value={formik.values.sectionId}
+            onChange={formik.handleChange}
+          >
+            <option value=''>Seçiniz</option>
+            {sections.map((section: any) => (
+              <option value={section?.id} key={section?.id as any}>
+                {section?.name as any}
+              </option>
+            ))}
+          </select>
           {/* end::Input */}
         </div>
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-          {(intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY'}))}
-            
+            {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY'})}
           </label>
           {/* end::Label */}
 
           {/* begin::Input */}
           <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('auditCategoryId')}
-                  value={formik.values.auditCategoryId}
-                  onChange={formik.handleChange}
-                >
-                  <option value=''>Seçiniz</option>
-                  {auditcategories.map((auditcategory: any) => (
-                    <option value={auditcategory?.id as any} key={auditcategory?.id as any}>
-                      {auditcategory?.name as any}
-                    </option>
-                  ))}
-                </select>
+            className='form-select form-select-solid form-select-md'
+            {...formik.getFieldProps('auditCategoryId')}
+            value={formik.values.auditCategoryId}
+            onChange={formik.handleChange}
+          >
+            <option value=''>Seçiniz</option>
+            {auditcategories.map((auditcategory: any) => (
+              <option value={auditcategory?.id as any} key={auditcategory?.id as any}>
+                {auditcategory?.name as any}
+              </option>
+            ))}
+          </select>
           {/* end::Input */}
         </div>
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-          {(intl.formatMessage({id: 'QUESTIONS.ADDPAGE.QUESTIONCATEGORY'}))}
-            
+            {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.QUESTIONCATEGORY'})}
           </label>
           {/* end::Label */}
 
           {/* begin::Input */}
           <select
-                            className='form-select form-select-solid form-select-md'
-                            //onChange={(e) => handleQuestionGroupId(question.id, e.target.value)}
-                            //value={question.questionGroupId || 0}
-                          >
-
-                            {questioncategories.map((questioncategory: any) => (
-                              <option
-                                value={questioncategory?.id}
-                                key={questioncategory?.id as any}
-                              >
-                                {questioncategory?.name as any}
-                              </option>
-                            ))}
-                          </select> 
+            className='form-select form-select-solid form-select-md'
+            //onChange={(e) => handleQuestionGroupId(question.id, e.target.value)}
+            //value={question.questionGroupId || 0}
+          >
+            {questioncategories.map((questioncategory: any) => (
+              <option value={questioncategory?.id} key={questioncategory?.id as any}>
+                {questioncategory?.name as any}
+              </option>
+            ))}
+          </select>
           {/* end::Input */}
         </div>
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-          {(intl.formatMessage({id: 'QUESTIONS.LIST.NAME'}))}
-            
+            {intl.formatMessage({id: 'QUESTIONS.LIST.NAME'})}
           </label>
           {/* end::Label */}
 
@@ -319,7 +330,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         </div>
 
         {/* begin::Input group */}
-        
+
         {/* end::Input group */}
         {/* end::Scroll */}
 
@@ -339,7 +350,9 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
             type='submit'
             className='btn btn-primary'
             data-kt-items-modal-action='submit'
-            disabled={isQuestionLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
+            disabled={
+              isQuestionLoading || formik.isSubmitting || !formik.isValid || !formik.touched
+            }
           >
             <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
             {(formik.isSubmitting || isQuestionLoading) && (

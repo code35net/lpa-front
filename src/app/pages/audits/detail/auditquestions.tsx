@@ -14,6 +14,8 @@ import {listStaffs} from '../../staffs/list/core/_requests'
 import clsx from 'clsx'
 import moment from 'moment'
 import Swal from 'sweetalert2'
+import {FileUploader} from 'react-drag-drop-files'
+const fileTypes = ['JPEG', 'PNG', 'JPG']
 
 const AuditQuestionsForm = () => {
   const items = useQueryResponseData()
@@ -39,10 +41,10 @@ const AuditQuestionsForm = () => {
             tempQA.push({
               questionId: el?.id,
               auditId: params?.auditId,
-              answerTemplateOptionId: 0,
+              answerTemplateOptionId: -1,
               option: true,
               notes: '',
-              files: '',
+              files: null,
               actionText: '',
               actionDate: new Date().toISOString(),
               actionUser: '',
@@ -64,28 +66,26 @@ const AuditQuestionsForm = () => {
     })
   }, [])
 
-  const handleNeedAction = (questionId: number, optionId: number) => {
-    const findIndex: number = questions.findIndex((q: any) => q?.id === questionId)
-
-    if (findIndex !== -1) {
-      const optionIndex: number = (questions[findIndex] as any).answerOptions.findIndex(
+  const handleNeedAction = (index: number, optionId: number) => {
+    if (index !== -1 && index < questions.length) {
+      const optionIndex: number = (questions as any)[index].answerOptions.findIndex(
         (o: any) => o?.id === optionId
       )
 
       if (optionIndex !== -1) {
-        ;(questions[findIndex] as any).needAction = (questions[findIndex] as any).answerOptions[
+        ;(questions as any)[index].needAction = (questions as any)[index].answerOptions[
           optionIndex
         ]?.needAction
 
         const questAnsFindIndex: number = questionAnswers.findIndex(
-          (qa: any) => qa?.questionId === (questions[findIndex] as any)?.id
+          (qa: any) => qa?.questionId === (questions as any)[index]?.id
         )
         if (questAnsFindIndex !== 1) {
           questionAnswers[questAnsFindIndex].answerTemplateOptionId = (
-            questions[findIndex] as any
+            (questions as any)[index] as any
           ).answerOptions[optionIndex]?.id
 
-          if (!(questions[findIndex] as any).needAction) {
+          if (!((questions as any)[index] as any).needAction) {
             questionAnswers[questAnsFindIndex].actionText = ''
             questionAnswers[questAnsFindIndex].actionDate = new Date().toISOString()
             questionAnswers[questAnsFindIndex].actionUser = ''
@@ -98,51 +98,64 @@ const AuditQuestionsForm = () => {
     }
   }
 
-  const handleNotes = (questionId: number, value: string) => {
-    const questAnsFindIndex: number = questionAnswers.findIndex(
-      (qa: any) => qa?.questionId === questionId
-    )
-    if (questAnsFindIndex !== 1) {
-      questionAnswers[questAnsFindIndex].notes = value
+  const handleNotes = (index: number, value: string) => {
+    if (index !== -1 && index < questionAnswers.length) {
+      ;(questionAnswers as any)[index].notes = value
+      setQuestionAnswers([...questionAnswers])
     }
-    setQuestionAnswers([...questionAnswers])
   }
 
-  const handleActionText = (questionId: number, value: string) => {
-    const questAnsFindIndex: number = questionAnswers.findIndex(
-      (qa: any) => qa?.questionId === questionId
-    )
-    if (questAnsFindIndex !== 1) {
-      questionAnswers[questAnsFindIndex].actionText = value
+  const handleActionText = (index: number, value: string) => {
+    if (index !== -1 && index < questionAnswers.length) {
+      ;(questionAnswers as any)[index].actionText = value
+      setQuestionAnswers([...questionAnswers])
     }
-    setQuestionAnswers([...questionAnswers])
   }
 
-  const handleActionDatetime = (questionId: number, value: string) => {
-    const questAnsFindIndex: number = questionAnswers.findIndex(
-      (qa: any) => qa?.questionId === questionId
-    )
-    if (questAnsFindIndex !== 1) {
-      questionAnswers[questAnsFindIndex].actionDate = new Date(value).toISOString()
+  const handleActionDatetime = (index: number, value: string) => {
+    if (index !== -1 && index < questionAnswers.length) {
+      ;(questionAnswers as any)[index].actionDate = new Date(value).toISOString()
+      setQuestionAnswers([...questionAnswers])
     }
-    setQuestionAnswers([...questionAnswers])
   }
 
-  const handleActionUser = (questionId: number, value: string) => {
-    const questAnsFindIndex: number = questionAnswers.findIndex(
-      (qa: any) => qa?.questionId === questionId
-    )
-    if (questAnsFindIndex !== 1) {
-      questionAnswers[questAnsFindIndex].actionUser = value
+  const handleFiles = (index: number, files: any) => {
+    if (index !== -1 && index < questionAnswers.length) {
+      ;(questionAnswers as any)[index].files = files
+      setQuestionAnswers([...questionAnswers])
     }
-    setQuestionAnswers([...questionAnswers])
   }
 
-  const submitAnswers = async () => {
-    for await (const answers of questionAnswers) {
-      if (answers?.questionId && answers?.auditId && answers?.answerTemplateOptionId) {
-        await addQuestionAnswers(answers)
-      }
+  const handleActionUser = (index: number, value: string) => {
+    if (index !== -1 && index < questionAnswers.length) {
+      ;(questionAnswers as any)[index].actionUser = value
+      setQuestionAnswers([...questionAnswers])
+    }
+  }
+
+  const submitAnswers = async (index: number) => {
+    if (
+      questionAnswers[index]?.questionId &&
+      questionAnswers[index]?.auditId &&
+      questionAnswers[index]?.answerTemplateOptionId !== -1
+    ) {
+      const formData = new FormData()
+      if (questionAnswers[index]?.files?.[0])
+        formData.append('files', questionAnswers[index]?.files?.[0])
+      formData.append('questionId', questionAnswers[index].questionId)
+
+      formData.append('auditId', questionAnswers[index].auditId)
+
+      formData.append('answerTemplateOptionId', questionAnswers[index].answerTemplateOptionId)
+
+      formData.append('option', questionAnswers[index].option)
+      formData.append('notes', questionAnswers[index].notes)
+      formData.append('actionText', questionAnswers[index].actionText)
+      formData.append('actionDate', questionAnswers[index].actionDate)
+
+      formData.append('actionUser', questionAnswers[index].actionUser)
+
+      await addQuestionAnswers(formData)
     }
 
     Swal.fire({
@@ -153,23 +166,13 @@ const AuditQuestionsForm = () => {
       showConfirmButton: false,
 
       timer: 1500,
-    }).then(async () => {
-      navigate('/audits/list')
-    })
+    }).then(async () => {})
   }
 
   return (
     // <PageTitle>sdfsdfs</PageTitle>
 
     <>
-      <button
-        type='button'
-        className='btn btn-sm btn-dark btn-active-light-dark  mb-3'
-        onClick={submitAnswers}
-      >
-        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Cevapları Kaydet
-      </button>
       {questions.map((question: any, i: number) => {
         return (
           <div key={`${question?.id}-question`} className={`card mb-7`}>
@@ -212,7 +215,7 @@ const AuditQuestionsForm = () => {
                                   type='radio'
                                   value={opt?.id}
                                   onChange={() => {
-                                    handleNeedAction(question?.id, opt?.id)
+                                    handleNeedAction(i, opt?.id)
                                   }}
                                 />
                                 <span className='fw-bold ps-2 fs-6'>{opt?.optionName}</span>
@@ -231,7 +234,7 @@ const AuditQuestionsForm = () => {
                       value={questionAnswers[i].notes}
                       placeholder='buraya metin gelecek..'
                       onChange={(e) => {
-                        handleNotes(question?.id, e.target.value)
+                        handleNotes(i, e.target.value)
                       }}
                     ></textarea>
                     <div className='position-absolute top-0 end-0 me-n5'>
@@ -258,7 +261,7 @@ const AuditQuestionsForm = () => {
                         value={questionAnswers[i].actionText}
                         placeholder='buraya need action true olunca bulgular gelecek..'
                         onChange={(e) => {
-                          handleActionText(question?.id, e.target.value)
+                          handleActionText(i, e.target.value)
                         }}
                       ></textarea>
                       Staff List
@@ -267,7 +270,7 @@ const AuditQuestionsForm = () => {
                         name={`${question?.id}-actionUser`}
                         value={questionAnswers[i].actionUser}
                         onChange={(e) => {
-                          handleActionUser(question?.id, e.target.value)
+                          handleActionUser(i, e.target.value)
                         }}
                       >
                         <option value=''>Seçiniz</option>
@@ -291,7 +294,7 @@ const AuditQuestionsForm = () => {
                             'YYYY-MM-DDTHH:mm:ss'
                           )}
                           onChange={(e) => {
-                            handleActionDatetime(question?.id, e.target.value)
+                            handleActionDatetime(i, e.target.value)
                           }}
                           className={clsx('form-control form-control-solid mb-3 mb-lg-0')}
                           autoComplete='off'
@@ -301,6 +304,33 @@ const AuditQuestionsForm = () => {
                     </div>
                   )}
 
+                  <div className='fv-row mb-3'>
+                    {/* begin::Label */}
+                    <label className='required fw-bold fs-6 mb-2'>File</label>
+                    {/* end::Label */}
+                    <FileUploader
+                      multiple={true}
+                      handleChange={(file: any) => handleFiles(i, file)}
+                      name='file'
+                      types={fileTypes}
+                    />
+                    <p>
+                      {questionAnswers[i]?.files
+                        ? `File name: ${questionAnswers[i]?.files?.[0]?.name || ''}`
+                        : 'no files uploaded yet'}
+                    </p>
+                  </div>
+
+                  <button
+                    disabled={questionAnswers[i]?.answerTemplateOptionId === -1}
+                    type='button'
+                    className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
+                    onClick={() => submitAnswers(i)}
+                  >
+                    <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+                    Cevabı Kaydet
+                  </button>
+
                   {/* edit::Reply input */}
                 </>
               ) : null}
@@ -309,15 +339,6 @@ const AuditQuestionsForm = () => {
           </div>
         )
       })}
-
-      <button
-        type='button'
-        className='btn btn-sm btn-dark btn-active-light-dark mt-3'
-        onClick={submitAnswers}
-      >
-        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Cevapları Kaydet
-      </button>
     </>
   )
 }

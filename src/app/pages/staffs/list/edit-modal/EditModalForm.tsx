@@ -45,11 +45,12 @@ const EditModalForm: FC<Props> = ({item}) => {
   }, [])
 
   const [placeForEdit] = useState<Model>({
-    ...item,
+   
     fullname: undefined,
     email:undefined,
     positionId:undefined,
-    departmentId:undefined
+    departmentId:undefined,
+    ...item
 
 
   })

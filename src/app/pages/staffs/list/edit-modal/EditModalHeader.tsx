@@ -13,6 +13,7 @@ type Props = {
 const EditModalHeader: FC<Props> = ({item}) => {
   const {setItemIdForUpdate} = useListView()
   const intl = useIntl()
+  console.log(item,"test")
   const [placeForEdit] = useState<Model>({
     ...item,
     fullname: item?.fullname || item?.fullname,
@@ -22,7 +23,7 @@ const EditModalHeader: FC<Props> = ({item}) => {
     <div className='modal-header'>
       {/* begin::Modal title */}
       <h2 className='fw-bolder'>
-      {item?.id ? (intl.formatMessage({id: 'QUESTIONCATEGORY.MODAL.TITLEEDIT'})) : (intl.formatMessage({id: 'QUESTIONCATEGORY.MODAL.TITLEADD'}))}
+      {item?.id ? "EditStaff List " : "Add Staff List"}
       </h2>
       {/* end::Modal title */}
 

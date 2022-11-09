@@ -15,7 +15,7 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle>Staff Lİst</PageTitle>
+              <PageTitle>Staff List</PageTitle>
               <ListWrapper />
             </>
           }

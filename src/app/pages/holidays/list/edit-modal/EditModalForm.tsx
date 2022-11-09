@@ -9,6 +9,7 @@ import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
 import {createHoliday, updateHoliday} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
+import moment from 'moment'
 
 type Props = {
   isAuditCategoryLoading: boolean
@@ -28,10 +29,9 @@ const EditModalForm: FC<Props> = ({item}) => {
   const {refetch} = useQueryResponse()
 
   const [placeForEdit] = useState<Model>({
-    ...item,
     whatDay: undefined,
-    theDay:undefined
-
+    theDay: undefined,
+    ...item,
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -41,12 +41,13 @@ const EditModalForm: FC<Props> = ({item}) => {
     setItemIdForUpdate(undefined)
   }
 
+  console.log(placeForEdit,"test")
   const formik = useFormik({
     initialValues: placeForEdit,
     validationSchema: editchema,
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
-      
+
       try {
         if (isNotEmpty(values.id)) {
           await updateHoliday(values)
@@ -76,109 +77,111 @@ const EditModalForm: FC<Props> = ({item}) => {
           data-kt-scroll-wrappers='#kt_modal_add_item_scroll'
           data-kt-scroll-offset='300px'
         >
-          
+          {/* begin::Input group */}
+          <div className='fv-row mb-7'>
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'HOLIDAY.LIST.WHATDAY'})}
+            </label>
+            {/* end::Label */}
 
-        {/* begin::Input group */}
-        <div className='fv-row mb-7'>
-          {/* begin::Label */}
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id:'HOLIDAY.LIST.WHATDAY'})}
-          </label>
-          {/* end::Label */}
-
-          {/* begin::Input */}
-          <input
-            //placeholder='Full name'
-            {...formik.getFieldProps('whatDay')}
-            type='text'
-            name='whatDay'
-            className={clsx(
-              'form-control form-control-solid mb-3 mb-lg-0',
-              {'is-invalid': formik.touched.whatDay && formik.errors.whatDay},
-              {
-                'is-valid': formik.touched.whatDay && !formik.errors.whatDay,
-              }
-            )}
-            autoComplete='off'
-            disabled={formik.isSubmitting}
-          />
-          {formik.touched.whatDay && formik.errors.whatDay && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.whatDay}</span>
+            {/* begin::Input */}
+            <input
+              //placeholder='Full name'
+              {...formik.getFieldProps('whatDay')}
+              type='text'
+              name='whatDay'
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                {'is-invalid': formik.touched.whatDay && formik.errors.whatDay},
+                {
+                  'is-valid': formik.touched.whatDay && !formik.errors.whatDay,
+                }
+              )}
+              autoComplete='off'
+              disabled={formik.isSubmitting}
+            />
+            {formik.touched.whatDay && formik.errors.whatDay && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.whatDay}</span>
+                </div>
               </div>
-            </div>
-          )}
-          {/* end::Input */}
-        </div>
-        <div className='fv-row mb-7'>
-          {/* begin::Label */}
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id:'HOLIDAY.LIST.THEDAY'})}
-          </label>
-          {/* end::Label */}
-
-          {/* begin::Input */}
-          <input
-            //placeholder='Full name'
-            {...formik.getFieldProps('theDay')}
-            type='date'
-            name='theDay'
-            className={clsx(
-              'form-control form-control-solid mb-3 mb-lg-0',
-              {'is-invalid': formik.touched.theDay && formik.errors.theDay},
-              {
-                'is-valid': formik.touched.theDay && !formik.errors.theDay,
-              }
             )}
-            autoComplete='off'
-            disabled={formik.isSubmitting}
-          />
-          {formik.touched.theDay && formik.errors.theDay && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.theDay}</span>
+            {/* end::Input */}
+          </div>
+          <div className='fv-row mb-7'>
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'HOLIDAY.LIST.THEDAY'})}
+            </label>
+            {/* end::Label */}
+
+            {/* begin::Input */}
+            <input
+              //placeholder='Full name'
+              {...formik.getFieldProps('theDay')}
+              type='date'
+              name='theDay'
+              value={moment(formik.values.theDay).format('YYYY-MM-DD')}
+              onChange={(e) => {
+                formik.setFieldValue('theDay', new Date(e.target.value).toISOString())
+              }}
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                {'is-invalid': formik.touched.theDay && formik.errors.theDay},
+                {
+                  'is-valid': formik.touched.theDay && !formik.errors.theDay,
+                }
+              )}
+              autoComplete='off'
+              disabled={formik.isSubmitting}
+            />
+            {formik.touched.theDay && formik.errors.theDay && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.theDay}</span>
+                </div>
               </div>
-            </div>
-          )}
-          {/* end::Input */}
-        </div>
-        {/* begin::Input group */}
-        
-        {/* end::Input group */}
-        {/* end::Scroll */}
-
-        {/* begin::Actions */}
-        <div className='text-center pt-15'>
-          <button
-            type='reset'
-            onClick={() => cancel()}
-            className='btn btn-light me-3'
-            data-kt-items-modal-action='cancel'
-            disabled={formik.isSubmitting}
-          >
-            {intl.formatMessage({id: 'FORM.DISCARD'})}
-          </button>
-
-          <button
-            type='submit'
-            className='btn btn-primary'
-            data-kt-items-modal-action='submit'
-            disabled={formik.isSubmitting || !formik.isValid || !formik.touched}
-          >
-            <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
-            {(formik.isSubmitting) && (
-              <span className='indicator-progress'>
-                Please wait...{' '}
-                <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
-              </span>
             )}
-          </button>
-        </div>
+            {/* end::Input */}
+          </div>
+          {/* begin::Input group */}
+
+          {/* end::Input group */}
+          {/* end::Scroll */}
+
+          {/* begin::Actions */}
+          <div className='text-center pt-15'>
+            <button
+              type='reset'
+              onClick={() => cancel()}
+              className='btn btn-light me-3'
+              data-kt-items-modal-action='cancel'
+              disabled={formik.isSubmitting}
+            >
+              {intl.formatMessage({id: 'FORM.DISCARD'})}
+            </button>
+
+            <button
+              type='submit'
+              className='btn btn-primary'
+              data-kt-items-modal-action='submit'
+              disabled={formik.isSubmitting || !formik.isValid || !formik.touched}
+            >
+              <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
+              {formik.isSubmitting && (
+                <span className='indicator-progress'>
+                  Please wait...{' '}
+                  <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                </span>
+              )}
+            </button>
+          </div>
         </div>
         {/* end::Actions */}
       </form>
-      {(formik.isSubmitting) && <ListLoading />}
+      {formik.isSubmitting && <ListLoading />}
     </>
   )
 }
