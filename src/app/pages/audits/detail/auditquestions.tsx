@@ -77,20 +77,16 @@ const AuditQuestionsForm = () => {
           optionIndex
         ]?.needAction
 
-        const questAnsFindIndex: number = questionAnswers.findIndex(
-          (qa: any) => qa?.questionId === (questions as any)[index]?.id
-        )
-        if (questAnsFindIndex !== 1) {
-          questionAnswers[questAnsFindIndex].answerTemplateOptionId = (
-            (questions as any)[index] as any
-          ).answerOptions[optionIndex]?.id
+        questionAnswers[index].answerTemplateOptionId = (questions as any)[index].answerOptions[
+          optionIndex
+        ]?.id
 
-          if (!((questions as any)[index] as any).needAction) {
-            questionAnswers[questAnsFindIndex].actionText = ''
-            questionAnswers[questAnsFindIndex].actionDate = new Date().toISOString()
-            questionAnswers[questAnsFindIndex].actionUser = ''
-          }
+        if (!((questions as any)[index] as any).needAction) {
+          questionAnswers[index].actionText = ''
+          questionAnswers[index].actionDate = new Date().toISOString()
+          questionAnswers[index].actionUser = ''
         }
+
         setQuestionAnswers([...questionAnswers])
 
         setQuestions([...questions])
