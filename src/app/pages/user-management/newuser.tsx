@@ -6,6 +6,8 @@ import clsx from 'clsx'
 import {useFormik, validateYupSchema} from 'formik'
 import {KTSVG} from '../../../_metronic/helpers'
 import {useIntl} from 'react-intl'
+import {useNavigate} from 'react-router-dom'
+
 
 import {listDepartments} from '../departments/list/core/_requests'
 import {listPositions} from '../positions/list/core/_requests'
@@ -33,7 +35,7 @@ const editchema = Yup.object().shape({
 const UserEditForm: FC<Props> = ({item}) => {
     
 
-      
+  const navigate = useNavigate()
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
@@ -313,10 +315,16 @@ const UserEditForm: FC<Props> = ({item}) => {
           </div>
 
           <div className='card-footer d-flex justify-content-end py-6 px-9'>
+          
+
             <button
               type='submit'
               onClick={() => {
                 formik.submitForm()
+
+                formik.submitForm().then(() => {
+                  navigate('/user-management/users')
+                })
               }}
               className='btn btn-sm btn-dark'
               disabled={loading}

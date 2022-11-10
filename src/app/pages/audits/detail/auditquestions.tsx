@@ -170,6 +170,7 @@ const AuditQuestionsForm = () => {
 
     <>
       {questions.map((question: any, i: number) => {
+        console.log(question.auditQAnswer)
         return (
           <div key={`${question?.id}-question`} className={`card mb-7`}>
             {/* begin::Body */}
@@ -195,7 +196,7 @@ const AuditQuestionsForm = () => {
               {/* end::Header */}
               {/* begin::Post */}
 
-              {!question?.createdAt ? (
+              {!question?.auditQAnswer?.createdAt ? (
                 <>
                   <div className='mb-5'>
                     {/* begin::Text */}
@@ -306,8 +307,8 @@ const AuditQuestionsForm = () => {
                     {/* end::Label */}
                     <FileUploader
                       multiple={true}
-                      handleChange={(file: any) => handleFiles(i, file)}
-                      name='file'
+                      handleChange={(files: any) => handleFiles(i, files)}
+                      name='files'
                       types={fileTypes}
                     />
                     <p>
