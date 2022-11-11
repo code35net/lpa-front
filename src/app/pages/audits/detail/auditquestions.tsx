@@ -170,7 +170,6 @@ const AuditQuestionsForm = () => {
 
     <>
       {questions.map((question: any, i: number) => {
-        console.log(question.auditQAnswer)
         return (
           <div key={`${question?.id}-question`} className={`card mb-7`}>
             {/* begin::Body */}
@@ -196,7 +195,7 @@ const AuditQuestionsForm = () => {
               {/* end::Header */}
               {/* begin::Post */}
 
-              {!question?.auditQAnswer?.createdAt ? (
+              {!question?.auditQAnswer?.length ? (
                 <>
                   <div className='mb-5'>
                     {/* begin::Text */}
@@ -330,7 +329,13 @@ const AuditQuestionsForm = () => {
 
                   {/* edit::Reply input */}
                 </>
-              ) : null}
+              ) : (
+                <div className='d-flex flex-column'>
+                  <span className='text-gray-800 text-hover-primary fs-6 fw-bold pb-4'>
+                   Yanıtlandı
+                  </span>
+                </div>
+              )}
             </div>
             {/* end::Body */}
           </div>
