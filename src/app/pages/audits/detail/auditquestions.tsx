@@ -141,6 +141,7 @@ const AuditQuestionsForm = () => {
       formData.append('questionId', questionAnswers[index].questionId)
 
       formData.append('auditId', questionAnswers[index].auditId)
+      formData.append('needAction', (questions as any)[index].needAction)
 
       formData.append('answerTemplateOptionId', questionAnswers[index].answerTemplateOptionId)
 
