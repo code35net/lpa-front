@@ -3,9 +3,9 @@ import {ID, Response} from '../../../../../_metronic/helpers'
 import {Model, QueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL
-const ACTION_URL = `${API_URL}/Action`
-const GET_ACTIONS_URL = `${API_URL}/Custom/getAuctions`
-const ACTION_DETAILS_URL = `${API_URL}/Custom/getAuctionDetail`
+const ACTION_URL = `${API_URL}/Auction`
+const GET_ACTIONS_URL = `${API_URL}/Auction`
+const ACTION_DETAILS_URL = `${API_URL}/Auction`
 
 
 const getAuctionDetails = async (id : string): Promise<any> => await axios.get(`${ACTION_DETAILS_URL}?Id=${id}`).then((res : AxiosResponse) => 

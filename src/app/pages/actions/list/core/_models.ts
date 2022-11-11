@@ -11,7 +11,7 @@ export type Model = {
   questiontext?:string
   auditDate?:string
   finding?:string
-  actionCode?:typeof uuid
+  actionCode?:string
 }
 
 export type QueryResponse = Response<Array<Model>>
