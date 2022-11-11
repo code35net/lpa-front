@@ -162,7 +162,10 @@ const AuditQuestionsForm = () => {
       showConfirmButton: false,
 
       timer: 1500,
-    }).then(async () => {})
+    }).then(async () => {
+      ;(questions as any)[index].auditQAnswer = [{isAnswered: true}]
+      setQuestions([...questions])
+    })
   }
 
   return (
@@ -332,7 +335,7 @@ const AuditQuestionsForm = () => {
               ) : (
                 <div className='d-flex flex-column'>
                   <span className='text-gray-800 text-hover-primary fs-6 fw-bold pb-4'>
-                   Yanıtlandı
+                    Yanıtlandı
                   </span>
                 </div>
               )}
