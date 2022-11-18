@@ -14,7 +14,7 @@ const RoleCell: FC<Props> = ({item}) => (
     
     <div className='d-flex flex-column'>
       <a href='#' className='text-gray-800 text-hover-primary mb-1'>
-        {item.role}
+        {item.roleName}
       </a>
       {/* <span>{item.email}</span> */}
     </div>

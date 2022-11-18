@@ -17,9 +17,8 @@ type Props = {
 
 const editchema = Yup.object().shape({
   name: Yup.string()
-    .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
-    .required('Name is required'),
+    .required('Question Category required'),
 })
 
 const EditModalForm: FC<Props> = ({item, isQuestionGroupLoading}) => {
@@ -176,10 +175,9 @@ const EditModalForm: FC<Props> = ({item, isQuestionGroupLoading}) => {
 
           <button
             type='submit'
-            className='btn btn-primary'
+            className='btn btn-sm btn-dark'
             data-kt-items-modal-action='submit'
-            disabled={isQuestionGroupLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
-          >
+            disabled={isQuestionGroupLoading || formik.isSubmitting || !formik.isValid || !formik.touched}>
             <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
             {(formik.isSubmitting || isQuestionGroupLoading) && (
               <span className='indicator-progress'>

@@ -18,20 +18,11 @@ const Topbar = () => {
           className='btn btn-icon btn-color-gray-700 btn-active-color-primary btn-outline btn-outline-secondary w-40px h-40px position-relative'
           id='kt_activities_toggle'
         >
-          <KTSVG path='/media/icons/duotune/general/gen007.svg' className='svg-icon-1' />
-          <span className='bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink'></span>
+          <KTSVG path='/media/icons/duotune/general/gen005.svg' className='svg-icon-2' />
         </div>
         {/* end::Drawer toggle */}
       </div>
-      {/* end::Activities */}
-
-      {/* CHAT */}
-
-      {/* begin::Sidebar Toggler */}
      
-      {/* end::Sidebar Toggler */}
-
-      {/* begin::Theme mode */}
       <div className={'d-flex align-items-center ms-3 ms-lg-4'}>
         <ThemeModeSwitcher toggleBtnClass='btn-color-gray-700 btn-active-color-primary btn-outline btn-outline-secondary w-40px h-40px' />
       </div>

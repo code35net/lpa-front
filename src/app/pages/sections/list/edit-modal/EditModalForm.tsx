@@ -17,9 +17,8 @@ type Props = {
 
 const editchema = Yup.object().shape({
   name: Yup.string()
-    .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
-    .required('Name is required'),
+    .required('Section required'),
 })
 
 const EditModalForm: FC<Props> = ({item, isPlaceLoading}) => {
@@ -177,7 +176,7 @@ const EditModalForm: FC<Props> = ({item, isPlaceLoading}) => {
 
           <button
             type='submit'
-            className='btn btn-primary'
+            className='btn btn-sm btn-dark'
             data-kt-items-modal-action='submit'
             disabled={isPlaceLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
           >

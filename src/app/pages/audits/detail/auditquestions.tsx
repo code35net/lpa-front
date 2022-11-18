@@ -335,7 +335,7 @@ const AuditQuestionsForm = () => {
                 </>
               ) : (
                 <div className='d-flex flex-column'>
-                  <span className='text-gray-800 text-hover-primary fs-6 fw-bold pb-4'>
+                  <span className='text-gray-800 fs-6 fw-bold pb-4'>
                     Yanıtlandı
                   </span>
                 </div>

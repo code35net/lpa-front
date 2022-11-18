@@ -49,25 +49,17 @@ const ActivityDrawer: FC = () => (
         >
           <div className='timeline'>
             <Item1 />
-            <Item2 />
+            {/* <Item2 />
             <Item3 />
             <Item4 />
             <Item5 />
             <Item6 />
             <Item7 />
-            <Item8 />
+            <Item8 /> */}
           </div>
         </div>
       </div>
-      <div className='card-footer py-5 text-center' id='kt_activities_footer'>
-        <Link to='/crafted/pages/profile' className='btn btn-bg-white text-primary'>
-          View All Activities
-          <KTSVG
-            path='/media/icons/duotune/arrows/arr064.svg'
-            className='svg-icon-3 svg-icon-primary'
-          />
-        </Link>
-      </div>
+      
     </div>
   </div>
 )

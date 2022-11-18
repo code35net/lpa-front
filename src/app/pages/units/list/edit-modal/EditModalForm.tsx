@@ -21,9 +21,8 @@ type Props = {
 
 const editchema = Yup.object().shape({
   name: Yup.string()
-    .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
-    .required('Name is required'),
+    .required('Unit required'),
 })
 
 const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
@@ -95,15 +94,12 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
       
       
         <div className='fv-row mb-7'>
-          {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT.LIST.NAME'})}
           </label>
-          {/* end::Label */}
-
-          {/* begin::Input */}
+         
+         
           <input
-            //placeholder='Full name'
             {...formik.getFieldProps('name')}
             type='text'
             name='name'
@@ -125,10 +121,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
             </div>
           )}
           
-          {/* end::Input row */}
-         
-         
-          {/* end::Input */}
+          
         </div>
         <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
@@ -168,13 +161,10 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
               </div>
             </div>
             <div className='fv-row mb-7'>
-          {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT.LIST.SHIFT'})}
           </label>
-          {/* end::Label */}
-
-          {/* begin::Input */}
+         
           <select
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('shift')}
@@ -184,17 +174,8 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                   <option value='2'>Night</option>
                 </select>
           
-          {/* end::Input row */}
-         
-         
-          {/* end::Input */}
         </div>
-        {/* begin::Input group */}
-        
-        {/* end::Input group */}
-        {/* end::Scroll */}
-
-        {/* begin::Actions */}
+       
         <div className='text-center pt-15'>
           <button
             type='reset'
@@ -206,9 +187,11 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
             {intl.formatMessage({id: 'FORM.DISCARD'})}
           </button>
 
+
+
           <button
             type='submit'
-            className='btn btn-primary'
+            className='btn btn-sm btn-dark'
             data-kt-items-modal-action='submit'
             disabled={isUnitLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
           >

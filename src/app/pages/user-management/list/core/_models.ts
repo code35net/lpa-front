@@ -3,6 +3,7 @@ export type Model = {
   id?: ID
   email?: string
   role?:string
+  roleName?:string
   fullname?:string
   identity?: string
   positionId?:number

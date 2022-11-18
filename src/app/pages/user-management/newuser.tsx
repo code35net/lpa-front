@@ -23,13 +23,13 @@ type Props = {
 const editchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
-    .min(3, 'Minimum 3 symbols')
+    .required('Email required'),
+  fullname: Yup.string()
+     .max(50, 'Maximum 50 symbols')
+    .required('Fullname required'),
+  identity: Yup.string()
     .max(50, 'Maximum 50 symbols')
-    .required('Email is required'),
-  // name: Yup.string()
-  //   .min(3, 'Minimum 3 symbols')
-  //   .max(50, 'Maximum 50 symbols')
-  //   .required('Name is required'),
+   .required('Identity required'),
 })
 
 const UserEditForm: FC<Props> = ({item}) => {
@@ -317,6 +317,29 @@ const UserEditForm: FC<Props> = ({item}) => {
           <div className='card-footer d-flex justify-content-end py-6 px-9'>
           
 
+          <button
+            type='submit'
+            onClick={() => {
+              formik.submitForm()
+
+              formik.submitForm().then(() => {
+                navigate('/user-management/users')
+              })
+            }}
+            className='btn btn-sm btn-dark'
+            data-kt-items-modal-action='submit'
+            disabled={loading || formik.isSubmitting || !formik.isValid || !formik.touched}
+          >
+            <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
+            {!loading}
+              {loading && (
+                <span className='indicator-progress' style={{display: 'block'}}>
+                  Please wait...{' '}
+                  <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                </span>
+              )}
+          </button>
+{/*           
             <button
               type='submit'
               onClick={() => {
@@ -327,7 +350,7 @@ const UserEditForm: FC<Props> = ({item}) => {
                 })
               }}
               className='btn btn-sm btn-dark'
-              disabled={loading}
+              disabled={loading || formik.isSubmitting || !formik.isValid || !formik.touched}
             >
               {!loading && 'Save Changes'}
               {loading && (
@@ -336,7 +359,7 @@ const UserEditForm: FC<Props> = ({item}) => {
                   <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                 </span>
               )}
-            </button>
+            </button> */}
           </div>
         </form>
       </div>

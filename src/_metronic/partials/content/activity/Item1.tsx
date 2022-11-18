@@ -7,37 +7,12 @@ const Item1: FC = () => {
     <div className='timeline-item'>
       <div className='timeline-line w-40px'></div>
 
-      <div className='timeline-icon symbol symbol-circle symbol-40px me-4'>
-        <div className='symbol-label bg-light'>
-          <KTSVG
-            path='/media/icons/duotune/communication/com003.svg'
-            className='svg-icon-2 svg-icon-gray-500'
-          />
-        </div>
-      </div>
+     
 
       <div className='timeline-content mb-10 mt-n1'>
-        <div className='pe-3 mb-5'>
-          <div className='fs-5 fw-bold mb-2'>
-            There are 2 new tasks for you in “AirPlus Mobile APp” project:
-          </div>
+        
 
-          <div className='d-flex align-items-center mt-1 fs-6'>
-            <div className='text-muted me-2 fs-7'>Added at 4:23 PM by</div>
-
-            <div
-              className='symbol symbol-circle symbol-25px'
-              data-bs-toggle='tooltip'
-              data-bs-boundary='window'
-              data-bs-placement='top'
-              title='Nina Nilson'
-            >
-              <img src={toAbsoluteUrl('/media/avatars/300-14.jpg')} alt='img' />
-            </div>
-          </div>
-        </div>
-
-        <div className='overflow-auto pb-5'>
+        <div className='overflow-auto pb-5 mt-5'>
           <div className='d-flex align-items-center border border-dashed border-gray-300 rounded min-w-750px px-7 py-3 mb-5'>
             <a href='#' className='fs-5 text-dark text-hover-primary fw-bold w-375px min-w-200px'>
               Meeting with customer
