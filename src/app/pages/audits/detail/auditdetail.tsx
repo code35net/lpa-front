@@ -1,7 +1,7 @@
 import {useMemo, useEffect, useState} from 'react'
 import {useTable} from 'react-table'
 import {useIntl} from 'react-intl'
-import {KTSVG, QUERIES} from '../../../../_metronic/helpers'
+import {QUERIES} from '../../../../_metronic/helpers'
 import {useQueryResponseData, useQueryResponseLoading} from '../list/core/QueryResponseProvider'
 import {Columns} from '../list/table/columns/_columns'
 import {useQuery} from 'react-query'
@@ -10,16 +10,9 @@ import {getAuditDetails} from '../list/core/_requests'
 import {getQuestionById} from '../../questions/list/core/_requests'
 
 const AuditDetails = () => {
-  const items = useQueryResponseData()
   const intl = useIntl()
-  const isLoading = useQueryResponseLoading()
-  const data = useMemo(() => items, [items])
-  const columns = useMemo(() => Columns, [])
-  const {getTableProps, getTableBodyProps, headers, rows, prepareRow} = useTable({
-    columns,
-    data,
-  })
-
+  
+  
   const useLocQuery = () => {
     const {search} = useLocation()
 
@@ -29,8 +22,7 @@ const AuditDetails = () => {
   const id: string | null = query.get('Id')
 
   const {
-    isFetching,
-    refetch,
+    
     data: response,
   } = useQuery(
     `${QUERIES.USERS_LIST}-${query}`,

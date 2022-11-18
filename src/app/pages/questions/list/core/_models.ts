@@ -13,11 +13,11 @@ export type Model = {
   Department?:Department
   departmentId?: number
   isNew?:boolean
-  // AnswerTemplate:AnswerTemplate
+  AnswerTemplate?:AnswerTemplate
   answerTemplateId?: number
   auditCategory?: ac
   auditCategoryId?: number
-  //QuestionCategory:QuestionCategory
+  QuestionCategory?:QuestionCategory
   questionGroupId?: number | null
   questions?: Array<Question>
   isAddedQuestionCategory? : boolean

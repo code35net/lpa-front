@@ -22,11 +22,11 @@ type Props = {
   //    isPlaceLoading: boolean
   item?: Model
 }
-const editchema = Yup.object().shape({
-  text: Yup.string()
-    .max(50, 'Maximum 50 symbols')
-    .required('Question required'),
-})
+// const editchema = Yup.object().shape({
+//   text: Yup.string()
+//     .max(50, 'Maximum 50 symbols')
+//     .required('Question required'),
+// })
 
 const EditForm: FC<Props> = ({item}) => {
   const intl = useIntl()
@@ -88,7 +88,7 @@ const EditForm: FC<Props> = ({item}) => {
   const [loading, setLoading] = useState(false)
   const formik = useFormik({
     initialValues: formForEdit,
-    validationSchema: editchema,
+    // validationSchema: editchema,
     onSubmit: async (values) => {
       setLoading(true)
 
