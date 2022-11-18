@@ -2,9 +2,11 @@ import {useIntl} from 'react-intl'
 import {Column} from 'react-table'
 import {InfoCell} from './InfoCell'
 import {RoleCell} from './RoleCell'
-import {LastLoginCell} from './LastLoginCell'
-import {TwoStepsCell} from './TwoStepsCell'
+import {IdentityCell} from './IdentityCell'
+import {FullnameCell} from './FullnameCell'
+import {PositionCell} from './PositionCell'
 import {ActionsCell} from './ActionsCell'
+import {ShiftCell} from './ShiftCell'
 import {SelectionCell} from './SelectionCell'
 import {CustomHeader} from './CustomHeader'
 import {SelectionHeader} from './SelectionHeader'
@@ -19,6 +21,12 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <SelectionCell id={props.data[props.row.index].id} />,
   },
   {
+    Header: (props) => <CustomHeader tableProps={props} title='fullname' className='min-w-125px' />,
+    id: 'fullname',
+
+    Cell: ({...props}) => <FullnameCell item={props.data[props.row.index]} />,
+  },
+  {
     Header: (props) => <CustomHeader tableProps={props} title='email' className='min-w-125px' />,
     id: 'email',
 
@@ -29,6 +37,24 @@ const Columns: ReadonlyArray<Column<Model>> = [
     id: 'role',
 
     Cell: ({...props}) => <RoleCell item={props.data[props.row.index]} />,
+  },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title='identity' className='min-w-125px' />,
+    id: 'identity',
+
+    Cell: ({...props}) => <IdentityCell item={props.data[props.row.index]} />,
+  },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title='Department / Position' className='min-w-125px' />,
+    id: 'positionName',
+
+    Cell: ({...props}) => <PositionCell item={props.data[props.row.index]} />,
+  },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title='shift' className='min-w-125px' />,
+    id: 'shift',
+
+    Cell: ({...props}) => <ShiftCell item={props.data[props.row.index]} />,
   },
   {
     Header: (props) => (

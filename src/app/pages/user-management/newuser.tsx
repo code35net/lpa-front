@@ -24,9 +24,9 @@ const editchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
     .required('Email required'),
-  fullname: Yup.string()
+  fullName: Yup.string()
      .max(50, 'Maximum 50 symbols')
-    .required('Fullname required'),
+    .required('fullName required'),
   identity: Yup.string()
     .max(50, 'Maximum 50 symbols')
    .required('Identity required'),
@@ -59,7 +59,7 @@ const UserEditForm: FC<Props> = ({item}) => {
     ...item,
     email: undefined,
     role: undefined,
-    fullname:undefined,
+    fullName:undefined,
     identity: undefined,
     positionId:undefined,
     departmentId:undefined, 
@@ -163,30 +163,30 @@ const UserEditForm: FC<Props> = ({item}) => {
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
-                  Fullname
+                  fullName
                 </span>
               </label>
 
               <div className='col-lg-8 fv-row'>
                 <input
                   //placeholder='Email'
-                  {...formik.getFieldProps('fullname')}
+                  {...formik.getFieldProps('fullName')}
                   className={clsx(
                     'form-control form-control-solid mb-3 mb-lg-0',
-                    {'is-invalid': formik.touched.fullname && formik.errors.fullname},
+                    {'is-invalid': formik.touched.fullName && formik.errors.fullName},
                     {
-                      'is-valid': formik.touched.fullname && !formik.errors.fullname,
+                      'is-valid': formik.touched.fullName && !formik.errors.fullName,
                     }
                   )}
                   type='text'
-                  name='fullname'
+                  name='fullName'
                   autoComplete='off'
                   disabled={formik.isSubmitting}
                 />
                 {/* end::Input */}
-                {formik.touched.fullname && formik.errors.fullname && (
+                {formik.touched.fullName && formik.errors.fullName && (
                   <div className='fv-plugins-message-container'>
-                    <span role='alert'>{formik.errors.fullname}</span>
+                    <span role='alert'>{formik.errors.fullName}</span>
                   </div>
                 )}
               </div>

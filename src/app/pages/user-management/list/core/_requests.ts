@@ -6,9 +6,14 @@ const API_URL = process.env.REACT_APP_API_URL
 const USER_URL = `${API_URL}/Custom/getUser`
 const REGISTER_USER_URL = `${API_URL}/Auth/register`
 const GET_USERS_URL = `${API_URL}/Custom/getUser`
+const GET_USER_DETAILS_URL = `${API_URL}/Custom/getUserDetail`
 const GET_USER_CLAIMS_URL = `${API_URL}/Custom/getUserClaims`
 const SET_USER_CLAIMS_URL = `${API_URL}/Custom/setClaimForUser`
 
+const getUserDetails = async (id : string): Promise<any> => await axios.get(`${GET_USER_DETAILS_URL}?Id=${id}`).then((res : AxiosResponse) => 
+ {
+   return res.data;
+ });
 
 const listUsers = async (): Promise<any> =>
   await axios.get(`${GET_USERS_URL}?page=1`).then((res: AxiosResponse) => {
@@ -69,5 +74,6 @@ export {
   updateUser,
   listUsers,
   getUserClaims,
-  setClaimForUser
+  setClaimForUser,
+  getUserDetails
 }

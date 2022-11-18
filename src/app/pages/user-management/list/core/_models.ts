@@ -4,9 +4,12 @@ export type Model = {
   email?: string
   role?:string
   roleName?:string
-  fullname?:string
+  fullName?:string
+  shift?:string
   identity?: string
   positionId?:number
+  positionName?:string
+  departmentName?:string
   departmentId?:number  
   collarType?:number
 }

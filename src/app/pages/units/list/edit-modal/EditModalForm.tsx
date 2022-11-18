@@ -160,21 +160,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                 </div>
               </div>
             </div>
-            <div className='fv-row mb-7'>
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'UNIT.LIST.SHIFT'})}
-          </label>
-         
-          <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('shift')}
-                >
-                  <option value='0'>Morning</option>
-                  <option value='1'>Day</option>
-                  <option value='2'>Night</option>
-                </select>
-          
-        </div>
+            
        
         <div className='text-center pt-15'>
           <button
