@@ -290,6 +290,9 @@ const EditAuditForm: FC<Props> = ({item}) => {
               </div>
             </div>
             <div className='row mb-3'>
+            <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>Unit Type</span>
+              </label>
               <div className='col-lg-8 fv-row'>
                 <div className='d-flex align-items-center mt-3'>
                   <label className='form-check form-check-inline form-check-solid me-5'>

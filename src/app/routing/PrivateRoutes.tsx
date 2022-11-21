@@ -2,7 +2,8 @@ import {lazy, FC, Suspense} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import {Charts} from '../pages/dashboard/DashboardWrapper'
+import { Charts } from '../pages/dashboard/DashboardWrapper'
+import { Reports } from '../pages/reports/ReportsWrapper'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {DisableSidebar} from '../../_metronic/layout/core'
 import {WithChildren} from '../../_metronic/helpers'
@@ -13,6 +14,7 @@ import {RolePermissionForm} from "../pages/role-management/permissions"
 // import {TemplateForm} from "../pages/answertemplates/Add"
 import {EditAuditForm} from "../pages/audits/Planner"
 import {AuditDetails} from "../pages/audits/detail/auditdetail"
+import {UserDetails} from "../pages/user-management/detail/userdetail"
 import {AuditQuestionsForm} from "../pages/audits/detail/auditquestions"
 
 import {ActionDetails} from "../pages/actions/detail/actiondetail"
@@ -54,7 +56,7 @@ const PrivateRoutes = () => {
         {/* <Route path='/answertemplates/add' element={<TemplateForm />} /> */}
         <Route path='/audits/planner' element={<EditAuditForm />} />
         <Route path='/audits/auditdetail' element={<AuditDetails />} />
-        <Route path='/user-manager/userdetail' element={<ProfilePage />} />
+        <Route path='/user-manager/userdetails' element={<UserDetails />} />
         <Route path='/actions/actiondetail' element={<ActionDetails />} />
         <Route path='/departments' element={<DepartmentPage />} />
         <Route path='/holidays' element={<HolidayPage />} />
@@ -66,7 +68,8 @@ const PrivateRoutes = () => {
         <Route path='/audits' element={<AuditPage />} />
         {/* <Route path='/audits' element={<AuditsPage />} /> */}
 
-        <Route path='dashboard' element={<Charts />} />
+              <Route path='dashboard' element={<Charts />} />
+              <Route path='reports' element={<Reports />} />
         <Route path='/role-management/permissions/:roleId' element={<RolePermissionForm />} />
 
         <Route path='/user-management/userpermission/:userId' element={<UserPermissionForm />} />
@@ -232,6 +235,14 @@ const PrivateRoutes = () => {
               <Charts />
             </SuspensedView>
           }
+        />
+        <Route
+            path='reports/*'
+            element={
+                <SuspensedView>
+                    <Reports />
+                </SuspensedView>
+            }
         />
         {/* <Route
           path='apps/audit/*'

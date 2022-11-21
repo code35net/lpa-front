@@ -205,10 +205,9 @@ const AuditQuestionsForm = () => {
                     {/* begin::Text */}
                     {question.answerOptions.map((opt: any) => {
                       return (
-                        <div key={`${opt?.id}-opt`} className='row mb-3'>
-                          <div className='col-lg-8 fv-row'>
-                            <div className='d-flex align-items-center mt-3'>
-                              <label className='form-check form-check-inline form-check-solid me-5'>
+                        <div key={`${opt?.id}-opt`} className='mb-3'>
+                          <div className='col-lg-8'>
+                          <label className='form-check form-check-inline form-check-solid me-5'>
                                 <input
                                   className='form-check-input'
                                   name={`${question?.id}-q`}
@@ -220,51 +219,76 @@ const AuditQuestionsForm = () => {
                                 />
                                 <span className='fw-bold ps-2 fs-6'>{opt?.optionName}</span>
                               </label>
-                            </div>
                           </div>
                         </div>
                       )
                     })}
                     {/* end::Text */}
-                    Notes
-                    <textarea
-                      className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
+                    <div className='separator mb-4'></div>
+                    <div className='notice d-flex rounded mb-9'>
+            
+            <div className='flex-stack flex-grow-1'>
+              <div className='fw-bold'>
+              Notes
+                <div className='fs-6 text-gray-600 pt-6'>
+                <textarea
+                      className='form-control border-1 p-0 pe-10 resize-none min-h-25px'
                       rows={4}
                       name={`${question?.id}-notes`}
                       value={questionAnswers[i].notes}
-                      placeholder='buraya metin gelecek..'
                       onChange={(e) => {
                         handleNotes(i, e.target.value)
                       }}
                     ></textarea>
-                    <div className='position-absolute top-0 end-0 me-n5'>
-                      <span className='btn btn-icon btn-sm btn-active-color-primary pe-0 me-2'>
-                        <KTSVG
-                          path='/media/icons/duotune/communication/com008.svg'
-                          className='svg-icon-3 mb-3'
-                        />
-                      </span>
-                    </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div className='fv-row mb-3'>
+
+                    <label className='fw-bold fs-6 mb-2'>File</label>
+
+                    <FileUploader
+                      multiple={true}
+                      className='form-control'
+                      handleChange={(files: any) => handleFiles(i, files)}
+                      name='files'
+                      types={fileTypes}
+                    />
+                    <p>
+                      {questionAnswers[i]?.files
+                        ? `File name: ${questionAnswers[i]?.files?.[0]?.name || ''}`
+                        : 'No file'}
+                    </p>
                   </div>
-                  {/* end::Post */}
-                  {/* begin::Separator */}
-                  <div className='separator mb-4'></div>
-                  {/* end::Separator */}
-                  {/* begin::Reply input */}
+                  </div>
                   {question?.needAction && (
                     <div>
-                      Findings
-                      <textarea
-                        className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
-                        rows={4}
-                        name={`${question?.id}-actionText`}
-                        value={questionAnswers[i].actionText}
-                        placeholder='buraya need action true olunca bulgular gelecek..'
-                        onChange={(e) => {
-                          handleActionText(i, e.target.value)
-                        }}
-                      ></textarea>
-                      Staff List
+                       
+                       <div className='notice d-flex rounded border-dark border border-dashed p-5 mb-9'>
+            
+            <div className='flex-stack flex-grow-1'>
+              <div className='fw-bold fs-100'>
+              Findings
+                  <div className='fs-6 text-gray-600 pt-6'>
+                  <textarea
+                          className='form-control border-1 p-0 pe-10 resize-none min-h-25px'
+                          rows={4}
+                          name={`${question?.id}-actionText`}
+                          value={questionAnswers[i].actionText}
+                          
+                          onChange={(e) => {
+                            handleActionText(i, e.target.value)
+                          }}
+                        ></textarea>
+                    
+                  </div>
+
+                <div className='fs-6 text-gray-600 pt-6'>
+                Staff List
                       <select
                         className='form-select form-select-solid form-select-md'
                         name={`${question?.id}-actionUser`}
@@ -280,15 +304,12 @@ const AuditQuestionsForm = () => {
                           </option>
                         ))}
                       </select>
-                      <div className='fv-row mb-3'>
-                        {/* begin::Label */}
-                        <label className='required fw-bold fs-6 mb-2'>Date time</label>
-                        {/* end::Label */}
+                </div>
 
-                        {/* begin::Input */}
-                        <input
-                          //placeholder='Full name'
-                          type='datetime-local'
+                <div className='fs-6 text-gray-600 pt-6'>
+                Date time
+                <input
+                        type='datetime-local'
                           name={`${question?.id}-actionDate`}
                           value={moment(questionAnswers[i].actionDate).format(
                             'YYYY-MM-DDTHH:mm:ss'
@@ -299,27 +320,17 @@ const AuditQuestionsForm = () => {
                           className={clsx('form-control form-control-solid mb-3 mb-lg-0')}
                           autoComplete='off'
                         />
-                        {/* end::Input */}
-                      </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
                     </div>
                   )}
 
-                  <div className='fv-row mb-3'>
-                    {/* begin::Label */}
-                    <label className='required fw-bold fs-6 mb-2'>File</label>
-                    {/* end::Label */}
-                    <FileUploader
-                      multiple={true}
-                      handleChange={(files: any) => handleFiles(i, files)}
-                      name='files'
-                      types={fileTypes}
-                    />
-                    <p>
-                      {questionAnswers[i]?.files
-                        ? `File name: ${questionAnswers[i]?.files?.[0]?.name || ''}`
-                        : 'no files uploaded yet'}
-                    </p>
-                  </div>
+                  
 
                   <button
                     disabled={questionAnswers[i]?.answerTemplateOptionId === -1}

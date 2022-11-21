@@ -26,11 +26,6 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <TypeCell item={props.data[props.row.index]} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'UNIT.LIST.SHIFT'})} className='min-w-125px' />,
-    id: 'shift',
-    Cell: ({...props}) => <ShiftCell item={props.data[props.row.index]} />,
-  },
-  {
     Header: (props) => (
       <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'TABLE.ACTIONS'})} className='text-end min-w-100px' />
     ),

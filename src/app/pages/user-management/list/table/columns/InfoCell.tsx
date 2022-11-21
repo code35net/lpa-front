@@ -15,7 +15,7 @@ const InfoCell: FC<Props> = ({item}) => (
     {/* begin:: Avatar */}
     
     <div className='d-flex flex-column'>
-    <Link to={`/user-manager/userdetail?Id=${item.id}`}> {item.email}</Link>
+    <Link to={`/user-manager/userdetails?Id=${item.id}`}> {item.email}</Link>
       {/* <a href='#' className='text-gray-800 text-hover-primary mb-1'>
         {item.email}
       </a> */}

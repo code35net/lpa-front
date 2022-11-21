@@ -63,23 +63,28 @@ export function AsideMenuMain() {
         fontIcon='bi-layers'
       />
       
-      {/* <AsideMenuItemWithSub
-        to='/apps/chat'
+      <AsideMenuItemWithSub
+        to=''
         title={intl.formatMessage({id: 'MENU.REPORTS'})}
         fontIcon='bi-chat-left'
         icon='/media/icons/duotune/arrows/arr001.svg'
       >
         <AsideMenuItem
-          to='/crafted/widgets/statistics'
-          title={intl.formatMessage({id: 'MENU.USERSREPORTS'})}
+          to='/reports/graphics/auditreports'
+          title='Denetim Raporları (Veri)'
           hasBullet={true}
         />
         <AsideMenuItem
-          to='/crafted/widgets/mixed/MixedWidget1'
-          title={intl.formatMessage({id: 'MENU.SYSTEMREPORTS'})}
+          to='/reports/graphics/actionreports'
+          title='Denetim Raporları (Grafik)'
           hasBullet={true}
         />
-      </AsideMenuItemWithSub> */}
+        <AsideMenuItem
+          to='/reports/'
+          title='Aksiyon Raporları'
+          hasBullet={true}
+        />
+      </AsideMenuItemWithSub>
 
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
