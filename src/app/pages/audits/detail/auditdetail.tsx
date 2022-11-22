@@ -76,12 +76,11 @@ const AuditDetails = () => {
               </div>
 
               <div className='d-flex my-4'>
-
               <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-danger"> 
-                    Start Audit
+              Start Audit
                     </Link>
-
-
+               
+                
               </div>
             </div>
 
@@ -93,8 +92,8 @@ const AuditDetails = () => {
                       
                       <div className='fs-2 fw-bolder'>
                       {Array.isArray(response?.data) && response?.data?.length
-                        ? response?.data[0]?.auditQuestions.length
-                        : ''}
+                  ? response?.data[0]?.auditQuestions.length
+                  : ''}
                       </div>
                     </div>
 
@@ -104,7 +103,7 @@ const AuditDetails = () => {
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
                       
-                      <div className='fs-2 fw-bolder'>1</div>
+                      <div className='fs-2 fw-bolder'>15</div>
                     </div>
 
                     <div className='fw-bold fs-6 text-gray-400'>Successed</div>
@@ -112,14 +111,14 @@ const AuditDetails = () => {
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
-                      <div className='fs-2 fw-bolder'>1</div>
+                      <div className='fs-2 fw-bolder'>4</div>
                     </div>
 
                     <div className='fw-bold fs-6 text-gray-400'>Failed</div>
                   </div>
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
-                      <div className='fs-2 fw-bolder'>2</div>
+                      <div className='fs-2 fw-bolder'>1</div>
                     </div>
 
                     <div className='fw-bold fs-6 text-gray-400'>Not Applicable</div>
@@ -173,11 +172,7 @@ const AuditDetails = () => {
             <label className='col-lg-4 fw-bold text-muted'>Department</label>
 
             <div className='col-lg-8 fv-row'>
-              <span className='fw-bold fs-6'>
-              {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.departmentName
-                  : ''}
-              </span>
+              <span className='fw-bold fs-6'></span>
             </div>
           </div>
 
@@ -185,11 +180,7 @@ const AuditDetails = () => {
             <label className='col-lg-4 fw-bold text-muted'>Section</label>
 
             <div className='col-lg-8 d-flex align-items-center'>
-              <span className='fw-bolder fs-6 me-2'>
-              {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.sectionName
-                  : ''}
-              </span>
+              <span className='fw-bolder fs-6 me-2'></span>
             </div>
           </div>
 
@@ -215,7 +206,13 @@ const AuditDetails = () => {
             </div>
           </div>
 
-          
+          <div className='row mb-7'>
+            <label className='col-lg-4 fw-bold text-muted'>Auditor Position</label>
+
+            <div className='col-lg-8'>
+              <span className='fw-bolder fs-6 text-dark'></span>
+            </div>
+          </div>
 
           <div className='row mb-10'>
             <label className='col-lg-4 fw-bold text-muted'>Auditor</label>
@@ -228,16 +225,18 @@ const AuditDetails = () => {
               </span>
             </div>
           </div>
-          
+          <div className='row mb-10'>
+            <label className='col-lg-4 fw-bold text-muted'>Period</label>
+
+            <div className='col-lg-8'>
+              <span className='fw-bold fs-6'></span>
+            </div>
+          </div>
           <div className='row mb-10'>
             <label className='col-lg-4 fw-bold text-muted'>Date</label>
 
             <div className='col-lg-8'>
-              <span className='fw-bold fs-6'>
-              {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.date
-                  : ''}
-              </span>
+              <span className='fw-bold fs-6'></span>
             </div>
           </div>
           <div className='row mb-10'>

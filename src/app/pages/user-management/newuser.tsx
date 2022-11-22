@@ -64,6 +64,7 @@ const UserEditForm: FC<Props> = ({item}) => {
     positionId:undefined,
     departmentId:undefined, 
     collarType:undefined,
+    shift:undefined
   })
 
   //   const updateData = (fieldsToUpdate: Partial<Model>): void => {
@@ -91,6 +92,11 @@ const UserEditForm: FC<Props> = ({item}) => {
         values.collarType = 0
       }
       values.collarType = parseInt(values.collarType.toString())
+
+      if (!values.shift) {
+        values.shift = 0
+      }
+      values.shift = parseInt(values.shift.toString())
 
       values.identity = values.identity?.toString()
 
@@ -277,6 +283,21 @@ const UserEditForm: FC<Props> = ({item}) => {
                   <option value='1'>Mavi Yaka</option>
                   <option value='2'>Haki Yaka</option>
                   <option value='3'>Sarı Yaka</option>
+                </select>
+              </div>
+            </div>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>
+                Shift
+              </label>
+              <div className='col-lg-8 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('shift')}
+                >
+                  <option value='0'>Morning</option>
+                  <option value='1'>Day</option>
+                  <option value='2'>Night</option> 
                 </select>
               </div>
             </div>

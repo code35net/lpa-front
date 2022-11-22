@@ -8,6 +8,14 @@ const CREATE_AUDIT_URL = `${API_URL}/Custom/createAudit`
 const GET_AUDITS_URL = `${API_URL}/Custom/getAudit`
 const AUDIT_DETAILS_URL = `${API_URL}/Custom/getAuditDetail`
 const AUDIT_QUESTIONS_URL = `${API_URL}/Custom/getAuditQuestions`
+const FINISH_AUDIT = `${API_URL}/Custom/finishAudit`
+
+const finishAudit = (auditid: any) => {
+    return axios
+        .put(FINISH_AUDIT, auditid, {
+        })
+        .then((response: any) => response.data)
+}
 
 const getAuditDetails = async (id : string): Promise<any> => await axios.get(`${AUDIT_DETAILS_URL}?Id=${id}`).then((res : AxiosResponse) => 
  {
@@ -89,4 +97,4 @@ const deleteSelectedAudits = (auditIds: Array<ID>): Promise<void> => {
   return axios.all(requests).then(() => {})
 }
 
-export {getAuditQuestions,getAudits, deleteAudit, deleteSelectedAudits, getAuditById, createAudit, updateAudit, getAuditDetails}
+export {getAuditQuestions,getAudits, deleteAudit, deleteSelectedAudits, getAuditById, createAudit, updateAudit, getAuditDetails, finishAudit}

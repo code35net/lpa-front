@@ -5,7 +5,7 @@ export type Model = {
   role?:string
   roleName?:string
   fullName?:string
-  shift?:string
+  shift?:number
   identity?: string
   positionId?:number
   positionName?:string
