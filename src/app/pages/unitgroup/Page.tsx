@@ -4,32 +4,24 @@ import {ListWrapper} from './list/List'
 import {useIntl} from 'react-intl'
 
 
-
-const Breadcrumbs: Array<PageLink> = [
-  {
-    title: 'Home',
-    path: '/dashboard',
-    isSeparator: false,
-    isActive: false,
-    
-  },
-  {
-    title: 'Definitions',
-    path: '',
-    isSeparator: false,
-    isActive: false,
-    
-  },
-  {
-    title: '',
-    path: '',
-    isSeparator: true,
-    isActive: false,
-  },
-]
+// const Breadcrumbs: Array<PageLink> = [
+//   {
+//     title: 'Position Management',
+//     path: '/positions/list',
+//     isSeparator: false,
+//     isActive: false,
+//   },
+//   {
+//     title: '',
+//     path: '',
+//     isSeparator: true,
+//     isActive: false,
+//   },
+// ]
 
 const Page = () => {
   const intl = useIntl()
+
   return (
     <Routes>
       <Route element={<Outlet />}>
@@ -37,13 +29,13 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'HOLIDAY.PAGE.TITLE'})}</PageTitle>
+              <PageTitle>{intl.formatMessage({id: 'UNITGROUP.PAGE.TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }
         />
       </Route>
-      <Route index element={<Navigate to='/holidays/list' />} />
+      <Route index element={<Navigate to='/unitgroup/list' />} />
     </Routes>
   )
 }

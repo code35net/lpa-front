@@ -10,6 +10,7 @@ import {
   ChartsWidget8,
 } from '../../../_metronic/partials/widgets'
 
+
 const Charts: FC = () => {
   return (
     <>

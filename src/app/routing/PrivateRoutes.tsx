@@ -34,6 +34,7 @@ const PrivateRoutes = () => {
   const PositionsPage = lazy(() => import('../pages/positions/Page'))
   const SectionsPage = lazy(() => import('../pages/sections/Page'))
   const UnitsPage = lazy(() => import('../pages/units/Page'))
+  const UnitGroupsPage = lazy(() => import('../pages/unitgroup/Page'))
   const AnswerTemplatePage = lazy(() => import('../pages/answertemplates/Page'))
   const AuditCategoryPage = lazy(() => import('../pages/auditcategories/Page'))
   const QuestionGroupPage = lazy(() => import('../pages/questioncategories/Page'))
@@ -48,6 +49,7 @@ const PrivateRoutes = () => {
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         {/* Pages */}
+        <Route path='/users' element={<UsersPage />} />
         <Route path='/users' element={<UsersPage />} />
         <Route path='/staffs' element={<StaffPage />} />
         <Route path='/actions' element={<ActionPage />} />
@@ -177,6 +179,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <UnitsPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/unitgroup/*'
+          element={
+            <SuspensedView>
+              <UnitGroupsPage />
             </SuspensedView>
           }
         />

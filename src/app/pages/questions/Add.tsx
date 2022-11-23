@@ -15,6 +15,8 @@ import {listAnswerTemplates} from '../answertemplates/list/core/_requests'
 import {useQueryResponse} from '../questions/list/core/QueryResponseProvider'
 import {useListView} from '../questions/list/core/ListViewProvider'
 import {createBulkQuestions} from './list/core/_requests'
+import {PageLink, PageTitle} from '../../../_metronic/layout/core'
+
 
 import {useNavigate} from 'react-router-dom'
 
@@ -27,6 +29,25 @@ type Props = {
 //     .max(50, 'Maximum 50 symbols')
 //     .required('Question required'),
 // })
+
+
+const Breadcrumbs: Array<PageLink> = [
+  {
+    title: 'Home',
+    path: '/dashboard',
+    isSeparator: false,
+    isActive: false,
+    
+  },
+ 
+  {
+    title: '',
+    path: '',
+    isSeparator: true,
+    isActive: false,
+  },
+]
+
 
 const EditForm: FC<Props> = ({item}) => {
   const intl = useIntl()
@@ -206,6 +227,7 @@ const EditForm: FC<Props> = ({item}) => {
   }
 
   return (
+    
     <div className='card mb-5 mb-xl-10'>
       <div
         className='card-header border-0 cursor-pointer'

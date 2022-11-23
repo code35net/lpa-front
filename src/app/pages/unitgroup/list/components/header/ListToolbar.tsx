@@ -2,7 +2,6 @@ import {useIntl} from 'react-intl'
 import {KTSVG} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {Languages} from '../../../../../../_metronic/partials/layout/header-menus/Languages'
-import { Link } from 'react-router-dom'
 
 const ListToolbar = () => {
   const intl = useIntl()
@@ -13,12 +12,6 @@ const ListToolbar = () => {
 
   return (
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
-      
-      <Link className='btn btn-sm btn-light btn-active-dark-light me-3' to={`/unitgroup/list`}>
-        
-       {intl.formatMessage({id: 'UNITGROUP.LIST'})}
-       </Link>
-     
      
       {/* begin::Add Places */}
       <button
@@ -27,7 +20,7 @@ const ListToolbar = () => {
         onClick={openAddModal}
       >
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        {intl.formatMessage({id: 'UNIT.LIST.ADD'})}
+        {intl.formatMessage({id: 'UNITGROUP.LIST.ADD'})}
       </button>
       {/* end::Add Places */}
     </div>

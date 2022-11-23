@@ -41,6 +41,7 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
             id: item.id,
             optionname: item.optionName,
             needAction: item.needAction ? true : false,
+            isTrue: item.isTrue ? true : false
           })
         })
         formik.setFieldValue('answerText', data?.text)
@@ -52,6 +53,7 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
           id: 1,
           optionname: '',
           needAction: true,
+          isTrue: true,
         },
       ] as any)
     }
@@ -63,11 +65,12 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
     templateoptions: [],
   } as Model)
 
-  const handleTemplateOption = (id: number, optionname: string, needAction: boolean) => {
+  const handleTemplateOption = (id: number, optionname: string, needAction: boolean, isTrue:boolean) => {
     let index = options.findIndex((option) => option.id === id)
     if (index > -1) {
       options[index].optionname = optionname
       options[index].needAction = needAction
+      options[index].isTrue = isTrue
     }
     setOptions([...options])
   }
@@ -77,6 +80,7 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
         id: options[options.length - 1].id + 1,
         optionname: '',
         needAction: false,
+        isTrue: false,
       })
       setOptions([...options])
     }
@@ -94,6 +98,15 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
     if (index !== -1) {
       for (let i = 0; i < options.length; i++) {
         options[i].needAction = i === index
+      }
+    }
+    setOptions([...options])
+  }
+  const handleIsTrue = (id: number) => {
+    const index = options.findIndex((o) => o.id === id)
+    if (index !== -1) {
+      for (let i = 0; i < options.length; i++) {
+        options[i].isTrue = i === index
       }
     }
     setOptions([...options])
@@ -248,7 +261,7 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
                         name={`${option.id}`}
                         id={`${option.id}`}
                         onChange={(e) => {
-                          handleTemplateOption(option.id, e.target.value, option.needAction)
+                          handleTemplateOption(option.id, e.target.value, option.needAction, option.isTrue)
                         }}
                         type='text'
                         className='form-control form-control-solid'
@@ -256,7 +269,7 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
                         value={option.optionname}
                       />
                     </div>
-                    <div className='col-md-4 mt-3 fv-row'>
+                    <div className='col-md-2 mt-3 fv-row'>
                       <label className='form-check form-check-inline form-check-solid me-5'>
                         <input
                           className='form-check-input'
@@ -270,6 +283,22 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
                         </span>
                       </label>
                     </div>
+
+                    <div className='col-md-2 mt-3 fv-row'>
+                      <label className='form-check form-check-inline form-check-solid me-5'>
+                        <input
+                          className='form-check-input'
+                          name='isTrue'
+                          type='radio'
+                          checked={option.isTrue}
+                          onChange={() => handleIsTrue(option.id)}
+                        />
+                        <span className='fw-bold ps-2 fs-6'>
+                          {intl.formatMessage({id: 'ANSWERTEMPLATES.LIST.ISTRUE'})}
+                        </span>
+                      </label>
+                    </div>
+                    
                     <div className='col-md-2 fv-row'>
                       <a
                         type='button'

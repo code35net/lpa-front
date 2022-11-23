@@ -5,6 +5,29 @@ import {useIntl} from 'react-intl'
 
 
 
+const Breadcrumbs: Array<PageLink> = [
+  {
+    title: 'Home',
+    path: '/dashboard',
+    isSeparator: false,
+    isActive: false,
+    
+  },
+  {
+    title: 'Definitions',
+    path: '',
+    isSeparator: false,
+    isActive: false,
+    
+  },
+  {
+    title: '',
+    path: '',
+    isSeparator: true,
+    isActive: false,
+  },
+]
+
 const Page = () => {
   const intl = useIntl()
   return (
@@ -14,8 +37,7 @@ const Page = () => {
           path='list'
           element={
             <>
-              {/* <PageTitle breadcrumbs={Breadcrumbs}>Departments</PageTitle> */}
-              <PageTitle>{intl.formatMessage({id: 'DEPARTMENTS.PAGE.TITLE'})}</PageTitle>
+              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'DEPARTMENTS.PAGE.TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }

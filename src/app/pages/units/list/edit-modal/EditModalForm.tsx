@@ -1,4 +1,5 @@
-import {FC, useState} from 'react'
+
+import React, {FC, useState, useEffect} from 'react'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import {useIntl} from 'react-intl'
@@ -11,6 +12,7 @@ import {createUnit, updateUnit} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {Field} from 'formik'
 import {KTSVG} from '../../../../../_metronic/helpers'
+import { listUnitGroups } from '../../../unitgroup/list/core/_requests'
 
 
 
@@ -30,11 +32,13 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
+  const [unitgroups, setUnitGroups] = React.useState([])
 
   const [unitForEdit] = useState<Model>({
     name: undefined,
     unitType: undefined,
     shift:undefined,
+    unitGroupId:undefined,
     ...item,
    
   })
@@ -46,6 +50,19 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
     setItemIdForUpdate(undefined)
   }
 
+  useEffect(() => {
+    
+    
+
+    listUnitGroups().then((res2) => {
+      setUnitGroups(res2.data || [])
+    })
+    
+    
+
+    
+  }, [])
+
   const blankImg = toAbsoluteUrl('/media/svg/avatars/blank.svg')
 
   const formik = useFormik({
@@ -54,6 +71,11 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
      
+      if(!item.hasGroup)
+        {
+          item.unitGroupId = 0;
+        }
+        
       
       if (!values.shift) {
         values.shift = 0
@@ -75,6 +97,14 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
     },
   })
 
+  // const handleUnitGroup = (id: number, value: boolean) => {
+  //   let index = unitgroups.findIndex((unitgroup) => unitgroup.id === id)
+  //   if (index > -1) {
+  //     unitgroups[index].hasGroup = value
+  //   }
+  //   setUnitGroups([...unitgroups])
+  // }
+
   return (
     <>
       <form id='kt_modal_add_item_form' className='form' onSubmit={formik.handleSubmit} noValidate>
@@ -91,8 +121,49 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
         >
          
         </div>
-      
-      
+
+        <div className='col-md-1 fv-row'>
+                          
+                          <div className='form-check form-check-solid form-switch'>
+                          {/* <label className='fw-bold fs-6'>
+                            {intl.formatMessage({
+                              id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
+                            })}
+                          </label> */}
+                              <input
+                                // checked={unitgroups.hasGroup}
+                                // onChange={(e)=> handleChangeUnitGroupId(unitgroups?.id,e.target.checked)}
+                                // value={unitgroups.hasGroup ? 'on' : 'off'}
+                                className='form-check-input w-80px mt-2 bg-dark border-dark'
+                                type='checkbox'
+                                id='allowmarketing'
+                              />
+                              <label className='form-check-label'></label>
+                            </div>
+                         
+                        </div>
+
+                        {/* {unitgroups.hasGroup && (
+                          <div className='fv-row mb-7'>
+                            <label className='required fw-bold fs-6 mb-2'>
+                              {intl.formatMessage({id: 'UNIT.ADDPAGE.UNITGROUP'})}
+                            </label>
+                           
+                            <select
+                              className='form-select form-select-solid form-select-md'
+                              {...formik.getFieldProps('unitGroupId')}
+                              value={formik.values.unitGroupId}
+                              //  onChange={handleChangeUnitGroupId}
+                            >
+                              <option value=''>Seçiniz</option>
+                              {unitgroups.map((unitgroup: any) => (
+                                <option value={unitgroup?.id} key={unitgroup?.id as any}>
+                                  {unitgroup?.name as any}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                           )} */}
         <div className='fv-row mb-7'>
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT.LIST.NAME'})}

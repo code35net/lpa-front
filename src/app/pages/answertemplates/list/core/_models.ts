@@ -10,7 +10,7 @@ export type TemplateOptions = {
   id: number
   optionname: string
   needAction: boolean
-
+  isTrue: boolean
 }
 
 export type QueryResponse = Response<Array<Model>>

@@ -5,20 +5,28 @@ import {useIntl} from 'react-intl'
 
 
 
-// const Breadcrumbs: Array<PageLink> = [
-//   {
-//     title: 'QuestionGroup Management',
-//     path: '/questiongroups/list',
-//     isSeparator: false,
-//     isActive: false,
-//   },
-//   {
-//     title: '',
-//     path: '',
-//     isSeparator: true,
-//     isActive: false,
-//   },
-// ]
+const Breadcrumbs: Array<PageLink> = [
+  {
+    title: 'Home',
+    path: '/dashboard',
+    isSeparator: false,
+    isActive: false,
+    
+  },
+  {
+    title: 'Category Definitions',
+    path: '',
+    isSeparator: false,
+    isActive: false,
+    
+  },
+  {
+    title: '',
+    path: '',
+    isSeparator: true,
+    isActive: false,
+  },
+]
 
 const Page = () => {
   const intl = useIntl()
@@ -29,7 +37,7 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle>{intl.formatMessage({id: 'QUESTIONCATEGORY.PAGE.TITLE'})}</PageTitle>
+              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'QUESTIONCATEGORY.PAGE.TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }

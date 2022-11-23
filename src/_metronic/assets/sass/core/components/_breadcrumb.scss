@@ -55,6 +55,7 @@
 .breadcrumb-dot {
     .breadcrumb-item {
         &:after {
+            padding:0 0 0 5px ;
             content: "\2022";
         }
     }

@@ -4,6 +4,42 @@ import {ListWrapper} from './list/List'
 import {useIntl} from 'react-intl'
 
 
+const Breadcrumbs: Array<PageLink> = [
+  {
+    title: 'Home',
+    path: '/dashboard',
+    isSeparator: false,
+    isActive: false,
+    
+  },
+  {
+    title: 'Definitions',
+    path: '',
+    isSeparator: false,
+    isActive: false,
+    
+  },
+  {
+    title: 'Departments',
+    path: '/departments',
+    isSeparator: false,
+    isActive: false,
+    
+  },
+  {
+    title: 'Department Name will be here',
+    path: '/departments',
+    isSeparator: false,
+    isActive: false,
+    
+  },
+  {
+    title: '',
+    path: '',
+    isSeparator: true,
+    isActive: false,
+  },
+]
 
 const Page = () => {
   const intl = useIntl()
@@ -14,7 +50,7 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle>{intl.formatMessage({id: 'SECTIONS.PAGE.TITLE'})}</PageTitle>
+              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'SECTIONS.PAGE.TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }
