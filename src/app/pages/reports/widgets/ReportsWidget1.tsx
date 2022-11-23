@@ -1,25 +1,21 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useEffect, useRef, useState} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
-import { KTSVG } from '../../../../_metronic/helpers'
-import { Dropdown1 } from '../../../../_metronic/partials/content/dropdown/Dropdown1'
-import { getCSS, getCSSVariableValue } from '../../../../_metronic/assets/ts/_utils'
-import { useThemeMode } from '../../../../_metronic/partials/layout/theme-mode/ThemeModeProvider'
-import { getReport } from '../core/_requests'
+import {KTSVG} from '../../../../_metronic/helpers'
+import {Dropdown1} from '../../../../_metronic/partials/content/dropdown/Dropdown1'
+import {getCSS, getCSSVariableValue} from '../../../../_metronic/assets/ts/_utils'
+import {useThemeMode} from '../../../../_metronic/partials/layout/theme-mode/ThemeModeProvider'
+import {getReport} from '../core/_requests'
 
 type Props = {
   className: string
+  reportsInfo: any
+  setReportsInfo: any
 }
 
-const ReportsWidget1: React.FC<Props> = ({ className }) => {
-    const [selectedAuditCategories, setSelectedAuditCategories] = useState('')
-    const [selectedQuestionCategories, setSelectedQuestionCategories] = useState('')
-    const [selectedDepartments, setSelectedDepartments] = useState('')
-    const [selectedSections, setSelectedSections] = useState('')
+const ReportsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
-
-  const [reportsInfo, setReportsInfo] = useState<any>([])
 
   useEffect(() => {
     const chart = refreshChart(reportsInfo)
@@ -32,7 +28,7 @@ const ReportsWidget1: React.FC<Props> = ({ className }) => {
   }, [chartRef, mode, reportsInfo])
 
   useEffect(() => {
-      getReport(selectedAuditCategories).then((res: any) => {
+    getReport("").then((res: any) => {
       setReportsInfo([...res?.data])
     })
   }, [])
@@ -63,11 +59,9 @@ const ReportsWidget1: React.FC<Props> = ({ className }) => {
           {/* <span className='text-muted fw-semibold fs-7'>This month</span> */}
         </h3>
         {/* end::Title */}
-        
+
         {/* begin::Toolbar */}
-        <div className='card-toolbar'>
-          {/* end::Menu */}
-        </div>
+        <div className='card-toolbar'>{/* end::Menu */}</div>
         {/* end::Toolbar */}
       </div>
       {/* end::Header */}
@@ -83,7 +77,7 @@ const ReportsWidget1: React.FC<Props> = ({ className }) => {
   )
 }
 
-export { ReportsWidget1}
+export {ReportsWidget1}
 
 function getChartOptions(height: number, reportsInfo: any): ApexOptions {
   const labelColor = getCSSVariableValue('--kt-gray-500')
@@ -92,7 +86,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
   const secondaryColor = getCSSVariableValue('--kt-gray-300')
 
   const series: any = []
-  if (reportsInfo.length >= 12) {
+  if (reportsInfo?.length >= 12) {
     /*
     "finished": 0,
     "notStarted": 100,
@@ -197,7 +191,20 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
       colors: ['transparent'],
     },
     xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      categories: [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ],
       axisBorder: {
         show: false,
       },

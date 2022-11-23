@@ -4,16 +4,21 @@ import {MenuComponent} from '../../../../_metronic/assets/ts/components'
 import {initialQueryState, KTSVG} from '../../../../_metronic/helpers'
 import {useQueryRequest} from '../core/QueryRequestProvider'
 import {useQueryResponse} from '../core/QueryResponseProvider'
-import { listAuditCategories } from '../../auditcategories/list/core/_requests'
-import { listDepartments } from '../../departments/list/core/_requests'
-import { listQuestionCategories } from '../../questioncategories/list/core/_requests'
-import { listSections } from '../../sections/list/core/_requests'
+import {listAuditCategories} from '../../auditcategories/list/core/_requests'
+import {listDepartments} from '../../departments/list/core/_requests'
+import {listQuestionCategories} from '../../questioncategories/list/core/_requests'
+import {listSections} from '../../sections/list/core/_requests'
+import {getReport} from '../core/_requests'
 
-const ListFilter = () => {
+type Props = {
+  setReportsInfo: any
+}
+
+const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
   const intl = useIntl()
 
-    const { updateState } = useQueryRequest()
-    const { isLoading } = useQueryResponse()
+  const {updateState} = useQueryRequest()
+  const {isLoading} = useQueryResponse()
   const [auditcategories, setAuditCategories] = useState([])
   const [questioncategories, setQuestionCategories] = useState([])
   const [departments, setDepartments] = useState([])
@@ -33,7 +38,7 @@ const ListFilter = () => {
 
         if (departments.length > 0) {
           listSections(departments[0]?.id).then((response) => {
-            setSections(response.data)
+            // setSections(response.data)
           })
         }
         setAuditCategories([...(audits as never[])])
@@ -56,12 +61,16 @@ const ListFilter = () => {
 
   useEffect(() => {
     filterData()
-  }, [selectedAuditCategories, selectedQuestionCategories, selectedSections])
+  }, [selectedAuditCategories, selectedQuestionCategories, selectedSections, selectedDepartments])
 
   useEffect(() => {
-    listSections(selectedDepartments).then((response) => {
-      setSections(response.data)
-    })
+    if (selectedDepartments) {
+      listSections(selectedDepartments).then((response) => {
+        setSections(response.data)
+      })
+    } else {
+      setSections([])
+    }
   }, [selectedDepartments])
 
   const filterData = () => {
@@ -74,11 +83,19 @@ const ListFilter = () => {
     if (selectedQuestionCategories) {
       filter.questionGroupId = selectedQuestionCategories
     }
+    if (selectedDepartments) {
+      filter.departmentId = selectedDepartments
+    }
 
     if (selectedSections) {
       filter.sectionId = selectedSections
     }
-    updateState({filter: filter, ...initialQueryState})
+
+    getReport(filter).then((response) => {
+      if (response?.data) {
+        setReportsInfo(response.data)
+      }
+    })
   }
 
   return (
@@ -129,7 +146,11 @@ const ListFilter = () => {
               <option value=''>All</option>
 
               {auditcategories.map((item: any) => {
-                return <option key={item?.id} value={item?.id}>{item?.name}</option>
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                )
               })}
             </select>
           </div>
@@ -153,7 +174,11 @@ const ListFilter = () => {
               <option value=''>All</option>
 
               {questioncategories.map((item: any) => {
-                return <option key={item?.id} value={item?.id}>{item?.name}</option>
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                )
               })}
             </select>
           </div>
@@ -177,7 +202,11 @@ const ListFilter = () => {
               <option value=''>All</option>
 
               {departments.map((item: any) => {
-                return <option key={item?.id} value={item?.id}>{item?.name}</option>
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                )
               })}
             </select>
           </div>
@@ -201,7 +230,11 @@ const ListFilter = () => {
               <option value=''>All</option>
 
               {sections.map((item: any) => {
-                return <option key={item?.id} value={item?.id}>{item?.name}</option>
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                )
               })}
             </select>
           </div>

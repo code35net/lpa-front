@@ -6,7 +6,11 @@ import {useQueryResponseData, useQueryResponseLoading} from '../list/core/QueryR
 import {Columns} from '../list/table/columns/_columns'
 import {useQuery} from 'react-query'
 import {useLocation, Link, useNavigate} from 'react-router-dom'
-import {getAuditDetails, getAuditQuestions, finishAudit as finishAuditB} from '../list/core/_requests'
+import {
+  getAuditDetails,
+  getAuditQuestions,
+  finishAudit as finishAuditB,
+} from '../list/core/_requests'
 import {addQuestionAnswers, getQuestionById} from '../../questions/list/core/_requests'
 
 import {useParams} from 'react-router-dom'
@@ -31,6 +35,8 @@ const AuditQuestionsForm = () => {
   const [questionAnswers, setQuestionAnswers] = useState<any>([])
 
   const navigate = useNavigate()
+
+  const [allQuestionAnswered, setAllQuestionAnswered] = useState(false)
 
   useEffect(() => {
     if (params?.auditId) {
@@ -65,6 +71,10 @@ const AuditQuestionsForm = () => {
       }
     })
   }, [])
+
+  useEffect(() => {
+    checkAllQuestionsAnswered()
+  }, [questions])
 
   const handleNeedAction = (index: number, optionId: number) => {
     if (index !== -1 && index < questions.length) {
@@ -129,55 +139,64 @@ const AuditQuestionsForm = () => {
     }
   }
 
-    const submitAnswers = async () => {
+  const submitAnswers = async () => {
+    for (let index = 0; index < questions.length; index++) {
+      if (
+        questionAnswers[index]?.questionId &&
+        questionAnswers[index]?.auditId &&
+        questionAnswers[index]?.answerTemplateOptionId !== -1
+      ) {
+        const formData = new FormData()
+        if (questionAnswers[index]?.files?.[0])
+          formData.append('files', questionAnswers[index]?.files?.[0])
+        formData.append('questionId', questionAnswers[index].questionId)
 
-        for (let index = 0; index < questions.length; index++) {
-            if (
-              questionAnswers[index]?.questionId &&
-              questionAnswers[index]?.auditId &&
-              questionAnswers[index]?.answerTemplateOptionId !== -1
-            ) {
-              const formData = new FormData()
-              if (questionAnswers[index]?.files?.[0])
-                formData.append('files', questionAnswers[index]?.files?.[0])
-              formData.append('questionId', questionAnswers[index].questionId)
+        formData.append('auditId', questionAnswers[index].auditId)
+        formData.append('needAction', (questions as any)[index].needAction)
 
-              formData.append('auditId', questionAnswers[index].auditId)
-              formData.append('needAction', (questions as any)[index].needAction)
+        formData.append('answerTemplateOptionId', questionAnswers[index].answerTemplateOptionId)
 
-              formData.append('answerTemplateOptionId', questionAnswers[index].answerTemplateOptionId)
+        formData.append('option', questionAnswers[index].option)
+        formData.append('notes', questionAnswers[index].notes)
+        formData.append('actionText', questionAnswers[index].actionText)
+        formData.append('actionDate', questionAnswers[index].actionDate)
 
-              formData.append('option', questionAnswers[index].option)
-              formData.append('notes', questionAnswers[index].notes)
-              formData.append('actionText', questionAnswers[index].actionText)
-              formData.append('actionDate', questionAnswers[index].actionDate)
+        formData.append('actionUser', questionAnswers[index].actionUser)
 
-              formData.append('actionUser', questionAnswers[index].actionUser)
+        await addQuestionAnswers(formData)
+      }
 
-                await addQuestionAnswers(formData)
-            }
-    
-
-            (questions as any)[index].auditQAnswer = [{isAnswered: true}]
-              setQuestions([...questions])
-            
-        }
-            Swal.fire({
-                color: '#000000',
-                title: 'Cevaplarınız başarıyla kaydedilmiştir.',
-                icon: 'success',
-                showCancelButton: false,
-                showConfirmButton: false,
-
-                timer: 1500,
-            });
-  }
-
-
-    const finishAudit = async () => {
-         await finishAuditB(params?.auditId)
+      ;(questions as any)[index].auditQAnswer = [{isAnswered: true}]
+      setQuestions([...questions])
     }
 
+    checkAllQuestionsAnswered()
+
+    Swal.fire({
+      color: '#000000',
+      title: 'Cevaplarınız başarıyla kaydedilmiştir.',
+      icon: 'success',
+      showCancelButton: false,
+      showConfirmButton: false,
+
+      timer: 1500,
+    })
+  }
+
+  const finishAudit = async () => {
+    await finishAuditB(params?.auditId)
+  }
+
+  const checkAllQuestionsAnswered = () => {
+    let result = true
+    for (const question of questions) {
+      if (!(question as any)?.auditQAnswer?.length) {
+        result = false
+        break
+      }
+    }
+    setAllQuestionAnswered(result)
+  }
 
   return (
     // <PageTitle>sdfsdfs</PageTitle>
@@ -331,40 +350,36 @@ const AuditQuestionsForm = () => {
                     </p>
                   </div>
 
-                  
-
                   {/* edit::Reply input */}
                 </>
               ) : (
                 <div className='d-flex flex-column'>
-                  <span className='text-gray-800 fs-6 fw-bold pb-4'>
-                    Yanıtlandı
-                  </span>
+                  <span className='text-gray-800 fs-6 fw-bold pb-4'>Yanıtlandı</span>
                 </div>
-                    )}
-
-                    
+              )}
             </div>
             {/* end::Body */}
           </div>
         )
       })}
-          <button
-              type='button'
-              className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
-              onClick={() => submitAnswers()}
-          >
-              <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-              Save Answers
-          </button>
-          <button
-              type='button'
-              className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
-              onClick={() => finishAudit()}
-          >
-              <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-              Finish Audit
-          </button>
+      <button
+        type='button'
+        disabled={allQuestionAnswered}
+        className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
+        onClick={() => submitAnswers()}
+      >
+        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+        Save Answers
+      </button>
+      <button
+        type='button'
+        disabled={!allQuestionAnswered}
+        className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
+        onClick={() => finishAudit()}
+      >
+        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+        Finish Audit
+      </button>
     </>
   )
 }

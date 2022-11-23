@@ -39,7 +39,7 @@ const ListFilter = () => {
 
         if (departments.length > 0) {
           listSections(departments[0]?.id).then((response) => {
-            setSections(response.data)
+            //setSections(response.data)
           })
         }
         setAuditCategories([...(audits as never[])])
@@ -65,9 +65,16 @@ const ListFilter = () => {
   }, [selectedAuditCategories, selectedQuestionCategories, selectedSections])
 
   useEffect(() => {
-    listSections(selectedDepartments).then((response) => {
-      setSections(response.data)
-    })
+    if(selectedDepartments)
+    {
+      listSections(selectedDepartments).then((response) => {
+        setSections(response.data)
+      })
+    }
+    else{
+      setSections([])
+    }
+ 
   }, [selectedDepartments])
 
   const filterData = () => {
