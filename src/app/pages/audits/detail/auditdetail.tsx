@@ -76,16 +76,21 @@ const AuditDetails = () => {
               </div>
 
               <div className='d-flex my-4'>
-
-
-              <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-danger"> 
-
-
-              {Array.isArray(response?.data) && response?.data[0]?.status === 'NotStarted'}
-             
-
-              Start Audit
+              {Array.isArray(response?.data) && response?.data[0]?.status === 'NotStarted' &&
+              (
+                <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-danger"> 
+                    Start Audit
                     </Link>
+                ) }:{  
+                Array.isArray(response?.data) && response?.data[0]?.status === 'InProgress' &&
+                (
+                  <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-danger"> 
+                      Continue Audit
+                      </Link>
+                  ) 
+              }
+
+              
                
                 
               </div>
