@@ -70,7 +70,7 @@ export function AsideMenuMain() {
         icon='/media/icons/duotune/arrows/arr001.svg'
       >
         <AsideMenuItem
-          to='/reports/graphics/auditreports'
+          to='/tablereport/list'
           title='Denetim Raporları (Veri)'
           hasBullet={true}
         />

@@ -14,7 +14,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <SelectionCell id={props.data[props.row.index].id} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'DEPARTMENTS.LIST.NAME'})}  className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'SECTIONS.LIST.NAME'})}  className='min-w-125px' />,
     id: 'name',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index]} />,
   },

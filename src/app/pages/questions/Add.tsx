@@ -65,9 +65,9 @@ const EditForm: FC<Props> = ({item}) => {
       if (res?.data?.length) {
         setDepartments(res.data || [])
 
-        listSections(res?.data[0]?.id).then((res3) => {
-          setSections(res3.data || [])
-        })
+        // listSections(res?.data[0]?.id).then((res3) => {
+        //   setSections(res3.data || [])
+        // })
       }
     })
 

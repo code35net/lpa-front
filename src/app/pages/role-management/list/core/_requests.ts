@@ -13,12 +13,12 @@ const getRoles = (query: string): Promise<QueryResponse> => {
 }
 
 const listRoles = async (): Promise<any> =>
-  await axios.get(`${GET_ROLES_URL}/getAll?page=1`).then((res: AxiosResponse) => {
+  await axios.get(`${GET_ROLES_URL}?page=1`).then((res: AxiosResponse) => {
     return res.data
   })
 
 const getRoleClaims = async (id: ID): Promise<any> =>
-  await axios.get(`${GET_ROLES_CLAIMS_URL}/getAll?roleId=${id}`).then((res: AxiosResponse) => {
+  await axios.get(`${GET_ROLES_CLAIMS_URL}?roleId=${id}`).then((res: AxiosResponse) => {
     return res.data
   })
 

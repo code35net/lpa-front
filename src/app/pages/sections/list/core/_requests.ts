@@ -9,7 +9,7 @@ const SECTION_URL = `${API_URL}/Section`
 const CREATE_SECTIONS_URL = `${API_URL}/Custom`
 
 
-const listSections = async (departmentId : string): Promise<any> => await axios.get(`${SECTION_URL}/getAll?page=1&departmentId=${departmentId}`).then((res : AxiosResponse) => 
+const listSections = async (departmentId : string): Promise<any> => await axios.get(`${SECTION_URL}/getAll/DepartmentId-${departmentId}`).then((res : AxiosResponse) => 
  {
    return res.data;
  });

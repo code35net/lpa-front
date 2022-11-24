@@ -12,9 +12,7 @@ const FINISH_AUDIT = `${API_URL}/Custom/finishAudit`
 
 const finishAudit = (auditid: any) => {
     return axios
-        .put(FINISH_AUDIT, auditid, {
-        })
-        .then((response: any) => response.data)
+        .put(`${FINISH_AUDIT}?auditid=${auditid}`).then((response: any) => response.data)
 }
 
 const getAuditDetails = async (id : string): Promise<any> => await axios.get(`${AUDIT_DETAILS_URL}?Id=${id}`).then((res : AxiosResponse) => 

@@ -30,6 +30,7 @@ const PrivateRoutes = () => {
   const StaffPage = lazy(() => import('../pages/staffs/Page'))
   const ActionPage = lazy(() => import('../pages/actions/Page'))
   const DepartmentPage = lazy(() => import('../pages/departments/Page'))
+  const TableReportPage = lazy(() => import('../pages/tablereport/Page'))
   const HolidayPage = lazy(() => import('../pages/holidays/Page'))
   const PositionsPage = lazy(() => import('../pages/positions/Page'))
   const SectionsPage = lazy(() => import('../pages/sections/Page'))
@@ -61,6 +62,7 @@ const PrivateRoutes = () => {
         <Route path='/user-manager/userdetails' element={<UserDetails />} />
         <Route path='/actions/actiondetail' element={<ActionDetails />} />
         <Route path='/departments' element={<DepartmentPage />} />
+        <Route path='/tablereport' element={<TableReportPage />} />
         <Route path='/holidays' element={<HolidayPage />} />
         <Route path='/positions' element={<PositionsPage />} />
         <Route path='/auditcategories' element={<AuditCategoryPage />} />
@@ -155,6 +157,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <DepartmentPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/tablereport/*'
+          element={
+            <SuspensedView>
+              <TableReportPage />
             </SuspensedView>
           }
         />

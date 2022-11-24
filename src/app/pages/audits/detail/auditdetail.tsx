@@ -78,13 +78,14 @@ const AuditDetails = () => {
               <div className='d-flex my-4'>
               {Array.isArray(response?.data) && response?.data[0]?.status === 'NotStarted' &&
               (
-                <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-danger"> 
+                <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-info"> 
                     Start Audit
                     </Link>
-                ) }:{  
+                ) }
+                {  
                 Array.isArray(response?.data) && response?.data[0]?.status === 'InProgress' &&
                 (
-                  <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-danger"> 
+                  <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-warning"> 
                       Continue Audit
                       </Link>
                   ) 

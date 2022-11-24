@@ -14,8 +14,6 @@ import {Field} from 'formik'
 import {KTSVG} from '../../../../../_metronic/helpers'
 import { listUnitGroups } from '../../../unitgroup/list/core/_requests'
 
-
-
 type Props = {
   isUnitLoading: boolean
   item: Model
@@ -34,11 +32,15 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
   const {refetch} = useQueryResponse()
   const [unitgroups, setUnitGroups] = React.useState([])
 
+  const [unitgroupisactive, setunitgroupisactive] = React.useState<boolean>()
+
+
   const [unitForEdit] = useState<Model>({
     name: undefined,
     unitType: undefined,
     shift:undefined,
     unitGroupId:undefined,
+    unitgroupcheck: undefined,
     ...item,
    
   })
@@ -52,10 +54,13 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
 
   useEffect(() => {
     
-    
-
     listUnitGroups().then((res2) => {
       setUnitGroups(res2.data || [])
+      if(item.unitGroupId)
+      {
+        setunitgroupisactive(true)
+      }
+      
     })
     
     
@@ -66,6 +71,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
   const blankImg = toAbsoluteUrl('/media/svg/avatars/blank.svg')
 
   const formik = useFormik({
+    
     initialValues: unitForEdit,
     validationSchema: editchema,
     onSubmit: async (values, {setSubmitting}) => {
@@ -75,12 +81,14 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
         {
           item.unitGroupId = 0;
         }
-        
       
-      if (!values.shift) {
-        values.shift = 0
+      if(!item.unitgroupcheck)
+      {
+        item.unitGroupId = 0
       }
-      values.shift = parseInt(values.shift.toString())
+      
+     
+      
 
       try {
         if (isNotEmpty(values.id)) {
@@ -96,14 +104,10 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
       }
     },
   })
+  const handleUnitGroup = (value: boolean) => {
 
-  // const handleUnitGroup = (id: number, value: boolean) => {
-  //   let index = unitgroups.findIndex((unitgroup) => unitgroup.id === id)
-  //   if (index > -1) {
-  //     unitgroups[index].hasGroup = value
-  //   }
-  //   setUnitGroups([...unitgroups])
-  // }
+    setunitgroupisactive(value)
+  }
 
   return (
     <>
@@ -122,28 +126,30 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
          
         </div>
 
-        <div className='col-md-1 fv-row'>
-                          
-                          <div className='form-check form-check-solid form-switch'>
-                          {/* <label className='fw-bold fs-6'>
+        <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
                             {intl.formatMessage({
-                              id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
+                              id: 'Has Unit Group',
                             })}
-                          </label> */}
+                          </label>
+                          <div className='col-lg-8 fv-row'>
+                          <div className='form-check form-check-solid form-switch'>
+                          
                               <input
-                                // checked={unitgroups.hasGroup}
-                                // onChange={(e)=> handleChangeUnitGroupId(unitgroups?.id,e.target.checked)}
-                                // value={unitgroups.hasGroup ? 'on' : 'off'}
+                                checked={unitgroupisactive}
+                                onChange={(e)=> handleUnitGroup(e.target.checked)}
+                                value={unitgroupisactive ? 'on' : 'off'}
                                 className='form-check-input w-80px mt-2 bg-dark border-dark'
                                 type='checkbox'
                                 id='allowmarketing'
+                                name='unitgroupcheck'
                               />
                               <label className='form-check-label'></label>
                             </div>
-                         
+                            </div>
                         </div>
 
-                        {/* {unitgroups.hasGroup && (
+                        { unitgroupisactive && (
                           <div className='fv-row mb-7'>
                             <label className='required fw-bold fs-6 mb-2'>
                               {intl.formatMessage({id: 'UNIT.ADDPAGE.UNITGROUP'})}
@@ -163,7 +169,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                               ))}
                             </select>
                           </div>
-                           )} */}
+                           )}
         <div className='fv-row mb-7'>
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT.LIST.NAME'})}

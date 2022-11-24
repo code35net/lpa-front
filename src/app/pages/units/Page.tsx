@@ -2,6 +2,7 @@ import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import {ListWrapper} from './list/List'
 import {useIntl} from 'react-intl'
+import {useEffect, useState} from 'react'
 
 
 const Breadcrumbs: Array<PageLink> = [
@@ -10,42 +11,36 @@ const Breadcrumbs: Array<PageLink> = [
     path: '/dashboard',
     isSeparator: false,
     isActive: false,
-    
   },
   {
     title: 'Definitions',
     path: '',
     isSeparator: false,
     isActive: false,
-    
   },
   {
     title: 'Departments',
     path: '/departments',
     isSeparator: false,
     isActive: false,
-    
   },
   {
-    title: 'Department Name will be here',
+    title: '',
     path: '/departments',
     isSeparator: false,
     isActive: false,
-    
   },
   {
     title: 'Sections',
-    path: '/sections/departmentid',
+    path: '/sections',
     isSeparator: false,
     isActive: false,
-    
   },
   {
-    title: 'Section Name will be here',
-    path: '/sections/id',
+    title: '',
+    path: '/sections',
     isSeparator: false,
     isActive: false,
-    
   },
   {
     title: '',
@@ -55,8 +50,36 @@ const Breadcrumbs: Array<PageLink> = [
   },
 ]
 
-const Page = () => {
-  const intl = useIntl()
+
+
+
+  const Page = () => {
+    const intl = useIntl()
+  
+    const [breadcrumbs, setBreadcrumbs] = useState(Breadcrumbs)
+  
+    useEffect(() => {
+      // Load the todos on mount
+      const item = localStorage.getItem('department-name-breadcrumb')
+      const item2 = localStorage.getItem('section-name-breadcrumb')
+      if (item2) {
+        breadcrumbs[breadcrumbs.length - 2].title = item2
+        setBreadcrumbs([...breadcrumbs])
+      }
+      // Respond to the `storage` event
+      function storageEventHandler(event: any) {
+        if (event.key === 'todos') {
+          breadcrumbs[breadcrumbs.length - 2].title = event.newValue
+          setBreadcrumbs([...breadcrumbs])
+        }
+      }
+      // Hook up the event handler
+      window.addEventListener('storage', storageEventHandler)
+      return () => {
+        // Remove the handler when the component unmounts
+        window.removeEventListener('storage', storageEventHandler)
+      }
+    }, [])
   return (
     <Routes>
       <Route element={<Outlet />}>

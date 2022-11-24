@@ -100,7 +100,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
   const secondaryColor = getCSSVariableValue('--kt-gray-300')
 
   const series: any = []
-  if (reportsInfo.length >= 6) {
+  if (reportsInfo.length >= 12) {
     /*
     "finished": 0,
     "notStarted": 100,
@@ -116,6 +116,12 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
         reportsInfo[3]?.finished || 0,
         reportsInfo[4]?.finished || 0,
         reportsInfo[5]?.finished || 0,
+        reportsInfo[6]?.finished || 0,
+        reportsInfo[7]?.finished || 0,
+        reportsInfo[8]?.finished || 0,
+        reportsInfo[9]?.finished || 0,
+        reportsInfo[10]?.finished || 0,
+        reportsInfo[11]?.finished || 0,
       ],
     })
     series.push({
@@ -127,6 +133,12 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
         reportsInfo[3]?.notStarted || 0,
         reportsInfo[4]?.notStarted || 0,
         reportsInfo[5]?.notStarted || 0,
+        reportsInfo[6]?.notStarted || 0,
+        reportsInfo[7]?.notStarted || 0,
+        reportsInfo[8]?.notStarted || 0,
+        reportsInfo[9]?.notStarted || 0,
+        reportsInfo[10]?.notStarted || 0,
+        reportsInfo[11]?.notStarted || 0,
       ],
     })
     series.push({
@@ -138,6 +150,12 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
         reportsInfo[3]?.inProgress || 0,
         reportsInfo[4]?.inProgress || 0,
         reportsInfo[5]?.inProgress || 0,
+        reportsInfo[6]?.inProgress || 0,
+        reportsInfo[7]?.inProgress || 0,
+        reportsInfo[8]?.inProgress || 0,
+        reportsInfo[9]?.inProgress || 0,
+        reportsInfo[10]?.inProgress || 0,
+        reportsInfo[11]?.inProgress || 0,
       ],
     })
     series.push({
@@ -149,6 +167,12 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
         reportsInfo[3]?.cancelled || 0,
         reportsInfo[4]?.cancelled || 0,
         reportsInfo[5]?.cancelled || 0,
+        reportsInfo[6]?.cancelled || 0,
+        reportsInfo[7]?.cancelled || 0,
+        reportsInfo[8]?.cancelled || 0,
+        reportsInfo[9]?.cancelled || 0,
+        reportsInfo[10]?.cancelled || 0,
+        reportsInfo[11]?.cancelled || 0,
       ],
     })
   }
@@ -181,7 +205,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
       colors: ['transparent'],
     },
     xaxis: {
-      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       axisBorder: {
         show: false,
       },

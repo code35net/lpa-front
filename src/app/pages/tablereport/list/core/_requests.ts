@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from 'axios'
-import { ID, parseRequestQuery, Response} from '../../../../_metronic/helpers'
+import { ID, parseRequestQuery, Response} from '../../../../../_metronic/helpers'
 import {Model, QueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL

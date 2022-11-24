@@ -45,14 +45,14 @@ const EditAuditForm: FC<Props> = ({item}) => {
       if (res?.data?.length) {
         setDepartments(res.data || [])
 
-        listSections(res?.data[0]?.id).then((res3) => {
-          setSections(res3.data || [])
-          if (res3?.data?.length) {
-            listPartialUnits(res3?.data[0]?.id, 0).then((res4) => {
-              setUnits(res4.data || [])
-            })
-          }
-        })
+        // listSections(res?.data[0]?.id).then((res3) => {
+        //   setSections(res3.data || [])
+        //   if (res3?.data?.length) {
+        //     listPartialUnits(res3?.data[0]?.id, 0).then((res4) => {
+        //       setUnits(res4.data || [])
+        //     })
+        //   }
+        // })
       }
     })
 

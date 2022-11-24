@@ -7,6 +7,7 @@ export type Model = {
   unitType?: number
   shift?:number
   hasGroup? : boolean
+  unitgroupcheck? : boolean
 }
 
 export type QueryResponse = Response<Array<Model>>

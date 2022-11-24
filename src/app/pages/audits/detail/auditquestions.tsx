@@ -375,11 +375,15 @@ const AuditQuestionsForm = () => {
         type='button'
         disabled={!allQuestionAnswered}
         className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
-        onClick={() => finishAudit()}
+        onClick={() => finishAudit().then(() => {
+          navigate('/audits/list')
+        })}
       >
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         Finish Audit
       </button>
+
+
     </>
   )
 }
