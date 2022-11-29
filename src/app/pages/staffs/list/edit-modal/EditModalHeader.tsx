@@ -23,7 +23,7 @@ const EditModalHeader: FC<Props> = ({item}) => {
     <div className='modal-header'>
       {/* begin::Modal title */}
       <h2 className='fw-bolder'>
-      {item?.id ? "EditStaff List " : "Add Staff List"}
+      {item?.id ? intl.formatMessage({id: 'STAFFS.MODAL.EDIT'}) : intl.formatMessage({id: 'STAFFS.MODAL.ADD'})}
       </h2>
       {/* end::Modal title */}
 

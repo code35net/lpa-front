@@ -14,10 +14,6 @@ const ListToolbar = () => {
   return (
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
       
-      <Link className='btn btn-sm btn-light btn-active-dark-light me-3' to={`/unitgroup/list`}>
-        
-       {intl.formatMessage({id: 'UNITGROUP.LIST'})}
-       </Link>
      
      
       {/* begin::Add Places */}

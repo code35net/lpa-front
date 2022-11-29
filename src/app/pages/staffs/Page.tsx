@@ -39,7 +39,7 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle breadcrumbs={Breadcrumbs}>Staff List</PageTitle>
+              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'STAFFS.PAGE.TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }

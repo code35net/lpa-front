@@ -6,6 +6,7 @@ import {SelectionCell} from './SelectionCell'
 import {CustomHeader} from './CustomHeader'
 import {SelectionHeader} from './SelectionHeader'
 import {Model} from '../../core/_models'
+import {useIntl} from 'react-intl'
 
 const Columns: ReadonlyArray<Column<Model>> = [
   {
@@ -19,7 +20,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <IdCell item={props.data[props.row.index]} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Name' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'STAFFS.LIST.NAME'})} className='min-w-125px' />,
     id: 'name',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index]} />,
   },

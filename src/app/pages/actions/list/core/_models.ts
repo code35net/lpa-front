@@ -10,7 +10,10 @@ export type Model = {
   assignedUser?:string
   questiontext?:string
   auditDate?:string
+  lastDate?:string
   finding?:string
+  done:boolean
+  status:number
   actionCode?:string
 }
 

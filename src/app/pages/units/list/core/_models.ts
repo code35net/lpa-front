@@ -3,7 +3,8 @@ export type Model = {
   id?: ID
   name?: string
   sectionId?: number
-  unitGroupId?: number
+  leaderUserId?: number
+  parentUnitId?: number
   unitType?: number
   shift?:number
   hasGroup? : boolean

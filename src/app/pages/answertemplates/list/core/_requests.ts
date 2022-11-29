@@ -5,6 +5,7 @@ import {Model, QueryResponse} from './_models'
 const API_URL = process.env.REACT_APP_API_URL
 const ANSWERTEMPLATE_URL = `${API_URL}/AnswerTemplate`
 const GET_ANSWERTEMPLATES_URL = `${API_URL}/AnswerTemplate`
+const GET_ANSWERTEMPLATEOPTIONS_URL = `${API_URL}/AnswerTemplateOption`
 const CREATE_ANSWERTEMPLATE_URL = `${API_URL}/Custom/createATemplate`
 //api/AnswerTemplate/{id}/AnswerTemplateOptions
 
@@ -14,7 +15,7 @@ const listAnswerTemplates = async (): Promise<any> => await axios.get(`${GET_ANS
  });
 
 
- const getAnswerTemplateOptions = async (id:ID): Promise<any> => await axios.get(`${GET_ANSWERTEMPLATES_URL}/${id}/AnswerTemplateOptions`).then((res : AxiosResponse) => 
+ const getAnswerTemplateOptions = async (id:ID): Promise<any> => await axios.get(`${GET_ANSWERTEMPLATEOPTIONS_URL}/getAll/AnswerTemplateId-${id}`).then((res : AxiosResponse) => 
  {
    return res.data;
  });
@@ -28,7 +29,7 @@ const getAnswerTemplates = (query: string): Promise<QueryResponse> => {
 
 const getAnswerTemplatesById = (id: ID): Promise<Model | undefined> => {
   return axios
-    .get(`${ANSWERTEMPLATE_URL}/${id}/AnswerTemplateOptions`)
+    .get(`${GET_ANSWERTEMPLATEOPTIONS_URL}/${id}`)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response as any)
 }

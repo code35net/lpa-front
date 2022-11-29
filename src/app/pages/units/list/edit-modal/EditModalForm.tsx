@@ -8,11 +8,11 @@ import {Model} from '../core/_models'
 import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
-import {createUnit, updateUnit} from '../core/_requests'
+import {createUnit, updateUnit, listUnits, getUnitsForDropdown} from '../core/_requests'
+import {getUsers, listUsers} from '../../../user-management/list/core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {Field} from 'formik'
 import {KTSVG} from '../../../../../_metronic/helpers'
-import { listUnitGroups } from '../../../unitgroup/list/core/_requests'
 
 type Props = {
   isUnitLoading: boolean
@@ -31,6 +31,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
   const [unitgroups, setUnitGroups] = React.useState([])
+  const [leaderusers, setLeaderUsers] = React.useState([])
 
   const [unitgroupisactive, setunitgroupisactive] = React.useState<boolean>()
 
@@ -39,7 +40,8 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
     name: undefined,
     unitType: undefined,
     shift:undefined,
-    unitGroupId:undefined,
+    leaderUserId:undefined,
+    parentUnitId:0,
     unitgroupcheck: undefined,
     ...item,
    
@@ -54,17 +56,20 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
 
   useEffect(() => {
     
-    listUnitGroups().then((res2) => {
-      setUnitGroups(res2.data || [])
-      if(item.unitGroupId)
+    getUnitsForDropdown().then((res2) => {
+
+
+      setUnitGroups(res2.data.filter((a: any) => a.unitType == 2) || [])
+      if(item.parentUnitId)
       {
         setunitgroupisactive(true)
       }
       
     })
     
-    
-
+    listUsers().then((res) => {
+      setLeaderUsers(res.data || [])
+    })
     
   }, [])
 
@@ -77,14 +82,14 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
      
-      if(!item.hasGroup)
+        if(values.unitType == 2)
         {
-          item.unitGroupId = 0;
+          values.leaderUserId = undefined
         }
-      
-      if(!item.unitgroupcheck)
+        values.parentUnitId = parseInt(values.parentUnitId?.toString() || "0", 10)
+      if(!unitgroupisactive)
       {
-        item.unitGroupId = 0
+        values.parentUnitId = undefined
       }
       
      
@@ -126,81 +131,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
          
         </div>
 
-        <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                            {intl.formatMessage({
-                              id: 'Has Unit Group',
-                            })}
-                          </label>
-                          <div className='col-lg-8 fv-row'>
-                          <div className='form-check form-check-solid form-switch'>
-                          
-                              <input
-                                checked={unitgroupisactive}
-                                onChange={(e)=> handleUnitGroup(e.target.checked)}
-                                value={unitgroupisactive ? 'on' : 'off'}
-                                className='form-check-input w-80px mt-2 bg-dark border-dark'
-                                type='checkbox'
-                                id='allowmarketing'
-                                name='unitgroupcheck'
-                              />
-                              <label className='form-check-label'></label>
-                            </div>
-                            </div>
-                        </div>
-
-                        { unitgroupisactive && (
-                          <div className='fv-row mb-7'>
-                            <label className='required fw-bold fs-6 mb-2'>
-                              {intl.formatMessage({id: 'UNIT.ADDPAGE.UNITGROUP'})}
-                            </label>
-                           
-                            <select
-                              className='form-select form-select-solid form-select-md'
-                              {...formik.getFieldProps('unitGroupId')}
-                              value={formik.values.unitGroupId}
-                              //  onChange={handleChangeUnitGroupId}
-                            >
-                              <option value=''>Seçiniz</option>
-                              {unitgroups.map((unitgroup: any) => (
-                                <option value={unitgroup?.id} key={unitgroup?.id as any}>
-                                  {unitgroup?.name as any}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                           )}
-        <div className='fv-row mb-7'>
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'UNIT.LIST.NAME'})}
-          </label>
-         
-         
-          <input
-            {...formik.getFieldProps('name')}
-            type='text'
-            name='name'
-            className={clsx(
-              'form-control form-control-solid mb-3 mb-lg-0',
-              {'is-invalid': formik.touched.name && formik.errors.name},
-              {
-                'is-valid': formik.touched.name && !formik.errors.name,
-              }
-            )}
-            autoComplete='off'
-            disabled={formik.isSubmitting || isUnitLoading}
-          />
-          {formik.touched.name && formik.errors.name && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.name}</span>
-              </div>
-            </div>
-          )}
-          
-          
-        </div>
-        <div className='row mb-3'>
+<div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
               {intl.formatMessage({id: 'UNIT.LIST.TYPE'})}
               </label>
@@ -234,9 +165,120 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                     {intl.formatMessage({id: 'UNIT.LIST.OPERATOR'})}
                     </span>
                   </label>
+                  <label className='form-check form-check-inline form-check-solid'>
+                  <input
+                      className='form-check-input'
+                      name='unitType'
+                      type='radio'
+                      value={2}
+                      checked={formik.values.unitType === 2}
+                      onChange={() => formik.setFieldValue("unitType",2)}
+                    />
+                    <span className='fw-bold ps-2 fs-6'>
+                    {intl.formatMessage({id: 'UNIT.LIST.GROUP'})}
+                    </span>
+                  </label>
                 </div>
               </div>
             </div>
+
+            
+        { formik.values.unitType != 2 && (
+        <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                            {intl.formatMessage({
+                              id: 'Has Unit Group',
+                            })}
+                          </label>
+                          <div className='col-lg-8 fv-row'>
+                          <div className='form-check form-check-solid form-switch'>
+                          
+                              <input
+                                checked={unitgroupisactive}
+                                onChange={(e)=> handleUnitGroup(e.target.checked)}
+                                value={unitgroupisactive ? 'on' : 'off'}
+                                className='form-check-input w-80px mt-2 bg-dark border-dark'
+                                type='checkbox'
+                                id='allowmarketing'
+                                name='unitgroupcheck'
+                              />
+                              <label className='form-check-label'></label>
+                            </div>
+                            </div>
+                        </div>
+        )}
+                        { formik.values.unitType != 2 &&  unitgroupisactive && (
+                          <div className='fv-row mb-7'>
+                            <label className='required fw-bold fs-6 mb-2'>
+                              {intl.formatMessage({id: 'UNIT.ADDPAGE.UNITGROUP'})}
+                            </label>
+                           
+                            <select
+                              className='form-select form-select-solid form-select-md'
+                              {...formik.getFieldProps('parentUnitId')}
+                              value={formik.values.parentUnitId} 
+                              //  onChange={handleChangeUnitGroupId}
+                            >
+                              <option value=''>Seçiniz</option>
+                              {unitgroups.map((unitgroup: any) => (
+                                <option value={parseInt(unitgroup?.id)} key={unitgroup?.id as any}>
+                                  {unitgroup?.name as any}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                           )}
+            { formik.values.unitType != 2 && (
+<div className='fv-row mb-7'>
+                            <label className='required fw-bold fs-6 mb-2'>
+                              {intl.formatMessage({id: 'UNIT.ADDPAGE.LEADER'})}
+                            </label>
+                           
+                            <select
+                              className='form-select form-select-solid form-select-md'
+                              {...formik.getFieldProps('leaderUserId')}
+                              value={formik.values.leaderUserId}
+                              //  onChange={handleChangeUnitGroupId}
+                            >
+                              <option value=''>Seçiniz</option>
+                              {leaderusers.map((leaderuser: any) => (
+                                <option value={leaderuser?.id} key={leaderuser?.id as any}>
+                                  {leaderuser?.email as any}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+            )}
+        <div className='fv-row mb-7'>
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'UNIT.LIST.NAME'})}
+          </label>
+         
+         
+          <input
+            {...formik.getFieldProps('name')}
+            type='text'
+            name='name'
+            className={clsx(
+              'form-control form-control-solid mb-3 mb-lg-0',
+              {'is-invalid': formik.touched.name && formik.errors.name},
+              {
+                'is-valid': formik.touched.name && !formik.errors.name,
+              }
+            )}
+            autoComplete='off'
+            disabled={formik.isSubmitting || isUnitLoading}
+          />
+          {formik.touched.name && formik.errors.name && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.name}</span>
+              </div>
+            </div>
+          )}
+          
+          
+        </div>
             
        
         <div className='text-center pt-15'>

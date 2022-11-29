@@ -22,7 +22,16 @@ const listUnits = async (sectionId : string): Promise<any> => await axios.get(`$
 
 const getUnits = (query: string): Promise<QueryResponse> => {
   const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
+  const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).unitId
+  if(qsd2 == undefined)
   return axios.get(`${UNIT_URL}/getAll/SectionId-${qsd}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  else
+  return axios.get(`${UNIT_URL}/getAll/ParentUnitId-${qsd2}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+}
+
+const getUnitsForDropdown = (): Promise<any> => {
+  const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
+  return axios.get(`${UNIT_URL}/getAll/SectionId-${qsd}`).then((d: AxiosResponse<any>) => d.data as any)
 }
 
 const getUnitById = (id: ID): Promise<Model | undefined> => {
@@ -61,4 +70,4 @@ const deleteSelectedUnits = (unitIds: Array<ID>): Promise<void> => {
   return axios.all(requests).then(() => {})
 }
 
-export {getUnits, deleteUnit, deleteSelectedUnits, getUnitById, createUnit, updateUnit, listUnits, listPartialUnits}
+export {getUnits, deleteUnit, deleteSelectedUnits, getUnitById, createUnit, updateUnit, listUnits, listPartialUnits, getUnitsForDropdown}

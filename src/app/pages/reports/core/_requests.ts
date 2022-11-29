@@ -3,7 +3,7 @@ import { ID, parseRequestQuery, Response} from '../../../../_metronic/helpers'
 import {Model, QueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL
-const GET_PER_REPORT = `${API_URL}/Custom/getPercentageReportSuccess`
+const GET_PER_REPORT = `${API_URL}/Custom/getPercentageReportCombined`
 
 const getReport = async (query: string): Promise<QueryResponse> => {
   const queryRaw: any = parseRequestQuery(query)

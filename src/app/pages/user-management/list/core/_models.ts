@@ -11,7 +11,6 @@ export type Model = {
   positionName?:string
   departmentName?:string
   departmentId?:number  
-  collarType?:number
 }
 
 export type QueryResponse = Response<Array<Model>>

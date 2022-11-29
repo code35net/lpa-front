@@ -5,6 +5,7 @@ export type Model = {
   positionId?:number
   positionName?:string
   departmentId?:number
+  sectionId?:number
   departmentName?:string
   email?:string
   

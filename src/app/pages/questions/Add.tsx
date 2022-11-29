@@ -9,6 +9,7 @@ import {useIntl} from 'react-intl'
 
 import {listDepartments} from '../departments/list/core/_requests'
 import {listSections} from '../sections/list/core/_requests'
+import {listUnits} from '../units/list/core/_requests'
 import {listAuditCategories} from '../auditcategories/list/core/_requests'
 import {listQuestionCategories} from '../questioncategories/list/core/_requests'
 import {listAnswerTemplates} from '../answertemplates/list/core/_requests'
@@ -54,6 +55,7 @@ const EditForm: FC<Props> = ({item}) => {
   const navigate = useNavigate()
   const [departments, setDepartments] = React.useState([])
   const [sections, setSections] = React.useState([])
+  const [units, setUnits] = React.useState([])
   const [auditcategories, setAuditCategories] = React.useState([])
   const [questioncategories, setQuestionCategories] = React.useState([])
   const [answertemplates, setAnswertemplates] = React.useState([])
@@ -97,6 +99,7 @@ const EditForm: FC<Props> = ({item}) => {
     ...item,
     sectionId: undefined,
     departmentId: undefined,
+    unitId: undefined,
     auditCategoryId: undefined,
     questions: [],
   } as Model)
@@ -120,6 +123,9 @@ const EditForm: FC<Props> = ({item}) => {
       if (!values.sectionId && sections.length) {
         values.sectionId = (sections[0] as any)?.id
       }
+      // if (!values.unitId && units.length) {
+      //   values.unitId, = (units[0] as any)?.id
+      // }
 
       if (!values.answerTemplateId && answertemplates.length) {
         values.answerTemplateId = (answertemplates[0] as any)?.id
@@ -151,6 +157,7 @@ const EditForm: FC<Props> = ({item}) => {
         try {
           await createBulkQuestions({
             sectionId: values?.sectionId,
+            unitId: values?.unitId,
             departmentId: values?.departmentId,
             auditCategoryId: values?.auditCategoryId,
             questions : [question]
@@ -171,6 +178,14 @@ const EditForm: FC<Props> = ({item}) => {
     formik.setFieldValue('departmentId', event.target.value)
     listSections(event.target.value).then((res) => {
       setSections(res.data)
+    })
+  }
+
+
+  const handleChangeSectionId = async (event: any) => {
+    formik.setFieldValue('sectionId', event.target.value)
+    listUnits(event.target.value).then((res) => {
+      setUnits(res.data.filter((a: any) => a.unitType == 2))
     })
   }
 
@@ -286,7 +301,7 @@ const EditForm: FC<Props> = ({item}) => {
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('sectionId')}
                   value={formik.values.sectionId}
-                  onChange={formik.handleChange}
+                  onChange={handleChangeSectionId}
                 >
                   <option value=''>Seçiniz</option>
                   {sections.map((section: any) => (
@@ -297,6 +312,30 @@ const EditForm: FC<Props> = ({item}) => {
                 </select>
               </div>
             </div>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>
+                  {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.UNIT'})}
+                </span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('unitId')}
+                  value={formik.values.unitId}
+                  onChange={formik.handleChange}
+                >
+                  <option value=''>Seçiniz</option>
+                  {units.map((unit: any) => (
+                    <option value={unit?.id} key={unit?.id as any}>
+                      {unit?.name as any}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>
                 {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY'})}
@@ -317,6 +356,7 @@ const EditForm: FC<Props> = ({item}) => {
                 </select>
               </div>
             </div>
+            
 
             <div className='separator separator-dashed my-6'></div>
             <div className='row mb-6'>

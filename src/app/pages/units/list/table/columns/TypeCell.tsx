@@ -14,9 +14,9 @@ const TypeCell: FC<Props> = ({item}) => (
     <div className='d-flex flex-column'>
       <span className='text-gray-800 text-hover-primary'>
        
-      {item.unitType ? (
+      {item.unitType == 1 ? (
         'Operatör'
-      ) : (
+      ) : item.unitType == 2 ? 'Unit Group' : (
         'Hat'
       )}
          {/* {

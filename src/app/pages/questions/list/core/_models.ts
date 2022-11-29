@@ -12,6 +12,7 @@ export type Model = {
   sectionId?: number
   Department?:Department
   departmentId?: number
+  unitId?: number
   isNew?:boolean
   AnswerTemplate?:AnswerTemplate
   answerTemplateId?: number

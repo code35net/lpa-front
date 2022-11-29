@@ -5,7 +5,9 @@ export type Model = {
   departmentId?: number
   positionId?:number
   unitId?: number
+  gunitId?: number
   year?: number
+  month?: number
   auditCategoryId?: number
   questionGroupId?: number | null
   isAddedQuestionCategory?: boolean

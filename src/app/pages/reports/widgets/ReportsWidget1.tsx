@@ -86,6 +86,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
   const secondaryColor = getCSSVariableValue('--kt-gray-300')
 
   const series: any = []
+  const categories: any = []
   if (reportsInfo?.length > 0) {
     /*
     "finished": 0,
@@ -93,20 +94,35 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
     "inProgress": 0,
     "cancelled": 0,
     */
+   
+    let ar: any = []
+    let ar2: any = []
    reportsInfo?.map((dat : any) => {
         //data?.lists?.map((dat : any) => {
-          let ar = []
           const av = dat?.avarage?.toFixed(0) || 0
+          const av2 = dat?.completion?.toFixed(0) || 0
+          console.log('reportsinfomapdat')
           console.log(dat)
           ar.push(av)
-          series.push(
-            {
-              name: dat?.name,
-              data: ar
-            }
-          )
+          ar2.push(av2)
+          categories.push(dat?.name)
      // })
    })
+   
+   series.push(
+    {
+      name: 'Average',
+      data: ar
+    })
+
+  series.push(
+    {
+        name: 'Completion Rate',
+        data: ar2
+    }
+  )
+   console.log(series)
+   console.log(categories)
    /*
     series.push({
       name: reportsInfo,
@@ -188,6 +204,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
       toolbar: {
         show: false,
       },
+      
     },
     plotOptions: {
       bar: {
@@ -195,12 +212,18 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
         columnWidth: '30%',
         borderRadius: 5,
       },
+      
     },
     legend: {
-      show: false,
+      show: true,
     },
     dataLabels: {
-      enabled: false,
+      enabled: true,
+      formatter: function(val, opt) {
+          return val.toString()
+      },
+      
+      offsetX: 0,
     },
     stroke: {
       show: true,
@@ -209,7 +232,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
     },
     xaxis: {
       
-      categories: reportsInfo?.map((r : any) => r.name),
+      categories: categories,
       axisBorder: {
         show: false,
       },
@@ -275,6 +298,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
         },
       },
     },
+    
   }
   }
   else
@@ -296,12 +320,10 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
           borderRadius: 5,
         },
       },
-      legend: {
-        show: false,
-      },
       dataLabels: {
-        enabled: false,
+        enabled: true,
       },
+      
       stroke: {
         show: true,
         width: 2,
@@ -330,6 +352,10 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
             fontSize: '12px',
           },
         },
+      },
+      legend: {
+        show: true,
+        position:'bottom'
       },
       fill: {
         opacity: 1,

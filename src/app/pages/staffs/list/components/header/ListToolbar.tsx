@@ -20,7 +20,7 @@ const ListToolbar = () => {
         onClick={openAddModal}
       >
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Yeni Personel
+        {intl.formatMessage({id: 'STAFFS.LIST.ADD'})}
       </button>
       {/* end::Add Places */}
     </div>

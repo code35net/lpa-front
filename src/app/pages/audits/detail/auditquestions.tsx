@@ -1,5 +1,6 @@
 import {useMemo, useEffect, useState} from 'react'
 import {useTable} from 'react-table'
+import * as Yup from 'yup'
 import {useIntl} from 'react-intl'
 import {KTSVG, QUERIES} from '../../../../_metronic/helpers'
 import {useQueryResponseData, useQueryResponseLoading} from '../list/core/QueryResponseProvider'
@@ -19,6 +20,10 @@ import clsx from 'clsx'
 import moment from 'moment'
 import Swal from 'sweetalert2'
 import {FileUploader} from 'react-drag-drop-files'
+
+
+
+
 const fileTypes = ['JPEG', 'PNG', 'JPG']
 
 const AuditQuestionsForm = () => {
@@ -81,6 +86,10 @@ const AuditQuestionsForm = () => {
       const optionIndex: number = (questions as any)[index].answerOptions.findIndex(
         (o: any) => o?.id === optionId
       )
+
+        
+      
+      
 
       if (optionIndex !== -1) {
         ;(questions as any)[index].needAction = (questions as any)[index].answerOptions[
@@ -147,6 +156,7 @@ const AuditQuestionsForm = () => {
         questionAnswers[index]?.answerTemplateOptionId !== -1
       ) {
         const formData = new FormData()
+        
         if (questionAnswers[index]?.files?.[0])
           formData.append('files', questionAnswers[index]?.files?.[0])
         formData.append('questionId', questionAnswers[index].questionId)
@@ -285,6 +295,7 @@ const AuditQuestionsForm = () => {
                       Findings
                       <textarea
                         className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
+                        required={question?.needAction}
                         rows={4}
                         name={`${question?.id}-actionText`}
                         value={questionAnswers[i].actionText}

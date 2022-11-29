@@ -9,9 +9,20 @@ import {Model} from '../core/_models'
 import {ListLoading} from '../components/loading/ListLoading'
 import {ListPagination} from '../components/pagination/ListPagination'
 import {KTCardBody} from '../../../../../_metronic/helpers'
+import qs from 'qs'
+
 
 const Table = () => {
-  const items = useQueryResponseData()
+  
+  const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).unitId
+  let items = useQueryResponseData()
+
+  if(qsd2 == null)
+  {
+    items = items.filter(a => a.parentUnitId == null)
+  }
+  items = items.sort((a: any, b: any) => a.unitType == 2 ? -1 : 1)
+  console.log(items)
   const intl = useIntl()
   const isLoading = useQueryResponseLoading()
   const data = useMemo(() => items, [items])

@@ -32,6 +32,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
   const [departments, setDepartments] = React.useState([])
   const [sections, setSections] = React.useState([])
   const [units, setUnits] = React.useState([])
+  const [gunits, setgUnits] = React.useState([])
   const [positions, setPositions] = React.useState([])
   const [auditcategories, setAuditCategories] = React.useState([])
   const [questioncategories, setQuestionCategories] = React.useState([])
@@ -86,10 +87,12 @@ const EditAuditForm: FC<Props> = ({item}) => {
     sectionId: undefined,
     unitType: undefined,
     unitId: undefined,
+    gunitId: undefined,
     categoryType: undefined,
     questionGroupId: undefined,
     positionId: undefined,
     year: undefined,
+    month:undefined,
     fullname: undefined,
     userId: undefined,
     isAddedQuestionCategory: true,
@@ -140,10 +143,8 @@ const EditAuditForm: FC<Props> = ({item}) => {
       if (!values.questionGroupId && questioncategories.length) {
         values.questionGroupId = (questioncategories[0] as any)?.id
       }
-      if (!values.collarType) {
-        values.collarType = 0
-      }
-      values.collarType = parseInt(values.collarType.toString())
+      
+      
 
       if (!values.userId && users.length) {
         values.userId = (users[0] as any)?.id
@@ -178,19 +179,15 @@ const EditAuditForm: FC<Props> = ({item}) => {
   }
   const handleChangeSectiontId = async (event: any) => {
     formik.setFieldValue('sectionId', event.target.value)
-    listPartialUnits(event.target.value, 0).then((res) => {
-      setUnits(res.data)
+    listPartialUnits(event.target.value, 2).then((res) => {
+      setgUnits(res.data)
     })
   }
 
   const handleUsers = (value: string, type: string) => {
     let filteredData = [...rawUsers]
-    if (type === 'collarType' && value !== '' && value !== undefined && value !== null) {
-      filteredData = filteredData.filter(
-        (item: any) => parseInt(item?.collarType) === parseInt(value)
-      )
-    }
-
+    
+    
     if (type === 'positionId' && value !== '' && value !== undefined && value !== null) {
       filteredData = filteredData.filter(
         (item: any) => parseInt(item?.positionId) === parseInt(value)
@@ -289,6 +286,30 @@ const EditAuditForm: FC<Props> = ({item}) => {
                 </select>
               </div>
             </div>
+
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>Unit Group</span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('gunitId')}
+                  value={formik.values.gunitId}
+                  onChange={formik.handleChange}
+                  disabled={gunits.length === 0}
+                >
+                  {gunits.length && <option value=''>Seçiniz</option>}
+                  {gunits.map((unit: any) => (
+                    <option value={unit?.id} key={unit?.id as any}>
+                      {unit?.name as any}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             <div className='row mb-3'>
             <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>Unit Type</span>
@@ -422,26 +443,6 @@ const EditAuditForm: FC<Props> = ({item}) => {
               </div>
             </div>
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Yaka Tipi</label>
-              <div className='col-lg-8 fv-row'>
-                <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('collarType')}
-                  value={formik.values.collarType}
-                  onChange={(e) => {
-                    formik.setFieldValue('collarType', e.target.value)
-                    handleUsers(e.target.value, 'collarType')
-                  }}
-                >
-                  <option value=''>Seçiniz</option>
-                  <option value='0'>Beyaz Yaka</option>
-                  <option value='1'>Mavi Yaka</option>
-                  <option value='2'>Haki Yaka</option>
-                  <option value='3'>Sarı Yaka</option>
-                </select>
-              </div>
-            </div>
-            <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>Kullanıcı</label>
               <div className='col-lg-8 fv-row'>
                 <select
@@ -468,11 +469,11 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   {...formik.getFieldProps('categoryType')}
                 >
                   <option value=''>Seçiniz</option>
+                  <option value='4'>Vardiya</option>
                   <option value='0'>Günlük</option>
                   <option value='1'>Haftalık</option>
                   <option value='2'>Aylık</option>
-                  <option value='3'>Çeyrklik</option>
-                  <option value='4'>Vardiya</option>
+                  <option value='3'>3 Aylık</option>
                   <option value='5'>Anlık Denetim</option>
                 </select>
               </div>
@@ -525,6 +526,29 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   <option value='2023'>2023</option>
                   <option value='2024'>2024</option>
                   <option value='2025'>2025</option>
+                </select>
+              </div>
+            </div>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Ay</label>
+              <div className='col-lg-8 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('month')}
+                >
+                  <option value=''>Seçiniz</option>
+                  <option value='01'>Ocak</option>
+                  <option value='02'>Şubat</option>
+                  <option value='03'>Mart</option>
+                  <option value='04'>Nisan</option>
+                  <option value='05'>Mayıs</option>
+                  <option value='06'>Haziran</option>
+                  <option value='07'>Temmuz</option>
+                  <option value='08'>Ağustos</option>
+                  <option value='09'>Eylül</option>
+                  <option value='10'>Ekim</option>
+                  <option value='11'>Kasım</option>
+                  <option value='12'>Aralık</option>
                 </select>
               </div>
             </div>

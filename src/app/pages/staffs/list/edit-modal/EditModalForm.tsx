@@ -10,6 +10,7 @@ import {ListLoading} from '../components/loading/ListLoading'
 import {createStaff, updateStaff} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listDepartments} from '../../../departments/list/core/_requests'
+import {listSections} from '../../../sections/list/core/_requests'
 import {listPositions} from '../../../positions/list/core/_requests'
 
 type Props = {
@@ -28,6 +29,7 @@ const EditModalForm: FC<Props> = ({item}) => {
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
   const [departments, setDepartments] = React.useState([])
+  const [sections, setSections] = React.useState([])
   const [positions, setPositions] = React.useState([])
 
   useEffect(() => {
@@ -36,6 +38,7 @@ const EditModalForm: FC<Props> = ({item}) => {
         setDepartments(res.data || [])
       }
     })
+
     listPositions().then((res) => {
       if (res?.data?.length) {
         setPositions(res.data || [])
@@ -49,10 +52,18 @@ const EditModalForm: FC<Props> = ({item}) => {
     email:undefined,
     positionId:undefined,
     departmentId:undefined,
+    sectionId:undefined,
     ...item
 
 
   })
+
+  const handleChangeDepartmentId = async (event: any) => {
+    formik.setFieldValue('departmentId', event.target.value)
+    listSections(event.target.value).then((res) => {
+      setSections(res.data)
+    })
+  }
 
   const cancel = (withRefresh?: boolean) => {
     if (withRefresh) {
@@ -69,6 +80,9 @@ const EditModalForm: FC<Props> = ({item}) => {
       
       if (!values.departmentId && departments.length) {
         values.departmentId = (departments[0] as any)?.id
+      }
+      if (!values.sectionId && sections.length) {
+        values.sectionId = (sections[0] as any)?.id
       }
 
       if (!values.positionId && positions.length) {
@@ -105,60 +119,15 @@ const EditModalForm: FC<Props> = ({item}) => {
           data-kt-scroll-wrappers='#kt_modal_add_item_scroll'
           data-kt-scroll-offset='300px'
         >
-          {/* begin::Input group */}
-
-          {/* begin::Preview existing avatar */}
-
-          {/* end::Preview existing avatar */}
-
-          {/* begin::Label */}
-          {/* <label
-              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
-              data-kt-image-input-action='change'
-              data-bs-toggle='tooltip'
-              title='Change avatar'
-            >
-              <i className='bi bi-pencil-fill fs-7'></i>
-
-              <input type='file' name='avatar' accept='.png, .jpg, .jpeg' />
-              <input type='hidden' name='avatar_remove' />
-            </label> */}
-          {/* end::Label */}
-
-          {/* begin::Cancel */}
-          {/* <span
-              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
-              data-kt-image-input-action='cancel'
-              data-bs-toggle='tooltip'
-              title='Cancel avatar'
-            >
-              <i className='bi bi-x fs-2'></i>
-            </span> */}
-          {/* end::Cancel */}
-
-          {/* begin::Remove */}
-          {/* <span
-              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
-              data-kt-image-input-action='remove'
-              data-bs-toggle='tooltip'
-              title='Remove avatar'
-            >
-              <i className='bi bi-x fs-2'></i>
-            </span> */}
-          {/* end::Remove */}
+          
+          
         </div>
-        {/* end::Image input */}
-
-        {/* begin::Hint */}
-        {/* <div className='form-text'>Allowed file types: png, jpg, jpeg.</div> */}
-        {/* end::Hint */}
-        {/* end::Input group */}
-
-        {/* begin::Input group */}
+       
+       
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-          E-Mail
+          {intl.formatMessage({id: 'STAFFS.MODAL.EMAIL'})}
           </label>
           {/* end::Label */}
 
@@ -190,7 +159,7 @@ const EditModalForm: FC<Props> = ({item}) => {
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-          Personel Adı
+          {intl.formatMessage({id: 'STAFFS.MODAL.NAME'})}
           </label>
           {/* end::Label */}
 
@@ -223,7 +192,7 @@ const EditModalForm: FC<Props> = ({item}) => {
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-          departman
+          {intl.formatMessage({id: 'STAFFS.MODAL.DEPARTMENT'})}
           </label>
           {/* end::Label */}
 
@@ -232,7 +201,9 @@ const EditModalForm: FC<Props> = ({item}) => {
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('departmentId')}
                   value={formik.values.departmentId}
+                  onChange={handleChangeDepartmentId}
                 >
+                  <option value=''>Seçiniz</option>
                   {departments.map((department: any) => (
                     <option value={department?.id} key={department?.id as any}>
                       {department?.name as any}
@@ -245,7 +216,32 @@ const EditModalForm: FC<Props> = ({item}) => {
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-          Position
+          {intl.formatMessage({id: 'STAFFS.MODAL.SECTION'})}
+          </label>
+          {/* end::Label */}
+
+          {/* begin::Input */}
+          <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('sectionId')}
+                  value={formik.values.sectionId}
+                  onChange={formik.handleChange}
+                >
+                  <option value=''>Seçiniz</option>
+                  {sections.map((section: any) => (
+                    <option value={section?.id} key={section?.id as any}>
+                      {section?.name as any}
+                    </option>
+                  ))}
+                </select>
+          {/* end::Input */}
+        </div>
+
+
+        <div className='fv-row mb-7'>
+          {/* begin::Label */}
+          <label className='required fw-bold fs-6 mb-2'>
+          {intl.formatMessage({id: 'STAFFS.MODAL.POSITION'})}
           </label>
           {/* end::Label */}
 

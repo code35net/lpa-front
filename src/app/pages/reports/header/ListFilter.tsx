@@ -8,6 +8,7 @@ import {listAuditCategories} from '../../auditcategories/list/core/_requests'
 import {listDepartments} from '../../departments/list/core/_requests'
 import {listQuestionCategories} from '../../questioncategories/list/core/_requests'
 import {listSections} from '../../sections/list/core/_requests'
+import {listUnits} from '../../units/list/core/_requests'
 import {getReport} from '../core/_requests'
 
 type Props = {
@@ -23,11 +24,14 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
   const [questioncategories, setQuestionCategories] = useState([])
   const [departments, setDepartments] = useState([])
   const [sections, setSections] = useState([])
+  const [units, setUnits] = useState([])
 
   const [selectedAuditCategories, setSelectedAuditCategories] = useState('')
   const [selectedQuestionCategories, setSelectedQuestionCategories] = useState('')
   const [selectedDepartments, setSelectedDepartments] = useState('')
   const [selectedSections, setSelectedSections] = useState('')
+  const [selectedUnits, setSelectedUnits] = useState('')
+  const [selectedYears, setSelectedYears] = useState('')
 
   useEffect(() => {
     Promise.all([listAuditCategories(), listQuestionCategories(), listDepartments()]).then(
@@ -56,12 +60,14 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
     setSelectedAuditCategories('')
     setSelectedQuestionCategories('')
     setSelectedDepartments('')
+    setSelectedYears('')
     setSelectedSections('')
+    setSelectedUnits('')
   }
 
   useEffect(() => {
     filterData()
-  }, [selectedAuditCategories, selectedQuestionCategories, selectedSections, selectedDepartments])
+  }, [selectedAuditCategories, selectedQuestionCategories, selectedSections, selectedDepartments, selectedUnits, selectedYears])
 
   useEffect(() => {
     if (selectedDepartments) {
@@ -71,7 +77,14 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
     } else {
       setSections([])
     }
-  }, [selectedDepartments])
+    if (selectedSections) {
+      listUnits(selectedSections).then((response) => {
+        setUnits(response.data)
+      })
+    } else {
+      setUnits([])
+    }
+  }, [selectedDepartments, selectedSections])
 
   const filterData = () => {
     let filter: any = {}
@@ -86,11 +99,17 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
     if (selectedDepartments) {
       filter.departmentId = selectedDepartments
     }
+    if (selectedYears) {
+      filter.Year = selectedYears
+    }
 
     if (selectedSections) {
       filter.sectionId = selectedSections
     }
 
+    if (selectedUnits) {
+      filter.unitId = selectedUnits
+    }
     getReport(filter).then((response) => {
       if (response?.data) {
         setReportsInfo(response.data)
@@ -129,9 +148,10 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
         {/* begin::Content */}
         <div className='px-7 py-5' data-kt-item-table-filter='form'>
           {/* begin::Input group */}
+          {/* end::Input group */}
           <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'FILTER.AUDITCATEGORIES'})}
+              {intl.formatMessage({id: 'FILTER.YEAR'})}
             </label>
             <select
               className='form-select form-select-solid fw-bolder'
@@ -140,22 +160,17 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
               data-allow-clear='true'
               data-kt-item-table-filter='role'
               data-hide-search='true'
-              onChange={(e) => setSelectedAuditCategories(e.target.value)}
-              value={selectedAuditCategories}
+              onChange={(e) => setSelectedYears(e.target.value)}
+              value={selectedYears}
             >
-              <option value=''>All</option>
-
-              {auditcategories.map((item: any) => {
-                return (
-                  <option key={item?.id} value={item?.id}>
-                    {item?.name}
-                  </option>
-                )
-              })}
+              <option value=''>Seçiniz</option>
+                  <option value='2022'>2022</option>
+                  <option value='2023'>2023</option>
+                  <option value='2024'>2024</option>
+                  <option value='2025'>2025</option>
+              
             </select>
           </div>
-          {/* end::Input group */}
-
           {/* begin::Input group */}
           <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
@@ -239,7 +254,35 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
             </select>
           </div>
           {/* end::Input group */}
+{/* begin::Input group */}
+<div className='mb-10'>
+            <label className='form-label fs-6 fw-bold'>
+              {intl.formatMessage({id: 'FILTER.UNITS'})}
+            </label>
+            <select
+              className='form-select form-select-solid fw-bolder'
+              data-kt-select2='true'
+              data-placeholder='Select option'
+              data-allow-clear='true'
+              data-kt-item-table-filter='role'
+              data-hide-search='true'
+              onChange={(e) => setSelectedUnits(e.target.value)}
+              value={selectedUnits}
+            >
+              <option value=''>All</option>
 
+              {units.map((item: any) => {
+                return (
+                  item?.unitType == 2 ?
+                  <option key={item?.id} value={item?.id}>
+                    { item?.name}
+                  </option>
+                  : <span></span>
+                )
+              })}
+            </select>
+          </div>
+          {/* end::Input group */}
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>
             <button

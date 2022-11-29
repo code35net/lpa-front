@@ -14,7 +14,7 @@
   "MENU.QUESTIONS": "Questions",
   "MENU.DEFINITIONS": "Definitions",
   "MENU.AUDITCATEGORIES": "Audit Categories",
-  "MENU.STAFFLIST": "Staff List",
+  "MENU.STAFFLIST": "Action Officers",
   "MENU.QUESTIONCATEGORIES": "Question Categories",
   "MENU.ANSWERTEMPLATES": "Answer Templates",
   "MENU.POSITIONS": "Positions",
@@ -82,6 +82,19 @@
   "DEPARTMENTS.LIST.ADD": "New Department",
   "DEPARTMENTS.MODAL.ADD": "Add Department",
   "DEPARTMENTS.MODAL.EDIT": "Edit Department",
+  "STAFFS.PAGE.TITLE": "Action Officers",
+  "STAFFS.LIST.ID": "Id",
+  "STAFFS.LIST.NAME": "Action Officer Name",
+  "STAFFS.LIST.ADD": "New Action Officers",
+  "STAFFS.MODAL.ADD": "Add Action Officers",
+  "STAFFS.MODAL.EDIT": "Edit Action Officers",
+  "STAFFS.MODAL.EMAIL": "Action Officer Email",
+  "STAFFS.MODAL.NAME": "Action Officer Name",
+  "STAFFS.MODAL.DEPARTMENT": "Action Officer Department",
+  "STAFFS.MODAL.POSITION": "Action Officer Position",
+
+  
+
   "SECTIONS.PAGE.TITLE": "Sub Department",
   "SECTIONS.LIST.ID": "Id",
   "SECTIONS.LIST.NAME": "Sub Department Name",

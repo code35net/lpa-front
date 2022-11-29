@@ -63,7 +63,6 @@ const UserEditForm: FC<Props> = ({item}) => {
     identity: undefined,
     positionId:undefined,
     departmentId:undefined, 
-    collarType:undefined,
     shift:undefined
   })
 
@@ -88,10 +87,7 @@ const UserEditForm: FC<Props> = ({item}) => {
       }
 
 
-      if (!values.collarType) {
-        values.collarType = 0
-      }
-      values.collarType = parseInt(values.collarType.toString())
+      
 
       if (!values.shift) {
         values.shift = 0
@@ -270,22 +266,7 @@ const UserEditForm: FC<Props> = ({item}) => {
                 </select>
               </div>
             </div>
-            <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>
-                Collar Type
-              </label>
-              <div className='col-lg-8 fv-row'>
-                <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('collarType')}
-                >
-                  <option value='0'>Beyaz Yaka</option>
-                  <option value='1'>Mavi Yaka</option>
-                  <option value='2'>Haki Yaka</option>
-                  <option value='3'>Sarı Yaka</option>
-                </select>
-              </div>
-            </div>
+            
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>
                 Shift

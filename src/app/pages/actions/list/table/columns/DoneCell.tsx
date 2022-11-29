@@ -9,14 +9,14 @@ type Props = {
   item: Model
 }
 
-const InfoCell: FC<Props> = ({item}) => (
+const DoneCell: FC<Props> = ({item}) => (
   <div className='d-flex align-items-center'>
     <div className='d-flex flex-column'>
     <span className='text-gray-800 text-hover-primary'>
-    <Link to={`/actions/actiondetail?Id=${item.id}`}> {item.actionCode}</Link>
+        {item.lastDate?.toString()}
       </span>
     </div>
   </div>
 )
 
-export {InfoCell}
+export {DoneCell}

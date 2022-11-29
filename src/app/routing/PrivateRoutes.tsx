@@ -35,7 +35,6 @@ const PrivateRoutes = () => {
   const PositionsPage = lazy(() => import('../pages/positions/Page'))
   const SectionsPage = lazy(() => import('../pages/sections/Page'))
   const UnitsPage = lazy(() => import('../pages/units/Page'))
-  const UnitGroupsPage = lazy(() => import('../pages/unitgroup/Page'))
   const AnswerTemplatePage = lazy(() => import('../pages/answertemplates/Page'))
   const AuditCategoryPage = lazy(() => import('../pages/auditcategories/Page'))
   const QuestionGroupPage = lazy(() => import('../pages/questioncategories/Page'))
@@ -192,14 +191,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-        <Route
-          path='/unitgroup/*'
-          element={
-            <SuspensedView>
-              <UnitGroupsPage />
-            </SuspensedView>
-          }
-        />
+
         <Route
           path='positions/*'
           element={
