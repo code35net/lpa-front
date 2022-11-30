@@ -185,7 +185,11 @@ const AuditDetails = () => {
             <label className='col-lg-4 fw-bold text-muted'>Department</label>
 
             <div className='col-lg-8 fv-row'>
-              <span className='fw-bold fs-6'></span>
+              <span className='fw-bold fs-6'>
+              {Array.isArray(response?.data) && response?.data?.length
+                ? response?.data[0]?.departmentName
+                : ''}
+              </span>
             </div>
           </div>
 
@@ -193,7 +197,11 @@ const AuditDetails = () => {
             <label className='col-lg-4 fw-bold text-muted'>Section</label>
 
             <div className='col-lg-8 d-flex align-items-center'>
-              <span className='fw-bolder fs-6 me-2'></span>
+              <span className='fw-bolder fs-6 me-2'>
+              {Array.isArray(response?.data) && response?.data?.length
+                ? response?.data[0]?.sectionName
+                : ''}
+              </span>
             </div>
           </div>
 
@@ -201,32 +209,17 @@ const AuditDetails = () => {
             <label className='col-lg-4 fw-bold text-muted'>Unit</label>
 
             <div className='col-lg-8'>
-              {Array.isArray(response?.data) && response?.data?.length
-                ? response?.data[0]?.unitName
-                : ''}
-            </div>
-          </div>
-
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Question Category</label>
-
-            <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-dark'>
+            <span className='fw-bold fs-6'>
                 {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.questionGroupName
+                  ? response?.data[0]?.unitName
                   : ''}
               </span>
             </div>
           </div>
 
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Auditor Position</label>
-
-            <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-dark'></span>
-            </div>
-          </div>
-
+         
+         
+          
           <div className='row mb-10'>
             <label className='col-lg-4 fw-bold text-muted'>Auditor</label>
 
@@ -238,18 +231,16 @@ const AuditDetails = () => {
               </span>
             </div>
           </div>
-          <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>Period</label>
-
-            <div className='col-lg-8'>
-              <span className='fw-bold fs-6'></span>
-            </div>
-          </div>
+          
           <div className='row mb-10'>
             <label className='col-lg-4 fw-bold text-muted'>Date</label>
 
             <div className='col-lg-8'>
-              <span className='fw-bold fs-6'></span>
+              <span className='fw-bold fs-6'>
+              {Array.isArray(response?.data) && response?.data?.length
+                  ? response?.data[0]?.date
+                  : ''}
+              </span>
             </div>
           </div>
           <div className='row mb-10'>
@@ -288,7 +279,8 @@ const AuditDetails = () => {
                     <tr>
                       <th className='p-0 w-50px'>Id</th>
                       <th className='p-0 min-w-200px'>Question</th>
-
+                      <th className='p-0 min-w-200px'>Question Category</th>
+                      <th className='p-0 min-w-200px'>Answer Template</th>
                     </tr>
                   </thead>
                   {/* end::Table head */}
@@ -310,16 +302,29 @@ const AuditDetails = () => {
                                 {question?.text}
                               </a>
                             </td>
+                            <td>
+                              <a
+                                href='#'
+                                className='text-dark fw-bold text-hover-primary mb-1 fs-6'
+                              >
+                                {question?.questionGroupName}
+                              </a>
+                            </td>
+                            <td>
+                              <a
+                                href='#'
+                                className='text-dark fw-bold text-hover-primary mb-1 fs-6'
+                              >
+                                {question?.answerTemplate}
+                              </a>
+                            </td>
 
                           </tr>
                         )
                       })}
                   </tbody>
-                  {/* end::Table body */}
                 </table>
-                {/* end::Table */}
               </div>
-              {/* end::Table container */}
             </div>
           </div>
         </div>

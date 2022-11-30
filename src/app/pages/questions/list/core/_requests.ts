@@ -10,7 +10,7 @@ const COPY_QUESTION_URL = `${API_URL}/Custom/editQuestion`
 
 const getQuestions = (query: string): Promise<QueryResponse> => {
   return axios
-    .get(`${QUESTION_URL}/getAll/?${query}&modelstoinclude=Section.Department,AuditCategory`)
+    .get(`${QUESTION_URL}/getAll/?${query}&modelstoinclude=Section.Department,Unit,AuditCategory`)
     .then((d: AxiosResponse<QueryResponse>) => {
       const queryRaw: any = parseRequestQuery(query)
       if (queryRaw?.filter_auditcategoryid && Array.isArray(d?.data?.data)) {

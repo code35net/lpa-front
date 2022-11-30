@@ -72,6 +72,7 @@ const EditForm: FC<Props> = ({item}) => {
         // })
       }
     })
+    
 
     listAuditCategories().then((res2) => {
       setAuditCategories(res2.data || [])
@@ -182,6 +183,7 @@ const EditForm: FC<Props> = ({item}) => {
   }
 
 
+  
   const handleChangeSectionId = async (event: any) => {
     formik.setFieldValue('sectionId', event.target.value)
     listUnits(event.target.value).then((res) => {

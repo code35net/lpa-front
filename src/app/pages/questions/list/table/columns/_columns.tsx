@@ -34,6 +34,11 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].section.name} />,
   },
   {
+    Header: (props) => <CustomHeader tableProps={props} title='Unit Group Name' className='min-w-125px' />,
+    id: 'Unit',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].unit.name}  />,
+  },
+  {
     Header: (props) => (
       <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'TABLE.ACTIONS'})} className='text-end min-w-100px' />
     ),

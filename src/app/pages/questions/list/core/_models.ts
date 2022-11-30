@@ -1,6 +1,7 @@
 import {ID, Response} from '../../../../../_metronic/helpers'
 import {Model as Section} from '../../../sections/list/core/_models'
 import {Model as Department} from '../../../departments/list/core/_models'
+import {Model as Unit} from '../../../units/list/core/_models'
 import {Model as AnswerTemplate} from '../../../answertemplates/list/core/_models'
 import {Model as ac} from '../../../auditcategories/list/core/_models'
 import {Model as QuestionCategory} from '../../../questioncategories/list/core/_models'
@@ -12,6 +13,7 @@ export type Model = {
   sectionId?: number
   Department?:Department
   departmentId?: number
+  Unit?:Unit
   unitId?: number
   isNew?:boolean
   AnswerTemplate?:AnswerTemplate

@@ -278,7 +278,8 @@ const UserEditForm: FC<Props> = ({item}) => {
                 >
                   <option value='0'>Morning</option>
                   <option value='1'>Day</option>
-                  <option value='2'>Night</option> 
+                  <option value='2'>Night</option>                  
+                  <option value='3'>Regular</option> 
                 </select>
               </div>
             </div>
