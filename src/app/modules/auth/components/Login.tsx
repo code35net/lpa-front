@@ -66,7 +66,7 @@ export function Login() {
     >
       {/* begin::Heading */}
       <div className='text-center mb-10'>
-        <h1 className='text-dark mb-3'>Welcome LPA Application</h1>
+        <h1 className='text-dark mb-3'>Welcome QMS Application</h1>
       </div>
       {/* begin::Heading */}
 

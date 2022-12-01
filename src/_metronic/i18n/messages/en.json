@@ -176,6 +176,9 @@
   "FILTER.SECTIONS": "Sections",
   "FILTER.CATEGORY.ITEMS": "Category Items",
 
+"REPORTS.AVERAGE": "Average",
+"REPORTS.COMPLETIONRATE": "Completion Rate",
+
   "QUESTIONCATEGORY.TOOLBAR.ADD": "New Question Cagetory",
   "QUESTIONCATEGORY.MODAL.TITLEADD": "Add Question Cagetory",
   "QUESTIONCATEGORY.MODAL.TITLEEDIT": "Edit Question Cagetory",

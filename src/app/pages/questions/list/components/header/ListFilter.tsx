@@ -37,11 +37,12 @@ const ListFilter = () => {
         const questions: Array<any> = responses?.[1]?.data || []
         const departments: Array<any> = responses?.[2]?.data || []
 
-        if (departments.length > 0) {
+        /*if (departments.length > 0) {
           listSections(departments[0]?.id).then((response) => {
             //setSections(response.data)
           })
         }
+        */
         setAuditCategories([...(audits as never[])])
         setQuestionCategories([...(questions as never[])])
         setDepartments([...(departments as never[])])

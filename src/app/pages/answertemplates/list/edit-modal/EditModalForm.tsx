@@ -36,15 +36,17 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
     if (itemIdForUpdate) {
       getAnswerTemplateOptions(itemIdForUpdate).then((data) => {
         const answers: Array<TemplateOptions> = []
-        data?.answerTemplateOptions.forEach((item: any) => {
+        let datatext = ""
+        data?.data.forEach((item: any) => {
           answers.push({
             id: item.id,
             optionname: item.optionName,
             needAction: item.needAction ? true : false,
             isTrue: item.isTrue ? true : false
           })
+          datatext = item.answerTemplate.text
         })
-        formik.setFieldValue('answerText', data?.text)
+        formik.setFieldValue('answerText', datatext)
         setOptions([...answers])
       })
     } else {

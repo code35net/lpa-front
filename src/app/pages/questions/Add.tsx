@@ -177,18 +177,33 @@ const EditForm: FC<Props> = ({item}) => {
 
   const handleChangeDepartmentId = async (event: any) => {
     formik.setFieldValue('departmentId', event.target.value)
+    if(event.target.value != '')
+    {
     listSections(event.target.value).then((res) => {
       setSections(res.data)
     })
+  }
+    else
+    {
+      setSections([])
+    }
+  
   }
 
 
   
   const handleChangeSectionId = async (event: any) => {
     formik.setFieldValue('sectionId', event.target.value)
+    if(event.target.value != '')
+    {
     listUnits(event.target.value).then((res) => {
       setUnits(res.data.filter((a: any) => a.unitType == 2))
     })
+  }
+  else
+  {
+    setUnits([])
+  }
   }
 
   const handleQuestionText = (id: number, text: string) => {

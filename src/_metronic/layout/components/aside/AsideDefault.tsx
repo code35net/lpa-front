@@ -28,16 +28,16 @@ const AsideDefault = () => {
           {mode === 'light' && (
             <img
               alt='Logo'
-              className='h-100px logo theme-light-show'
-              src={toAbsoluteUrl('/media/logos/freudenberg_logo.png')}
+              className='h-50px logo theme-light-show'
+              src={toAbsoluteUrl('/media/logos/iqual_logo.png')}
             />
           )}
 
           {mode === 'dark' && (
             <img
               alt='Logo'
-              className='h-100px logo theme-dark-show'
-              src={toAbsoluteUrl('/media/logos/freudenberg_logo.png')}
+              className='h-50px logo theme-dark-show'
+              src={toAbsoluteUrl('/media/logos/iqual_logo.png')}
             />
           )}
         </Link>

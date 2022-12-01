@@ -10,12 +10,14 @@ import {listQuestionCategories} from '../../questioncategories/list/core/_reques
 import {listSections} from '../../sections/list/core/_requests'
 import {listUnits} from '../../units/list/core/_requests'
 import {getReport} from '../core/_requests'
+import {getPercentageReport} from '../../../../app/pages/departments/list/core/_requests'
 
 type Props = {
-  setReportsInfo: any
+  setReportsInfo: any,
+  setReportsInfoPercentage: any
 }
 
-const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
+const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage}) => {
   const intl = useIntl()
 
   const {updateState} = useQueryRequest()
@@ -32,6 +34,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
   const [selectedSections, setSelectedSections] = useState('')
   const [selectedUnits, setSelectedUnits] = useState('')
   const [selectedYears, setSelectedYears] = useState('')
+  const [selectedMonths, setSelectedMonths] = useState('')
 
   useEffect(() => {
     Promise.all([listAuditCategories(), listQuestionCategories(), listDepartments()]).then(
@@ -61,13 +64,14 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
     setSelectedQuestionCategories('')
     setSelectedDepartments('')
     setSelectedYears('')
+    setSelectedMonths('')
     setSelectedSections('')
     setSelectedUnits('')
   }
 
   useEffect(() => {
     filterData()
-  }, [selectedAuditCategories, selectedQuestionCategories, selectedSections, selectedDepartments, selectedUnits, selectedYears])
+  }, [selectedAuditCategories, selectedQuestionCategories, selectedSections, selectedDepartments, selectedUnits, selectedYears, selectedMonths])
 
   useEffect(() => {
     if (selectedDepartments) {
@@ -102,6 +106,9 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
     if (selectedYears) {
       filter.Year = selectedYears
     }
+    if (selectedMonths) {
+      filter.Month = selectedMonths
+    }
 
     if (selectedSections) {
       filter.sectionId = selectedSections
@@ -113,6 +120,12 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
     getReport(filter).then((response) => {
       if (response?.data) {
         setReportsInfo(response.data)
+      }
+    })
+    
+    getPercentageReport(filter).then((response) => {
+      if (response?.data) {
+        setReportsInfoPercentage(response.data)
       }
     })
   }
@@ -168,6 +181,37 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
                   <option value='2023'>2023</option>
                   <option value='2024'>2024</option>
                   <option value='2025'>2025</option>
+              
+            </select>
+          </div>
+          
+          <div className='mb-10'>
+            <label className='form-label fs-6 fw-bold'>
+              {intl.formatMessage({id: 'FILTER.MONTH'})}
+            </label>
+            <select
+              className='form-select form-select-solid fw-bolder'
+              data-kt-select2='true'
+              data-placeholder='Select option'
+              data-allow-clear='true'
+              data-kt-item-table-filter='role'
+              data-hide-search='true'
+              onChange={(e) => setSelectedMonths(e.target.value)}
+              value={selectedMonths}
+            >
+              <option value=''>Seçiniz</option>
+                  <option value='1'>Ocak</option>
+                  <option value='2'>Şubat</option>
+                  <option value='3'>Mart</option>
+                  <option value='4'>Nisan</option>
+                  <option value='5'>Mayıs</option>
+                  <option value='6'>Haziran</option>
+                  <option value='7'>Temmuz</option>
+                  <option value='8'>Ağustos</option>
+                  <option value='9'>Eylül</option>
+                  <option value='10'>Ekim</option>
+                  <option value='11'>Kasım</option>
+                  <option value='12'>Aralık</option>
               
             </select>
           </div>

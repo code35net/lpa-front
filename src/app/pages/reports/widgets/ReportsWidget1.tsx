@@ -6,6 +6,7 @@ import {Dropdown1} from '../../../../_metronic/partials/content/dropdown/Dropdow
 import {getCSS, getCSSVariableValue} from '../../../../_metronic/assets/ts/_utils'
 import {useThemeMode} from '../../../../_metronic/partials/layout/theme-mode/ThemeModeProvider'
 import {getReport} from '../core/_requests'
+import {useIntl} from 'react-intl'
 
 type Props = {
   className: string
@@ -14,6 +15,7 @@ type Props = {
 }
 
 const ReportsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo}) => {
+  const intl = useIntl()
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
 
@@ -39,7 +41,6 @@ const ReportsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo
     }
 
     const height = parseInt(getCSS(chartRef.current, 'height'))
-
     const chart = new ApexCharts(chartRef.current, getChartOptions(height, reportsInfo))
     if (chart) {
       chart.render()
@@ -79,6 +80,7 @@ const ReportsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo
 
 export {ReportsWidget1}
 
+
 function getChartOptions(height: number, reportsInfo: any): ApexOptions {
   const labelColor = getCSSVariableValue('--kt-gray-500')
   const borderColor = getCSSVariableValue('--kt-gray-200')
@@ -111,13 +113,13 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
    
    series.push(
     {
-      name: 'Average',
+      name: 'Ortalama Puan',
       data: ar
     })
 
   series.push(
     {
-        name: 'Completion Rate',
+        name: 'Yüzdece Gerçekleşme',
         data: ar2
     }
   )

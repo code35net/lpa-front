@@ -93,7 +93,7 @@ const Breadcrumbs: Array<PageLink> = [
           }
         />
       </Route>
-      <Route index element={<Navigate to='/unitgroup/list' />} />
+      <Route index element={<Navigate to='/list' />} />
     </Routes>
   )
 }

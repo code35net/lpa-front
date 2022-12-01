@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from 'axios'
-import {ID, Response} from '../../../../../_metronic/helpers'
+import {ID,parseRequestQuery,  Response} from '../../../../../_metronic/helpers'
 import {Model, QueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -13,9 +13,10 @@ const getDepartments = (query: string): Promise<QueryResponse> => {
     .then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
-const getPercentageReport = (): Promise<QueryResponse> => {
+const getPercentageReport = (query: any): Promise<QueryResponse> => {
+  const queryRaw: any = parseRequestQuery(query)
   return axios
-    .get(`${GET_PER_REPORT}`)
+    .get(`${GET_PER_REPORT}?${new URLSearchParams(queryRaw).toString()}`)
     .then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 

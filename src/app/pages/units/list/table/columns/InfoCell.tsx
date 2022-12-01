@@ -15,7 +15,7 @@ const InfoCell: FC<Props> = ({item}) => (
     <div className='d-flex flex-column'>
       <span className='text-gray-800 text-primary'>
       {
-        item.unitType == 2 ? <Link onClick={() => window.location.assign(`/units/list?sectionId=${qsd}&unitId=${item.id}`)}  to={`units/list?sectionId=${qsd}&unitId=${item.id}`}>{item.name}</Link> : item.name
+        item.unitType == 2 ? <Link  to={`/units/list?sectionId=${qsd}&unitId=${item.id}`}>{item.name}</Link> : item.name
       }
       </span>
     </div>

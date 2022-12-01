@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 import {
   ChartsWidget1,
   ChartsWidget2,
@@ -12,12 +12,14 @@ import {
 
 
 const Charts: FC = () => {
+  
+  const [reportsInfoPercentage,setReportsInfoPercentage] = useState();
   return (
     <>
       {/* begin::Row */}
       <div className='row g-5 g-xl-8'>
         <div className='col-xl-12'>
-          <ChartsWidget1 className='card-xl-stretch mb-xl-8' />
+        <ChartsWidget1 reportsInfo={reportsInfoPercentage}  setReportsInfo={setReportsInfoPercentage} className='card-xl-stretch mb-xl-8' />
         </div>
         
       </div>

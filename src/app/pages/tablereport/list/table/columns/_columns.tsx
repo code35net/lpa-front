@@ -9,14 +9,19 @@ import {useIntl} from 'react-intl'
 const Columns: ReadonlyArray<Column<Model>> = [
  
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Question Text' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title='#' className='min-w-125px' />,
     id: 'name',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].name} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Audit Category' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title='Ortalama Puan' className='min-w-125px' />,
     id: 'avarage',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].avarage} />,
+  },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title='Yüzdece Gerçekleşme' className='min-w-125px' />,
+    id: 'total',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].completion} />,
   },
 
 

@@ -28,6 +28,10 @@
   "USERLİSTHEADER.ROW1": "Pozisyon",
   "USERLİSTHEADER.FILTERLASTLOGIN": "Son Giriş",
 
+
+  "REPORTS.AVERAGE": "Ortalama Puan",
+  "REPORTS.COMPLETIONRATE": "Yüzdece Gerçekleşme",
+
   "FILTER.RESET": "Sıfırla",
   "FILTER.APPLY": "Uygula",
   "TOOLBAR.FİLTER": "Filtrele",

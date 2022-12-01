@@ -15,7 +15,7 @@ const listAnswerTemplates = async (): Promise<any> => await axios.get(`${GET_ANS
  });
 
 
- const getAnswerTemplateOptions = async (id:ID): Promise<any> => await axios.get(`${GET_ANSWERTEMPLATEOPTIONS_URL}/getAll/AnswerTemplateId-${id}`).then((res : AxiosResponse) => 
+ const getAnswerTemplateOptions = async (id:ID): Promise<any> => await axios.get(`${GET_ANSWERTEMPLATEOPTIONS_URL}/getAll/AnswerTemplateId-${id}?modelstoinclude=AnswerTemplate`).then((res : AxiosResponse) => 
  {
    return res.data;
  });

@@ -20,7 +20,9 @@ const Table = () => {
     columns,
     data,
   })
-  console.log(data)
+  console.log(data) 
+  
+
 
   return (
     <KTCardBody className='py-4'>

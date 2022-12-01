@@ -8,14 +8,15 @@ import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 import {getPercentageReport} from '../../../../app/pages/departments/list/core/_requests'
 
 type Props = {
-  className: string
+  className: string,
+  reportsInfo: any,
+  setReportsInfo: any
 }
 
-const ChartsWidget1: React.FC<Props> = ({className}) => {
+const ChartsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
 
-  const [reportsInfo, setReportsInfo] = useState<any>([])
 
   useEffect(() => {
     const chart = refreshChart(reportsInfo)
@@ -28,7 +29,7 @@ const ChartsWidget1: React.FC<Props> = ({className}) => {
   }, [chartRef, mode, reportsInfo])
 
   useEffect(() => {
-    getPercentageReport().then((res: any) => {
+    getPercentageReport("").then((res: any) => {
       setReportsInfo([...res?.data])
     })
   }, [])
@@ -60,22 +61,6 @@ const ChartsWidget1: React.FC<Props> = ({className}) => {
         </h3>
         {/* end::Title */}
         
-        {/* begin::Toolbar */}
-        <div className='card-toolbar'>
-          {/* begin::Menu */}
-          Filter
-          <button
-            type='button'
-            className='btn btn-sm btn-icon btn-color-primary btn-active-light-primary'
-            data-kt-menu-trigger='click'
-            data-kt-menu-placement='bottom-end'
-            data-kt-menu-flip='top-end'
-          >
-            <KTSVG path='/media/icons/duotune/general/gen024.svg' className='svg-icon-2' />
-          </button>
-          <Dropdown1 />
-          {/* end::Menu */}
-        </div>
         {/* end::Toolbar */}
       </div>
       {/* end::Header */}
@@ -98,9 +83,12 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
   const borderColor = getCSSVariableValue('--kt-gray-200')
   const baseColor = getCSSVariableValue('--kt-primary')
   const secondaryColor = getCSSVariableValue('--kt-gray-300')
+  const fourthColor = getCSSVariableValue('--kt-warning')
+  const fifthColor = getCSSVariableValue('--kt-danger')
+  const thirdColor = getCSSVariableValue('--kt-info')
 
   const series: any = []
-  if (reportsInfo.length >= 12) {
+  if (reportsInfo?.length >= 12) {
     /*
     "finished": 0,
     "notStarted": 100,
@@ -175,6 +163,23 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
         reportsInfo[11]?.cancelled || 0,
       ],
     })
+    series.push({
+      name: 'Yüzdece Gerçekleşme',
+      data: [
+        reportsInfo[0]?.auditPoint || 0,
+        reportsInfo[1]?.auditPoint || 0,
+        reportsInfo[2]?.auditPoint || 0,
+        reportsInfo[3]?.auditPoint || 0,
+        reportsInfo[4]?.auditPoint || 0,
+        reportsInfo[5]?.auditPoint || 0,
+        reportsInfo[6]?.auditPoint || 0,
+        reportsInfo[7]?.auditPoint || 0,
+        reportsInfo[8]?.auditPoint || 0,
+        reportsInfo[9]?.auditPoint || 0,
+        reportsInfo[10]?.auditPoint || 0,
+        reportsInfo[11]?.auditPoint || 0,
+      ],
+    })
   }
   return {
     series: series,
@@ -194,7 +199,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
       },
     },
     legend: {
-      show: false,
+      show: true,
     },
     dataLabels: {
       enabled: false,
@@ -261,7 +266,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
         },
       },
     },
-    colors: [baseColor, secondaryColor],
+    colors: [baseColor, secondaryColor, thirdColor, fourthColor, fifthColor],
     grid: {
       borderColor: borderColor,
       strokeDashArray: 4,
