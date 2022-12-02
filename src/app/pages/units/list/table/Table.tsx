@@ -16,13 +16,13 @@ const Table = () => {
   
   const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).unitId
   let items = useQueryResponseData()
-
+ console.log(qsd2)
   if(qsd2 == null)
   {
     items = items.filter(a => a.parentUnitId == null)
   }
   items = items.sort((a: any, b: any) => a.unitType == 2 ? -1 : 1)
-  console.log(items)
+  
   const intl = useIntl()
   const isLoading = useQueryResponseLoading()
   const data = useMemo(() => items, [items])
@@ -31,7 +31,7 @@ const Table = () => {
     columns,
     data,
   })
-  console.log(data)
+  console.log(qs.parse(window.location.search, { ignoreQueryPrefix: true }))
 
   return (
     <KTCardBody className='py-4'>

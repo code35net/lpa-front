@@ -396,7 +396,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                     type='checkbox'
                     id='allowmarketing'
                   />
-                  <label className='form-check-label'></label>
+                  <label className='form-check-label mt-1 px-5'> <small className='text-danger'>Tüm soruları seçmek için kapatınız.</small> </label>
                 </div>
               </div>
             </div>
@@ -482,7 +482,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
               parseInt(formik.values.categoryType as string) === 5 &&
               <div className='fv-row mb-3'>
               {/* begin::Label */}
-              <label className='required fw-bold fs-6 mb-2'>Periyodik Olmayan Zaman</label>
+              <label className='required fw-bold fs-6 mb-2'>Anlık Denetim Tarihi</label>
               {/* end::Label */}
 
               {/* begin::Input */}
@@ -558,8 +558,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
             <button
               type='submit'
               onClick={() => {
-                formik.submitForm()
-
+                
                 formik.submitForm().then(() => {
                   navigate('/audits/list')
                 })

@@ -82,10 +82,10 @@ export {ReportsWidget1}
 
 
 function getChartOptions(height: number, reportsInfo: any): ApexOptions {
-  const labelColor = getCSSVariableValue('--kt-gray-500')
-  const borderColor = getCSSVariableValue('--kt-gray-200')
+  const labelColor = getCSSVariableValue('--kt-gray-600')
+  const borderColor = getCSSVariableValue('--kt-gray-300')
   const baseColor = getCSSVariableValue('--kt-warning')
-  const secondaryColor = getCSSVariableValue('--kt-gray-300')
+  const secondaryColor = getCSSVariableValue('--kt-gray-500')
 
   const series: any = []
   const categories: any = []

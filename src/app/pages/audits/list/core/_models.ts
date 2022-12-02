@@ -17,7 +17,7 @@ export type Model = {
   auditor?:string
   type?: string
   userId?:string
-  fullname?:string
+  unitName?:string
   categoryType?:number | string
   collarType?:number
   status?: string

@@ -18,7 +18,7 @@ const ListToolbar: FC  = () => {
 
   return (
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
-<ListFilter setReportsInfo = {setReportsInfo} />
+{/* <ListFilter setReportsInfo = {setReportsInfo} /> */}
       {/* begin::Add Places */}
      
       {/* <a href='Add'

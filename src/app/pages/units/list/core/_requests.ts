@@ -20,6 +20,14 @@ const listUnits = async (sectionId : string): Promise<any> => await axios.get(`$
    return res.data;
  });
 
+ const createBulkUnits = (question: Model): Promise<Model | undefined> => {
+  return axios
+    .put(CREATE_UNITS_URL, question)
+    .then((response: AxiosResponse<Response<Model>>) => response.data)
+    .then((response: Response<Model>) => response as any)
+}
+
+
 const getUnits = (query: string): Promise<QueryResponse> => {
   const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
   const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).unitId
@@ -70,4 +78,4 @@ const deleteSelectedUnits = (unitIds: Array<ID>): Promise<void> => {
   return axios.all(requests).then(() => {})
 }
 
-export {getUnits, deleteUnit, deleteSelectedUnits, getUnitById, createUnit, updateUnit, listUnits, listPartialUnits, getUnitsForDropdown}
+export {getUnits, deleteUnit, deleteSelectedUnits, getUnitById, createUnit, updateUnit, listUnits, listPartialUnits, getUnitsForDropdown, createBulkUnits}

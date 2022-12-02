@@ -13,8 +13,11 @@ const ListToolbar = () => {
 
   return (
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
+      <Link className='btn btn-sm btn-dark btn-active-light-dark' to={`../Add`}>
+      <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+      {intl.formatMessage({id: 'UNITGROUP.LIST.ADD'})}</Link>
       
-     
+      
      
       {/* begin::Add Places */}
       <button

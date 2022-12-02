@@ -373,6 +373,8 @@ const AuditQuestionsForm = () => {
           </div>
         )
       })}
+
+      <div className='col-md-12'>
       <button
         type='button'
         disabled={allQuestionAnswered}
@@ -382,10 +384,13 @@ const AuditQuestionsForm = () => {
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         Save Answers
       </button>
+
+      </div>
+      <div  className='col-md-12'>
       <button
         type='button'
         disabled={!allQuestionAnswered}
-        className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
+        className='btn btn-sm btn-secondary btn-active-light-danger  mt-3 mb-3'
         onClick={() => finishAudit().then(() => {
           navigate('/audits/list')
         })}
@@ -393,7 +398,7 @@ const AuditQuestionsForm = () => {
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         Finish Audit
       </button>
-
+      </div>
 
     </>
   )

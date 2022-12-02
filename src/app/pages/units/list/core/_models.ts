@@ -11,4 +11,13 @@ export type Model = {
   unitgroupcheck? : boolean
 }
 
+export type Unit = {
+  id: number
+  name: string
+  sectionId: number
+  leaderUserId: number | null 
+  unitType: number
+  parentUnitId:number
+}
+
 export type QueryResponse = Response<Array<Model>>

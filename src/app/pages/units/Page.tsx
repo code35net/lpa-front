@@ -84,7 +84,7 @@ const Breadcrumbs: Array<PageLink> = [
     <Routes>
       <Route element={<Outlet />}>
         <Route
-          path='list'
+         path='list'
           element={
             <>
               <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'UNIT.PAGE.TITLE'})}</PageTitle>
