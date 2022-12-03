@@ -188,7 +188,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
       type: 'bar',
       height: height,
       toolbar: {
-        show: false,
+        show: true,
       },
     },
     plotOptions: {

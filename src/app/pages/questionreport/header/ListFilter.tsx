@@ -9,17 +9,15 @@ import {listDepartments} from '../../departments/list/core/_requests'
 import {listQuestionCategories} from '../../questioncategories/list/core/_requests'
 import {listSections} from '../../sections/list/core/_requests'
 import {listUnits} from '../../units/list/core/_requests'
-import {getReport} from '../core/_requests'
-import {getPercentageReport} from '../../../../app/pages/departments/list/core/_requests'
+import {getQuestionReport} from '../core/_requests'
+import {getPercentageReport} from '../../departments/list/core/_requests'
 import {getReportLeader} from '../core/_requests'
 
 type Props = {
-  setReportsInfo: any,
-  setReportsInfoLeader: any,
-  setReportsInfoPercentage: any
+  setReportsInfo: any
 }
 
-const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, setReportsInfoLeader}) => {
+const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
   const intl = useIntl()
 
   const {updateState} = useQueryRequest()
@@ -119,23 +117,12 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
     if (selectedUnits) {
       filter.unitId = selectedUnits
     }
-    getReport(filter).then((response) => {
+    getQuestionReport(filter).then((response) => {
       if (response?.data) {
         setReportsInfo(response.data)
       }
     })
 
-    getReportLeader(filter).then((response) => {
-      if (response?.data) {
-        setReportsInfoLeader(response.data)
-      }
-    })
-
-    getPercentageReport(filter).then((response) => {
-      if (response?.data) {
-        setReportsInfoPercentage(response.data)
-      }
-    })
   }
 
   return (
@@ -223,7 +210,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
               
             </select>
           </div>
-          {/* begin::Input group */}
+          {/* begin::Input group 
           <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
               {intl.formatMessage({id: 'FILTER.QUESTIONCATEGORIES'})}
@@ -248,7 +235,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
                 )
               })}
             </select>
-          </div>
+          </div>*/}
           {/* end::Input group */}
 
           {/* begin::Input group */}
@@ -306,7 +293,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
             </select>
           </div>
           {/* end::Input group */}
-{/* begin::Input group */}
+{/* begin::Input group 
 <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
               {intl.formatMessage({id: 'FILTER.UNITS'})}
@@ -333,7 +320,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
                 )
               })}
             </select>
-          </div>
+          </div>*/}
           {/* end::Input group */}
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>

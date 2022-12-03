@@ -69,19 +69,24 @@ export function AsideMenuMain() {
         fontIcon='bi-chat-left'
         icon='/media/icons/duotune/arrows/arr001.svg'
       >
-        <AsideMenuItem
-          to='/tablereport/list'
-          title='Denetim Raporları (Veri)'
-          hasBullet={true}
-        />
+      <AsideMenuItem
+        to='/tablereport/list'
+        title='Denetim Raporları (Veri)'
+        hasBullet={true}
+      />
         <AsideMenuItem
           to='/reports/graphics/actionreports'
           title='Denetim Raporları (Grafik)'
           hasBullet={true}
         />
+      <AsideMenuItem
+        to='/questiontablereport/list'
+        title='Aksiyon Raporları (Veri)'
+        hasBullet={true}
+      />
         <AsideMenuItem
-          to='/reports/'
-          title='Aksiyon Raporları'
+          to='/questionreport/'
+          title='Aksiyon Raporları (Grafik)'
           hasBullet={true}
         />
       </AsideMenuItemWithSub>

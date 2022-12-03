@@ -6,7 +6,7 @@ import qs from 'qs'
 
 const API_URL = process.env.REACT_APP_API_URL
 const UNIT_URL = `${API_URL}/Unit`
-const GET_UNITS_URL = `${API_URL}/Custom/getUnit`
+const GET_UNITS_URL = `${API_URL}/Custom/getUnits`
 const GET_PARTIALUNITS_URL = `${API_URL}/Custom/getPartialUnit`
 const CREATE_UNITS_URL = `${API_URL}/Custom`
 
@@ -32,9 +32,9 @@ const getUnits = (query: string): Promise<QueryResponse> => {
   const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
   const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).unitId
   if(qsd2 == undefined)
-  return axios.get(`${UNIT_URL}/getAll/SectionId-${qsd}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  return axios.get(`${GET_UNITS_URL}/getAll/SectionId-${qsd}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
   else
-  return axios.get(`${UNIT_URL}/getAll/ParentUnitId-${qsd2}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  return axios.get(`${GET_UNITS_URL}/getAll/ParentUnitId-${qsd2}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 const getUnitsForDropdown = (): Promise<any> => {

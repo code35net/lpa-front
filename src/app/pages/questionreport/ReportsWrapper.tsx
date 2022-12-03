@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react'
-import {ReportsWidget1,ReportsWidget2} from './widgets'
+import {ReportsWidget3} from './widgets'
 import {ListFilter} from './header/ListFilter'
 import {
   ChartsWidget1,
@@ -16,26 +16,17 @@ const Reports: FC = () => {
 
 
   const [reportsInfo,setReportsInfo] = useState();
-  const [reportsInfoPercentage,setReportsInfoPercentage] = useState();
-  const [reportsInfoLeader,setReportsInfoLeader] = useState();
 
   return (
     <>
       {/* begin::Row */}
 
       <div className='row g-5 g-xl-8'>
-        <ListFilter setReportsInfo = {setReportsInfo} setReportsInfoPercentage = {setReportsInfoPercentage} setReportsInfoLeader = {setReportsInfoLeader} />
+        <ListFilter setReportsInfo = {setReportsInfo} />
         <div className='col-xl-12'>
-          <ReportsWidget1 reportsInfo = {reportsInfo} setReportsInfo = {setReportsInfo} className='card-xl-stretch mb-xl-8' />
+          <ReportsWidget3 reportsInfo = {reportsInfo} setReportsInfo = {setReportsInfo} className='card-xl-stretch mb-xl-8' />
         </div>
         
-        <div className='col-xl-12'>
-          <ReportsWidget2 reportsInfo = {reportsInfoLeader} setReportsInfo = {setReportsInfoLeader} className='card-xl-stretch mb-xl-8' />
-        </div>
-        
-        <div className='col-xl-12'>
-        <ChartsWidget1 reportsInfo={reportsInfoPercentage}  setReportsInfo={setReportsInfoPercentage} className='card-xl-stretch mb-xl-8' />
-        </div>
       </div>
       {/* end::Row */}
 

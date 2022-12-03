@@ -1,3 +1,4 @@
+
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useEffect, useRef, useState} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
@@ -5,7 +6,7 @@ import {KTSVG} from '../../../../_metronic/helpers'
 import {Dropdown1} from '../../../../_metronic/partials/content/dropdown/Dropdown1'
 import {getCSS, getCSSVariableValue} from '../../../../_metronic/assets/ts/_utils'
 import {useThemeMode} from '../../../../_metronic/partials/layout/theme-mode/ThemeModeProvider'
-import {getReport} from '../core/_requests'
+import {getReportLeader} from '../core/_requests'
 import {useIntl} from 'react-intl'
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
   setReportsInfo: any
 }
 
-const ReportsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo}) => {
+const ReportsWidget2: React.FC<Props> = ({className, reportsInfo, setReportsInfo}) => {
   const intl = useIntl()
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
@@ -30,7 +31,7 @@ const ReportsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo
   }, [chartRef, mode, reportsInfo])
 
   useEffect(() => {
-    getReport("").then((res: any) => {
+    getReportLeader("").then((res: any) => {
       setReportsInfo([...res?.data])
     })
   }, [])
@@ -51,6 +52,20 @@ const ReportsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo
 
   return (
     <div className={`card ${className}`}>
+      {/* begin::Header */}
+      <div className='card-header border-0 pt-5'>
+        {/* begin::Title */}
+        <h3 className='card-title align-items-start flex-column'>
+          <span className='card-label fw-bold fs-3 mb-1'>Takım Lideri Performans Raporu</span>
+
+          {/* <span className='text-muted fw-semibold fs-7'>This month</span> */}
+        </h3>
+        {/* end::Title */}
+
+        {/* begin::Toolbar */}
+        <div className='card-toolbar'>{/* end::Menu */}</div>
+        {/* end::Toolbar */}
+      </div>
       {/* end::Header */}
 
       {/* begin::Body */}
@@ -64,7 +79,7 @@ const ReportsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo
   )
 }
 
-export {ReportsWidget1}
+export {ReportsWidget2}
 
 
 function getChartOptions(height: number, reportsInfo: any): ApexOptions {
@@ -266,14 +281,6 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
         },
       },
     },
-    title: {
-        text: 'Yüzdece Gerçekleşme ve Puan Raporu',
-        style: {
-          fontSize:  '22px',
-          fontWeight:  '600',
-          color:  '#000'
-        },
-    },
     tooltip: {
       style: {
         fontSize: '12px',
@@ -294,6 +301,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
         },
       },
     },
+    
   }
   }
   else

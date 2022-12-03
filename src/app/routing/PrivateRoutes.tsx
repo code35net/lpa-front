@@ -4,6 +4,7 @@ import {MasterLayout} from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
 import { Charts } from '../pages/dashboard/DashboardWrapper'
 import { Reports } from '../pages/reports/ReportsWrapper'
+import { Reports as QuestionReports } from '../pages/questionreport/ReportsWrapper'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {DisableSidebar} from '../../_metronic/layout/core'
 import {WithChildren} from '../../_metronic/helpers'
@@ -32,6 +33,7 @@ const PrivateRoutes = () => {
   const ActionPage = lazy(() => import('../pages/actions/Page'))
   const DepartmentPage = lazy(() => import('../pages/departments/Page'))
   const TableReportPage = lazy(() => import('../pages/tablereport/Page'))
+  const QuestionTableReportPage = lazy(() => import('../pages/questiontablereport/Page'))
   const HolidayPage = lazy(() => import('../pages/holidays/Page'))
   const PositionsPage = lazy(() => import('../pages/positions/Page'))
   const SectionsPage = lazy(() => import('../pages/sections/Page'))
@@ -63,6 +65,7 @@ const PrivateRoutes = () => {
         <Route path='/actions/actiondetail' element={<ActionDetails />} />
         <Route path='/departments' element={<DepartmentPage />} />
         <Route path='/tablereport' element={<TableReportPage />} />
+        <Route path='/questiontablereport' element={<QuestionTableReportPage />} />
         <Route path='/holidays' element={<HolidayPage />} />
         <Route path='/positions' element={<PositionsPage />} />
         <Route path='/auditcategories' element={<AuditCategoryPage />} />
@@ -74,6 +77,7 @@ const PrivateRoutes = () => {
 
               <Route path='dashboard' element={<Charts />} />
               <Route path='reports' element={<Reports />} />
+              <Route path='questionreport' element={<QuestionReports />} />
         <Route path='/role-management/permissions/:roleId' element={<RolePermissionForm />} />
 
         <Route path='/user-management/userpermission/:userId' element={<UserPermissionForm />} />
@@ -169,6 +173,14 @@ const PrivateRoutes = () => {
           }
         />
         <Route
+          path='/questiontablereport/*'
+          element={
+            <SuspensedView>
+              <QuestionTableReportPage />
+            </SuspensedView>
+          }
+        />
+        <Route
           path='/holidays/*'
           element={
             <SuspensedView>
@@ -254,6 +266,14 @@ const PrivateRoutes = () => {
             element={
                 <SuspensedView>
                     <Reports />
+                </SuspensedView>
+            }
+        />
+        <Route
+            path='questionreport/*'
+            element={
+                <SuspensedView>
+                    <QuestionReports />
                 </SuspensedView>
             }
         />
