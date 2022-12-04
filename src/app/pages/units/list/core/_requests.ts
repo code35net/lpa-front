@@ -5,8 +5,8 @@ import qs from 'qs'
 
 
 const API_URL = process.env.REACT_APP_API_URL
-const UNIT_URL = `${API_URL}/Unit`
-const GET_UNITS_URL = `${API_URL}/Custom/getUnits`
+const UNIT_URL = `${API_URL}/Custom/getUnit`
+const GET_UNITS_URL = `${API_URL}/Custom/getUnit`
 const GET_PARTIALUNITS_URL = `${API_URL}/Custom/getPartialUnit`
 const CREATE_UNITS_URL = `${API_URL}/Custom`
 
@@ -26,6 +26,7 @@ const listUnits = async (sectionId : string): Promise<any> => await axios.get(`$
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response as any)
 }
+
 
 
 const getUnits = (query: string): Promise<QueryResponse> => {

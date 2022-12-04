@@ -14,6 +14,8 @@ export type Model = {
   auditName?: string
   auditId?:number
   auditDate?: string
+  started?: string
+  ended?: string
   auditor?:string
   type?: string
   userId?:string

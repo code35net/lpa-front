@@ -233,12 +233,34 @@ const AuditDetails = () => {
           </div>
           
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>Date</label>
+            <label className='col-lg-4 fw-bold text-muted'>Planned Date</label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
               {Array.isArray(response?.data) && response?.data?.length
                   ? response?.data[0]?.date
+                  : ''}
+              </span>
+            </div>
+          </div>
+          <div className='row mb-10'>
+            <label className='col-lg-4 fw-bold text-muted'>Started Date</label>
+
+            <div className='col-lg-8'>
+              <span className='fw-bold fs-6'>
+              {Array.isArray(response?.data) && response?.data?.length
+                  ? response?.data[0]?.started
+                  : ''}
+              </span>
+            </div>
+          </div>
+          <div className='row mb-10'>
+            <label className='col-lg-4 fw-bold text-muted'>Ended Date</label>
+
+            <div className='col-lg-8'>
+              <span className='fw-bold fs-6'>
+              {Array.isArray(response?.data) && response?.data?.length
+                  ? response?.data[0]?.ended
                   : ''}
               </span>
             </div>

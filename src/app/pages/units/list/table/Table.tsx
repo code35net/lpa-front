@@ -23,6 +23,8 @@ const Table = () => {
   }
   items = items.sort((a: any, b: any) => a.unitType == 2 ? -1 : 1)
   
+//  const items = useQueryResponseData()
+
   const intl = useIntl()
   const isLoading = useQueryResponseLoading()
   const data = useMemo(() => items, [items])
