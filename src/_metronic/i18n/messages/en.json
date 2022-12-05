@@ -109,6 +109,7 @@
   "UNIT.LIST.SHIFT": "Shift",
   "UNIT.LIST.OPERATOR": "Operator",
   "UNIT.LIST.ADD": "New Unit",
+  "UNIT.LIST.BULKADD": "New Multiple Units",
   "UNIT.MODAL.ADD": "Add Unit",
   "UNIT.MODAL.EDIT": "Edit Unit",
   "UNITGROUP.PAGE.TITLE": "Unit Groups",
@@ -131,7 +132,7 @@
   "QUESTIONS.ADDPAGE.AUDITCATEGORY": "Audit Category",
   "QUESTIONS.ADDPAGE.QUESTIONCATEGORY": "Question Category",
   "QUESTIONS.ADDPAGE.QUESTIONTEXT_OPTION": "Question Text / Option",
-  "QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY": "Question Category ON/OFF",
+  "QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY": "Question Category",
   "QUESTIONS.ADDPAGE.IS_NEW": "Is New",
 
   "AUDITS.PAGE.TITLE": "Audits",

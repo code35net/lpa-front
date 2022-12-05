@@ -387,7 +387,7 @@ const EditForm: FC<Props> = ({item}) => {
 
                     <div className='col-lg-12'>
                       <div className='row'>
-                        <div className='col-md-6 fv-row'>
+                        <div className='col-md-12 fv-row'>
                           <input
                             key={`${question.id}`}
                             name={`${question.id}`}
@@ -401,19 +401,27 @@ const EditForm: FC<Props> = ({item}) => {
                             value={question.text}
                           />
                         </div>
-                        <div className='col-md-1 fv-row'>
+                        </div>
+                        <div className='row'>
+                        <div className='col-md-3 fv-row'>
                           
                           <div className='form-check form-check-solid form-switch'>
-                          {/* <label className='fw-bold fs-6'>
+                          <label className='fw-bold mt-3'>
+                            
                             {intl.formatMessage({
                               id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
                             })}
-                          </label> */}
+                          </label>
+
+                   
+                   
+
+
                               <input
                                 checked={question.isAddedQuestionCategory}
                                 onChange={(e)=> handleIsAddedQuestionCategory(question?.id,e.target.checked)}
                                 value={question.isAddedQuestionCategory ? 'on' : 'off'}
-                                className='form-check-input w-80px mt-2 bg-dark border-dark'
+                                className='form-check-input w-30 mt-2'
                                 type='checkbox'
                                 id='allowmarketing'
                               />
@@ -423,7 +431,9 @@ const EditForm: FC<Props> = ({item}) => {
                         </div>
 
                         {question.isAddedQuestionCategory && (
-                          <div className='col-md-2 fv-row'>
+                          <div className='col-md-3 fv-row'>
+                            
+
                             <select
                             className='form-select form-select-solid form-select-md'
                             onChange={(e) => handleQuestionGroupId(question.id, e.target.value)}
@@ -443,8 +453,9 @@ const EditForm: FC<Props> = ({item}) => {
                           </div>
                         )}
 
-                        <div className='col-md-2 fv-row'>
-                          
+                        <div className='col-md-3 fv-row'>
+                        
+                        
                         <select
                               className='form-select form-select-solid form-select-md'
                               onChange={(e) => handleAnswerTemplateId(question.id, e.target.value)}

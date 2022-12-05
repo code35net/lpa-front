@@ -9,6 +9,8 @@ import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {DisableSidebar} from '../../_metronic/layout/core'
 import {WithChildren} from '../../_metronic/helpers'
 import {EditForm} from "../pages/questions/Add"
+import {SubUnitForm} from "../pages/subunits/Add"
+import {UnitForm} from "../pages/units/Add"
 
 import {UserEditForm} from "../pages/user-management/newuser"
 import {UserPermissionForm} from "../pages/user-management/permissions"
@@ -38,6 +40,7 @@ const PrivateRoutes = () => {
   const PositionsPage = lazy(() => import('../pages/positions/Page'))
   const SectionsPage = lazy(() => import('../pages/sections/Page'))
   const UnitsPage = lazy(() => import('../pages/units/Page'))
+  const SubUnitsPage = lazy(() => import('../pages/subunits/Page'))
   const AnswerTemplatePage = lazy(() => import('../pages/answertemplates/Page'))
   const AuditCategoryPage = lazy(() => import('../pages/auditcategories/Page'))
   const QuestionGroupPage = lazy(() => import('../pages/questioncategories/Page'))
@@ -57,6 +60,8 @@ const PrivateRoutes = () => {
         <Route path='/staffs' element={<StaffPage />} />
         <Route path='/actions' element={<ActionPage />} />
         <Route path='/questions/add' element={<EditForm />} />
+        <Route path='/subunits/add' element={<SubUnitForm />} />
+        <Route path='/units/add' element={<UnitForm />} />
         <Route path='/user-management/newuser' element={<UserEditForm />} />
         {/* <Route path='/answertemplates/add' element={<TemplateForm />} /> */}
         <Route path='/audits/planner' element={<EditAuditForm />} />
@@ -201,6 +206,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <UnitsPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/subunits/*'
+          element={
+            <SuspensedView>
+              <SubUnitsPage />
             </SuspensedView>
           }
         />

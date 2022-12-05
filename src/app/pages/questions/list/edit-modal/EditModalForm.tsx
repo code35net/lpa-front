@@ -168,42 +168,26 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         {/* end::Input group */}
 
         <div className='fv-row mb-7'>
-          <label className='required fw-bold fs-6 mb-2'>
+          {/* <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({
               id: 'QUESTIONS.ADDPAGE.IS_NEW',
             })}
-          </label>
+          </label> */}
           <div className='form-check form-check-solid form-switch'>
             <input
               {...formik.getFieldProps('isNew')}
               checked={formik.values.isNew}
               onChange={(e) => formik.setFieldValue('isNew', e.target.checked)}
               value={formik.values.isNew ? 'on' : 'off'}
-              className='form-check-input w-80px mt-2 bg-dark border-dark'
+              className='form-check-input w-80px mt-2 border-secondary'
               type='checkbox'
               id='isNew'
             />
+            <label className='form-check-label mt-3 px-5'> <small className='text-danger'>Soruyu kopyalamak için işaretleyiniz.</small> </label>
           </div>
         </div>
 
-        <div className='fv-row mb-7'>
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({
-              id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
-            })}
-          </label>
-          <div className='form-check form-check-solid form-switch'>
-            <input
-              {...formik.getFieldProps('isAddedQuestionCategory')}
-              checked={formik.values.isAddedQuestionCategory}
-              onChange={(e) => formik.setFieldValue('isAddedQuestionCategory', e.target.checked)}
-              value={formik.values.isAddedQuestionCategory ? 'on' : 'off'}
-              className='form-check-input w-80px mt-2 bg-dark border-dark'
-              type='checkbox'
-              id='isAddedQuestionCategory'
-            />
-          </div>
-        </div>
+        
         {/* begin::Input group */}
         <div className='fv-row mb-7'>
           {/* begin::Label */}
@@ -251,6 +235,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           </select>
           {/* end::Input */}
         </div>
+        
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
@@ -275,13 +260,28 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           {/* end::Input */}
         </div>
         <div className='fv-row mb-7'>
-          {/* begin::Label */}
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.QUESTIONCATEGORY'})}
-          </label>
-          {/* end::Label */}
+          
+          <div className='form-check form-check-solid form-switch'>
+          <label className='fw-bold fs-6 mt-3 px-5'> 
+          {intl.formatMessage({
+              id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
+            })}
+             </label>
+            <input
+              {...formik.getFieldProps('isAddedQuestionCategory')}
+              checked={formik.values.isAddedQuestionCategory}
+              onChange={(e) => formik.setFieldValue('isAddedQuestionCategory', e.target.checked)}
+              value={formik.values.isAddedQuestionCategory ? 'on' : 'off'}
+              className='form-check-input w-80px mt-2 border-secondary'
+              type='checkbox'
+              id='isAddedQuestionCategory'
+            />
+          </div>
 
-          {/* begin::Input */}
+        </div>
+        <div className='fv-row mb-7'>
+         
+         
           <select
             className='form-select form-select-solid form-select-md'
             //onChange={(e) => handleQuestionGroupId(question.id, e.target.value)}

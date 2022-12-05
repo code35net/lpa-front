@@ -13,6 +13,7 @@ import {getUsers, listUsers} from '../../../user-management/list/core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {Field} from 'formik'
 import {KTSVG} from '../../../../../_metronic/helpers'
+import qs from 'qs'
 
 type Props = {
   isUnitLoading: boolean
@@ -35,6 +36,8 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
 
   const [unitgroupisactive, setunitgroupisactive] = React.useState<boolean>()
 
+  const [unitgroupshow, setunitgroupshow] = React.useState<boolean>()
+  const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
 
   const [unitForEdit] = useState<Model>({
     name: undefined,
@@ -56,6 +59,11 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
 
   useEffect(() => {
     
+    listUnits(qsd?.toString() || "0").then((res)=>{
+      setunitgroupshow(res.data.some((a:any) => a.unitType == 2))
+    })
+
+
     getUnitsForDropdown().then((res2) => {
 
 
@@ -138,6 +146,8 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
 
               <div className='col-lg-8 fv-row'>
                 <div className='d-flex align-items-center mt-3'>
+                {
+                      !unitgroupshow && (
                   <label className='form-check form-check-inline form-check-solid me-5'>
                     <input
                       className='form-check-input'
@@ -152,6 +162,9 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                     </span>
                   </label>
 
+)}
+{
+                      !unitgroupshow && (
                   <label className='form-check form-check-inline form-check-solid'>
                   <input
                       className='form-check-input'
@@ -165,25 +178,33 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                     {intl.formatMessage({id: 'UNIT.LIST.OPERATOR'})}
                     </span>
                   </label>
-                  <label className='form-check form-check-inline form-check-solid'>
-                  <input
-                      className='form-check-input'
-                      name='unitType'
-                      type='radio'
-                      value={2}
-                      checked={formik.values.unitType === 2}
-                      onChange={() => formik.setFieldValue("unitType",2)}
-                    />
-                    <span className='fw-bold ps-2 fs-6'>
-                    {intl.formatMessage({id: 'UNIT.LIST.GROUP'})}
-                    </span>
-                  </label>
+
+                      )}
+
+                    {
+                      unitgroupshow && (
+                    <label className='form-check form-check-inline form-check-solid'>
+                                      <input
+                                          className='form-check-input'
+                                          name='unitType'
+                                          type='radio'
+                                          value={2}
+                                          checked={formik.values.unitType === 2}
+                                          onChange={() => formik.setFieldValue("unitType",2)}
+                                        />
+                                        <span className='fw-bold ps-2 fs-6'>
+                                        {intl.formatMessage({id: 'UNIT.LIST.GROUP'})}
+                                        </span>
+                                      </label>
+                      )
+                    }
+                                      
                 </div>
               </div>
             </div>
 
             
-        { formik.values.unitType != 2 && (
+        {/* { formik.values.unitType != 2 && (
         <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                             {intl.formatMessage({
@@ -206,8 +227,8 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                             </div>
                             </div>
                         </div>
-        )}
-                        { formik.values.unitType != 2 &&  unitgroupisactive && (
+        )} */}
+                        {/* { formik.values.unitType != 2 &&  unitgroupisactive && (
                           <div className='fv-row mb-7'>
                             <label className='required fw-bold fs-6 mb-2'>
                               {intl.formatMessage({id: 'UNIT.ADDPAGE.UNITGROUP'})}
@@ -227,8 +248,8 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                               ))}
                             </select>
                           </div>
-                           )}
-            { formik.values.unitType != 2 && (
+                           )} */}
+            { formik.values.unitType == 1 && (
 <div className='fv-row mb-7'>
                             <label className='required fw-bold fs-6 mb-2'>
                               {intl.formatMessage({id: 'UNIT.ADDPAGE.LEADER'})}
