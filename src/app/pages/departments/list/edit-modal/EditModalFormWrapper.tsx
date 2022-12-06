@@ -22,7 +22,7 @@ const EditModalFormWrapper = () => {
     }
   )
 
-  console.log(response,"tastdtastdsa")
+  
   if (!itemIdForUpdate) {
     return <EditModalForm isDepartmentLoading={response.isLoading} item={{id: undefined}} />
   }

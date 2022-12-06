@@ -171,7 +171,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
               onChange={(e) => setSelectedYears(e.target.value)}
               value={selectedYears}
             >
-              <option value=''>Seçiniz</option>
+              <option value=''>{intl.formatMessage({id: 'REPORTS.HEADER.CHOOSE'})}</option>
                   <option value='2022'>2022</option>
                   <option value='2023'>2023</option>
                   <option value='2024'>2024</option>
@@ -194,19 +194,19 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
               onChange={(e) => setSelectedMonths(e.target.value)}
               value={selectedMonths}
             >
-              <option value=''>Seçiniz</option>
-                  <option value='1'>Ocak</option>
-                  <option value='2'>Şubat</option>
-                  <option value='3'>Mart</option>
-                  <option value='4'>Nisan</option>
-                  <option value='5'>Mayıs</option>
-                  <option value='6'>Haziran</option>
-                  <option value='7'>Temmuz</option>
-                  <option value='8'>Ağustos</option>
-                  <option value='9'>Eylül</option>
-                  <option value='10'>Ekim</option>
-                  <option value='11'>Kasım</option>
-                  <option value='12'>Aralık</option>
+              <option value=''>{intl.formatMessage({id: 'REPORTS.HEADER.CHOOSE'})}</option>
+                  <option value='1'>{intl.formatMessage({id: 'REPORTS.MOUNTH.01'})}</option>
+                  <option value='2'>{intl.formatMessage({id: 'REPORTS.MOUNTH.02'})}</option>
+                  <option value='3'>{intl.formatMessage({id: 'REPORTS.MOUNTH.03'})}</option>
+                  <option value='4'>{intl.formatMessage({id: 'REPORTS.MOUNTH.04'})}</option>
+                  <option value='5'>{intl.formatMessage({id: 'REPORTS.MOUNTH.05'})}</option>
+                  <option value='6'>{intl.formatMessage({id: 'REPORTS.MOUNTH.06'})}</option>
+                  <option value='7'>{intl.formatMessage({id: 'REPORTS.MOUNTH.07'})}</option>
+                  <option value='8'>{intl.formatMessage({id: 'REPORTS.MOUNTH.08'})}</option>
+                  <option value='9'>{intl.formatMessage({id: 'REPORTS.MOUNTH.09'})}</option>
+                  <option value='10'>{intl.formatMessage({id: 'REPORTS.MOUNTH.10'})}</option>
+                  <option value='11'>{intl.formatMessage({id: 'REPORTS.MOUNTH.11'})}</option>
+                  <option value='12'>{intl.formatMessage({id: 'REPORTS.MOUNTH.12'})}</option>
               
             </select>
           </div>
@@ -253,7 +253,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
               onChange={(e) => setSelectedDepartments(e.target.value)}
               value={selectedDepartments}
             >
-              <option value=''>All</option>
+              <option value=''>{intl.formatMessage({id: 'REPORTS.FILTER.ALL'})}</option>
 
               {departments.map((item: any) => {
                 return (
@@ -281,7 +281,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo}) => {
               onChange={(e) => setSelectedSections(e.target.value)}
               value={selectedSections}
             >
-              <option value=''>All</option>
+              <option value=''>{intl.formatMessage({id: 'REPORTS.FILTER.ALL'})}</option>
 
               {sections.map((item: any) => {
                 return (

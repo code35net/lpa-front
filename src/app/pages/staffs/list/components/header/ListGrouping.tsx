@@ -3,11 +3,13 @@ import {QUERIES} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {deleteSelectedStaffs} from '../../core/_requests'
+import {useIntl} from 'react-intl'
 
 const ListGrouping = () => {
   const {selected, clearSelected} = useListView()
   const queryClient = useQueryClient()
   const {query} = useQueryResponse()
+  const intl = useIntl()
 
   const deleteSelectedItems = useMutation(() => deleteSelectedStaffs(selected), {
     // 💡 response of the mutation is passed to onSuccess
@@ -29,7 +31,7 @@ const ListGrouping = () => {
         className='btn btn-danger'
         onClick={async () => await deleteSelectedItems.mutateAsync()}
       >
-        Delete Selected
+       {intl.formatMessage({id: 'STAFFS.LIST.DELETE'})}
       </button>
     </div>
   )

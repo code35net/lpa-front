@@ -14,27 +14,27 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <SelectionCell id={props.data[props.row.index].id} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Question Text' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'QUESTIONS.LIST.TABLE.QUESTION.TEXT'})} className='min-w-125px' />,
     id: 'text',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].text} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Audit Category' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'QUESTIONS.LIST.TABLE.AUDIT.CATEGORY'})} className='min-w-125px' />,
     id: 'auditCategory',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].auditCategory.name} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Department Name' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'QUESTIONS.LIST.TABLE.DEP.NAME'})} className='min-w-125px' />,
     id: 'Department',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].section.department.name} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Section Name' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'QUESTIONS.LIST.TABLE.SECTION.NAME'})} className='min-w-125px' />,
     id: 'Section',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].section.name} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Unit Group Name' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'QUESTIONS.LIST.TABLE.UNIT.NAME'})} className='min-w-125px' />,
     id: 'Unit',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].unit?.name}  />,
   },

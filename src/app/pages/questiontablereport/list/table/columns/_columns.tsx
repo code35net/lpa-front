@@ -14,12 +14,12 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].name} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Toplam' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'REPORTS.TABLE.TOTAL'})} className='min-w-125px' />,
     id: 'avarage',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].avarage} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Aksiyon Alan' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'REPORTS.TABLE.ACTION'})} className='min-w-125px' />,
     id: 'total',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].completion} />,
   },

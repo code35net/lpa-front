@@ -183,7 +183,8 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
               type='checkbox'
               id='isNew'
             />
-            <label className='form-check-label mt-3 px-5'> <small className='text-danger'>Soruyu kopyalamak için işaretleyiniz.</small> </label>
+            <label className='form-check-label mt-3 px-5'> <small className='text-danger'>{intl.formatMessage({id: 'QUESTIONS.LIST.MODAL.MARK'})}</small> </label>
+            
           </div>
         </div>
 
@@ -203,7 +204,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
             value={formik.values.departmentId}
             onChange={handleChangeDepartmentId}
           >
-            <option value=''>Seçiniz</option>
+            <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.MODAL.FORM'})}</option>
             {departments.map((department: any) => (
               <option value={department?.id} key={department?.id as any}>
                 {department?.name as any}
@@ -226,7 +227,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
             value={formik.values.sectionId}
             onChange={formik.handleChange}
           >
-            <option value=''>Seçiniz</option>
+            <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.MODAL.FORM'})}</option>
             {sections.map((section: any) => (
               <option value={section?.id} key={section?.id as any}>
                 {section?.name as any}
@@ -250,7 +251,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
             value={formik.values.auditCategoryId}
             onChange={formik.handleChange}
           >
-            <option value=''>Seçiniz</option>
+            <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.MODAL.FORM'})}</option>
             {auditcategories.map((auditcategory: any) => (
               <option value={auditcategory?.id as any} key={auditcategory?.id as any}>
                 {auditcategory?.name as any}
@@ -356,7 +357,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
             <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
             {(formik.isSubmitting || isQuestionLoading) && (
               <span className='indicator-progress'>
-                Please wait...{' '}
+                {intl.formatMessage({id: 'QUESTIONS.LIST.MODAL.WAİT'})}{' '}
                 <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
               </span>
             )}

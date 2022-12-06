@@ -6,20 +6,21 @@ import {SelectionHeader} from './SelectionHeader'
 import {Model} from '../../core/_models'
 import {useIntl} from 'react-intl'
 
+
 const Columns: ReadonlyArray<Column<Model>> = [
- 
+  
   {
     Header: (props) => <CustomHeader tableProps={props} title='#' className='min-w-125px' />,
     id: 'name',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].name} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Ortalama Puan' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'REPORTS.TABLE.AVERAGE'})} className='min-w-125px' />,
     id: 'avarage',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].avarage} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Yüzdece Gerçekleşme' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'REPORTS.TABLE.PERCENT'})} className='min-w-125px' />,
     id: 'total',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].completion} />,
   },

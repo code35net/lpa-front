@@ -87,7 +87,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
   const borderColor = getCSSVariableValue('--kt-gray-300')
   const baseColor = getCSSVariableValue('--kt-warning')
   const secondaryColor = getCSSVariableValue('--kt-gray-500')
-
+  
   const series: any = []
   const categories: any = []
   if (reportsInfo?.length > 0) {
@@ -101,6 +101,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
     let ar: any = []
     let ar2: any = []
    reportsInfo?.map((dat : any) => {
+    
         //data?.lists?.map((dat : any) => {
           const av = dat?.avarage?.toFixed(0) || 0
           const av2 = dat?.completion?.toFixed(0) || 0
@@ -114,7 +115,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
    
    series.push(
     {
-      name: 'Toplam',
+      name: `toplam`,
       data: ar
     })
 

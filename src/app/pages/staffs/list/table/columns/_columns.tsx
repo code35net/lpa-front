@@ -27,7 +27,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
   
   {
     Header: (props) => (
-      <CustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' />
+      <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'STAFFS.LIST.ACTIONS'})} className='text-end min-w-100px' />
     ),
     id: 'actions',
     Cell: ({...props}) => <ActionsCell id={props.data[props.row.index].id} />,

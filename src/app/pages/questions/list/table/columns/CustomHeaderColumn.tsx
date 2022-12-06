@@ -12,6 +12,7 @@ const CustomHeaderColumn: FC<Props> = ({column}) => (
       <th {...column.getHeaderProps()}>{column.render('Header')}</th>
     ) : (
       column.render('Header')
+      
     )}
   </>
 )
