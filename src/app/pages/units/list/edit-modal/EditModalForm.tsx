@@ -146,8 +146,8 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
 
               <div className='col-lg-8 fv-row'>
                 <div className='d-flex align-items-center mt-3'>
-                {
-                      !unitgroupshow && (
+                {/* {
+                      !unitgroupshow && ( */}
                   <label className='form-check form-check-inline form-check-solid me-5'>
                     <input
                       className='form-check-input'
@@ -162,9 +162,9 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                     </span>
                   </label>
 
-)}
+{/* )}
 {
-                      !unitgroupshow && (
+                      !unitgroupshow && ( */}
                   <label className='form-check form-check-inline form-check-solid'>
                   <input
                       className='form-check-input'
@@ -179,10 +179,10 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                     </span>
                   </label>
 
-                      )}
+                      {/* )}
 
                     {
-                      unitgroupshow && (
+                      unitgroupshow && ( */}
                     <label className='form-check form-check-inline form-check-solid'>
                                       <input
                                           className='form-check-input'
@@ -196,8 +196,8 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                                         {intl.formatMessage({id: 'UNIT.LIST.GROUP'})}
                                         </span>
                                       </label>
-                      )
-                    }
+                      {/* )
+                    } */}
                                       
                 </div>
               </div>
