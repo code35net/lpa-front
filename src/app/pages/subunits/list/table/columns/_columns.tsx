@@ -4,6 +4,8 @@ import {TypeCell} from './TypeCell'
 import {ActionsCell} from './ActionsCell'
 import {useIntl} from 'react-intl'
 import {SelectionCell} from './SelectionCell'
+import {AuditorCell} from './AuditorCell'
+
 import {ShiftCell} from './ShiftCell'
 import {CustomHeader} from './CustomHeader'
 import {SelectionHeader} from './SelectionHeader'
@@ -25,6 +27,12 @@ const Columns: ReadonlyArray<Column<Model>> = [
     id: 'type',
     Cell: ({...props}) => <TypeCell item={props.data[props.row.index]} />,
   },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'UNIT.LIST.TEAMLEADER'})} className='min-w-125px' />,
+    id: 'leaderName',
+    Cell: ({...props}) => <AuditorCell item={props.data[props.row.index]} />,
+  },
+
   {
     Header: (props) => (
       <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'TABLE.ACTIONS'})} className='text-end min-w-100px' />
