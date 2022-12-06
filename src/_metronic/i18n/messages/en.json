@@ -108,6 +108,7 @@
   "UNIT.LIST.LINE": "Line",
   "UNIT.LIST.SHIFT": "Shift",
   "UNIT.LIST.OPERATOR": "Operator",
+  "UNIT.LIST.TEAMLEADER": "Team Leader",
   "UNIT.LIST.ADD": "New Unit",
   "UNIT.LIST.BULKADD": "New Multiple Units",
   "UNIT.MODAL.ADD": "Add Unit",
