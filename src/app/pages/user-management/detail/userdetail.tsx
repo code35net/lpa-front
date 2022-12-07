@@ -94,7 +94,7 @@ const UserDetails = () => {
                       </div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Total Questions</div>
+                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'USER.DETAILS.TOTAL'})}</div>
                   </div>
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -103,7 +103,7 @@ const UserDetails = () => {
                       <div className='fs-2 fw-bolder'>15</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Successed</div>
+                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'USER.DETAILS.SUCCESS'})}</div>
                   </div>
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -111,21 +111,21 @@ const UserDetails = () => {
                       <div className='fs-2 fw-bolder'>4</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Failed</div>
+                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'USER.DETAILS.FAILED'})}</div>
                   </div>
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
                       <div className='fs-2 fw-bolder'>1</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Not Applicable</div>
+                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'USER.DETAILS.NOTAPPLİCABLE'})}</div>
                   </div>
                 </div>
               </div>
 
               <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                 <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
-                  <span className='fw-bold fs-6 text-gray-400'>Audit Completion</span>
+                  <span className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'USER.DETAILS.COMPLETION'})}</span>
                   <span className='fw-bolder fs-6'>50%</span>
                 </div>
                 <div className='h-5px mx-3 w-100 bg-light mb-3'>
@@ -148,13 +148,13 @@ const UserDetails = () => {
       <div className='card mb-5 mb-xl-10' id='kt_profile_details_view'>
         <div className='card-header cursor-pointer'>
           <div className='card-title m-0'>
-            <h3 className='fw-bolder m-0'>User Details</h3>
+            <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'USER.DETAILS.TITLE'})}</h3>
           </div>
         </div>
 
         <div className='card-body p-9'>
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Fullname</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'USER.DETAILS.NAME'})}</label>
 
             <div className='col-lg-8'>
               <span className='fw-bolder fs-6 text-dark'>
@@ -166,7 +166,7 @@ const UserDetails = () => {
           
 
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>E-Mail</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'USER.DETAILS.MAIL'})}</label>
 
             <div className='col-lg-8 d-flex align-items-center'>
               <span className='fw-bolder fs-6 me-2'>
@@ -175,7 +175,7 @@ const UserDetails = () => {
             </div>
           </div>
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Identity</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'USER.DETAILS.IDENTITY'})}</label>
 
             <div className='col-lg-8 fv-row'>
               <span className='fw-bold fs-6'>
@@ -184,7 +184,7 @@ const UserDetails = () => {
             </div>
           </div>
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Department</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'USER.DETAILS.DEPARTMENT'})}</label>
 
             <div className='col-lg-8 fv-row'>
               <span className='fw-bold fs-6'>
@@ -194,7 +194,7 @@ const UserDetails = () => {
           </div>
 
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Position</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'USER.DETAILS.POSITION'})}</label>
 
             <div className='col-lg-8'>
             <span className='fw-bold fs-6'>
@@ -204,7 +204,7 @@ const UserDetails = () => {
           </div>
 
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Role</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'USER.DETAILS.ROLE'})}</label>
 
             <div className='col-lg-8'>
             <span className='fw-bold fs-6'>
@@ -213,7 +213,7 @@ const UserDetails = () => {
             </div>
           </div>
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Shift</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'USER.DETAILS.SHIFT'})}</label>
 
             <div className='col-lg-8'>
             <span className='fw-bold fs-6'>

@@ -1,6 +1,7 @@
 import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
 import {PageLink, PageTitle} from "../../../_metronic/layout/core"
 import {ListWrapper} from './list/List'
+import {useIntl} from 'react-intl'
 
 // const Breadcrumbs: Array<PageLink> = [
 //   {
@@ -18,6 +19,7 @@ import {ListWrapper} from './list/List'
 // ]
 
 const Page = () => {
+  const intl = useIntl()
   return (
     <Routes>
       <Route element={<Outlet />}>
@@ -25,7 +27,7 @@ const Page = () => {
           path='users'
           element={
             <>
-              <PageTitle>Users</PageTitle>
+              <PageTitle>{intl.formatMessage({id:'USER.PAGE.TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }

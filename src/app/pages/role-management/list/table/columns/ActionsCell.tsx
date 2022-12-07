@@ -7,7 +7,7 @@ import {ID, KTSVG, QUERIES} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {deleteRole} from '../../core/_requests'
-
+import {useIntl} from 'react-intl'
 type Props = {
   id: ID
 }
@@ -16,7 +16,7 @@ const ActionsCell: FC<Props> = ({id}) => {
   const {setItemIdForUpdate} = useListView()
   const {query} = useQueryResponse()
   const queryClient = useQueryClient()
-
+  const intl = useIntl()
   useEffect(() => {
     MenuComponent.reinitialization()
   }, [])
@@ -39,7 +39,7 @@ const ActionsCell: FC<Props> = ({id}) => {
         <div className='d-flex justify-content-end flex-shrink-0'>
           
         <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'>
-          <Link to={`/role-management/permissions/${id}`}> Authority </Link>
+          <Link to={`/role-management/permissions/${id}`}>{intl.formatMessage({id: 'USER.TABLE.AUTHORITY'})}</Link>
           </a>
 
           {/* <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'

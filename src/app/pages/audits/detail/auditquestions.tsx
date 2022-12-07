@@ -265,13 +265,13 @@ const AuditQuestionsForm = () => {
                       )
                     })}
                     {/* end::Text */}
-                    Notes
+                    {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.NOTES'})}
                     <textarea
                       className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
                       rows={4}
                       name={`${question?.id}-notes`}
                       value={questionAnswers[i].notes}
-                      placeholder='buraya metin gelecek..'
+                      // placeholder='buraya metin gelecek..'
                       onChange={(e) => {
                         handleNotes(i, e.target.value)
                       }}
@@ -292,19 +292,19 @@ const AuditQuestionsForm = () => {
                   {/* begin::Reply input */}
                   {question?.needAction && (
                     <div>
-                      Findings
+                      {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FIND'})}
                       <textarea
                         className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
                         required={question?.needAction}
                         rows={4}
                         name={`${question?.id}-actionText`}
                         value={questionAnswers[i].actionText}
-                        placeholder='buraya need action true olunca bulgular gelecek..'
+                        // placeholder='buraya need action true olunca bulgular gelecek..'
                         onChange={(e) => {
                           handleActionText(i, e.target.value)
                         }}
                       ></textarea>
-                      Staff List
+                      {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.STAFF'})}
                       <select
                         className='form-select form-select-solid form-select-md'
                         name={`${question?.id}-actionUser`}
@@ -313,7 +313,7 @@ const AuditQuestionsForm = () => {
                           handleActionUser(i, e.target.value)
                         }}
                       >
-                        <option value=''>Seçiniz</option>
+                        <option value=''>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.CHOOSE'})}</option>
                         {pStaffList.map((user: any) => (
                           <option value={user?.id as any} key={user?.id as any}>
                             {user?.email as any}
@@ -322,7 +322,7 @@ const AuditQuestionsForm = () => {
                       </select>
                       <div className='fv-row mb-3'>
                         {/* begin::Label */}
-                        <label className='required fw-bold fs-6 mb-2'>Date time</label>
+                        <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.DATE'})}</label>
                         {/* end::Label */}
 
                         {/* begin::Input */}
@@ -346,7 +346,7 @@ const AuditQuestionsForm = () => {
 
                   <div className='fv-row mb-3'>
                     {/* begin::Label */}
-                    <label className='required fw-bold fs-6 mb-2'>File</label>
+                    <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FILE'})}</label>
                     {/* end::Label */}
                     <FileUploader
                       multiple={true}
@@ -365,7 +365,7 @@ const AuditQuestionsForm = () => {
                 </>
               ) : (
                 <div className='d-flex flex-column'>
-                  <span className='text-gray-800 fs-6 fw-bold pb-4'>Yanıtlandı</span>
+                  <span className='text-gray-800 fs-6 fw-bold pb-4'>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.ANSWERED'})}</span>
                 </div>
               )}
             </div>
@@ -398,7 +398,7 @@ const AuditQuestionsForm = () => {
         })}
       >
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Finish Audit
+        {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FINISH'})}
       </button>
       </div>
 

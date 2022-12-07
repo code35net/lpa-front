@@ -20,12 +20,12 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <SelectionCell id={props.data[props.row.index].id} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Audit Name' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDITS.LIST.AUDITNAME'})} className='min-w-125px' />,
     id: 'name',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index]} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title='Unit Name' className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDITS.LIST.UNITNAME'})} className='min-w-125px' />,
     id: 'fullname',
     Cell: ({...props}) => <OperatorCell item={props.data[props.row.index]} />,
   },

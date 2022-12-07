@@ -8,8 +8,9 @@ import {Model} from '../core/_models'
 import {ListLoading} from '../components/loading/ListLoading'
 import {ListPagination} from '../components/pagination/ListPagination'
 import {KTCardBody} from '../../../../../_metronic/helpers'
-
+import {useIntl} from 'react-intl'
 const Table = () => {
+  const intl = useIntl()
   const items = useQueryResponseData()
   const isLoading = useQueryResponseLoading()
   const data = useMemo(() => items, [items])
@@ -44,7 +45,7 @@ const Table = () => {
               <tr>
                 <td colSpan={7}>
                   <div className='d-flex text-center w-100 align-content-center justify-content-center'>
-                    No matching records found
+                  {intl.formatMessage({id: 'USER.TABLE.NOMATCH'})}
                   </div>
                 </td>
               </tr>

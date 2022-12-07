@@ -208,7 +208,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
         aria-controls='kt_account_profile_details'
       >
         <div className='card-title m-0'>
-          <h3 className='fw-bolder m-0'>New Audit Plan</h3>
+          <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'AUDITS.PLANNER.TITLE'})}</h3>
         </div>
       </div>
 
@@ -232,7 +232,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   value={formik.values.auditCategoryId}
                   onChange={formik.handleChange}
                 >
-                  <option value=''>Seçiniz</option>
+                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
                   {auditcategories.map((auditcategory: any) => (
                     <option value={auditcategory?.id as any} key={auditcategory?.id as any}>
                       {auditcategory?.name as any}
@@ -255,7 +255,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   value={formik.values.departmentId}
                   onChange={handleChangeDepartmentId}
                 >
-                  <option value=''>Seçiniz</option>
+                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
                   {departments.map((department: any) => (
                     <option value={department?.id} key={department?.id as any}>
                       {department?.name as any}
@@ -277,7 +277,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   value={formik.values.sectionId}
                   onChange={handleChangeSectiontId}
                 >
-                  <option value=''>Seçiniz</option>
+                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
                   {sections.map((section: any) => (
                     <option value={section?.id} key={section?.id as any}>
                       {section?.name as any}
@@ -289,7 +289,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
 
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>Unit Group</span>
+                <span className='required'>{intl.formatMessage({id: 'AUDITS.PLANNER.UNIT.GROUP'})}</span>
               </label>
 
               <div className='col-lg-8 fv-row'>
@@ -300,7 +300,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   onChange={formik.handleChange}
                   disabled={gunits.length === 0}
                 >
-                  {gunits.length && <option value=''>Seçiniz</option>}
+                  {gunits.length && <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>}
                   {gunits.map((unit: any) => (
                     <option value={unit?.id} key={unit?.id as any}>
                       {unit?.name as any}
@@ -312,7 +312,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
 
             <div className='row mb-3'>
             <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>Unit Type</span>
+                <span className='required'>{intl.formatMessage({id: 'AUDITS.PLANNER.UNIT.TYPE'})}</span>
               </label>
               <div className='col-lg-8 fv-row'>
                 <div className='d-flex align-items-center mt-3'>
@@ -332,7 +332,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                             })
                       }
                     />
-                    <span className='fw-bold ps-2 fs-6'>Hat</span>
+                    <span className='fw-bold ps-2 fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.LINE'})}</span>
                   </label>
 
                   <label className='form-check form-check-inline form-check-solid'>
@@ -351,7 +351,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                             })
                       }
                     />
-                    <span className='fw-bold ps-2 fs-6'>Operatör</span>
+                    <span className='fw-bold ps-2 fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPERATOR'})}</span>
                   </label>
                 </div>
               </div>
@@ -359,7 +359,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
 
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>Unit</span>
+                <span className='required'>{intl.formatMessage({id: 'AUDITS.PLANNER.UNIT'})}</span>
               </label>
 
               <div className='col-lg-8 fv-row'>
@@ -370,7 +370,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   onChange={formik.handleChange}
                   disabled={units.length === 0}
                 >
-                  {units.length && <option value=''>Seçiniz</option>}
+                  {units.length && <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>}
                   {units.map((unit: any) => (
                     <option value={unit?.id} key={unit?.id as any}>
                       {unit?.name as any}
@@ -396,7 +396,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                     type='checkbox'
                     id='allowmarketing'
                   />
-                  <label className='form-check-label mt-1 px-5'> <small className='text-danger'>Tüm soruları seçmek için kapatınız.</small> </label>
+                  <label className='form-check-label mt-1 px-5'> <small className='text-danger'>{intl.formatMessage({id: 'AUDITS.PLANNER.CLOSE.SELECT'})}</small> </label>
                 </div>
               </div>
             </div>
@@ -410,7 +410,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                     className='form-select form-select-solid form-select-md'
                     {...formik.getFieldProps('name')}
                   >
-                    <option value=''>Seçiniz</option>
+                    <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
                     {questioncategories.map((questioncategory: any) => (
                       <option key={questioncategory?.id as any}>
                         {questioncategory?.name as any}
@@ -422,7 +422,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
             )}
 
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Pozisyon</label>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.POSITION'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-md'
@@ -433,7 +433,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                     handleUsers(e.target.value, 'positionId')
                   }}
                 >
-                  <option value=''>Seçiniz</option>
+                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
                   {positions.map((position: any) => (
                     <option value={position?.id as any} key={position?.id as any}>
                       {position?.name as any}
@@ -443,7 +443,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
               </div>
             </div>
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Kullanıcı</label>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.USER'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-md'
@@ -451,7 +451,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   value={formik.values.userId}
                   onChange={formik.handleChange}
                 >
-                  <option value=''>Seçiniz</option>
+                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
                   {users.map((user: any) => (
                     <option value={user?.id as any} key={user?.id as any}>
                       {user?.email as any}
@@ -462,19 +462,19 @@ const EditAuditForm: FC<Props> = ({item}) => {
             </div>
 
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Periyod</label>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.PERIOD'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('categoryType')}
                 >
-                  <option value=''>Seçiniz</option>
-                  <option value='4'>Vardiya</option>
-                  <option value='0'>Günlük</option>
-                  <option value='1'>Haftalık</option>
-                  <option value='2'>Aylık</option>
-                  <option value='3'>3 Aylık</option>
-                  <option value='5'>Anlık Denetim</option>
+                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
+                  <option value='4'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.SHIFT'})}</option>
+                  <option value='0'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.DAILY'})}</option>
+                  <option value='1'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.WEEKLY'})}</option>
+                  <option value='2'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.MONTHLY'})}</option>
+                  <option value='3'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.FOR3MONTHS'})}</option>
+                  <option value='5'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.INSTANT'})}</option>
                 </select>
               </div>
             </div>
@@ -482,7 +482,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
               parseInt(formik.values.categoryType as string) === 5 &&
               <div className='fv-row mb-3'>
               {/* begin::Label */}
-              <label className='required fw-bold fs-6 mb-2'>Anlık Denetim Tarihi</label>
+              <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.INSTANT.DATE'})}</label>
               {/* end::Label */}
 
               {/* begin::Input */}
@@ -515,13 +515,13 @@ const EditAuditForm: FC<Props> = ({item}) => {
 
         
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Yıl</label>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.YEAR'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('year')}
                 >
-                  <option value=''>Seçiniz</option>
+                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
                   <option value='2022'>2022</option>
                   <option value='2023'>2023</option>
                   <option value='2024'>2024</option>
@@ -530,25 +530,25 @@ const EditAuditForm: FC<Props> = ({item}) => {
               </div>
             </div>
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Ay</label>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.MONTH'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('month')}
                 >
-                  <option value=''>Seçiniz</option>
-                  <option value='01'>Ocak</option>
-                  <option value='02'>Şubat</option>
-                  <option value='03'>Mart</option>
-                  <option value='04'>Nisan</option>
-                  <option value='05'>Mayıs</option>
-                  <option value='06'>Haziran</option>
-                  <option value='07'>Temmuz</option>
-                  <option value='08'>Ağustos</option>
-                  <option value='09'>Eylül</option>
-                  <option value='10'>Ekim</option>
-                  <option value='11'>Kasım</option>
-                  <option value='12'>Aralık</option>
+                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
+                  <option value='01'>{intl.formatMessage({id: 'AUDITS.MOUNTH.01'})}</option>
+                  <option value='02'>{intl.formatMessage({id: 'AUDITS.MOUNTH.02'})}</option>
+                  <option value='03'>{intl.formatMessage({id: 'AUDITS.MOUNTH.03'})}</option>
+                  <option value='04'>{intl.formatMessage({id: 'AUDITS.MOUNTH.04'})}</option>
+                  <option value='05'>{intl.formatMessage({id: 'AUDITS.MOUNTH.05'})}</option>
+                  <option value='06'>{intl.formatMessage({id: 'AUDITS.MOUNTH.06'})}</option>
+                  <option value='07'>{intl.formatMessage({id: 'AUDITS.MOUNTH.07'})}</option>
+                  <option value='08'>{intl.formatMessage({id: 'AUDITS.MOUNTH.08'})}</option>
+                  <option value='09'>{intl.formatMessage({id: 'AUDITS.MOUNTH.09'})}</option>
+                  <option value='10'>{intl.formatMessage({id: 'AUDITS.MOUNTH.10'})}</option>
+                  <option value='11'>{intl.formatMessage({id: 'AUDITS.MOUNTH.11'})}</option>
+                  <option value='12'>{intl.formatMessage({id: 'AUDITS.MOUNTH.12'})}</option>
                 </select>
               </div>
             </div>
@@ -569,7 +569,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
               {!loading && 'Save Changes'}
               {loading && (
                 <span className='indicator-progress' style={{display: 'block'}}>
-                  Please wait...{' '}
+                  {intl.formatMessage({id: 'MODALFORM.WAIT'})}
                   <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                 </span>
               )}

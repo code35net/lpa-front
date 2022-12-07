@@ -181,7 +181,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionGroupLoading}) => {
             <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
             {(formik.isSubmitting || isQuestionGroupLoading) && (
               <span className='indicator-progress'>
-                Please wait...{' '}
+                {intl.formatMessage({id: 'MODALFORM.WAIT'})}
                 <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
               </span>
             )}

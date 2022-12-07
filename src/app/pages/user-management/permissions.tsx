@@ -1,7 +1,7 @@
 import React, {FC, useState, useEffect} from 'react'
 import {ID} from '../../../_metronic/helpers'
 import {Model} from './list/core/_models'
-
+import {useIntl} from 'react-intl'
 import {useFormik} from 'formik'
 
 import {getUserClaims, setClaimForUser} from './list/core/_requests'
@@ -14,7 +14,7 @@ type Props = {
 
 const UserPermissionForm: FC<Props> = ({item}) => {
   const params = useParams()
-
+  const intl = useIntl()
   const [permissions, setPermissions] = React.useState<any>([])
   const [all, setAll] = React.useState<any>(false)
 
@@ -86,7 +86,7 @@ const UserPermissionForm: FC<Props> = ({item}) => {
         aria-controls='kt_account_notifications'
       >
         <div className='card-title m-0'>
-          <h3 className='fw-bolder m-0'>User Yetkileri</h3>
+          <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'USER.PERMISSIONS.AUTHORITY'})}</h3>
         </div>
 
         <div className='mt-2'>
@@ -141,10 +141,10 @@ const UserPermissionForm: FC<Props> = ({item}) => {
 
           <div className='card-footer d-flex justify-content-end py-6 px-9'>
             <button type='button' onClick={() =>formik.handleSubmit()}className='btn btn-primary'>
-              {!loading && 'Save Changes'}
+              {!loading && `${intl.formatMessage({id: 'USER.PERMISSIONS.SAVE'})}`}
               {loading && (
                 <span className='indicator-progress' style={{display: 'block'}}>
-                  Please wait...{' '}
+                  {intl.formatMessage({id: 'MODALFORM.WAIT'})}
                   <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                 </span>
               )}

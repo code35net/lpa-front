@@ -29,7 +29,8 @@ const Page = () => {
             <>
               {/* <PageTitle breadcrumbs={Breadcrumbs}>Departments</PageTitle> */}
               {/* <PageTitle>{intl.formatMessage({id: 'LIST.DEPARTMENT.CATEGORY'})}</PageTitle> */}
-              <PageTitle> Aksiyonlar </PageTitle>
+              <PageTitle> {intl.formatMessage({id:'ACTION.PAGE.TITLE'})} </PageTitle>
+              {/* <PageTitle> {intl.formatMessage({id:'ACTION.PAGE.TITLE'})} </PageTitle> */}
               <ListWrapper />
             </>
           }

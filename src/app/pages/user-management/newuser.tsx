@@ -119,7 +119,7 @@ const UserEditForm: FC<Props> = ({item}) => {
       >
         <div className='card-title m-0'>
           <h3 className='fw-bolder m-0'>
-            New User
+          {intl.formatMessage({id: 'USER.NEWUSER.TITLE'})}
             </h3>
         </div>
       </div>
@@ -135,7 +135,7 @@ const UserEditForm: FC<Props> = ({item}) => {
           <div className='card-body border-top p-9'>
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>Email</span>
+                <span className='required'>{intl.formatMessage({id: 'USER.NEWUSER.MAIL'})}</span>
               </label>
 
               <div className='col-lg-8 fv-row'>
@@ -165,7 +165,7 @@ const UserEditForm: FC<Props> = ({item}) => {
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
-                  fullName
+                {intl.formatMessage({id: 'USER.NEWUSER.NAME'})}
                 </span>
               </label>
 
@@ -196,7 +196,7 @@ const UserEditForm: FC<Props> = ({item}) => {
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
-                  Identity Number
+                {intl.formatMessage({id: 'USER.NEWUSER.ID-NUM'})}
                 </span>
               </label>
 
@@ -227,7 +227,7 @@ const UserEditForm: FC<Props> = ({item}) => {
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
-                  {intl.formatMessage({id: 'ADD.QUESTION.DEPARTMENT'})}
+                {intl.formatMessage({id: 'USER.NEWUSER.DEPARTMENT'})}
                 </span>
               </label>
 
@@ -248,7 +248,7 @@ const UserEditForm: FC<Props> = ({item}) => {
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
-                  Position
+                {intl.formatMessage({id: 'USER.NEWUSER.POSITION'})}
                 </span>
               </label>
 
@@ -269,22 +269,22 @@ const UserEditForm: FC<Props> = ({item}) => {
             
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>
-                Shift
+              {intl.formatMessage({id: 'USER.NEWUSER.SHIFT'})}
               </label>
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('shift')}
                 >
-                  <option value='0'>Morning</option>
-                  <option value='1'>Day</option>
-                  <option value='2'>Night</option>                  
-                  <option value='3'>Regular</option> 
+                  <option value='0'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.MORNING'})}</option>
+                  <option value='1'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.DAY'})}</option>
+                  <option value='2'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.NIGHT'})}</option>                  
+                  <option value='3'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.REGULAR'})}</option> 
                 </select>
               </div>
             </div>
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label fw-bold fs-6'>Role</label>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>{intl.formatMessage({id: 'USER.NEWUSER.ROLE'})}</label>
 
               <div className='col-lg-8 fv-row'>
                 <div className='d-flex align-items-center mt-3'>
@@ -297,7 +297,7 @@ const UserEditForm: FC<Props> = ({item}) => {
                       checked={formik.values.role === "Inspector"}
                       onChange={() => formik.setFieldValue("role","Inspector")}
                     />
-                    <span className='fw-bold ps-2 fs-6'>Inspector</span>
+                    <span className='fw-bold ps-2 fs-6'>{intl.formatMessage({id: 'USER.NEWUSER.INSPECTOR'})}</span>
                   </label>
 
                   <label className='form-check form-check-inline form-check-solid'>
@@ -309,7 +309,7 @@ const UserEditForm: FC<Props> = ({item}) => {
                       checked={formik.values.role === "Observer"}
                       onChange={() => formik.setFieldValue("role","Observer")}
                     />
-                    <span className='fw-bold ps-2 fs-6'>Report Manager</span>
+                    <span className='fw-bold ps-2 fs-6'>{intl.formatMessage({id: 'USER.NEWUSER.MANAGER'})}</span>
                   </label>
                 </div>
               </div>

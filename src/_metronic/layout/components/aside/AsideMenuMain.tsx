@@ -71,22 +71,22 @@ export function AsideMenuMain() {
       >
       <AsideMenuItem
         to='/tablereport/list'
-        title='Denetim Raporları (Veri)'
+        title={`${intl.formatMessage({id: 'ASİDE.REPORT.ONE'})}`}
         hasBullet={true}
       />
         <AsideMenuItem
           to='/reports/graphics/actionreports'
-          title='Denetim Raporları (Grafik)'
+          title={`${intl.formatMessage({id: 'ASİDE.REPORT.TWO'})}`}
           hasBullet={true}
         />
       <AsideMenuItem
         to='/questiontablereport/list'
-        title='Aksiyon Raporları (Veri)'
+        title={`${intl.formatMessage({id: 'ASİDE.REPORT.THREE'})}`}
         hasBullet={true}
       />
         <AsideMenuItem
           to='/questionreport/'
-          title='Aksiyon Raporları (Grafik)'
+          title={`${intl.formatMessage({id: 'ASİDE.REPORT.FOUR'})}`}
           hasBullet={true}
         />
       </AsideMenuItemWithSub>

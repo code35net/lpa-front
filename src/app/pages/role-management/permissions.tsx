@@ -90,7 +90,7 @@ const RolePermissionForm: FC<Props> = ({item}) => {
         aria-controls='kt_account_notifications'
       >
         <div className='card-title m-0'>
-          <h3 className='fw-bolder m-0'>Rol Yetkileri</h3>
+          <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'USER.PERMISSIONS.ROLE-AUTHORITY'})}</h3>
         </div>
 
         <div className='mt-2'>
@@ -148,7 +148,7 @@ const RolePermissionForm: FC<Props> = ({item}) => {
               {!loading && 'Save Changes'}
               {loading && (
                 <span className='indicator-progress' style={{display: 'block'}}>
-                  Please wait...{' '}
+                  {intl.formatMessage({id: 'MODALFORM.WAIT'})}
                   <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                 </span>
               )}

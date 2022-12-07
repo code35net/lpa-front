@@ -96,7 +96,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
     "cancelled": 0,
     */
     series.push({
-      name: 'Finished Percentage',
+      name: 'Bitmiş Yüzde',
       data: [
         reportsInfo[0]?.finished || 0,
         reportsInfo[1]?.finished || 0,
@@ -113,7 +113,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
       ],
     })
     series.push({
-      name: 'Not Started',
+      name: 'Henüz Başlamayan',
       data: [
         reportsInfo[0]?.notStarted || 0,
         reportsInfo[1]?.notStarted || 0,
@@ -130,7 +130,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
       ],
     })
     series.push({
-      name: 'In Progress',
+      name: 'Devam Eden',
       data: [
         reportsInfo[0]?.inProgress || 0,
         reportsInfo[1]?.inProgress || 0,
@@ -147,7 +147,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
       ],
     })
     series.push({
-      name: 'Cancelled',
+      name: 'İptal Edilen',
       data: [
         reportsInfo[0]?.cancelled || 0,
         reportsInfo[1]?.cancelled || 0,
@@ -210,7 +210,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
       colors: ['transparent'],
     },
     xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        categories: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
       axisBorder: {
         show: false,
       },

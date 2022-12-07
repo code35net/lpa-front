@@ -79,14 +79,14 @@ const AuditDetails = () => {
               {Array.isArray(response?.data) && response?.data[0]?.status === 'NotStarted' &&
               (
                 <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-info"> 
-                    Start Audit
+                    {intl.formatMessage({id: 'AUDITS.DETAIL.START'})}
                     </Link>
                 ) }
                 {  
                 Array.isArray(response?.data) && response?.data[0]?.status === 'InProgress' &&
                 (
                   <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-warning"> 
-                      Continue Audit
+                      {intl.formatMessage({id: 'AUDITS.DETAIL.CONTINUE'})}
                       </Link>
                   ) 
               }
@@ -110,7 +110,7 @@ const AuditDetails = () => {
                       </div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Total Questions</div>
+                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.TOTAL'})}</div>
                   </div>
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -119,7 +119,7 @@ const AuditDetails = () => {
                       <div className='fs-2 fw-bolder'>15</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Successed</div>
+                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.SUCCESS'})}</div>
                   </div>
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -127,21 +127,21 @@ const AuditDetails = () => {
                       <div className='fs-2 fw-bolder'>4</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Failed</div>
+                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.FAIL'})}</div>
                   </div>
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
                       <div className='fs-2 fw-bolder'>1</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Not Applicable</div>
+                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.NOTAPPLİCABLE'})}</div>
                   </div>
                 </div>
               </div>
 
               <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                 <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
-                  <span className='fw-bold fs-6 text-gray-400'>Audit Completion</span>
+                  <span className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.COMPLETION'})}</span>
                   <span className='fw-bolder fs-6'>50%</span>
                 </div>
                 <div className='h-5px mx-3 w-100 bg-light mb-3'>
@@ -164,13 +164,13 @@ const AuditDetails = () => {
       <div className='card mb-5 mb-xl-10' id='kt_profile_details_view'>
         <div className='card-header cursor-pointer'>
           <div className='card-title m-0'>
-            <h3 className='fw-bolder m-0'>Audit Details</h3>
+            <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'AUDITS.DETAIL.DETAILS'})}</h3>
           </div>
         </div>
 
         <div className='card-body p-9'>
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Audit Category</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.CATEGORY'})}</label>
 
             <div className='col-lg-8'>
               <span className='fw-bolder fs-6 text-dark'>
@@ -182,7 +182,7 @@ const AuditDetails = () => {
           </div>
 
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Department</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.DEPARTMENT'})}</label>
 
             <div className='col-lg-8 fv-row'>
               <span className='fw-bold fs-6'>
@@ -194,7 +194,7 @@ const AuditDetails = () => {
           </div>
 
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Section</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.SECTION'})}</label>
 
             <div className='col-lg-8 d-flex align-items-center'>
               <span className='fw-bolder fs-6 me-2'>
@@ -206,7 +206,7 @@ const AuditDetails = () => {
           </div>
 
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Unit</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.UNIT'})}</label>
 
             <div className='col-lg-8'>
             <span className='fw-bold fs-6'>
@@ -221,7 +221,7 @@ const AuditDetails = () => {
          
           
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>Auditor</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.AUDITOR'})}</label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
@@ -233,7 +233,7 @@ const AuditDetails = () => {
           </div>
           
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>Planned Date</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.PLANED'})}</label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
@@ -244,7 +244,7 @@ const AuditDetails = () => {
             </div>
           </div>
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>Started Date</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.STARTED'})}</label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
@@ -255,7 +255,7 @@ const AuditDetails = () => {
             </div>
           </div>
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>Ended Date</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.ENDED'})}</label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
@@ -266,7 +266,7 @@ const AuditDetails = () => {
             </div>
           </div>
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>Status</label>
+            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.STATUS'})}</label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
@@ -285,7 +285,7 @@ const AuditDetails = () => {
             {/* begin::Header */}
             <div className='card-header border-0 pt-5'>
               <h3 className='card-title align-items-start flex-column'>
-                <span className='card-label fw-bold fs-3 mb-1'>Audit Questions</span>
+                <span className='card-label fw-bold fs-3 mb-1'>{intl.formatMessage({id: 'AUDITS.DETAIL.AUDIT.QUESTIONS'})}</span>
               </h3>
             </div>
 
@@ -300,9 +300,9 @@ const AuditDetails = () => {
                   <thead>
                     <tr>
                       <th className='p-0 w-50px'>Id</th>
-                      <th className='p-0 min-w-200px'>Question</th>
-                      <th className='p-0 min-w-200px'>Question Category</th>
-                      <th className='p-0 min-w-200px'>Answer Template</th>
+                      <th className='p-0 min-w-200px'>{intl.formatMessage({id: 'AUDITS.DETAIL.QUESTION'})}</th>
+                      <th className='p-0 min-w-200px'>{intl.formatMessage({id: 'AUDITS.DETAIL.QUESTION.CATEGORY'})}</th>
+                      <th className='p-0 min-w-200px'>{intl.formatMessage({id: 'AUDITS.DETAIL.ANSWER'})}</th>
                     </tr>
                   </thead>
                   {/* end::Table head */}

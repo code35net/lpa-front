@@ -29,7 +29,7 @@ const Page = () => {
             <>
               {/* <PageTitle breadcrumbs={Breadcrumbs}>Departments</PageTitle> */}
               <PageTitle>  
-                Roller {/* {intl.formatMessage({id: 'LIST.DEPARTMENT.CATEGORY'})} */}
+              {intl.formatMessage({id: 'USER.ROLE-MANAGEMENT.PAGE.TITLE'})}
               </PageTitle>
               <ListWrapper />
             </>
