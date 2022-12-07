@@ -58,6 +58,8 @@ const UnitForm: FC<Props> = ({item}) => {
   const [users, setUsers] = React.useState([])
   const [questioncategories, setQuestionCategories] = React.useState([])
   const [answertemplates, setAnswertemplates] = React.useState([])
+  const [hasShiftException, setShiftException] = React.useState<boolean>()
+
 
   const [units, setUnits] = React.useState<Array<Unit>>([])
 
@@ -94,6 +96,7 @@ const UnitForm: FC<Props> = ({item}) => {
     ...item,
     unitType:undefined,
     leaderUserId: undefined,
+    shiftException:undefined,
     units: [],
   } as Model)
 
@@ -142,6 +145,21 @@ const UnitForm: FC<Props> = ({item}) => {
         // }
         return item;
       })
+
+      if(values.unitType != 1)
+{
+  setShiftException(false)
+}
+
+if(!hasShiftException)
+{
+  values.shiftException = undefined
+}
+else
+{
+  
+  values.shiftException = parseInt(values.shiftException?.toString() || "0", 10)
+}
 
       
       try {
@@ -216,7 +234,7 @@ const UnitForm: FC<Props> = ({item}) => {
         aria-controls='kt_account_profile_details'
       >
         <div className='card-title m-0'>
-          <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'QUESTIONS.ADDPAGE.TITLE'})}</h3>
+          <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'UNIT.ADDPAGE.TITLE'})}</h3>
         </div>
       </div>
 
@@ -271,12 +289,13 @@ const UnitForm: FC<Props> = ({item}) => {
             </div>
             
 
-            <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>
-                {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.LEADERS'})}
-              </label>
-              <div className='col-lg-8 fv-row'>
-                <select
+            { formik.values.unitType == 1 && (
+<div className='fv-row mb-7'>
+                            <label className='required fw-bold fs-6 mb-2'>
+                              {intl.formatMessage({id: 'UNIT.ADDPAGE.LEADER'})}
+                            </label>
+                           
+                            <select
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('leaderUserId')}
                   value={formik.values.leaderUserId}
@@ -291,8 +310,47 @@ const UnitForm: FC<Props> = ({item}) => {
                     </option>
                   ))}
                 </select>
-              </div>
-            </div>
+                          </div>
+            )}
+                      { formik.values.unitType == 1 && (
+                      <div className='fv-row mb-7'>
+                          
+                          <div className='form-check form-check-solid form-switch'>
+                          <label className='fw-bold mt-3'>
+                            
+                            {intl.formatMessage({
+                              id: 'UNIT.HASSHIFTEXCEPTION',
+                            })}
+                          </label>
+
+                   
+                   
+
+
+                              <input
+                                checked={hasShiftException}
+                                onChange={(e)=> setShiftException(e.target.checked)}
+                                value={hasShiftException ? 'on' : 'off'}
+                                className='form-check-input w-30 mt-2'
+                                type='checkbox'
+                                id='allowmarketing'
+                              />
+                              <label className='form-check-label'></label>
+                            </div>
+                            {(hasShiftException && 
+                            <select
+                            className='form-select form-select-solid form-select-md'
+                            {...formik.getFieldProps('shiftException')}
+                            value={formik.values.shiftException}
+                          >
+                            <option value='0'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.MORNING'})}</option>
+                            <option value='1'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.DAY'})}</option>
+                            <option value='2'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.NIGHT'})}</option>                  
+                          </select>
+                            )}
+                        </div>
+ )}
+
             
 
             <div className='separator separator-dashed my-6'></div>
@@ -302,7 +360,7 @@ const UnitForm: FC<Props> = ({item}) => {
                   <>
                     <label className='col-lg-4 col-form-label required fw-bold fs-6'>
                       {question.id}.{' '}
-                      {intl.formatMessage({id: 'MULTIUNIT.ADDPAGE.UNIT'})}
+                      {intl.formatMessage({id: 'UNIT.LIST.NAME'})}
                     </label>
 
                     <div className='col-lg-12'>

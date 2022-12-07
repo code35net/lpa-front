@@ -55,7 +55,7 @@ const ChartsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo}
       <div className='card-header border-0 pt-5'>
         {/* begin::Title */}
         <h3 className='card-title align-items-start flex-column'>
-          <span className='card-label fw-bold fs-3 mb-1'>Percentage Report</span>
+          <span className='card-label fw-bold fs-3 mb-1'>Yüzdece Gerçekleşme Raporu</span>
 
           {/* <span className='text-muted fw-semibold fs-7'>This month</span> */}
         </h3>

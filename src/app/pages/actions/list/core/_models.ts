@@ -7,7 +7,7 @@ export type Model = {
   departmantName?:string
   sectionName?:string
   unitName?:string
-  assignedUser?:string
+  assignedUserName?:string
   questiontext?:string
   auditDate?:string
   lastDate?:string

@@ -14,7 +14,7 @@ import qs from 'qs'
 
 import {useQueryResponse} from '../questions/list/core/QueryResponseProvider'
 import {useListView} from '../questions/list/core/ListViewProvider'
-import {listUnitGroups, createBulkUnits} from './list/core/_requests'
+import {createBulkUnits} from '../subunits/list/core/_requests'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 
 
@@ -58,6 +58,8 @@ const SubUnitForm: FC<Props> = ({item}) => {
   const [users, setUsers] = React.useState([])
   const [questioncategories, setQuestionCategories] = React.useState([])
   const [answertemplates, setAnswertemplates] = React.useState([])
+  const [hasShiftException, setShiftException] = React.useState<boolean>()
+
 
   const [units, setUnits] = React.useState<Array<Unit>>([])
 
@@ -94,6 +96,7 @@ const SubUnitForm: FC<Props> = ({item}) => {
     ...item,
     unitType:undefined,
     leaderUserId: undefined,
+    shiftException:undefined,
     units: [],
   } as Model)
 
@@ -103,8 +106,8 @@ const SubUnitForm: FC<Props> = ({item}) => {
   //   }
 
   const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
-const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).parentUnitId
 
+  
 
   const [loading, setLoading] = useState(false)
   const formik = useFormik({
@@ -116,7 +119,7 @@ const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).paren
 
 
       values.sectionId = parseInt(qsd?.toString() || "0")
-      values.parentUnitId = parseInt(qsd2?.toString() || "0")
+
       
       
 
@@ -142,6 +145,21 @@ const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).paren
         // }
         return item;
       })
+
+      if(values.unitType != 1)
+{
+  setShiftException(false)
+}
+
+if(!hasShiftException)
+{
+  values.shiftException = undefined
+}
+else
+{
+  
+  values.shiftException = parseInt(values.shiftException?.toString() || "0", 10)
+}
 
       
       try {
@@ -173,20 +191,6 @@ const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).paren
 
 
   
-  const handleChangeSectionId = async (event: any) => {
-    formik.setFieldValue('sectionId', event.target.value)
-    if(event.target.value != '')
-    {
-    listUnitGroups(event.target.value).then((res) => {
-      setUnitGroups(res.data.filter((a: any) => a.unitType == 2))
-    })
-  }
-  else
-  {
-    setUnitGroups([])
-  }
-  }
-
   const handleUnitText = (id: number, name: string) => {
     let index = units.findIndex((unit) => unit.id === id)
     if (index > -1) {
@@ -230,7 +234,7 @@ const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).paren
         aria-controls='kt_account_profile_details'
       >
         <div className='card-title m-0'>
-          <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'QUESTIONS.ADDPAGE.TITLE'})}</h3>
+          <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'UNIT.ADDPAGE.TITLE'})}</h3>
         </div>
       </div>
 
@@ -285,12 +289,13 @@ const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).paren
             </div>
             
 
-            <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>
-                {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.LEADERS'})}
-              </label>
-              <div className='col-lg-8 fv-row'>
-                <select
+            { formik.values.unitType == 1 && (
+<div className='fv-row mb-7'>
+                            <label className='required fw-bold fs-6 mb-2'>
+                              {intl.formatMessage({id: 'UNIT.ADDPAGE.LEADER'})}
+                            </label>
+                           
+                            <select
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('leaderUserId')}
                   value={formik.values.leaderUserId}
@@ -305,8 +310,47 @@ const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).paren
                     </option>
                   ))}
                 </select>
-              </div>
-            </div>
+                          </div>
+            )}
+                      { formik.values.unitType == 1 && (
+                      <div className='fv-row mb-7'>
+                          
+                          <div className='form-check form-check-solid form-switch'>
+                          <label className='fw-bold mt-3'>
+                            
+                            {intl.formatMessage({
+                              id: 'UNIT.HASSHIFTEXCEPTION',
+                            })}
+                          </label>
+
+                   
+                   
+
+
+                              <input
+                                checked={hasShiftException}
+                                onChange={(e)=> setShiftException(e.target.checked)}
+                                value={hasShiftException ? 'on' : 'off'}
+                                className='form-check-input w-30 mt-2'
+                                type='checkbox'
+                                id='allowmarketing'
+                              />
+                              <label className='form-check-label'></label>
+                            </div>
+                            {(hasShiftException && 
+                            <select
+                            className='form-select form-select-solid form-select-md'
+                            {...formik.getFieldProps('shiftException')}
+                            value={formik.values.shiftException}
+                          >
+                            <option value='0'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.MORNING'})}</option>
+                            <option value='1'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.DAY'})}</option>
+                            <option value='2'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.NIGHT'})}</option>                  
+                          </select>
+                            )}
+                        </div>
+ )}
+
             
 
             <div className='separator separator-dashed my-6'></div>
@@ -316,7 +360,7 @@ const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).paren
                   <>
                     <label className='col-lg-4 col-form-label required fw-bold fs-6'>
                       {question.id}.{' '}
-                      {intl.formatMessage({id: 'MULTIUNIT.ADDPAGE.UNIT'})}
+                      {intl.formatMessage({id: 'UNIT.LIST.NAME'})}
                     </label>
 
                     <div className='col-lg-12'>
@@ -375,7 +419,7 @@ const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).paren
               type='submit'
               onClick={() => {
                 formik.submitForm().then(() => {
-                  navigate(`/subunits/list?sectionId=${qsd}&parentUnitId=${qsd2}`)
+                  navigate(`/units/list?sectionId=${qsd}`)
                 })
               }}
               className='btn btn-sm btn-dark'
