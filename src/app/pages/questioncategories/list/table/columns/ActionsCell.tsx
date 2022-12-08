@@ -47,7 +47,7 @@ const ActionsCell: FC<Props> = ({id}) => {
 
         <a
           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
-          data-kt-users-table-filter='delete_row'
+          hidden data-kt-users-table-filter='delete_row'
           onClick={async () => {
             Swal.fire({
               color : "#000000",

@@ -9,6 +9,7 @@ export type Model = {
   parentUnitId?: number
   unitType?: number
   shift?:number
+  shiftException?:number
   leaderName?:string
   hasGroup? : boolean
   unitgroupcheck? : boolean

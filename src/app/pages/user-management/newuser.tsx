@@ -10,6 +10,7 @@ import {useNavigate} from 'react-router-dom'
 
 
 import {listDepartments} from '../departments/list/core/_requests'
+import {listSections} from '../sections/list/core/_requests'
 import {listPositions} from '../positions/list/core/_requests'
 import {useQueryResponse} from './list/core/QueryResponseProvider'
 import {useListView} from './list/core/ListViewProvider'
@@ -40,6 +41,7 @@ const UserEditForm: FC<Props> = ({item}) => {
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
   const [departments, setDepartments] = React.useState([])
+  const [sections, setSections] = React.useState([])
   const [positions, setPositions] = React.useState([])
 
   useEffect(() => {
@@ -63,6 +65,7 @@ const UserEditForm: FC<Props> = ({item}) => {
     identity: undefined,
     positionId:undefined,
     departmentId:undefined, 
+    sectionId:undefined,
     shift:undefined
   })
 
@@ -70,6 +73,13 @@ const UserEditForm: FC<Props> = ({item}) => {
   //     const updatedData = Object.assign(data, fieldsToUpdate)
   //     setData(updatedData)
   //   }
+
+  const handleChangeDepartmentId = async (event: any) => {
+    formik.setFieldValue('departmentId', event.target.value)
+    listSections(event.target.value).then((res) => {
+      setSections(res.data)
+    })
+  }
 
   const [loading, setLoading] = useState(false)
   const formik = useFormik({
@@ -80,6 +90,10 @@ const UserEditForm: FC<Props> = ({item}) => {
 
       if (!values.departmentId && departments.length) {
         values.departmentId = (departments[0] as any)?.id
+      }
+
+      if (!values.sectionId && sections.length) {
+        values.sectionId = (sections[0] as any)?.id
       }
 
       if (!values.positionId && positions.length) {
@@ -232,6 +246,20 @@ const UserEditForm: FC<Props> = ({item}) => {
               </label>
 
               <div className='col-lg-8 fv-row'>
+              <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('departmentId')}
+                  value={formik.values.departmentId}
+                  onChange={handleChangeDepartmentId}
+                >
+                  <option value=''>Seçiniz</option>
+                  {departments.map((department: any) => (
+                    <option value={department?.id} key={department?.id as any}>
+                      {department?.name as any}
+                    </option>
+                  ))}
+                </select>
+{/*                 
                 <select
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('departmentId')}
@@ -242,7 +270,42 @@ const UserEditForm: FC<Props> = ({item}) => {
                       {department?.name as any}
                     </option>
                   ))}
+                </select> */}
+              </div>
+            </div>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>
+                {intl.formatMessage({id: 'STAFFS.MODAL.SECTION'})}
+                </span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+              <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('sectionId')}
+                  value={formik.values.sectionId}
+                  onChange={formik.handleChange}
+                >
+                  <option value=''>Seçiniz</option>
+                  {sections.map((section: any) => (
+                    <option value={section?.id} key={section?.id as any}>
+                      {section?.name as any}
+                    </option>
+                  ))}
                 </select>
+{/*                 
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('departmentId')}
+                  value={formik.values.departmentId}
+                >
+                  {departments.map((department: any) => (
+                    <option value={department?.id} key={department?.id as any}>
+                      {department?.name as any}
+                    </option>
+                  ))}
+                </select> */}
               </div>
             </div>
             <div className='row mb-3'>

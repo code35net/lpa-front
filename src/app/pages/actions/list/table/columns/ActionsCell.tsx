@@ -44,7 +44,7 @@ const ActionsCell: FC<Props> = ({id}) => {
 
 
           <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
-          data-kt-users-table-filter='delete_row'
+          hidden data-kt-users-table-filter='delete_row'
           onClick={async () => await deleteItem.mutateAsync()}
           >
             <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />

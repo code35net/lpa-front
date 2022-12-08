@@ -4,7 +4,7 @@ import {Model, QueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL
 const ACTION_URL = `${API_URL}/Auction`
-const GET_ACTIONS_URL = `${API_URL}/Auction`
+const GET_ACTIONS_URL = `${API_URL}/Custom/getAuctions`
 const ACTION_DETAILS_URL = `${API_URL}/Auction`
 
 
@@ -16,7 +16,7 @@ const getAuctionDetails = async (id : string): Promise<any> => await axios.get(`
 
 const getActions = (query: string): Promise<QueryResponse> => {
   return axios
-    .get(`${GET_ACTIONS_URL}/getAll/?${query}`)
+    .get(`${GET_ACTIONS_URL}/?${query}`)
     .then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 

@@ -11,6 +11,8 @@ export type Model = {
   positionName?:string
   departmentName?:string
   departmentId?:number  
+  sectionId?:number,
+  sectionName?:string
 }
 
 export type QueryResponse = Response<Array<Model>>

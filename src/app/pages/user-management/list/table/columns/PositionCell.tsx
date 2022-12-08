@@ -21,7 +21,7 @@ const PositionCell: FC<Props> = ({item}) => (
     </div>
     <div className='d-flex flex-column'>
       <a href='#' className='text-gray-800 text-hover-primary mb-1'>
-        {item.positionName}
+        {item.sectionName}
       </a>
     </div>
   </div>

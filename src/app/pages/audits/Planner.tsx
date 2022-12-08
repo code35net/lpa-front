@@ -454,7 +454,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
                   {users.map((user: any) => (
                     <option value={user?.id as any} key={user?.id as any}>
-                      {user?.email as any}
+                      {user?.fullName as any}
                     </option>
                   ))}
                 </select>

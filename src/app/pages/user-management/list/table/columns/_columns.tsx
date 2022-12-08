@@ -7,6 +7,7 @@ import {FullnameCell} from './FullnameCell'
 import {PositionCell} from './PositionCell'
 import {ActionsCell} from './ActionsCell'
 import {ShiftCell} from './ShiftCell'
+import {SectionCell} from './SectionCell'
 import {SelectionCell} from './SelectionCell'
 import {CustomHeader} from './CustomHeader'
 import {SelectionHeader} from './SelectionHeader'
@@ -45,10 +46,16 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <IdentityCell item={props.data[props.row.index]} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.DEP/POS'})} className='min-w-125px' />,
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.DEP/SEC'})} className='min-w-125px' />,
     id: 'positionName',
 
     Cell: ({...props}) => <PositionCell item={props.data[props.row.index]} />,
+  },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.POS'})} className='min-w-125px' />,
+    id: 'sectionName',
+
+    Cell: ({...props}) => <SectionCell item={props.data[props.row.index]} />,
   },
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.SHIFT'})} className='min-w-125px' />,

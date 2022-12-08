@@ -133,7 +133,7 @@ export function AsideMenuMain() {
         />
         <AsideMenuItem
           to='/holidays'
-          title="Holidays"
+          title={intl.formatMessage({id: 'MENU.HOLIDAYS'})}
           hasBullet={true}
         />
       </AsideMenuItemWithSub>

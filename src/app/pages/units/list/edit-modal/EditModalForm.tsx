@@ -35,8 +35,10 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
   const [leaderusers, setLeaderUsers] = React.useState([])
 
   const [unitgroupisactive, setunitgroupisactive] = React.useState<boolean>()
+  const [hasShiftException, setShiftException] = React.useState<boolean>()
 
   const [unitgroupshow, setunitgroupshow] = React.useState<boolean>()
+  const [unitgroupshowall, setunitgroupshowall] = React.useState<boolean>()
   const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
 
   const [unitForEdit] = useState<Model>({
@@ -46,6 +48,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
     leaderUserId:undefined,
     parentUnitId:0,
     unitgroupcheck: undefined,
+    shiftException:undefined,
     ...item,
    
   })
@@ -61,6 +64,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
     
     listUnits(qsd?.toString() || "0").then((res)=>{
       setunitgroupshow(res.data.some((a:any) => a.unitType == 2))
+      setunitgroupshowall(res.data.length == 0)
     })
 
 
@@ -100,8 +104,20 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
         values.parentUnitId = undefined
       }
       
-     
-      
+if(values.unitType != 1)
+{
+  setShiftException(false)
+}
+
+if(!hasShiftException)
+{
+  values.shiftException = undefined
+}
+else
+{
+  
+  values.shiftException = parseInt(values.shiftException?.toString() || "0", 10)
+}
 
       try {
         if (isNotEmpty(values.id)) {
@@ -147,7 +163,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
               <div className='col-lg-8 fv-row'>
                 <div className='d-flex align-items-center mt-3'>
                 {
-                      !unitgroupshow && (
+                      (!unitgroupshow || unitgroupshowall) && (
                   <label className='form-check form-check-inline form-check-solid me-5'>
                     <input
                       className='form-check-input'
@@ -164,7 +180,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
 
 )}
 {
-                      !unitgroupshow && (
+                      (!unitgroupshow || unitgroupshowall)  && (
                   <label className='form-check form-check-inline form-check-solid'>
                   <input
                       className='form-check-input'
@@ -182,7 +198,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                       )}
 
                     {
-                      unitgroupshow && (
+                      (unitgroupshow || unitgroupshowall) && (
                     <label className='form-check form-check-inline form-check-solid'>
                                       <input
                                           className='form-check-input'
@@ -264,12 +280,50 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
                               <option value=''>Seçiniz</option>
                               {leaderusers.map((leaderuser: any) => (
                                 <option value={leaderuser?.id} key={leaderuser?.id as any}>
-                                  {leaderuser?.email as any}
+                                  {leaderuser?.fullName as any}
                                 </option>
                               ))}
                             </select>
                           </div>
             )}
+ { formik.values.unitType == 1 && (
+<div className='fv-row mb-7'>
+                          
+                          <div className='form-check form-check-solid form-switch'>
+                          <label className='fw-bold mt-3'>
+                            
+                            {intl.formatMessage({
+                              id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
+                            })}
+                          </label>
+
+                   
+                   
+
+
+                              <input
+                                checked={hasShiftException}
+                                onChange={(e)=> setShiftException(e.target.checked)}
+                                value={hasShiftException ? 'on' : 'off'}
+                                className='form-check-input w-30 mt-2'
+                                type='checkbox'
+                                id='allowmarketing'
+                              />
+                              <label className='form-check-label'></label>
+                            </div>
+                            {(hasShiftException && 
+                            <select
+                            className='form-select form-select-solid form-select-md'
+                            {...formik.getFieldProps('shiftException')}
+                            value={formik.values.shiftException}
+                          >
+                            <option value='0'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.MORNING'})}</option>
+                            <option value='1'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.DAY'})}</option>
+                            <option value='2'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.NIGHT'})}</option>                  
+                          </select>
+                            )}
+                        </div>
+ )}
         <div className='fv-row mb-7'>
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT.LIST.NAME'})}

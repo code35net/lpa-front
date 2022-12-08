@@ -38,7 +38,8 @@ const AuditQuestionsForm = () => {
   const [pStaffList, setPStaffList] = useState([])
 
   const [questionAnswers, setQuestionAnswers] = useState<any>([])
-
+  const [loading, setLoading] = useState(false)
+  
   const navigate = useNavigate()
 
   const [allQuestionAnswered, setAllQuestionAnswered] = useState(false)
@@ -56,7 +57,7 @@ const AuditQuestionsForm = () => {
               option: true,
               notes: '',
               files: null,
-              actionText: '',
+              finding: '',
               actionDate: new Date().toISOString(),
               actionUser: '',
             })
@@ -101,7 +102,7 @@ const AuditQuestionsForm = () => {
         ]?.id
 
         if (!((questions as any)[index] as any).needAction) {
-          questionAnswers[index].actionText = ''
+          questionAnswers[index].finding = ''
           questionAnswers[index].actionDate = new Date().toISOString()
           questionAnswers[index].actionUser = ''
         }
@@ -122,7 +123,7 @@ const AuditQuestionsForm = () => {
 
   const handleActionText = (index: number, value: string) => {
     if (index !== -1 && index < questionAnswers.length) {
-      ;(questionAnswers as any)[index].actionText = value
+      ;(questionAnswers as any)[index].finding = value
       setQuestionAnswers([...questionAnswers])
     }
   }
@@ -149,6 +150,7 @@ const AuditQuestionsForm = () => {
   }
 
   const submitAnswers = async () => {
+    setLoading(true)
     for (let index = 0; index < questions.length; index++) {
       if (
         questionAnswers[index]?.questionId &&
@@ -168,7 +170,7 @@ const AuditQuestionsForm = () => {
 
         formData.append('option', questionAnswers[index].option)
         formData.append('notes', questionAnswers[index].notes)
-        formData.append('actionText', questionAnswers[index].actionText)
+        formData.append('finding', questionAnswers[index].finding)
         formData.append('actionDate', questionAnswers[index].actionDate)
 
         formData.append('actionUser', questionAnswers[index].actionUser)
@@ -297,8 +299,8 @@ const AuditQuestionsForm = () => {
                         className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
                         required={question?.needAction}
                         rows={4}
-                        name={`${question?.id}-actionText`}
-                        value={questionAnswers[i].actionText}
+                        name={`${question?.id}-finding`}
+                        value={questionAnswers[i].finding}
                         // placeholder='buraya need action true olunca bulgular gelecek..'
                         onChange={(e) => {
                           handleActionText(i, e.target.value)
@@ -377,13 +379,21 @@ const AuditQuestionsForm = () => {
       <div className='col-md-12'>
       <button
         type='button'
-        disabled={allQuestionAnswered}
+        disabled={allQuestionAnswered || loading}
         className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
         onClick={() => submitAnswers()}
        
       >
-        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Save Answers
+        {!loading && 'Save Changes'}
+              {loading && (
+                <span className='indicator-progress' style={{display: 'block'}}>
+                  <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+                 {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.SAVEANSWERS'})}{' '}
+                  <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                </span>
+              )}
+       
+       
         
       </button>
 
@@ -397,6 +407,7 @@ const AuditQuestionsForm = () => {
           navigate('/audits/list')
         })}
       >
+        
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FINISH'})}
       </button>
