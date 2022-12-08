@@ -334,7 +334,7 @@ const EditForm: FC<Props> = ({item}) => {
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
-                  {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.UNIT'})}
+                  {intl.formatMessage({id: 'AUDITS.DETAIL.UNIT'})}
                 </span>
               </label>
 

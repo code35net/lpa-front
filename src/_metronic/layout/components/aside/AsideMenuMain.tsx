@@ -23,19 +23,19 @@ export function AsideMenuMain() {
       >
         <AsideMenuItem
           to='/user-management/'
-          title="Users"
+          title={intl.formatMessage({id: 'USER.ASİDE.USERS'})}
           hasBullet={true}
         />
         
         <AsideMenuItem
           to='/user-management/newuser'
-          title="New User"
+          title={intl.formatMessage({id: 'USER.ASİDE.NEWUSER'})}
           hasBullet={true}
         />
 
         <AsideMenuItem
           to='/role-management/'
-          title="Role Management"
+          title={intl.formatMessage({id: 'USER.ASİDE.ROLE'})}
           hasBullet={true}
         />
         

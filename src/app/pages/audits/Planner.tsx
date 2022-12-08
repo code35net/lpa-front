@@ -566,7 +566,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
               className='btn btn-sm btn-dark'
               disabled={loading}
             >
-              {!loading && 'Save Changes'}
+              {!loading && `${intl.formatMessage({id: 'USER.PERMISSIONS.SAVE'})}`}
               {loading && (
                 <span className='indicator-progress' style={{display: 'block'}}>
                   {intl.formatMessage({id: 'MODALFORM.WAIT'})}

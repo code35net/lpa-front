@@ -68,7 +68,7 @@
   "HOLIDAY.LIST.ID": "Id",
   "HOLIDAY.LIST.WHATDAY": "Gün İsmi",
   "HOLIDAY.LIST.THEDAY": "Tarih",
-  "HOLIDAY.LIST.ADD": "Yeni Tail",
+  "HOLIDAY.LIST.ADD": "Yeni Tatil",
   "HOLIDAY.MODAL.ADD": "Tatil Ekle",
   "HOLIDAY.MODAL.EDIT": "Tatil Düzenle",
   "ANSWERTEMPLATES.PAGE.TITLE": "Cevap Şablonları",
@@ -141,7 +141,7 @@
   "QUESTIONS.LIST.ID": "Id",
   "QUESTIONS.LIST.NAME": "Metin",
   "QUESTIONS.LIST.ADD": "Yeni Sorular",
-  "QUESTIONS.LIST.HEADER": "Hepsi",
+  "QUESTIONS.LIST.HEADER": "Tümü",
   "QUESTIONS.LIST.LOADING": "İşleniyor...",
   "QUESTIONS.LIST.MODAL.FORM": "Seçiniz",
   "QUESTIONS.LIST.MODAL.WAİT": "Lütfen Bekleyiniz...",
@@ -362,7 +362,7 @@
   "MODALFORM.ADMINISTRATOR": "Yönetici",
   "FILTER.ROLE": "Rol",
   "FILTER.ADMIN": "Admin",
-  "FORM.DISCARD": "Iskarta",
+  "FORM.DISCARD": "Vazgeç",
   "DEPARTMENTEDITMODALFORM.NAME": "Departman İsmi",
   "HEADER.FILTER": "Filitre",
   "USEREDİTMODALFORM.NAME": "Ad Soyad",
@@ -399,5 +399,10 @@
   "AUTH.VALIDATION.REQUIRED_FIELD": "Gerekli Alan",
   "AUTH.VALIDATION.MIN_LENGTH_FIELD": "Min Gerekli Alan Uzunluğu:",
   "AUTH.VALIDATION.MAX_LENGTH_FIELD": "Max Gerekli Alan Uzunluğu:",
-  "AUTH.VALIDATION.INVALID_FIELD": "Alan Gerekli Değil"
+  "AUTH.VALIDATION.INVALID_FIELD": "Alan Gerekli Değil",
+
+  "USER.ASİDE.USERS": "Kullanıcı",
+  "USER.ASİDE.NEWUSER": "Yeni Kullanıcı",
+  "USER.ASİDE.ROLE": "Rol Yönetimi",
+  "STAFFS.MODAL.SECTION": "Aksiyon Görevlisi Alt Departmanı"
 }

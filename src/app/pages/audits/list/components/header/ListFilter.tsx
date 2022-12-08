@@ -130,7 +130,7 @@ const ListFilter = () => {
               onChange={(e) => setSelectedAuditCategories(e.target.value)}
               value={selectedAuditCategories}
             >
-              <option value=''>All</option>
+              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
               {auditcategories.map((item: any) => {
                 return (
@@ -158,7 +158,7 @@ const ListFilter = () => {
               onChange={(e) => setSelectedQuestionCategories(e.target.value)}
               value={selectedQuestionCategories}
             >
-              <option value=''>All</option>
+              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
               {questioncategories.map((item: any) => {
                 return (
@@ -186,7 +186,7 @@ const ListFilter = () => {
               onChange={(e) => setSelectedDepartments(e.target.value)}
               value={selectedDepartments}
             >
-              <option value=''>All</option>
+              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
               {departments.map((item: any) => {
                 return (
@@ -214,7 +214,7 @@ const ListFilter = () => {
               onChange={(e) => setSelectedSections(e.target.value)}
               value={selectedSections}
             >
-              <option value=''>All</option>
+              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
               {sections.map((item: any) => {
                 return (
