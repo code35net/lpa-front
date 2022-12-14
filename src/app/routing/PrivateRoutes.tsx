@@ -13,6 +13,7 @@ import {SubUnitForm} from "../pages/subunits/Add"
 import {UnitForm} from "../pages/units/Add"
 
 import {UserEditForm} from "../pages/user-management/newuser"
+// import {UserFullEditForm} from "../pages/user-management/edit"
 import {UserPermissionForm} from "../pages/user-management/permissions"
 import {RolePermissionForm} from "../pages/role-management/permissions"
 // import {TemplateForm} from "../pages/answertemplates/Add"
@@ -63,6 +64,7 @@ const PrivateRoutes = () => {
         <Route path='/subunits/add' element={<SubUnitForm />} />
         <Route path='/units/add' element={<UnitForm />} />
         <Route path='/user-management/newuser' element={<UserEditForm />} />
+        {/* <Route path='/user-management/edit' element={<UserFullEditForm />} /> */}
         {/* <Route path='/answertemplates/add' element={<TemplateForm />} /> */}
         <Route path='/audits/planner' element={<EditAuditForm />} />
         <Route path='/audits/auditdetail' element={<AuditDetails />} />

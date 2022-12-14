@@ -36,6 +36,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
 
   const [unitgroupisactive, setunitgroupisactive] = React.useState<boolean>()
   const [hasShiftException, setShiftException] = React.useState<boolean>()
+  //const [isTheSetter, setSetter] = React.useState<boolean>()
 
   const [unitgroupshow, setunitgroupshow] = React.useState<boolean>()
   const [unitgroupshowall, setunitgroupshowall] = React.useState<boolean>()
@@ -49,6 +50,7 @@ const EditModalForm: FC<Props> = ({item, isUnitLoading}) => {
     parentUnitId:0,
     unitgroupcheck: undefined,
     shiftException:undefined,
+    //isSetter:undefined,
     ...item,
    
   })
@@ -109,6 +111,11 @@ if(values.unitType != 1)
   setShiftException(false)
 }
 
+// if(values.unitType != 1)
+// {
+//   setSetter(false)
+// }
+
 if(!hasShiftException)
 {
   values.shiftException = undefined
@@ -118,6 +125,15 @@ else
   
   values.shiftException = parseInt(values.shiftException?.toString() || "0", 10)
 }
+// if(!isTheSetter)
+// {
+//   values.isSetter = undefined
+// }
+// else
+// {
+  
+//   values.isSetter = parseInt(values.isSetter?.toString() || "0", 10)
+// }
 
       try {
         if (isNotEmpty(values.id)) {
@@ -266,7 +282,29 @@ else
                           </div>
                            )} */}
             { formik.values.unitType == 1 && (
-<div className='fv-row mb-7'>
+                          <div className='fv-row mb-7'>
+                          {/* <div className='form-check form-check-solid form-switch'>
+                          <label className='fw-bold mt-3'>
+                            
+                            {intl.formatMessage({
+                              id: 'QUESTIONS.ADDPAGE.IS_SETTER',
+                            })}
+                          </label>
+
+                   
+                   
+
+
+                              <input
+                                checked={isTheSetter}
+                                onChange={(e)=> setSetter(e.target.checked)}
+                                value={isTheSetter ? 'on' : 'off'}
+                                className='form-check-input w-30 mt-2'
+                                type='checkbox'
+                                id='allowmarketing'
+                              />
+                              <label className='form-check-label'></label>
+                            </div> */}
                             <label className='required fw-bold fs-6 mb-2'>
                               {intl.formatMessage({id: 'UNIT.ADDPAGE.LEADER'})}
                             </label>

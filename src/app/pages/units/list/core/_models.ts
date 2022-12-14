@@ -10,6 +10,7 @@ export type Model = {
   unitType?: number
   shift?:number
   shiftException?:number
+  //isSetter?:number
   leaderName?:string
   hasGroup? : boolean
   unitgroupcheck? : boolean

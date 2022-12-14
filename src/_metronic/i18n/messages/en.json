@@ -140,7 +140,8 @@
    "UNITGROUP.LIST.ADD": "New Unit Group",
   "UNITGROUP.MODAL.ADD": "Add Unit Group",
   "UNITGROUP.MODAL.EDIT": "Edit Unit Group",
-
+  "UNIT.ADDPAGE.LEADER": "Add Unit Team Leader",
+  "UNIT.HASSHIFTEXCEPTION": "Shift Exception",
 
   
   "QUESTIONS.PAGE.TITLE": "Questions",
