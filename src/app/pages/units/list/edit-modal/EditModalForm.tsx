@@ -331,7 +331,7 @@ else
                           <label className='fw-bold mt-3'>
                             
                             {intl.formatMessage({
-                              id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
+                              id: 'UNIT.HASSHIFTEXCEPTION',
                             })}
                           </label>
 
