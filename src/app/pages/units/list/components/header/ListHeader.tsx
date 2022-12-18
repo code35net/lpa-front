@@ -3,7 +3,7 @@ import {ListToolbar} from './ListToolbar'
 import {ListGrouping} from './ListGrouping'
 import {ListSearchComponent} from './ListSearchComponent'
 
-const ListHeader = () => {
+const ListHeader = (qsd: any) => {
   const {selected} = useListView()
   return (
     <div className='card-header border-0 bg-secondary'>
@@ -11,7 +11,7 @@ const ListHeader = () => {
       {/* begin::Card toolbar */}
       <div className='card-toolbar'>
         {/* begin::Group actions */}
-        {selected.length > 0 ? <ListGrouping /> : <ListToolbar />}
+        {selected.length > 0 ? <ListGrouping /> : <ListToolbar qsd={qsd.qsd} />}
         {/* end::Group actions */}
       </div>
       {/* end::Card toolbar */}

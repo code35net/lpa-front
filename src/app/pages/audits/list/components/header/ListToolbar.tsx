@@ -18,6 +18,7 @@ const ListToolbar = () => {
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
       <ListFilter />
       {/* begin::Add Places */}
+      <Link className='btn btn-sm btn-dark btn-active-light-dark me-3' to={`../OpPlanner`}>{intl.formatMessage({id: 'AUDITS.LIST.ADD_OP'})}</Link>
       <Link className='btn btn-sm btn-dark btn-active-light-dark' to={`../Planner`}>{intl.formatMessage({id: 'AUDITS.LIST.ADD'})}</Link>
       {/* <a href='Planner'
         type='button'

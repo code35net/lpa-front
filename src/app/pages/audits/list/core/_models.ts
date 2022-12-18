@@ -24,6 +24,8 @@ export type Model = {
   collarType?:number
   status?: string
   questionCount?: number
+  trueCount?: number
+  needActionCount?: number
   nonPeriodicDate?:string | null
 }
 

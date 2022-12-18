@@ -11,8 +11,10 @@ export type Model = {
   positionName?:string
   departmentName?:string
   departmentId?:number  
-  sectionId?:number,
+  sectionId?:number
   sectionName?:string
+  isDeleteUser?:boolean
+  userId?: string
 }
 
 export type QueryResponse = Response<Array<Model>>

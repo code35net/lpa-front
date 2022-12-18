@@ -14,13 +14,6 @@ const Breadcrumbs: Array<PageLink> = [
     
   },
   {
-    title: 'Definitions',
-    path: '',
-    isSeparator: false,
-    isActive: false,
-    
-  },
-  {
     title: '',
     path: '',
     isSeparator: true,

@@ -9,10 +9,21 @@ type Props = {
   item: Model
 }
 
+
+
 const InfoCell: FC<Props> = ({item}) => (
+
+  
+
   <div className='d-flex align-items-center'>
     <div className='d-flex flex-column'>
-    <Link to={`/units/list?sectionId=${item.id}`}>{item.name}</Link>
+    <Link
+        onClick={() => {
+          localStorage.setItem('section-name-breadcrumb', (item as any)?.name)
+          localStorage.setItem('section-id-breadcrumb', (item as any)?.id)
+        }} to={`/units/list?sectionId=${item.id}`}>
+
+        {item.name}</Link>
      
     </div>
   </div>

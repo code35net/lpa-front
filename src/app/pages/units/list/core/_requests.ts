@@ -18,7 +18,7 @@ const listUnits = async (sectionId : string): Promise<any> => await axios.get(`$
 
  
 
- const listPartialUnits = async (sectionId : string, unitType:number): Promise<any> => await axios.get(`${GET_PARTIALUNITS_URL}?page=1&unitType=${unitType}&sectionId=${sectionId}`).then((res : AxiosResponse) => 
+ const listPartialUnits = async (sectionId : string, unitId: string, unitType:number): Promise<any> => await axios.get(`${GET_PARTIALUNITS_URL}?page=1&unitType=${unitType}&sectionId=${sectionId}&parentUnitId=${unitId}`).then((res : AxiosResponse) => 
  {
    return res.data;
  });

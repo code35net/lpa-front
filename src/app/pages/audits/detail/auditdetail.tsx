@@ -37,7 +37,15 @@ const AuditDetails = () => {
   const [selectedQuestionId, setSelectedQuestionId] = useState(null)
   const [selectedQuestion, setSelectedQuestion] = useState(null)
 
+const qtotal = Array.isArray(response?.data) && response?.data?.length ? response?.data[0]?.auditQuestions.length : ''
+const atotal = Array.isArray(response?.data) && response?.data?.length ? response?.data[0]?.answeredCount : ''
+const percentage = (atotal * 100) / qtotal;
+
   useEffect(() => {
+
+    
+
+
     if (selectedQuestionId) {
       getQuestionById(selectedQuestionId).then((response: any) => {
         setSelectedQuestion(response)
@@ -104,9 +112,7 @@ const AuditDetails = () => {
                     <div className='d-flex align-items-center'>
                       
                       <div className='fs-2 fw-bolder'>
-                      {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.auditQuestions.length
-                  : ''}
+                      {qtotal}
                       </div>
                     </div>
 
@@ -116,7 +122,11 @@ const AuditDetails = () => {
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
                       
-                      <div className='fs-2 fw-bolder'>15</div>
+                      <div className='fs-2 fw-bolder'>
+                      {Array.isArray(response?.data) && response?.data?.length
+                  ? response?.data[0]?.needActionCount
+                  : ''}
+                      </div>
                     </div>
 
                     <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.SUCCESS'})}</div>
@@ -124,17 +134,23 @@ const AuditDetails = () => {
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
-                      <div className='fs-2 fw-bolder'>4</div>
+                      <div className='fs-2 fw-bolder'>
+                      {Array.isArray(response?.data) && response?.data?.length
+                  ? response?.data[0]?.trueCount
+                  : ''}
+                      </div>
                     </div>
 
                     <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.FAIL'})}</div>
                   </div>
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
-                      <div className='fs-2 fw-bolder'>1</div>
+                      <div className='fs-2 fw-bolder'>
+                      {atotal}
+                      </div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.NOTAPPLİCABLE'})}</div>
+                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.ANSWERED'})}</div>
                   </div>
                 </div>
               </div>
@@ -142,13 +158,17 @@ const AuditDetails = () => {
               <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                 <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
                   <span className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.COMPLETION'})}</span>
-                  <span className='fw-bolder fs-6'>50%</span>
+                  <span className='fw-bolder fs-6'>
+                    
+                  {percentage.toFixed(0)}%
+
+                  </span>
                 </div>
                 <div className='h-5px mx-3 w-100 bg-light mb-3'>
                   <div
                     className='bg-info rounded h-5px'
                     role='progressbar'
-                    style={{width: '50%'}}
+                    style={{width: percentage}}
                   ></div>
                 </div>
               </div>

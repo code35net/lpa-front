@@ -6,18 +6,20 @@ import { Link } from 'react-router-dom'
 import qs from 'qs'
 
 
-const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
 
-const ListToolbar = () => {
+
+const ListToolbar = (qsd: any) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const openAddModal = () => {
     setItemIdForUpdate(null)
   }
-
+  console.log(qsd, 'ff')
   return (
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
-     <Link className='btn btn-sm btn-dark btn-active-light-dark  me-3' to={`../Add?sectionId=${qsd}`}>
+
+
+     <Link className='btn btn-sm btn-dark btn-active-light-dark  me-3' to={`../Add?sectionId=${qsd.qsd}`}>
       <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         {intl.formatMessage({id: 'UNIT.LIST.BULKADD'})}
         </Link>

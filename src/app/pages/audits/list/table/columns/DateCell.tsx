@@ -16,7 +16,7 @@ const DateCell: FC<Props> = ({item}) => (
       <span className='text-gray-800 text-hover-primary'>
      
      
-      {moment(item.auditDate).format("DD.MM.YYYY HH:MM")}
+      {moment(item.auditDate).format("DD.MM.YYYY HH:mm")}
       </span>
     </div>
     

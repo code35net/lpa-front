@@ -3,6 +3,7 @@ import {QueryRequestProvider} from './core/QueryRequestProvider'
 import {QueryResponseProvider} from './core/QueryResponseProvider'
 import {ListHeader} from './components/header/ListHeader'
 import {Table} from './table/Table'
+import {EditModal} from './edit-modal/EditModal'
 import {KTCard} from '../../../../_metronic/helpers'
 
 const List = () => {
@@ -13,7 +14,7 @@ const List = () => {
         <ListHeader />
         <Table />
       </KTCard>
-      {itemIdForUpdate !== undefined}
+      {itemIdForUpdate !== undefined && <EditModal />}
     </>
   )
 }

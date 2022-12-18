@@ -1,4 +1,4 @@
-import {FC, useState} from 'react'
+import {FC, useState, useEffect} from 'react'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import {useIntl} from 'react-intl'
@@ -9,9 +9,11 @@ import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
 import {updateAudit} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
+import moment from 'moment'
+import {listUsers} from '../../../user-management/list/core/_requests'
 
 type Props = {
-  isDepartmentLoading: boolean
+  isAuditCategoryLoading: boolean
   item: Model
 }
 
@@ -21,14 +23,22 @@ type Props = {
 //     .required('Department Name required'),
 // })
 
-const EditModalForm: FC<Props> = ({item, isDepartmentLoading}) => {
+const EditModalForm: FC<Props> = ({item}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
 
+  const [users, setUsers] = useState([])
+  useEffect(() => {
+    listUsers().then((res)=>{
+      setUsers(res.data)
+    })
+  }, [])
+
   const [placeForEdit] = useState<Model>({
-    ...item,
-    auditDate: item.auditDate || item.auditDate,
+    auditDate: undefined,
+    auditor: undefined,    
+    ...item
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -70,6 +80,66 @@ const EditModalForm: FC<Props> = ({item, isDepartmentLoading}) => {
           data-kt-scroll-wrappers='#kt_modal_add_item_scroll'
           data-kt-scroll-offset='300px'
         >
+
+
+          <div className='fv-row mb-7'>
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'AUDIT.AUDITDATE'})}
+            </label>
+            {/* end::Label */}
+
+            {/* begin::Input */}
+            <input
+              //placeholder='Full name'
+              {...formik.getFieldProps('auditDate')}
+              type='datetime-local'
+              name='auditDate'
+              value={moment(formik.values.auditDate).format('YYYY-MM-DD HH:mm')}              
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                {'is-invalid': formik.touched.auditDate && formik.errors.auditDate},
+                {
+                  'is-valid': formik.touched.auditDate && !formik.errors.auditDate,
+                }
+              )}
+              autoComplete='off'
+              disabled={formik.isSubmitting}
+            />
+            {formik.touched.auditDate && formik.errors.auditDate && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.auditDate}</span>
+                </div>
+              </div>
+            )}
+            {/* end::Input */}
+          </div>
+
+          <div className='fv-row mb-7'>
+          {/* begin::Label */}
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'USER.NEWUSER'})}
+          </label>
+          {/* end::Label */}
+
+          {/* begin::Input */}
+          <select
+            className='form-select form-select-solid form-select-md'
+            {...formik.getFieldProps('auditor')}
+            value={formik.values.auditor}
+            onChange={formik.handleChange}
+          >
+            <option value=''>{intl.formatMessage({id: 'USERS.LIST.MODAL.FORM'})}</option>
+            {users.map((user: any) => (
+              <option value={user?.id} key={user?.id as any}>
+                {user?.fullName as any}
+              </option>
+            ))}
+          </select>
+          {/* end::Input */}
+        </div>
+
           {/* begin::Input group */}
 
           {/* begin::Preview existing avatar */}
@@ -135,7 +205,7 @@ const EditModalForm: FC<Props> = ({item, isDepartmentLoading}) => {
             onClick={() => cancel()}
             className='btn btn-light me-3'
             data-kt-items-modal-action='cancel'
-            disabled={formik.isSubmitting || isDepartmentLoading}
+            disabled={formik.isSubmitting}
           >
             {intl.formatMessage({id: 'FORM.DISCARD'})}
           </button>
@@ -145,11 +215,11 @@ const EditModalForm: FC<Props> = ({item, isDepartmentLoading}) => {
             className='btn btn-sm btn-dark'
             data-kt-items-modal-action='submit'
             disabled={
-              isDepartmentLoading || formik.isSubmitting || !formik.isValid || !formik.touched
+              formik.isSubmitting || !formik.isValid || !formik.touched
             }
           >
             <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
-            {(formik.isSubmitting || isDepartmentLoading) && (
+            {(formik.isSubmitting) && (
               <span className='indicator-progress'>
                 Please wait...{' '}
                 <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
@@ -159,7 +229,7 @@ const EditModalForm: FC<Props> = ({item, isDepartmentLoading}) => {
         </div>
         {/* end::Actions */}
       </form>
-      {(formik.isSubmitting || isDepartmentLoading) && <ListLoading />}
+      {(formik.isSubmitting) && <ListLoading />}
     </>
   )
 }

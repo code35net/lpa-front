@@ -2,12 +2,11 @@ import {useQuery} from 'react-query'
 import {EditModalForm} from './EditModalForm'
 import {isNotEmpty, QUERIES} from '../../../../../_metronic/helpers'
 import {useListView} from '../core/ListViewProvider'
-import {getAuditById} from '../core/_requests'
+import {getUserById} from '../core/_requests'
 
 const EditModalFormWrapper = () => {
   const {itemIdForUpdate, setItemIdForUpdate} = useListView()
   const enabledQuery: boolean = isNotEmpty(itemIdForUpdate)
-  console.log(itemIdForUpdate, "ssa")
   const {
     isLoading,
     data: item,
@@ -15,7 +14,7 @@ const EditModalFormWrapper = () => {
   } = useQuery(
     `${QUERIES.USERS_LIST}-item-${itemIdForUpdate}`,
     () => {
-      return getAuditById(itemIdForUpdate)
+      return getUserById(itemIdForUpdate)
     },
     {
       cacheTime: 0,
@@ -26,13 +25,13 @@ const EditModalFormWrapper = () => {
       },
     }
   )
-console.log(item)
+
   if (!itemIdForUpdate) {
-    return <EditModalForm isAuditCategoryLoading={isLoading} item={{id: undefined}} />
+    return <EditModalForm isQuestionLoading={isLoading} item={{id: undefined}} />
   }
 
   if (!isLoading && !error && item) {
-    return <EditModalForm isAuditCategoryLoading={isLoading} item={item} />
+    return <EditModalForm isQuestionLoading={isLoading} item={item} />
   }
 
   return null

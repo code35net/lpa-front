@@ -9,8 +9,26 @@ const CREATE_QUESTION_URL = `${API_URL}/Custom/createBulkQuestions`
 const COPY_QUESTION_URL = `${API_URL}/Custom/editQuestion`
 
 const getQuestions = (query: string): Promise<QueryResponse> => {
+  //query = query.replace('filter_auditcategoryid=', 'AuditCategoryId-')
+  var sim = query.split('&')
+  var fltr = ""
+  var fltr2 = ""
+  var dz = ""
+  for(let i=0;i<sim.length;i++)
+  {
+   if(!(sim[i].startsWith('page') || sim[i].startsWith('items_per_page')))
+   {
+      fltr = fltr + dz + sim[i].replace('filter_auditcategoryid=', 'AuditCategoryId-').replace('filter_questiongroupid=', 'QuestionGroupId-').replace('filter_sectionid=', 'SectionId-')
+      dz = "|"   
+    }   
+     
+  }
+  if(fltr != "")
+  {
+    fltr2 = "/" + fltr
+  }
   return axios
-    .get(`${QUESTION_URL}/getAll/?${query}&modelstoinclude=Section.Department,Unit,AuditCategory`)
+    .get(`${QUESTION_URL}/getAll${fltr2}?${query}&modelstoinclude=Section.Department,Unit,AuditCategory`)
     .then((d: AxiosResponse<QueryResponse>) => {
       const queryRaw: any = parseRequestQuery(query)
       if (queryRaw?.filter_auditcategoryid && Array.isArray(d?.data?.data)) {
@@ -36,7 +54,7 @@ const getQuestions = (query: string): Promise<QueryResponse> => {
 }
 
 const getQuestionById = (id: ID): Promise<Model | undefined> => {
-  return axios.get(`${QUESTION_URL}/${id}`).then((response: any) => response.data)
+  return axios.get(`${QUESTION_URL}/${id}?modelstoinclude=Section`).then((response: any) => response.data)
 }
 
 const addQuestionAnswers = (question: any) => {

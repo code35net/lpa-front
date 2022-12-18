@@ -9,7 +9,7 @@ import {Model as QuestionCategory} from '../../../questioncategories/list/core/_
 export type Model = {
   id?: ID
   text?: string
-  Section?:Section
+  section?:Section
   sectionId?: number
   Department?:Department
   departmentId?: number

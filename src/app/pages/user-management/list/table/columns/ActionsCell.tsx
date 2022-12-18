@@ -43,12 +43,13 @@ const ActionsCell: FC<Props> = ({id}) => {
             
           </span>
 
-          {/* <a className='btn btn-icon btn-bg-light btn-active-color-warning btn-sm me-1'
-           onClick={openEditModal}
-           >
-            <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
-          </a> */}
-          <Link className='btn btn-icon btn-bg-light btn-active-color-warning btn-sm me-1' to={`/user-management/edit/${id}`}> <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' /> </Link>
+          <a
+          className='btn btn-icon btn-bg-light btn-active-color-dark btn-sm me-1'
+          onClick={openEditModal}
+        >
+          <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+        </a>
+          {/* <Link className='btn btn-icon btn-bg-light btn-active-color-warning btn-sm me-1' to={`/user-management/edit/${id}`}> <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' /> </Link> */}
 
           <a className='btn btn-icon btn-bg-light btn-active-color-danger btn-sm'
           hidden data-kt-users-table-filter='delete_row'

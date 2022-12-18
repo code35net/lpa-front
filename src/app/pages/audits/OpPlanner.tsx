@@ -15,7 +15,7 @@ import {listQuestionCategories} from '../questioncategories/list/core/_requests'
 import {listUsers} from '../user-management/list/core/_requests'
 import {useQueryResponse} from './list/core/QueryResponseProvider'
 import {useListView} from './list/core/ListViewProvider'
-import {createAudit} from './list/core/_requests'
+import {createOpAudit} from './list/core/_requests'
 import {useNavigate} from 'react-router-dom'
 import clsx from 'clsx'
 
@@ -24,7 +24,7 @@ type Props = {
   item?: Model
 }
 
-const EditAuditForm: FC<Props> = ({item}) => {
+const EditOpAuditForm: FC<Props> = ({item}) => {
   const intl = useIntl()
   const navigate = useNavigate()
   const {setItemIdForUpdate} = useListView()
@@ -161,7 +161,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
 
 
       try {
-        await createAudit(values)
+        await createOpAudit(values)
       } catch (error) {
         console.log(error)
       }
@@ -310,83 +310,10 @@ const EditAuditForm: FC<Props> = ({item}) => {
               </div>
             </div>
 
-            <div className='row mb-3'>
-            <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>{intl.formatMessage({id: 'AUDITS.PLANNER.UNIT.TYPE'})}</span>
-              </label>
-              <div className='col-lg-8 fv-row'>
-                <div className='d-flex align-items-center mt-3'>
-                  <label className='form-check form-check-inline form-check-solid me-5'>
-                    <input
-                      className='form-check-input'
-                      name='role'
-                      type='radio'
-                      value={'Hat'}
-                      onChange={() =>
-                        formik.values.sectionId != null && formik.values.gunitId == null
-                          ? listPartialUnits(formik.values.sectionId.toString(),"0", 0).then((res) => {
-                              setUnits(res.data)
-                            })
-                          : formik.values.sectionId != null && formik.values.gunitId != null ?
-                          listPartialUnits(formik.values.sectionId.toString(),formik.values.gunitId.toString(), 0).then((res) => {
-                            setUnits(res.data)
-                          })
-                          : listPartialUnits('0',"0", 0).then((res) => {
-                              setUnits(res.data)
-                            })
-                      }
-                    />
-                    <span className='fw-bold ps-2 fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.LINE'})}</span>
-                  </label>
+            
+            
 
-                  <label className='form-check form-check-inline form-check-solid'>
-                    <input
-                      className='form-check-input'
-                      name='role'
-                      type='radio'
-                      value={'Operatör'}
-                      onChange={() =>
-                        formik.values.sectionId != null && formik.values.gunitId == null
-                          ? listPartialUnits(formik.values.sectionId.toString(),"0", 1).then((res) => {
-                              setUnits(res.data)
-                            })
-                          : formik.values.sectionId != null && formik.values.gunitId != null ?
-                          listPartialUnits(formik.values.sectionId.toString(),formik.values.gunitId.toString(), 1).then((res) => {
-                            setUnits(res.data)
-                          })
-                          : listPartialUnits('0',"0", 1).then((res) => {
-                              setUnits(res.data)
-                            })
-                      }
-                    />
-                    <span className='fw-bold ps-2 fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPERATOR'})}</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>{intl.formatMessage({id: 'AUDITS.PLANNER.UNIT'})}</span>
-              </label>
-
-              <div className='col-lg-8 fv-row'>
-                <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('unitId')}
-                  value={formik.values.unitId}
-                  onChange={formik.handleChange}
-                  disabled={units.length === 0}
-                >
-                  {units.length && <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>}
-                  {units.map((unit: any) => (
-                    <option value={unit?.id} key={unit?.id as any}>
-                      {unit?.name as any}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+            
 
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
@@ -470,58 +397,6 @@ const EditAuditForm: FC<Props> = ({item}) => {
             </div>
 
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.PERIOD'})}</label>
-              <div className='col-lg-8 fv-row'>
-                <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('categoryType')}
-                >
-                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
-                  <option value='0'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.DAILY'})}</option>
-                  <option value='1'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.WEEKLY'})}</option>
-                  <option value='2'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.MONTHLY'})}</option>
-                  <option value='3'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.FOR3MONTHS'})}</option>
-                  <option value='5'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.INSTANT'})}</option>
-                </select>
-              </div>
-            </div>
-            {
-              parseInt(formik.values.categoryType as string) === 5 &&
-              <div className='fv-row mb-3'>
-              {/* begin::Label */}
-              <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.INSTANT.DATE'})}</label>
-              {/* end::Label */}
-
-              {/* begin::Input */}
-              <input
-                //placeholder='Full name'
-                {...formik.getFieldProps('nonPeriodicDate')}
-                type='datetime-local'
-                name='nonPeriodicDate'
-                className={clsx(
-                  'form-control form-control-solid mb-3 mb-lg-0',
-                  {'is-invalid': formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate},
-                  {
-                    'is-valid': formik.touched.nonPeriodicDate && !formik.errors.nonPeriodicDate,
-                  }
-                )}
-                autoComplete='off'
-                disabled={formik.isSubmitting}
-              />
-              {formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate && (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>
-                    <span role='alert'>{formik.errors.nonPeriodicDate}</span>
-                  </div>
-                </div>
-              )}
-              {/* end::Input */}
-            </div>
-
-            }
-
-        
-            <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.YEAR'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
@@ -588,4 +463,4 @@ const EditAuditForm: FC<Props> = ({item}) => {
   )
 }
 
-export {EditAuditForm}
+export {EditOpAuditForm}

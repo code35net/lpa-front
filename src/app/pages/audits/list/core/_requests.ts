@@ -3,8 +3,9 @@ import {ID, parseRequestQuery, Response} from '../../../../../_metronic/helpers'
 import {Model, QueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL
-const AUDIT_URL = `${API_URL}/Audits`
+const AUDIT_URL = `${API_URL}/Audit`
 const CREATE_AUDIT_URL = `${API_URL}/Custom/createAudit`
+const CREATE_OP_AUDIT_URL = `${API_URL}/Custom/createOpAudit`
 const GET_AUDITS_URL = `${API_URL}/Custom/getAudit`
 const AUDIT_DETAILS_URL = `${API_URL}/Custom/getAuditDetail`
 const AUDIT_QUESTIONS_URL = `${API_URL}/Custom/getAuditQuestions`
@@ -68,12 +69,19 @@ const getAuditById = (id: ID): Promise<Model | undefined> => {
   return axios
     .get(`${AUDIT_URL}/${id}`)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
-    .then((response: Response<Model>) => response.data)
+    .then((response: Response<Model>) => response as any)
 }
 
 const createAudit = (audit: Model): Promise<Model | undefined> => {
   return axios
     .put(CREATE_AUDIT_URL, audit)
+    .then((response: AxiosResponse<Response<Model>>) => response.data)
+    .then((response: Response<Model>) => response.data)
+}
+
+const createOpAudit = (audit: Model): Promise<Model | undefined> => {
+  return axios
+    .put(CREATE_OP_AUDIT_URL, audit)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response.data)
 }
@@ -94,4 +102,4 @@ const deleteSelectedAudits = (auditIds: Array<ID>): Promise<void> => {
   return axios.all(requests).then(() => {})
 }
 
-export {getAuditQuestions,getAudits, deleteAudit, deleteSelectedAudits, getAuditById, createAudit, updateAudit, getAuditDetails, finishAudit}
+export {getAuditQuestions,getAudits, deleteAudit, deleteSelectedAudits, getAuditById, createAudit,createOpAudit, updateAudit, getAuditDetails, finishAudit}

@@ -4,21 +4,20 @@ import {Model} from '../core/_models'
 
 import {useListView} from '../core/ListViewProvider'
 import {useIntl} from 'react-intl'
-
-
 type Props = {
   item?: Model
 }
 
 const EditModalHeader: FC<Props> = ({item}) => {
   const {itemIdForUpdate,setItemIdForUpdate} = useListView()
-  console.log(itemIdForUpdate,"test")
   const intl = useIntl()
+    
+
   return (
     <div className='modal-header'>
       {/* begin::Modal title */}
       <h2 className='fw-bolder'>
-      {itemIdForUpdate ? (intl.formatMessage({id: 'AUDITS.MODAL.EDIT'})) : (intl.formatMessage({id: 'AUDITS.MODAL.ADD'}))}
+      {itemIdForUpdate ? (intl.formatMessage({id: 'USER.EDIT'})) : (intl.formatMessage({id: 'QUESTIONCATEGORY.MODAL.ADD'}))}
       </h2>
       {/* end::Modal title */}
 

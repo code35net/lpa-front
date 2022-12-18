@@ -6,12 +6,12 @@ import {Table} from './table/Table'
 import {EditModal} from './edit-modal/EditModal'
 import {KTCard} from '../../../../_metronic/helpers'
 
-const List = () => {
+const List = (qsd: any) => {
   const {itemIdForUpdate} = useListView()
   return (
     <>
       <KTCard>
-        <ListHeader />
+        <ListHeader qsd={qsd.qsd} />
         <Table />
       </KTCard>
       {itemIdForUpdate !== undefined && <EditModal />}
@@ -19,11 +19,11 @@ const List = () => {
   )
 }
 
-const ListWrapper = () => (
+const ListWrapper = (qsd: any) => (
   <QueryRequestProvider>
     <QueryResponseProvider>
       <ListViewProvider>
-        <List />
+        <List qsd={qsd.qsd} />
       </ListViewProvider>
     </QueryResponseProvider>
   </QueryRequestProvider>

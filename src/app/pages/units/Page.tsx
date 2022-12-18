@@ -4,17 +4,12 @@ import {ListWrapper} from './list/List'
 import {useIntl} from 'react-intl'
 import {useEffect, useState} from 'react'
 
+import qs from 'qs'
 
 const Breadcrumbs: Array<PageLink> = [
   {
     title: 'Home',
     path: '/dashboard',
-    isSeparator: false,
-    isActive: false,
-  },
-  {
-    title: 'Definitions',
-    path: '',
     isSeparator: false,
     isActive: false,
   },
@@ -27,12 +22,6 @@ const Breadcrumbs: Array<PageLink> = [
   {
     title: '',
     path: '/departments',
-    isSeparator: false,
-    isActive: false,
-  },
-  {
-    title: 'Sections',
-    path: '/sections',
     isSeparator: false,
     isActive: false,
   },
@@ -57,12 +46,20 @@ const Breadcrumbs: Array<PageLink> = [
     const intl = useIntl()
   
     const [breadcrumbs, setBreadcrumbs] = useState(Breadcrumbs)
+    const [qsd, setQsd] = useState(qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId?.toString() || "")
   
     useEffect(() => {
       // Load the todos on mount
       const item = localStorage.getItem('department-name-breadcrumb')
       const item2 = localStorage.getItem('section-name-breadcrumb')
-      if (item2) {
+      const iditem = localStorage.getItem('department-id-breadcrumb')
+
+      setQsd(qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId?.toString() || "")
+
+      console.log(qsd,"yy")
+      if (item2 && item) {
+        breadcrumbs[breadcrumbs.length - 3].title = item
+        breadcrumbs[breadcrumbs.length - 3].path = '/sections/list?departmentId=' + iditem
         breadcrumbs[breadcrumbs.length - 2].title = item2
         setBreadcrumbs([...breadcrumbs])
       }
@@ -79,7 +76,7 @@ const Breadcrumbs: Array<PageLink> = [
         // Remove the handler when the component unmounts
         window.removeEventListener('storage', storageEventHandler)
       }
-    }, [])
+    }, [qsd])
   return (
     <Routes>
       <Route element={<Outlet />}>
@@ -88,7 +85,7 @@ const Breadcrumbs: Array<PageLink> = [
           element={
             <>
               <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'UNIT.PAGE.TITLE'})}</PageTitle>
-              <ListWrapper />
+              <ListWrapper qsd={qsd} />
             </>
           }
         />

@@ -92,7 +92,7 @@ const ListFilter = () => {
     if (selectedSections) {
       filter.sectionId = selectedSections
     }
-    updateState({filter: filter, ...initialQueryState})
+    updateState({filter: filter})
   }
 
   return (

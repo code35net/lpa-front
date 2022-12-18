@@ -104,7 +104,7 @@ const AuditQuestionsForm = () => {
         if (!((questions as any)[index] as any).needAction) {
           questionAnswers[index].finding = ''
           questionAnswers[index].actionDate = new Date().toISOString()
-          questionAnswers[index].actionUser = ''
+          questionAnswers[index].actionUser = 1
         }
 
         setQuestionAnswers([...questionAnswers])
@@ -176,14 +176,15 @@ const AuditQuestionsForm = () => {
         formData.append('actionUser', questionAnswers[index].actionUser)
 
         await addQuestionAnswers(formData)
+        ;(questions as any)[index].auditQAnswer = [{isAnswered: true}]
       }
 
-      ;(questions as any)[index].auditQAnswer = [{isAnswered: true}]
+      //;(questions as any)[index].auditQAnswer = [{isAnswered: true}]
       setQuestions([...questions])
     }
 
     checkAllQuestionsAnswered()
-
+    setLoading(false)
     Swal.fire({
       color: '#000000',
       title: 'Cevaplarınız başarıyla kaydedilmiştir.',
@@ -224,12 +225,12 @@ const AuditQuestionsForm = () => {
                 {/* begin::User */}
                 <div className='d-flex align-items-center flex-grow-1'>
                   {/* begin::Avatar */}
-                  <div className='symbol symbol-45px me-5'>{question?.id}</div>
+                  <div className='symbol symbol-45px me-5'>{i+1}</div>
                   {/* end::Avatar */}
 
                   {/* begin::Info */}
                   <div className='d-flex flex-column'>
-                    <span className='text-gray-800 text-hover-primary fs-6 fw-bold'>
+                    <span className='text-gray-800 fs-6 fw-bold'>
                       {question?.text}
                     </span>
                   </div>
@@ -243,11 +244,12 @@ const AuditQuestionsForm = () => {
               {!question?.auditQAnswer?.length ? (
                 <>
                   <div className='mb-5'>
+                        <div className='row mb-3'>
                     {/* begin::Text */}
                     {question.answerOptions.map((opt: any) => {
                       return (
-                        <div key={`${opt?.id}-opt`} className='row mb-3'>
-                          <div className='col-lg-8 fv-row'>
+                        
+                          <div className='col-lg-1 fv-row'>
                             <div className='d-flex align-items-center mt-3'>
                               <label className='form-check form-check-inline form-check-solid me-5'>
                                 <input
@@ -263,13 +265,13 @@ const AuditQuestionsForm = () => {
                               </label>
                             </div>
                           </div>
-                        </div>
                       )
                     })}
+                    </div>
                     {/* end::Text */}
                     {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.NOTES'})}
                     <textarea
-                      className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
+                      className='form-control border-1 p-0 pe-5 resize-none min-h-25px'
                       rows={4}
                       name={`${question?.id}-notes`}
                       value={questionAnswers[i].notes}
@@ -278,14 +280,7 @@ const AuditQuestionsForm = () => {
                         handleNotes(i, e.target.value)
                       }}
                     ></textarea>
-                    <div className='position-absolute top-0 end-0 me-n5'>
-                      <span className='btn btn-icon btn-sm btn-active-color-primary pe-0 me-2'>
-                        <KTSVG
-                          path='/media/icons/duotune/communication/com008.svg'
-                          className='svg-icon-3 mb-3'
-                        />
-                      </span>
-                    </div>
+                   
                   </div>
                   {/* end::Post */}
                   {/* begin::Separator */}
@@ -296,8 +291,8 @@ const AuditQuestionsForm = () => {
                     <div>
                       {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FIND'})}
                       <textarea
-                        className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
-                        required={question?.needAction}
+                        className='form-control border-1 p-0 pe-10 resize-none min-h-25px'
+                        // required={question?.needAction}
                         rows={4}
                         name={`${question?.id}-finding`}
                         value={questionAnswers[i].finding}
@@ -367,7 +362,7 @@ const AuditQuestionsForm = () => {
                 </>
               ) : (
                 <div className='d-flex flex-column'>
-                  <span className='text-gray-800 fs-6 fw-bold pb-4'>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.ANSWERED'})}</span>
+                  <span className='text-success fs-6 fw-bold pb-4'>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.ANSWERED'})}</span>
                 </div>
               )}
             </div>
@@ -375,10 +370,10 @@ const AuditQuestionsForm = () => {
           </div>
         )
       })}
-
-      <div className='col-md-12'>
-      <button
+    
+    {!allQuestionAnswered && (<button
         type='button'
+        style={{ width:"200px", position: "fixed", bottom: "0px", right: "200px" }}
         disabled={allQuestionAnswered || loading}
         className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
         onClick={() => submitAnswers()}
@@ -396,12 +391,11 @@ const AuditQuestionsForm = () => {
        
         
       </button>
+      )}  
 
-      </div>
-      <div  className='col-md-12'>
-      <button
+      {allQuestionAnswered && (<button
         type='button'
-        disabled={!allQuestionAnswered}
+        style={{ width:"200px", position: "fixed", bottom: "0px", right: "200px" }}
         className='btn btn-sm btn-secondary btn-active-light-danger  mt-3 mb-3'
         onClick={() => finishAudit().then(() => {
           navigate('/audits/list')
@@ -411,8 +405,7 @@ const AuditQuestionsForm = () => {
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FINISH'})}
       </button>
-      </div>
-
+      )}
     </>
   )
 }

@@ -15,6 +15,7 @@ const InfoCell: FC<Props> = ({item}) => (
       <Link
         onClick={() => {
           localStorage.setItem('department-name-breadcrumb', (item as any)?.name)
+          localStorage.setItem('department-id-breadcrumb', (item as any)?.id)
         }}
         to={`/sections/list?departmentId=${item.id}`}
       >

@@ -18,6 +18,7 @@ import {UserPermissionForm} from "../pages/user-management/permissions"
 import {RolePermissionForm} from "../pages/role-management/permissions"
 // import {TemplateForm} from "../pages/answertemplates/Add"
 import {EditAuditForm} from "../pages/audits/Planner"
+import {EditOpAuditForm} from "../pages/audits/OpPlanner"
 import {AuditDetails} from "../pages/audits/detail/auditdetail"
 import {UserDetails} from "../pages/user-management/detail/userdetail"
 import {AuditQuestionsForm} from "../pages/audits/detail/auditquestions"
@@ -67,6 +68,7 @@ const PrivateRoutes = () => {
         {/* <Route path='/user-management/edit' element={<UserFullEditForm />} /> */}
         {/* <Route path='/answertemplates/add' element={<TemplateForm />} /> */}
         <Route path='/audits/planner' element={<EditAuditForm />} />
+        <Route path='/audits/opplanner' element={<EditOpAuditForm />} />
         <Route path='/audits/auditdetail' element={<AuditDetails />} />
         <Route path='/user-manager/userdetails' element={<UserDetails />} />
         <Route path='/actions/actiondetail' element={<ActionDetails />} />

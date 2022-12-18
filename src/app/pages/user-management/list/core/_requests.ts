@@ -3,8 +3,9 @@ import {ID, Response} from '../../../../../_metronic/helpers'
 import {Model, QueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL
-const USER_URL = `${API_URL}/Custom/getUser`
+const USER_URL = `${API_URL}/Custom/getUserById`
 const REGISTER_USER_URL = `${API_URL}/Auth/register`
+const UPDATE_USER_URL = `${API_URL}/Custom/updateUser`
 const GET_USERS_URL = `${API_URL}/Custom/getUser`
 const GET_USER_DETAILS_URL = `${API_URL}/Custom/getUserDetail`
 const GET_USER_CLAIMS_URL = `${API_URL}/Custom/getUserClaims`
@@ -35,12 +36,17 @@ const setClaimForUser = async (requestBody : any): Promise<any> =>
     return res.data
   })
 
+// const getUserById = (id: ID): Promise<Model | undefined> => {
+//   return axios
+//     .get(`${USER_URL}/${id}`)
+//     .then((response: AxiosResponse<Response<Model>>) => response.data)
+//     .then((response: Response<Model>) => response as any)
+// }
+
 const getUserById = (id: ID): Promise<Model | undefined> => {
-  return axios
-    .get(`${USER_URL}/${id}`)
-    .then((response: AxiosResponse<Response<Model>>) => response.data)
-    .then((response: Response<Model>) => response as any)
+  return axios.get(`${USER_URL}/${id}`).then((response: any) => response.data)
 }
+
 
 const createUser = (user: Model): Promise<Model | undefined> => {
   return axios
@@ -51,7 +57,7 @@ const createUser = (user: Model): Promise<Model | undefined> => {
 
 const updateUser = (user: Model): Promise<Model | undefined> => {
   return axios
-    .post(`${USER_URL}/${user.id}`, user)
+    .post(`${UPDATE_USER_URL}`, user)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response.data)
 }

@@ -36,15 +36,24 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   const [auditcategories, setAuditCategories] = React.useState([])
   const [questioncategories, setQuestionCategories] = React.useState([])
   const [answertemplates, setAnswertemplates] = React.useState([])
+  const [isQuestionCategory, setIsQuestionCategory] = React.useState(item.isAddedQuestionCategory)
 
   useEffect(() => {
     listDepartments().then((res) => {
       if (res?.data?.length) {
         setDepartments(res.data || [])
-
+        if(item.section?.departmentId != undefined)
+        {
+          listSections(item.section?.departmentId.toString()).then((res3) => {
+            setSections(res3.data || [])
+          })
+        }
+        else
+        {
         listSections(res?.data[0]?.id).then((res3) => {
           setSections(res3.data || [])
         })
+        }
       }
     })
 
@@ -64,6 +73,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   const [placeForEdit] = useState<Model>({
     text: undefined,
     sectionId: undefined,
+    departmentId: undefined,
     auditCategoryId: undefined,
     isNew: undefined,
     isAddedQuestionCategory: false,
@@ -97,8 +107,10 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
     },
   })
 
+  console.log(formik.values)
+
   const handleChangeDepartmentId = async (event: any) => {
-    formik.setFieldValue('departmentId', event.target.value)
+    formik.setFieldValue('section.departmentId', event.target.value)
     listSections(event.target.value).then((res) => {
       setSections(res.data)
     })
@@ -201,7 +213,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           <select
             className='form-select form-select-solid form-select-md'
             {...formik.getFieldProps('departmentId')}
-            value={formik.values.departmentId}
+            value={formik.values.section?.departmentId}
             onChange={handleChangeDepartmentId}
           >
             <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.MODAL.FORM'})}</option>
@@ -271,7 +283,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
             <input
               {...formik.getFieldProps('isAddedQuestionCategory')}
               checked={formik.values.isAddedQuestionCategory}
-              onChange={(e) => formik.setFieldValue('isAddedQuestionCategory', e.target.checked)}
+              onChange={(e) => {formik.setFieldValue('isAddedQuestionCategory', e.target.checked); setIsQuestionCategory(e.target.checked)}}
               value={formik.values.isAddedQuestionCategory ? 'on' : 'off'}
               className='form-check-input w-80px mt-2 border-secondary'
               type='checkbox'
@@ -280,6 +292,9 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           </div>
 
         </div>
+        {
+          isQuestionCategory && (
+            
         <div className='fv-row mb-7'>
          
          
@@ -296,6 +311,8 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           </select>
           {/* end::Input */}
         </div>
+          )
+        }
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>

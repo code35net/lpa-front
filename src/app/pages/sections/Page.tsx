@@ -3,17 +3,12 @@ import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import {ListWrapper} from './list/List'
 import {useIntl} from 'react-intl'
 import {useEffect, useState} from 'react'
+import { Item1 } from '../../../_metronic/partials/content/activity/Item1'
 
 const Breadcrumbs: Array<PageLink> = [
   {
     title: 'Home',
     path: '/dashboard',
-    isSeparator: false,
-    isActive: false,
-  },
-  {
-    title: 'Definitions',
-    path: '',
     isSeparator: false,
     isActive: false,
   },
@@ -45,8 +40,10 @@ const Page = () => {
   useEffect(() => {
     // Load the todos on mount
     const item = localStorage.getItem('department-name-breadcrumb')
+    const iditem = localStorage.getItem('department-id-breadcrumb')
     if (item) {
       breadcrumbs[breadcrumbs.length - 2].title = item
+      breadcrumbs[breadcrumbs.length - 2].path = '/sections/list?departmentId='+iditem
       setBreadcrumbs([...breadcrumbs])
     }
     // Respond to the `storage` event
