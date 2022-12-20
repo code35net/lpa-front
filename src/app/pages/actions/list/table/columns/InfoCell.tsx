@@ -13,7 +13,7 @@ const InfoCell: FC<Props> = ({item}) => (
   <div className='d-flex align-items-center'>
     <div className='d-flex flex-column'>
     <span className='text-gray-800 text-hover-primary'>
-    <Link to={`/actions/actiondetail?actionCode=${item.actionCode}`}> {item.finding}</Link>
+{item.finding}
       </span>
     </div>
   </div>
