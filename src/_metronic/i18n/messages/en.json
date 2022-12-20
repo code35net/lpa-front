@@ -173,6 +173,8 @@
 
   "AUDITS.PAGE.TITLE": "Audits",
   "AUDITS.LIST.ADD": "Audit Planner",
+  "AUDITS.LIST.ADD_OP": "Shift Audit Planner",
+  "AUDITS.DETAIL.ANSWERED": "Answered",
   "AUDITS.LIST.AUDITNAME": "Audit Name",
   "AUDITS.LIST.UNITNAME": "Unit Name",
   "AUDITS.LIST.DATE": "Audit Date",

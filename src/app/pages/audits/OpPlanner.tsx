@@ -289,7 +289,7 @@ const EditOpAuditForm: FC<Props> = ({item}) => {
 
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>{intl.formatMessage({id: 'AUDITS.PLANNER.UNIT.GROUP'})}</span>
+                <span>{intl.formatMessage({id: 'AUDITS.PLANNER.UNIT.GROUP'})}</span>
               </label>
 
               <div className='col-lg-8 fv-row'>

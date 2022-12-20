@@ -15,6 +15,7 @@ export type Model = {
   done:boolean
   status:number
   actionCode?:string
+  text?:string
 }
 
 export type QueryResponse = Response<Array<Model>>

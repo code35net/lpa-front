@@ -12,6 +12,8 @@ import {ErrorsPage} from '../modules/errors/ErrorsPage'
 import {Logout, AuthPage, useAuth} from '../modules/auth'
 import {App} from '../App'
 
+import {ActionDetails} from "../pages/actions/actiondetail"
+
 /**
  * Base URL of the website.
  *
@@ -36,6 +38,22 @@ const AppRoutes: FC = () => {
             <>
               <Route path='auth/*' element={<AuthPage />} />
               <Route path='*' element={<Navigate to='/auth' />} />
+              <Route path='/actions/actiondetail' element={<ActionDetails item={{
+                  id: undefined,
+                  auditname: undefined,
+                  departmantName: undefined,
+                  sectionName: undefined,
+                  unitName: undefined,
+                  assignedUserName: undefined,
+                  questiontext: undefined,
+                  auditDate: undefined,
+                  lastDate: undefined,
+                  finding: undefined,
+                  done: false,
+                  status: 0,
+                  actionCode: undefined,
+                  text: undefined
+                }} />} />
             </>
           )}
         </Route>

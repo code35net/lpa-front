@@ -172,6 +172,8 @@
 
   "AUDITS.PAGE.TITLE": "Denetimler",
   "AUDITS.LIST.ADD": "Denetim Planlayıcısı",
+  "AUDITS.LIST.ADD_OP": "Vardiyalı Denetim Planlayıcısı",
+  "AUDITS.DETAIL.ANSWERED": "Cevaplanan",
   "AUDITS.LIST.AUDITNAME": "Denetim İsmi",
   "AUDITS.LIST.UNITNAME": "Birim İsmi",
   "AUDITS.LIST.DATE": "Denetim Tarihi",

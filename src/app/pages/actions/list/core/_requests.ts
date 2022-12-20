@@ -5,13 +5,32 @@ import {Model, QueryResponse} from './_models'
 const API_URL = process.env.REACT_APP_API_URL
 const ACTION_URL = `${API_URL}/Auction`
 const GET_ACTIONS_URL = `${API_URL}/Custom/getAuctions`
-const ACTION_DETAILS_URL = `${API_URL}/Auction`
+const SAVE_ACTIONS_URL = `${API_URL}/Custom/saveActions`
+const GET_ACTION_DETAIL_URL = `${API_URL}/Custom/getAuctions`
+const ACTION_DETAILS_URL = `${API_URL}/Custom/getAuctionDetail`
 
 
-const getAuctionDetails = async (id : string): Promise<any> => await axios.get(`${ACTION_DETAILS_URL}?Id=${id}`).then((res : AxiosResponse) => 
+// const getAuctionDetails = async (actionCode : string): Promise<any> => await axios.get(`${ACTION_DETAILS_URL}/${actionCode}`).then((res : AxiosResponse) => 
+//  {
+//    return res.data;
+//  });
+
+ const getAuctionDetails = async (actionCode : string): Promise<any> => await axios.get(`${ACTION_DETAILS_URL}?actionCode=${actionCode}`).then((res : AxiosResponse) => 
  {
    return res.data;
- });
+ }
+ 
+ );
+
+ const saveAction = (action: any) => {
+  return axios
+    .put(SAVE_ACTIONS_URL, action, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response: any) => response.data)
+}
 
 
 const getActions = (query: string): Promise<QueryResponse> => {
@@ -63,5 +82,5 @@ export {
   createAction,
   updateAction,
   listActions,
-  getAuctionDetails
+  getAuctionDetails,saveAction
 }
