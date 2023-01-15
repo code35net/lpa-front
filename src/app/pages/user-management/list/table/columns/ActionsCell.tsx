@@ -37,12 +37,12 @@ const ActionsCell: FC<Props> = ({id}) => {
     <>
 
         <div className='d-flex justify-content-end flex-shrink-0'>
-        <span 
+        {/*<span 
            >
             <Link className='btn btn-info btn-sm me-1' to={`/user-management/userpermission/${id}`}> {intl.formatMessage({id: 'USER.TABLE.AUTHORITY'})} </Link>
             
           </span>
-
+         */}
           <a
           className='btn btn-icon btn-bg-light btn-active-color-dark btn-sm me-1'
           onClick={openEditModal}

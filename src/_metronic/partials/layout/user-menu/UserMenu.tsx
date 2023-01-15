@@ -23,10 +23,10 @@ const UserMenu = () => {
           {/* begin::Username */}
           <div className='d-flex flex-column'>
             <div className='fw-bolder d-flex align-items-center fs-5'>
-              {currentUser?.username} {currentUser?.email}
+              {currentUser?.userName} {currentUser?.email}
             </div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
-              {currentUser?.username}
+              {currentUser?.userName}
             </a>
           </div>
           {/* end::Username */}
@@ -42,13 +42,8 @@ const UserMenu = () => {
 
       <Languages languageMenuPlacement='right-end' />
 
-      {/* begin::Menu item */}
-      <div className='menu-item px-5 my-1'>
-        <a href='#' className='menu-link px-5'>
-        {intl.formatMessage({id: 'USERMENU.ACCOUNTSETTINGS'})}
-        </a>
-      </div>
-      {/* end::Menu item */}
+     
+     
 
       {/* begin::Menu item */}
       <div className='menu-item px-5'>

@@ -71,6 +71,7 @@ const AuthInit: FC<WithChildren> = ({children}) => {
         if (!didRequest.current) {
           const {data} = await getUserByToken()
           if (data.id != undefined) {
+            console.log(data)
             setCurrentUser(data)
           }
           else

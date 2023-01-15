@@ -22,7 +22,7 @@ const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).paren
      <div className='d-flex flex-column'>
        <span  className='text-gray-800 text-primary'>
        {
-         item.unitType == 2 ? <Link to={`/subunits/list?sectionId=${qsd}&parentUnitId=${item.id}`}  >{item.name}</Link> : item.name
+         item.unitType == 2 ? <Link to={`/subunits/list?sectionId=${item.sectionId}&parentUnitId=${item.id}`}  >{item.name}</Link> : item.name
        // item.unitType == 2 ? <Link to={`/units/list?sectionId=${qsd}`}  >{item.name}</Link> : item.name
        } 
        

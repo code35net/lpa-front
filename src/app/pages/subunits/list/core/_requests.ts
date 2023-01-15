@@ -33,7 +33,7 @@ const listUnits = async (sectionId : string): Promise<any> => await axios.get(`$
 const getSubUnits = (query: string): Promise<QueryResponse> => {
   const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
   const qsd2 = qs.parse(window.location.search, { ignoreQueryPrefix: true }).parentUnitId
-  return axios.get(`${GET_UNITS_URL}?sectionId=${qsd}&parentUnitId=${qsd2}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  return axios.get(`${GET_UNITS_URL}?${query}&sectionId=${qsd}&parentUnitId=${qsd2}`).then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 

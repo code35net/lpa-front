@@ -12,9 +12,7 @@ const SectionCell: FC<Props> = ({item}) => (
   <div className='d-flex align-items-center'>
     
     <div className='d-flex flex-column'>
-      <a href='#' className='text-gray-800 text-hover-primary mb-1'>
         {item.positionName}
-      </a>
     </div>
    
   </div>

@@ -23,6 +23,7 @@ const {PUBLIC_URL} = process.env
 
 const AppRoutes: FC = () => {
   const {currentUser} = useAuth()
+  console.log(currentUser)
   return (
     <BrowserRouter basename={PUBLIC_URL}>
       <Routes>
@@ -32,7 +33,7 @@ const AppRoutes: FC = () => {
           {currentUser ? (
             <>
               <Route path='/*' element={<PrivateRoutes />} />
-              <Route index element={<Navigate to='/dashboard' />} />
+              {currentUser?.roleName == "Key Account" ? <Route index element={<Navigate to='/dashboard' />} /> : <Route index element={<Navigate to='/audits' />} />}
             </>
           ) : (
             <>

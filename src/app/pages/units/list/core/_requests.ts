@@ -28,7 +28,7 @@ const listUnits = async (sectionId : string): Promise<any> => await axios.get(`$
 
 const getUnits = (query: string): Promise<QueryResponse> => {
   const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
-  return axios.get(`${GET_UNITS_URL}?sectionId=${qsd}`)
+  return axios.get(`${GET_UNITS_URL}?${query}&sectionId=${qsd}`)
   .then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 

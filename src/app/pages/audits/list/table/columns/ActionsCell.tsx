@@ -6,15 +6,22 @@ import {ID, KTSVG, QUERIES} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {deleteAudit} from '../../core/_requests'
+import {useAuth} from '../../../../../../app/modules/auth'
+import {useLocation, Link} from 'react-router-dom'
 
 type Props = {
   id: ID
 }
 
+
+
+
 const ActionsCell: FC<Props> = ({id}) => {
   const {setItemIdForUpdate} = useListView()
   const {query} = useQueryResponse()
   const queryClient = useQueryClient()
+
+  const {currentUser} = useAuth()
 
   useEffect(() => {
     MenuComponent.reinitialization()
@@ -33,7 +40,7 @@ const ActionsCell: FC<Props> = ({id}) => {
     },
   })
 
-  return (
+  return currentUser?.roleName == "Key Account" ? (
     <>
       
         <div className='d-flex justify-content-end flex-shrink-0'>
@@ -52,6 +59,10 @@ const ActionsCell: FC<Props> = ({id}) => {
           </a>
         </div>
       
+    </>
+  ) : (
+    <>
+     <Link to={`/audits/auditquestions/${id}`} className="btn btn-sm btn-icon btn-dark"><KTSVG path='/media/icons/duotune/general/gen016.svg' className='svg-icon-3' /></Link>
     </>
   )
 }

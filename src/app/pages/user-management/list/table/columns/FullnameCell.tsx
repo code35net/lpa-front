@@ -13,9 +13,7 @@ const FullnameCell: FC<Props> = ({item}) => (
     {/* begin:: Avatar */}
     
     <div className='d-flex flex-column'>
-      <a href='#' className='text-gray-800 text-hover-primary mb-1'>
         {item.fullName}
-      </a>
     </div>
   </div>
 )

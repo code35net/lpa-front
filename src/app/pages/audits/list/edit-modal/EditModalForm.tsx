@@ -7,7 +7,7 @@ import {Model} from '../core/_models'
 import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
-import {updateAudit} from '../core/_requests'
+import {updateAudit, listUnits} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import moment from 'moment'
 import {listUsers} from '../../../user-management/list/core/_requests'
@@ -29,15 +29,20 @@ const EditModalForm: FC<Props> = ({item}) => {
   const {refetch} = useQueryResponse()
 
   const [users, setUsers] = useState([])
+  const [operators, setOperators] = useState([])
   useEffect(() => {
     listUsers().then((res)=>{
       setUsers(res.data)
+    })
+    listUnits(item.sectionId).then((res)=>{
+      setOperators(res)
     })
   }, [])
 
   const [placeForEdit] = useState<Model>({
     auditDate: undefined,
     auditor: undefined,    
+    unitId: undefined,    
     ...item
   })
 
@@ -85,7 +90,7 @@ const EditModalForm: FC<Props> = ({item}) => {
           <div className='fv-row mb-7'>
             {/* begin::Label */}
             <label className='required fw-bold fs-6 mb-2'>
-              {intl.formatMessage({id: 'AUDIT.AUDITDATE'})}
+              {intl.formatMessage({id: 'AUDITS.LIST.DATE'})}
             </label>
             {/* end::Label */}
 
@@ -119,7 +124,7 @@ const EditModalForm: FC<Props> = ({item}) => {
           <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'USER.NEWUSER'})}
+            {intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
           </label>
           {/* end::Label */}
 
@@ -134,6 +139,30 @@ const EditModalForm: FC<Props> = ({item}) => {
             {users.map((user: any) => (
               <option value={user?.id} key={user?.id as any}>
                 {user?.fullName as any}
+              </option>
+            ))}
+          </select>
+          {/* end::Input */}
+        </div>
+
+        <div className='fv-row mb-7'>
+          {/* begin::Label */}
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'AUDITS.PLANNER.USER'})}
+          </label>
+          {/* end::Label */}
+
+          {/* begin::Input */}
+          <select
+            className='form-select form-select-solid form-select-md'
+            {...formik.getFieldProps('unitId')}
+            value={formik.values.unitId}
+            onChange={formik.handleChange}
+          >
+            <option value=''>{intl.formatMessage({id: 'SELECT'})}</option>
+            {operators.map((unit: any) => (
+              <option value={unit?.id} key={unit?.id as any}>
+                {unit?.name as any}
               </option>
             ))}
           </select>

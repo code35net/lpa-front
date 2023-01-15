@@ -1,7 +1,9 @@
 import React, {useRef, useEffect} from 'react'
 import {useLocation} from 'react-router'
 import {AsideMenuMain} from './AsideMenuMain'
+import {AsideMenuUser} from './AsideMenuUser'
 import {DrawerComponent, ScrollComponent, ToggleComponent} from '../../../assets/ts/components'
+import {useAuth} from '../../../../app/modules/auth'
 
 type Props = {
   asideMenuCSSClasses: string[]
@@ -10,7 +12,7 @@ type Props = {
 const AsideMenu: React.FC<Props> = ({asideMenuCSSClasses}) => {
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const {pathname} = useLocation()
-
+  const {currentUser} = useAuth()
   useEffect(() => {
     setTimeout(() => {
       DrawerComponent.reinitialization()
@@ -40,7 +42,18 @@ const AsideMenu: React.FC<Props> = ({asideMenuCSSClasses}) => {
         data-kt-menu='true'
         className='menu menu-column menu-rounded fw-bold my-auto'
       >
-        <AsideMenuMain />
+        {currentUser?.roleName == 'Key Account' ? (        
+        <>
+          <AsideMenuMain />
+          
+          </>
+          ) :
+          (                
+            <>
+            <AsideMenuUser />
+            </>
+          )       
+        }
       </div>
     </div>
   )

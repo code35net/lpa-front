@@ -1,5 +1,5 @@
 import {KTSVG} from '../../../helpers'
-import {Search, ThemeModeSwitcher} from '../../../partials'
+import {HeaderUserMenu, Search, ThemeModeSwitcher} from '../../../partials'
 import {Languages} from '../../../partials/layout/header-menus/Languages'
 
 const Topbar = () => {
@@ -11,7 +11,7 @@ const Topbar = () => {
         mobileToggleBtnClass='btn btn-icon btn-color-gray-700 btn-active-color-primary btn-outline btn-outline-secondary w-40px h-40px'
       /> */}
 
-
+      
       <div className='d-flex align-items-center ms-3 ms-lg-4'>
 
         {/* <div

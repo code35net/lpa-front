@@ -27,10 +27,18 @@ const editchema = Yup.object().shape({
     .required('Email required'),
   fullName: Yup.string()
      .max(50, 'Maximum 50 symbols')
-    .required('fullName required'),
+    .required('Fullname required'),
   identity: Yup.string()
     .max(50, 'Maximum 50 symbols')
    .required('Identity required'),
+  departmentId: Yup.string()
+  .required('Department required'),
+  sectionId: Yup.string()
+  .required('Section required'),
+  positionId: Yup.string()
+  .required('Position required'),
+  shift: Yup.string()
+  .required('Shift required'),
 })
 
 const UserEditForm: FC<Props> = ({item}) => {
@@ -171,7 +179,9 @@ const UserEditForm: FC<Props> = ({item}) => {
                 {/* end::Input */}
                 {formik.touched.email && formik.errors.email && (
                   <div className='fv-plugins-message-container'>
-                    <span role='alert'>{formik.errors.email}</span>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.email}</span>
+                    </div>
                   </div>
                 )}
               </div>
@@ -185,7 +195,7 @@ const UserEditForm: FC<Props> = ({item}) => {
 
               <div className='col-lg-8 fv-row'>
                 <input
-                  //placeholder='Email'
+                 // placeholder={formik.errors.fullName}
                   {...formik.getFieldProps('fullName')}
                   className={clsx(
                     'form-control form-control-solid mb-3 mb-lg-0',
@@ -199,12 +209,16 @@ const UserEditForm: FC<Props> = ({item}) => {
                   autoComplete='off'
                   disabled={formik.isSubmitting}
                 />
-                {/* end::Input */}
                 {formik.touched.fullName && formik.errors.fullName && (
                   <div className='fv-plugins-message-container'>
-                    <span role='alert'>{formik.errors.fullName}</span>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.fullName}</span>
+                    </div>
                   </div>
                 )}
+
+              
+              
               </div>
             </div>
             <div className='row mb-3'>
@@ -228,12 +242,14 @@ const UserEditForm: FC<Props> = ({item}) => {
                   type='number'
                   name='identity'
                   autoComplete='off'
-                  disabled={formik.isSubmitting}
+                  disabled={formik.isSubmitting || loading}
                 />
                 {/* end::Input */}
                 {formik.touched.identity && formik.errors.identity && (
                   <div className='fv-plugins-message-container'>
-                    <span role='alert'>{formik.errors.identity}</span>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.identity}</span>
+                    </div>
                   </div>
                 )}
               </div>
@@ -259,18 +275,14 @@ const UserEditForm: FC<Props> = ({item}) => {
                     </option>
                   ))}
                 </select>
-{/*                 
-                <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('departmentId')}
-                  value={formik.values.departmentId}
-                >
-                  {departments.map((department: any) => (
-                    <option value={department?.id} key={department?.id as any}>
-                      {department?.name as any}
-                    </option>
-                  ))}
-                </select> */}
+                {formik.touched.departmentId && formik.errors.departmentId && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.departmentId}</span>
+                    </div>
+                  </div>
+                )}
+
               </div>
             </div>
             <div className='row mb-3'>
@@ -294,18 +306,14 @@ const UserEditForm: FC<Props> = ({item}) => {
                     </option>
                   ))}
                 </select>
-{/*                 
-                <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('departmentId')}
-                  value={formik.values.departmentId}
-                >
-                  {departments.map((department: any) => (
-                    <option value={department?.id} key={department?.id as any}>
-                      {department?.name as any}
-                    </option>
-                  ))}
-                </select> */}
+                {formik.touched.sectionId && formik.errors.sectionId && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.sectionId}</span>
+                    </div>
+                  </div>
+                )}
+
               </div>
             </div>
             <div className='row mb-3'>
@@ -321,12 +329,20 @@ const UserEditForm: FC<Props> = ({item}) => {
                   {...formik.getFieldProps('positionId')}
                   value={formik.values.positionId}
                 >
+                   <option value=''>Seçiniz</option>
                   {positions.map((position: any) => (
                     <option value={position?.id} key={position?.id as any}>
                       {position?.name as any}
                     </option>
                   ))}
                 </select>
+                {formik.touched.positionId && formik.errors.positionId && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.positionId}</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             
@@ -344,9 +360,16 @@ const UserEditForm: FC<Props> = ({item}) => {
                   <option value='2'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.NIGHT'})}</option>                  
                   <option value='3'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.REGULAR'})}</option> 
                 </select>
+                {formik.touched.shift && formik.errors.shift && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.shift}</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-            <div className='row mb-3'>
+            {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>{intl.formatMessage({id: 'USER.NEWUSER.ROLE'})}</label>
 
               <div className='col-lg-8 fv-row'>
@@ -376,7 +399,7 @@ const UserEditForm: FC<Props> = ({item}) => {
                   </label>
                 </div>
               </div>
-            </div>
+            </div> */}
            
           </div>
 

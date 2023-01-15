@@ -13,6 +13,7 @@ import {
 import {getAudits, getAuditDetails} from './_requests'
 import {Model} from './_models'
 import {useQueryRequest} from './QueryRequestProvider'
+import {useAuth} from '../../../../../app/modules/auth'
 
 const QueryResponseContext = createResponseContext<Model>(initialQueryResponse)
 const QueryResponseProvider: FC<WithChildren> = ({children}) => {
@@ -20,6 +21,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state))
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state])
 
+  const {currentUser} = useAuth()
   useEffect(() => {
     if (query !== updatedQuery) {
       setQuery(updatedQuery)
@@ -33,7 +35,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   } = useQuery(
     `${QUERIES.USERS_LIST}-${query}`,
     () => {
-      return getAudits(query)
+      return currentUser?.roleName == "Key Account" ? getAudits(query, "0") : getAudits(query,"1")
     },
     {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
   )

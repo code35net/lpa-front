@@ -10,6 +10,14 @@ const GET_AUDITS_URL = `${API_URL}/Custom/getAudit`
 const AUDIT_DETAILS_URL = `${API_URL}/Custom/getAuditDetail`
 const AUDIT_QUESTIONS_URL = `${API_URL}/Custom/getAuditQuestions`
 const FINISH_AUDIT = `${API_URL}/Custom/finishAudit`
+const UNITS_URL = `${API_URL}/Custom/listUnits`
+
+
+const listUnits = async (SectionId: any): Promise<any> =>
+  await axios.get(`${UNITS_URL}?SectionId=${SectionId}`).then((res: AxiosResponse) => {
+    return res.data
+  })
+
 
 const finishAudit = (auditid: any) => {
     return axios
@@ -30,9 +38,11 @@ const getAuditDetails = async (id : string): Promise<any> => await axios.get(`${
  
  );
 
-const getAudits = (query: string): Promise<QueryResponse> => {
+const getAudits = (query: string, onlyauditor: string): Promise<QueryResponse> => {
 
-  return axios.get(`${GET_AUDITS_URL}?${query}`).then((d: AxiosResponse<QueryResponse>) => {
+  const callurl = onlyauditor == "0" ? `${GET_AUDITS_URL}?${query}` : `${GET_AUDITS_URL}?${query}&isonlyauditor=1`
+
+  return axios.get(callurl).then((d: AxiosResponse<QueryResponse>) => {
     const queryRaw: any = parseRequestQuery(query)
     if (queryRaw?.filter_auditcategoryid && Array.isArray(d?.data?.data)) {
       d.data.data = (d as any).data?.data?.filter(
@@ -102,4 +112,4 @@ const deleteSelectedAudits = (auditIds: Array<ID>): Promise<void> => {
   return axios.all(requests).then(() => {})
 }
 
-export {getAuditQuestions,getAudits, deleteAudit, deleteSelectedAudits, getAuditById, createAudit,createOpAudit, updateAudit, getAuditDetails, finishAudit}
+export {getAuditQuestions,getAudits, deleteAudit, deleteSelectedAudits, getAuditById, createAudit,createOpAudit, updateAudit, getAuditDetails, finishAudit, listUnits}

@@ -11,6 +11,7 @@ import {WithChildren} from '../../_metronic/helpers'
 import {EditForm} from "../pages/questions/Add"
 import {SubUnitForm} from "../pages/subunits/Add"
 import {UnitForm} from "../pages/units/Add"
+import {Logout, AuthPage, useAuth} from '../modules/auth'
 
 import {UserEditForm} from "../pages/user-management/newuser"
 // import {UserFullEditForm} from "../pages/user-management/edit"
@@ -50,11 +51,12 @@ const PrivateRoutes = () => {
 
   // const AuditsPage = lazy(() => import('../pages/audit/Page'))
 
+  const {currentUser} = useAuth()
   return (
     <Routes>
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/dashboard' />} />
+        {currentUser?.roleName == "Key Account" ? <Route path='auth/*' element={<Navigate to='/dashboard' />} /> : <Route path='auth/*' element={<Navigate to='/audits' />} />}
         {/* Pages */}
         <Route path='/users' element={<UsersPage />} />
         <Route path='/users' element={<UsersPage />} />

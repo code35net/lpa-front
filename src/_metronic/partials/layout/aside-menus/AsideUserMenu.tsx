@@ -12,15 +12,12 @@ const AsideUserMenu: FC = () => {
       <div className='d-flex flex-stack'>
         {/* begin::Wrapper */}
         <div className='d-flex align-items-center'>
-          {/* begin::Avatar */}
-          <div className='symbol symbol-circle symbol-40px'>
-            <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt='avatar' />
-          </div>
-          {/* end::Avatar */}
+         
+         
           {/* begin::User info */}
           <div className='ms-2'>
             <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bolder lh-1'>
-              {currentUser?.username}
+              {currentUser?.userName}
             </a>
             <span className='text-muted fw-bold d-block fs-7 lh-1'>{currentUser?.email}</span>
           </div>
@@ -39,6 +36,7 @@ const AsideUserMenu: FC = () => {
             <KTSVG path='/media/icons/duotune/coding/cod001.svg' className='svg-icon-1' />
           </div>
           <UserMenu />
+          
         </div>
         {/* end::User menu */}
       </div>

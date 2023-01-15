@@ -18,7 +18,7 @@ import {createBulkUnits} from '../subunits/list/core/_requests'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 
 
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useLocation} from 'react-router-dom'
 
 type Props = {
   //    isPlaceLoading: boolean
@@ -104,8 +104,12 @@ const SubUnitForm: FC<Props> = ({item}) => {
   //     const updatedData = Object.assign(data, fieldsToUpdate)
   //     setData(updatedData)
   //   }
-
-  const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const qsd = searchParams.get("sectionId");
+  const qsdpuid = searchParams.get("parentUnitId");
+  //const qsd = qs.parse(window.location.search, { ignoreQueryPrefix: true }).sectionId
+  //const qsdpuid = qs.parse(window.location.search, { ignoreQueryPrefix: true }).parentUnitId
 
   
 
@@ -122,7 +126,7 @@ const SubUnitForm: FC<Props> = ({item}) => {
 
       
       
-
+      values.parentUnitId = parseInt(qsdpuid?.toString() || "0");
       
       if (!values.leaderUserId && users.length) {
         values.leaderUserId = (users[0] as any)?.id
@@ -365,7 +369,7 @@ else
 
                     <div className='col-lg-12'>
                       <div className='row'>
-                        <div className='col-md-12 fv-row'>
+                        <div className='col-md-11 fv-row'>
                           <input
                             key={`${question.id}`}
                             name={`${question.id}`}
@@ -379,8 +383,6 @@ else
                             value={question.name}
                           />
                         </div>
-                        </div>
-                        <div className='row'>
                         
 
 
@@ -419,7 +421,7 @@ else
               type='submit'
               onClick={() => {
                 formik.submitForm().then(() => {
-                  navigate(`/units/list?sectionId=${qsd}`)
+                  navigate(`/subunits/list?sectionId=${qsd}&parentUnitId=${qsdpuid}`)
                 })
               }}
               className='btn btn-sm btn-dark'

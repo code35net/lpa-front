@@ -27,11 +27,6 @@ export type Model = {
  
 }
 
-// type AuditCategory = {
-//   id: number
-//   name: string
-// }
-
 export type Question = {
   id: number
   text: string

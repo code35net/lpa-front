@@ -33,12 +33,8 @@ const Columns: ReadonlyArray<Column<Model>> = [
 
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index]} />,
   },
-  {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.ROLE'})} className='min-w-125px' />,
-    id: 'role',
-
-    Cell: ({...props}) => <RoleCell item={props.data[props.row.index]} />,
-  },
+  
+  
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.IDENTITY'})} className='min-w-125px' />,
     id: 'identity',
