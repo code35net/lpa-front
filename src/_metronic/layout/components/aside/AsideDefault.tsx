@@ -29,7 +29,7 @@ const AsideDefault = () => {
             <img
               alt='Logo'
               className='h-50px logo theme-light-show'
-              src={toAbsoluteUrl('/media/logos/iqual_logo.png')}
+              src={toAbsoluteUrl('/media/logos/freudenberg_logo.png')}
             />
           )}
 
@@ -37,7 +37,7 @@ const AsideDefault = () => {
             <img
               alt='Logo'
               className='h-50px logo theme-dark-show'
-              src={toAbsoluteUrl('/media/logos/iqual_logo.png')}
+              src={toAbsoluteUrl('/media/logos/freudenberg_logo.png')}
             />
           )}
         </Link>

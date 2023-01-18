@@ -58,6 +58,11 @@
     "@types/react-copy-to-clipboard": "5.0.2",
     "@types/react-dom": "18.0.2",
     "@types/react-table": "^7.7.9",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "eslint": "^8.32.0",
+    "eslint-plugin-disable": "^2.0.3",
+    "eslint-plugin-react": "^7.32.1",
     "prettier": "2.6.2",
     "react-app-rewired": "^2.1.8",
     "typescript": "4.6.3"
@@ -92,5 +97,18 @@
   },
   "eslintIgnore": [
     "dist/*"
-  ]
+  ],
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "config-overrides.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code35net/lpa-front.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/code35net/lpa-front/issues"
+  },
+  "homepage": "https://github.com/code35net/lpa-front#readme"
 }
