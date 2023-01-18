@@ -1,22 +1,22 @@
 {
-  "name": "qms3",
-  "version": "2.1.1",
+  "name": "demo3",
+  "version": "8.1.5",
   "private": true,
+  "homepage": "/",
   "dependencies": {
     "@formatjs/intl-pluralrules": "4.3.3",
     "@formatjs/intl-relativetimeformat": "10.0.1",
     "@fortawesome/fontawesome-free": "6.1.1",
-    "@popperjs/core": "2.11.5",
+    "@popperjs/core": "2.11.6",
     "animate.css": "4.1.1",
     "apexcharts": "3.35.0",
     "axios": "0.26.1",
-    "bootstrap": "5.2.0-beta1",
+    "bootstrap": "5.2.3",
     "bootstrap-icons": "^1.5.0",
     "chart.js": "3.7.1",
     "clsx": "1.1.1",
     "date-fns": "^2.29.3",
     "formik": "2.2.9",
-    "http-proxy-middleware": "^2.0.6",
     "line-awesome": "1.3.0",
     "nouislider": "15.5.1",
     "prism-react-renderer": "1.3.1",
@@ -28,7 +28,7 @@
     "react-bootstrap": "2.5.0-beta.1",
     "react-copy-to-clipboard": "5.1.0",
     "react-dom": "18.0.0",
-    "react-drag-drop-files": "^2.3.7",
+    "react-drag-drop-files": "^2.3.8",
     "react-inlinesvg": "3.0.0",
     "react-intl": "5.25.0",
     "react-query": "3.38.0",
@@ -36,11 +36,9 @@
     "react-scripts": "5.0.1",
     "react-table": "^7.7.0",
     "react-topbar-progress-indicator": "4.1.1",
-    "react-uuid": "^1.0.3",
     "sass": "1.50.1",
     "socicon": "3.0.5",
-    "source-map-explorer": "^2.5.2",
-    "sweetalert2": "^11.6.2",
+    "sweetalert2": "^11.7.0",
     "uuidv4": "^6.2.13",
     "yup": "0.32.11"
   },
@@ -58,24 +56,25 @@
     "@types/react-copy-to-clipboard": "5.0.2",
     "@types/react-dom": "18.0.2",
     "@types/react-table": "^7.7.9",
-    "@typescript-eslint/eslint-plugin": "^5.48.2",
-    "@typescript-eslint/parser": "^5.48.2",
-    "eslint": "^8.32.0",
-    "eslint-plugin-disable": "^2.0.3",
-    "eslint-plugin-react": "^7.32.1",
+    "@types/sass-loader": "8.0.3",
+    "css-loader": "6.7.1",
+    "del": "6.0.0",
+    "mini-css-extract-plugin": "2.6.1",
     "prettier": "2.6.2",
-    "react-app-rewired": "^2.1.8",
-    "typescript": "4.6.3"
+    "rtlcss-webpack-plugin": "4.0.7",
+    "sass-loader": "13.0.2",
+    "typescript": "4.6.3",
+    "webpack": "5.74.0",
+    "webpack-cli": "4.10.0"
   },
   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "prettier --check .",
     "format": "prettier --write .",
-    "rtl": "webpack --config webpack-rtl.config.js",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "react-app-rewired start",
-    "build": "DISABLE_ESLINT_PLUGIN=true CI=false react-app-rewired --max_old_space_size=768 build"
+    "rtl": "webpack --config=rtl.config.js"
   },
   "eslintConfig": {
     "extends": [
@@ -97,18 +96,5 @@
   },
   "eslintIgnore": [
     "dist/*"
-  ],
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "config-overrides.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/code35net/lpa-front.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/code35net/lpa-front/issues"
-  },
-  "homepage": "https://github.com/code35net/lpa-front#readme"
+  ]
 }
