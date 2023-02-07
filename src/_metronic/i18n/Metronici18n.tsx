@@ -25,7 +25,7 @@ function getConfig(): Props {
 // Side effect
 export function setLanguage(lang: string) {
   localStorage.setItem(I18N_CONFIG_KEY, JSON.stringify({selectedLang: lang}))
-  window.location.reload()
+  //window.location.reload()
 }
 
 const I18nContext = createContext<Props>(initialState)

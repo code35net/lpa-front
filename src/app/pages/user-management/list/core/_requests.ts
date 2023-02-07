@@ -17,7 +17,7 @@ const getUserDetails = async (id : string): Promise<any> => await axios.get(`${G
  });
 
 const listUsers = async (): Promise<any> =>
-  await axios.get(`${GET_USERS_URL}?page=1`).then((res: AxiosResponse) => {
+  await axios.get(`${GET_USERS_URL}?page=1&items_per_page=900`).then((res: AxiosResponse) => {
     return res.data
   })
 

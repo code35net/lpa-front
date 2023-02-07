@@ -313,7 +313,7 @@ const AuditQuestionsForm = () => {
                         <option value=''>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.CHOOSE'})}</option>
                         {pStaffList.map((user: any) => (
                           <option value={user?.id as any} key={user?.id as any}>
-                            {user?.email as any}
+                            {user?.fullname as any}
                           </option>
                         ))}
                       </select>

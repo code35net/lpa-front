@@ -2,7 +2,8 @@
 import clsx from 'clsx'
 import {FC} from 'react'
 import {toAbsoluteUrl} from '../../../helpers'
-import {useLang, setLanguage} from '../../../i18n/Metronici18n'
+import { useLang, setLanguage } from '../../../i18n/Metronici18n'
+import {useNavigate} from 'react-router-dom'
 
 const languages = [
   {
@@ -43,7 +44,8 @@ type Props = {
 }
 
 const Languages: FC<Props> = ({languageMenuPlacement = 'left-start'}) => {
-  const lang = useLang()
+    const lang = useLang()
+    const navigate = useNavigate()
   const currentLanguage = languages.find((x) => x.lang === lang)
   return (
     <div
@@ -71,7 +73,12 @@ const Languages: FC<Props> = ({languageMenuPlacement = 'left-start'}) => {
           <div
             className='menu-item px-3'
             key={l.lang}
-            onClick={() => {
+                onClick={() => {
+
+                    const I18N_CONFIG_KEY = process.env.REACT_APP_I18N_CONFIG_KEY || 'i18nConfig'
+
+                    localStorage.setItem(I18N_CONFIG_KEY, JSON.stringify({ selectedLang: lang }))
+                    navigate(0)
               setLanguage(l.lang)
             }}
           >

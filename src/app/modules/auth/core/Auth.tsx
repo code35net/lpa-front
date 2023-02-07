@@ -70,14 +70,14 @@ const AuthInit: FC<WithChildren> = ({children}) => {
       try {
         if (!didRequest.current) {
           const {data} = await getUserByToken()
-          if (data.id != undefined) {
-            console.log(data)
+          if (data) {
+            //console.log(data)
             setCurrentUser(data)
           }
-          else
+          /*else
           {
             logout()
-          }
+          }*/
         }
       } catch (error) {
         console.error(error)

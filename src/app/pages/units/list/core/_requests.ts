@@ -10,7 +10,7 @@ const GET_UNITS_URL = `${API_URL}/Custom/getUnit`
 const GET_PARTIALUNITS_URL = `${API_URL}/Custom/getPartialUnit`
 const CREATE_UNITS_URL = `${API_URL}/Custom`
 
-const listUnits = async (sectionId : string): Promise<any> => await axios.get(`${UNIT_URL}/getAll/SectionId-${sectionId}`).then((res : AxiosResponse) => 
+const listUnits = async (sectionId : string): Promise<any> => await axios.get(`${UNIT_URL}/getAll/SectionId-${sectionId}?items_per_page=900`).then((res : AxiosResponse) => 
  {
    return res.data;
  });

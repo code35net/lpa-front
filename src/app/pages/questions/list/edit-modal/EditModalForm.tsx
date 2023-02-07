@@ -22,7 +22,6 @@ type Props = {
 
 const editchema = Yup.object().shape({
   text: Yup.string()
-    .max(50, 'Maximum 50 symbols')
     .required('Question required'),
 })
 

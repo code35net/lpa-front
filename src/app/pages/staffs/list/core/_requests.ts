@@ -6,7 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL
 const STAFF_URL = `${API_URL}/StaffList`
 const GET_STAFFS_URL = `${API_URL}/StaffList`
 
-const listStaffs = async (): Promise<any> => await axios.get(`${GET_STAFFS_URL}/getAll?page=1`).then((res : AxiosResponse) => 
+const listStaffs = async (): Promise<any> => await axios.get(`${GET_STAFFS_URL}/getAll?page=1&items_per_page=900`).then((res : AxiosResponse) => 
  {
    return res.data;
  });
