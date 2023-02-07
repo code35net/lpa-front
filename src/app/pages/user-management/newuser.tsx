@@ -109,7 +109,7 @@ const UserEditForm: FC<Props> = ({item}) => {
       }
 
 
-      
+      values.role = "Inspector"
 
       if (!values.shift) {
         values.shift = 0
