@@ -347,9 +347,9 @@ else
                             {...formik.getFieldProps('shiftException')}
                             value={formik.values.shiftException}
                           >
-                            <option value='0'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.MORNING'})}</option>
-                            <option value='1'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.DAY'})}</option>
-                            <option value='2'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.NIGHT'})}</option>                  
+                           <option value='0'>07:30 - 15:30</option>
+                  <option value='1'>15:30 - 23:30</option>
+                  <option value='2'>23:30 - 07:30</option>          
                           </select>
                             )}
                         </div>

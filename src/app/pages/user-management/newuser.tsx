@@ -355,10 +355,10 @@ const UserEditForm: FC<Props> = ({item}) => {
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('shift')}
                 >
-                  <option value='0'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.MORNING'})}</option>
-                  <option value='1'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.DAY'})}</option>
-                  <option value='2'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.NIGHT'})}</option>                  
-                  <option value='3'>{intl.formatMessage({id: 'USER.NEWUSER.SHIFT-TIME.REGULAR'})}</option> 
+                  <option value='0'>07:30 - 15:30</option>
+                  <option value='1'>15:30 - 23:30</option>
+                  <option value='2'>23:30 - 07:30</option>                  
+                  <option value='3'>07:30 - 17:30</option> 
                 </select>
                 {formik.touched.shift && formik.errors.shift && (
                   <div className='fv-plugins-message-container'>
