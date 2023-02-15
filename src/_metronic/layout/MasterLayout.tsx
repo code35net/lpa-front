@@ -7,14 +7,12 @@ import {RightToolbar} from '../partials/layout/RightToolbar'
 import {ScrollTop} from './components/ScrollTop'
 import {Content} from './components/Content'
 import {PageDataProvider} from './core'
-import {Vertical} from '../../app/modules/wizards/components/Vertical'
 import {useLocation} from 'react-router-dom'
 import {DrawerMessenger, ActivityDrawer, InviteUsers, UpgradePlan} from '../partials'
 import {MenuComponent} from '../assets/ts/components'
-//import {Sidebar} from './components/Sidebar'
-import {ThemeModeProvider} from '../partials/layout/theme-mode/ThemeModeProvider'
+import {Sidebar} from './components/Sidebar'
 
-const MasterLayout = () => {
+const MasterLayout = (menus: Array<string>) => {
   const location = useLocation()
   useEffect(() => {
     setTimeout(() => {
@@ -30,35 +28,34 @@ const MasterLayout = () => {
 
   return (
     <PageDataProvider>
-      <ThemeModeProvider>
-        <div className='d-flex flex-column flex-root'>
-          <div className='page d-flex flex-row flex-column-fluid'>
-            <AsideDefault />
-            <div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
-              <HeaderWrapper />
-             
-              <div id='kt_content' className='content d-flex flex-column flex-column-fluid'>
-                <Content>
-                  <Outlet />
-                </Content>
-              </div>
-              <Footer />
+      <div className='d-flex flex-column flex-root'>
+        <div className='page d-flex flex-row flex-column-fluid'>
+        <AsideDefault {...menus || []} />
+          <div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
+            <HeaderWrapper />
+
+            <div id='kt_content' className='content d-flex flex-column flex-column-fluid'>
+              <Content>
+                <Outlet />
+              </Content>
             </div>
+            <Footer />
           </div>
+          <Sidebar />
         </div>
+      </div>
 
-        {/* begin:: Drawers */}
-        <ActivityDrawer />
-        <RightToolbar />
-        <DrawerMessenger />
-        {/* end:: Drawers */}
+      {/* begin:: Drawers */}
+      <ActivityDrawer />
+      <RightToolbar />
+      <DrawerMessenger />
+      {/* end:: Drawers */}
 
-        {/* begin:: Modals */}
-        <InviteUsers />
-        <UpgradePlan />
-        {/* end:: Modals */}
-        <ScrollTop />
-      </ThemeModeProvider>
+      {/* begin:: Modals */}
+      <InviteUsers />
+      <UpgradePlan />
+      {/* end:: Modals */}
+      <ScrollTop />
     </PageDataProvider>
   )
 }

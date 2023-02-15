@@ -6,7 +6,7 @@ import {ListSearchComponent} from './ListSearchComponent'
 const ListHeader = () => {
   const {selected} = useListView()
   return (
-    <div className='card-header border-0 bg-secondary'>
+    <div className='card-header border-1 bg-secondary'>
       <ListSearchComponent />
       {/* begin::Card toolbar */}
       <div className='card-toolbar'>

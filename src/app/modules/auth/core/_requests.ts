@@ -9,8 +9,6 @@ export const LOGIN_URL = `${API_URL}/Auth/login`
 export const REGISTER_URL = `${API_URL}/Auth/register`
 export const REQUEST_PASSWORD_URL = `${API_URL}/Auth/forgot_password`
 
-
-
 // Server should return AuthModel
 export function login(username: string, password: string) {
   return axios.post<AuthModel>(GET_TOKEN_URL, {
@@ -21,14 +19,14 @@ export function login(username: string, password: string) {
 
 // Server should return AuthModel
 export function register(
-  username: string,
+  email: string,
   firstname: string,
   lastname: string,
   password: string,
   password_confirmation: string
 ) {
   return axios.post(REGISTER_URL, {
-    username,
+    email,
     first_name: firstname,
     last_name: lastname,
     password,
@@ -37,11 +35,12 @@ export function register(
 }
 
 // Server should return object => { result: boolean } (Is Email in DB)
-export function requestPassword(username: string) {
+export function requestPassword(email: string) {
   return axios.post<{result: boolean}>(REQUEST_PASSWORD_URL, {
-    username,
+    email,
   })
 }
+
 
 export function getUserByToken() {
   return axios.post<UserModel>(GET_USER_BY_ACCESSTOKEN_URL)

@@ -1,9 +1,8 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
-import {ThemeModeComponent} from '../../../assets/ts/layout'
 import {toAbsoluteUrl} from '../../../helpers'
 
 export type ThemeModeType = 'dark' | 'light' | 'system'
-const systemMode = ThemeModeComponent.getSystemMode() as 'light' | 'dark'
+const systemMode = window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light'
 
 type ThemeModeContextType = {
   mode: ThemeModeType
@@ -22,22 +21,25 @@ const themeModeSwitchHelper = (_mode: ThemeModeType) => {
 const themeModeLSKey = 'kt_theme_mode_value'
 const themeMenuModeLSKey = 'kt_theme_mode_menu'
 
-const getThemeModeFromLocalStorage = (lsKey: string): ThemeModeType => {
+const getThemeModeFromLocalStorage = (lsKey: string, isMenu?: boolean): ThemeModeType => {
   if (!localStorage) {
     return 'light'
   }
 
   const data = localStorage.getItem(lsKey)
-  if (!data) {
-    return 'light'
+  if (data === 'dark' || data === 'light') {
+    return data
   }
 
-  if (data === 'light') {
-    return 'light'
+  if (isMenu && data === 'system') {
+    return data
   }
 
-  if (data === 'dark') {
-    return 'dark'
+  if (document.documentElement.hasAttribute('data-theme')) {
+    const dataTheme = document.documentElement.getAttribute('data-theme')
+    if (dataTheme && (dataTheme === 'dark' || dataTheme === 'light')) {
+      return dataTheme
+    }
   }
 
   return 'system'
@@ -45,7 +47,7 @@ const getThemeModeFromLocalStorage = (lsKey: string): ThemeModeType => {
 
 const defaultThemeMode: ThemeModeContextType = {
   mode: getThemeModeFromLocalStorage(themeModeLSKey),
-  menuMode: getThemeModeFromLocalStorage(themeMenuModeLSKey),
+  menuMode: getThemeModeFromLocalStorage(themeMenuModeLSKey, true),
   updateMode: (_mode: ThemeModeType) => {},
   updateMenuMode: (_menuMode: ThemeModeType) => {},
 }
@@ -63,29 +65,32 @@ const ThemeModeProvider = ({children}: {children: React.ReactNode}) => {
   const [mode, setMode] = useState<ThemeModeType>(defaultThemeMode.mode)
   const [menuMode, setMenuMode] = useState<ThemeModeType>(defaultThemeMode.menuMode)
 
-  const updateMode = (_mode: ThemeModeType) => {
+  const updateMode = (_mode: ThemeModeType, saveInLocalStorage: boolean = true) => {
     const updatedMode = _mode === 'system' ? systemMode : _mode
     setMode(updatedMode)
-    themeModeSwitchHelper(updatedMode)
-    if (localStorage) {
+    if (saveInLocalStorage && localStorage) {
       localStorage.setItem(themeModeLSKey, updatedMode)
     }
-    document.documentElement.setAttribute('data-theme', updatedMode)
-    ThemeModeComponent.init()
+
+    if (saveInLocalStorage) {
+      document.documentElement.setAttribute('data-theme', updatedMode)
+    }
   }
 
-  const updateMenuMode = (_menuMode: ThemeModeType) => {
+  const updateMenuMode = (_menuMode: ThemeModeType, saveInLocalStorage: boolean = true) => {
     setMenuMode(_menuMode)
-    if (localStorage) {
+    if (saveInLocalStorage && localStorage) {
       localStorage.setItem(themeMenuModeLSKey, _menuMode)
     }
   }
 
   useEffect(() => {
-    updateMode(mode)
-    updateMenuMode(menuMode)
+    updateMode(mode, false)
+    updateMenuMode(menuMode, false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  console.log('mode', mode, 'menuMode', menuMode)
 
   return (
     <ThemeModeContext.Provider value={{mode, menuMode, updateMode, updateMenuMode}}>

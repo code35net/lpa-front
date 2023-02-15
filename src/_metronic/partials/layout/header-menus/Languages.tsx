@@ -2,51 +2,51 @@
 import clsx from 'clsx'
 import {FC} from 'react'
 import {toAbsoluteUrl} from '../../../helpers'
-import { useLang, setLanguage } from '../../../i18n/Metronici18n'
-import {useNavigate} from 'react-router-dom'
+import {useLang, setLanguage} from '../../../i18n/Metronici18n'
 
+import { useNavigate } from 'react-router-dom'
 const languages = [
   {
     lang: 'en',
     name: 'English',
     flag: toAbsoluteUrl('/media/flags/united-states.svg'),
   },
+  // {
+  //   lang: 'zh',
+  //   name: 'Mandarin',
+  //   flag: toAbsoluteUrl('/media/flags/china.svg'),
+  // },
+  // {
+  //   lang: 'es',
+  //   name: 'Spanish',
+  //   flag: toAbsoluteUrl('/media/flags/spain.svg'),
+  // },
+  // {
+  //   lang: 'ja',
+  //   name: 'Japanese',
+  //   flag: toAbsoluteUrl('/media/flags/japan.svg'),
+  // },
+  // {
+  //   lang: 'de',
+  //   name: 'German',
+  //   flag: toAbsoluteUrl('/media/flags/germany.svg'),
+  // },
   {
     lang: 'tr',
-    name: 'Türkçe',
+    name: 'Turkish',
     flag: toAbsoluteUrl('/media/flags/turkey.svg'),
   },
-//   {
-//     lang: 'es',
-//     name: 'Spanish',
-//     flag: toAbsoluteUrl('/media/flags/spain.svg'),
-//   },
-//   {
-//     lang: 'ja',
-//     name: 'Japanese',
-//     flag: toAbsoluteUrl('/media/flags/japan.svg'),
-//   },
-//   {
-//     lang: 'de',
-//     name: 'German',
-//     flag: toAbsoluteUrl('/media/flags/germany.svg'),
-//   },
-//   {
-//     lang: 'fr',
-//     name: 'French',
-//     flag: toAbsoluteUrl('/media/flags/france.svg'),
-//   },
-// 
 ]
 
 type Props = {
-  languageMenuPlacement?: 'left-start' | 'right-end'
+  languageMenuPlacement?: 'lert-start' | 'right-end'
 }
 
-const Languages: FC<Props> = ({languageMenuPlacement = 'left-start'}) => {
-    const lang = useLang()
+const Languages: FC<Props> = ({languageMenuPlacement = 'lert-start'}) => {
+  const lang = useLang()
+    const currentLanguage = languages.find((x) => x.lang === lang)
+
     const navigate = useNavigate()
-  const currentLanguage = languages.find((x) => x.lang === lang)
   return (
     <div
       className='menu-item px-5'
@@ -76,10 +76,9 @@ const Languages: FC<Props> = ({languageMenuPlacement = 'left-start'}) => {
                 onClick={() => {
 
                     const I18N_CONFIG_KEY = process.env.REACT_APP_I18N_CONFIG_KEY || 'i18nConfig'
-
-                    localStorage.setItem(I18N_CONFIG_KEY, JSON.stringify({ selectedLang: lang }))
+                    localStorage.setItem(I18N_CONFIG_KEY, JSON.stringify({ selectedLang: l.lang }))
                     navigate(0)
-              setLanguage(l.lang)
+                    setLanguage(l.lang)
             }}
           >
             <a

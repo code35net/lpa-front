@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx'
-import {useIntl} from 'react-intl'
-import {Languages} from '../header-menus/Languages'
 import React, {FC, useEffect, useRef, useState} from 'react'
 import {SearchComponent} from '../../../assets/ts/components'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
@@ -16,12 +14,9 @@ const Search: FC<Props> = ({className = '', mobileToggleBtnClass = ''}) => {
   const resultsElement = useRef<HTMLDivElement | null>(null)
   const suggestionsElement = useRef<HTMLDivElement | null>(null)
   const emptyElement = useRef<HTMLDivElement | null>(null)
-  const intl = useIntl()
-  
+
   const processs = (search: SearchComponent) => {
-    
     setTimeout(function () {
-      
       const number = Math.floor(Math.random() * 6) + 1
 
       // Hide recently viewed
@@ -99,7 +94,7 @@ const Search: FC<Props> = ({className = '', mobileToggleBtnClass = ''}) => {
           type='text'
           className='form-control bg-transparent ps-13 fs-7 h-40px'
           name='search'
-          placeholder={intl.formatMessage({id: 'SEARCH.PLACEHOLDER'})}
+          placeholder='Quick Search'
           data-kt-search-element='input'
         />
 

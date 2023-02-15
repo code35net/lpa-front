@@ -10,7 +10,7 @@ import {
   stringifyRequestQuery,
   WithChildren,
 } from '../../../../../_metronic/helpers'
-import {getHolidays} from './_requests'
+import {getThings} from './_requests'
 import {Model} from './_models'
 import {useQueryRequest} from './QueryRequestProvider'
 
@@ -33,7 +33,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   } = useQuery(
     `${QUERIES.USERS_LIST}-${query}`,
     () => {
-      return getHolidays(query)
+      return getThings(query)
     },
     {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
   )

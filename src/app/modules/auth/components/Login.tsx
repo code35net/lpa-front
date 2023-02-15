@@ -8,19 +8,19 @@ import {getUserByToken, login} from '../core/_requests'
 import {useAuth} from '../core/Auth'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {AuthModel, UserModel} from '../core/_models'
-import { userInfo } from 'os'
+
 
 const loginSchema = Yup.object().shape({
   username: Yup.string()
+   
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
-    .required('Username is required'),
+    .required('Email is required'),
   password: Yup.string()
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Password is required'),
 })
-
 
 const initialValues = {
   username: '',
@@ -66,26 +66,35 @@ export function Login() {
     >
       {/* begin::Heading */}
       <div className='text-center mb-10'>
-        <h1 className='text-dark mb-3'>Welcome Audit App</h1>
+        <h1 className='text-dark mb-3'>Welcome Ness LMS</h1>
+        {/* <div className='text-gray-400 fw-bold fs-4'>
+          New Here?{' '}
+          <Link to='/auth/registration' className='link-primary fw-bolder'>
+            Create an Account
+          </Link>
+        </div> */}
       </div>
       {/* begin::Heading */}
 
-      {formik.status ? (
+      {/* {formik.status ? (
         <div className='mb-lg-15 alert alert-danger'>
           <div className='alert-text font-weight-bold'>{formik.status}</div>
         </div>
-      ) : (
-        <div className='p-3 rounded'>
-          <div className='text-light text-center'>
+      ) 
+      : (
+        <div className='mb-10 bg-light-info p-8 rounded'>
+          <div className='text-info text-center'>
+            Please login with your <strong>identity</strong>.
           </div>
         </div>
-      )}
+      )
+      } */}
 
       {/* begin::Form group */}
       <div className='fv-row mb-10'>
         <label className='form-label fs-6 fw-bolder text-dark'>Username</label>
         <input
-          placeholder='Username'
+          placeholder='Email'
           {...formik.getFieldProps('username')}
           className={clsx(
             'form-control form-control-lg form-control-solid',
@@ -97,7 +106,6 @@ export function Login() {
           type='text'
           name='username'
           autoComplete='off'
-
         />
         {formik.touched.username && formik.errors.username && (
           <div className='fv-plugins-message-container'>
@@ -114,10 +122,18 @@ export function Login() {
             {/* begin::Label */}
             <label className='form-label fw-bolder text-dark fs-6 mb-0'>Password</label>
             {/* end::Label */}
+            {/* begin::Link */}
+            {/* <Link
+              to='/auth/forgot-password'
+              className='link-primary fs-6 fw-bolder'
+              style={{marginLeft: '5px'}}
+            >
+              Forgot Password ?
+            </Link> */}
+            {/* end::Link */}
           </div>
         </div>
         <input
-        placeholder='Password'
           type='password'
           autoComplete='off'
           {...formik.getFieldProps('password')}
@@ -146,7 +162,7 @@ export function Login() {
         <button
           type='submit'
           id='kt_sign_in_submit'
-          className='btn btn-lg btn-dark w-100 mb-5'
+          className='btn btn-lg btn-primary w-100 mb-5'
           disabled={formik.isSubmitting || !formik.isValid}
         >
           {!loading && <span className='indicator-label'>Continue</span>}
@@ -157,16 +173,8 @@ export function Login() {
             </span>
           )}
         </button>
-        <div className='d-flex flex-center flex-column-auto p-5'>
-          <div className='d-flex align-items-center fw-bold fs-6'>
-            <span className='text-muted px-2 pt-7'>
-              Powered By
-              <a href='http://code35.net/' target='_blank' className='text-muted text-hover-dark px-2'>
-                CODE35 | A Software Company
-              </a>
-            </span>
-          </div>
-        </div>
+
+
       </div>
       {/* end::Action */}
     </form>

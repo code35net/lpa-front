@@ -8,34 +8,56 @@ import {toAbsoluteUrl} from '../../../_metronic/helpers'
 
 const AuthLayout = () => {
   useEffect(() => {
-    document.body.classList.add('bg-white')
-    return () => {
-      document.body.classList.remove('bg-white')
-    }
+    document.body.style.backgroundImage = 'none'
+    return () => {}
   }, [])
 
   return (
     <div
-      className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-cover bgi-attachment-fixed'
+      className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed'
       style={{
-        backgroundImage: `url(${toAbsoluteUrl('/media/illustrations/sketchy-1/bck.jpg')})`,
+        backgroundImage: `url(${toAbsoluteUrl('/media/illustrations/sketchy-1/14.png')})`,
       }}
     >
       {/* begin::Content */}
       <div className='d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20'>
         {/* begin::Logo */}
         <a href='#' className='mb-12'>
-          <img alt='Logo' src={toAbsoluteUrl('/media/logos/freudenberg_logo.png')} className='h-100px pt-10 mt-20' />
+          <img
+            alt='Logo'
+            src={toAbsoluteUrl('/media/logos/logo.png')}
+            className='theme-dark-show h-100px'
+          />
+          <img
+            alt='Logo'
+            src={toAbsoluteUrl('/media/logos/logo.png')}
+            className='theme-light-show h-100px'
+          ></img>
         </a>
         {/* end::Logo */}
         {/* begin::Wrapper */}
-        <div className='w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto'>
+        <div className='w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto'>
           <Outlet />
         </div>
         {/* end::Wrapper */}
       </div>
       {/* end::Content */}
-     
+      {/* begin::Footer */}
+      <div className='d-flex flex-center flex-column-auto p-10'>
+        <div className='d-flex align-items-center fw-semibold fs-6'>
+          Powered by
+          <a href='https://nessworldwideservices.com/' className='text-muted text-hover-primary px-2'>
+            Ness Worldwide Services
+          </a>
+          {/* <a href='https://code35.net/' className='text-muted text-hover-primary px-2'>
+             CODE35 | A Software Company
+            
+          </a> */}
+
+          
+        </div>
+      </div>
+      {/* end::Footer */}
     </div>
   )
 }
@@ -44,6 +66,7 @@ const AuthPage = () => (
   <Routes>
     <Route element={<AuthLayout />}>
       <Route path='login' element={<Login />} />
+      <Route path='registration' element={<Registration />} />
       <Route path='forgot-password' element={<ForgotPassword />} />
       <Route index element={<Login />} />
     </Route>

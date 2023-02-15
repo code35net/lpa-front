@@ -9,14 +9,14 @@ export const DefaultLayoutConfig: ILayout = {
   },
   loader: {
     display: false,
-    type: 'default', // Set default|spinner-message|spinner-logo to hide or show page loader
+    type: 'spinner-logo', // Set default|spinner-message|spinner-logo to hide or show page loader
   },
   scrolltop: {
     display: true, // Enable scrolltop
   },
   header: {
     display: true, // Set true|false to show or hide Header
-    width: 'fixed', // Set fixed|fluid to change width type
+    width: 'fluid', // Set fixed|fluid to change width type
     left: 'menu',
     fixed: {
       desktop: false, // Set true|false to set fixed Header for desktop mode
@@ -35,7 +35,7 @@ export const DefaultLayoutConfig: ILayout = {
     menuIcon: 'svg',
   },
   content: {
-    width: 'fixed', // Set fixed|fluid to change width
+    width: 'fluid', // Set fixed|fluid to change width
     layout: 'default',
   },
   toolbar: {
@@ -70,13 +70,13 @@ export const DefaultLayoutConfig: ILayout = {
     },
   },
   footer: {
-    width: 'fixed', // Set fixed|fluid to change width type
+    width: 'fluid', // Set fixed|fluid to change width type
   },
   pageTitle: {
     display: true, // Display page title
     breadCrumbs: true, // Display breadcrumb
     description: false, // Display description
-    responsive: true, // Move page title to content on mobile mode
+    responsive: true, // Move page title to cotnent on mobile mode
     responsiveBreakpoint: 'lg', // Responsive breakpoint value(e.g: md, lg, or 300px)
     responsiveTarget: '#kt_toolbar_container', // Responsive target selector
   },

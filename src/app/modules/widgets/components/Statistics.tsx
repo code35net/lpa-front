@@ -13,13 +13,66 @@ const Statistics: FC = () => {
     <>
       {/* begin::Row */}
       <div className='row g-5 g-xl-8'>
-        <div className='col-xl-4'></div>
+        <div className='col-xl-4'>
+          <StatisticsWidget1
+            className='card-xl-stretch mb-xl-8'
+            image='abstract-4.svg'
+            title='Meeting Schedule'
+            time='3:30PM - 4:20PM'
+            description='Create a headline that is informative<br/>and will capture readers'
+          />
+        </div>
+
+        <div className='col-xl-4'>
+          <StatisticsWidget1
+            className='card-xl-stretch mb-xl-8'
+            image='abstract-2.svg'
+            title='Meeting Schedule'
+            time='03 May 2020'
+            description='Great blog posts don’t just happen Even the best bloggers need it'
+          />
+        </div>
+
+        <div className='col-xl-4'>
+          <StatisticsWidget1
+            className='card-xl-stretch mb-5 mb-xl-8'
+            image='abstract-1.svg'
+            title='UI Conference'
+            time='10AM Jan, 2021'
+            description='AirWays - A Front-end solution for airlines build with ReactJS'
+          />
+        </div>
       </div>
       {/* end::Row */}
 
       {/* begin::Row */}
       <div className='row g-5 g-xl-8'>
-        <div className='col-xl-4'></div>
+        <div className='col-xl-4'>
+          <StatisticsWidget2
+            className='card-xl-stretch mb-xl-8'
+            avatar='/media/svg/avatars/029-boy-11.svg'
+            title='Arthur Goldstain'
+            description='System & Software Architect'
+          />
+        </div>
+
+        <div className='col-xl-4'>
+          <StatisticsWidget2
+            className='card-xl-stretch mb-xl-8'
+            avatar='/media/svg/avatars/014-girl-7.svg'
+            title='Lisa Bold'
+            description='Marketing & Fanance Manager'
+          />
+        </div>
+
+        <div className='col-xl-4'>
+          <StatisticsWidget2
+            className='card-xl-stretch mb-5 mb-xl-8'
+            avatar='/media/svg/avatars/004-boy-1.svg'
+            title='Nick Stone'
+            description='Customer Support Team'
+          />
+        </div>
       </div>
       {/* end::Row */}
 
@@ -93,19 +146,92 @@ const Statistics: FC = () => {
 
       {/* begin::Row */}
       <div className='row g-5 g-xl-8'>
-        <div className='col-xl-4'></div>
+        <div className='col-xl-4'>
+          <StatisticsWidget5
+            className='card-xl-stretch mb-xl-8'
+            svgIcon='/media/icons/duotune/ecommerce/ecm002.svg'
+            color='danger'
+            iconColor='white'
+            title='Shopping Cart'
+            description='Lands, Houses, Ranchos, Farms'
+          />
+        </div>
 
-        <div className='col-xl-4'></div>
+        <div className='col-xl-4'>
+          <StatisticsWidget5
+            className='card-xl-stretch mb-xl-8'
+            svgIcon='/media/icons/duotune/ecommerce/ecm008.svg'
+            color='primary'
+            iconColor='white'
+            title='Appartments'
+            description='Flats, Shared Rooms, Duplex'
+          />
+        </div>
+
+        <div className='col-xl-4'>
+          <StatisticsWidget5
+            className='card-xl-stretch mb-5 mb-xl-8'
+            svgIcon='/media/icons/duotune/graphs/gra005.svg'
+            color='success'
+            iconColor='white'
+            title='Sales Stats'
+            description='50% Increased for FY20'
+          />
+        </div>
       </div>
-      {/* end::Row */}
-
-      {/* begin::Row */}
-
       {/* end::Row */}
 
       {/* begin::Row */}
       <div className='row g-5 g-xl-8'>
         <div className='col-xl-3'>
+          <StatisticsWidget5
+            className='card-xl-stretch mb-xl-8'
+            svgIcon='/media/icons/duotune/general/gen032.svg'
+            color='white'
+            iconColor='primary'
+            title='500M$'
+            description='SAP UI Progress'
+          />
+        </div>
+
+        <div className='col-xl-3'>
+          <StatisticsWidget5
+            className='card-xl-stretch mb-xl-8'
+            svgIcon='/media/icons/duotune/ecommerce/ecm008.svg'
+            color='dark'
+            iconColor='white'
+            title='+3000'
+            description='New Customers'
+          />
+        </div>
+
+        <div className='col-xl-3'>
+          <StatisticsWidget5
+            className='card-xl-stretch mb-xl-8'
+            svgIcon='/media/icons/duotune/finance/fin006.svg'
+            color='warning'
+            iconColor='white'
+            title='$50,000'
+            description='Milestone Reached'
+          />
+        </div>
+
+        <div className='col-xl-3'>
+          <StatisticsWidget5
+            className='card-xl-stretch mb-5 mb-xl-8'
+            svgIcon='/media/icons/duotune/graphs/gra007.svg'
+            color='info'
+            iconColor='white'
+            title='$50,000'
+            description='Milestone Reached'
+          />
+        </div>
+      </div>
+      {/* end::Row */}
+
+      {/* begin::Row */}
+      <div className='row g-5 g-xl-8'>
+        <div className='col-xl-4'>
           <StatisticsWidget6
             className='card-xl-stretch mb-xl-8'
             color='success'

@@ -5,31 +5,25 @@ import '@formatjs/intl-relativetimeformat/polyfill'
 import '@formatjs/intl-relativetimeformat/locale-data/en'
 import '@formatjs/intl-relativetimeformat/locale-data/de'
 import '@formatjs/intl-relativetimeformat/locale-data/es'
-import '@formatjs/intl-relativetimeformat/locale-data/fr'
+import '@formatjs/intl-relativetimeformat/locale-data/tr'
 import '@formatjs/intl-relativetimeformat/locale-data/ja'
 import '@formatjs/intl-relativetimeformat/locale-data/zh'
-import '@formatjs/intl-relativetimeformat/locale-data/tr'
-import '@formatjs/intl-relativetimeformat/locale-data/ar'
 
 import deMessages from './messages/de.json'
 import enMessages from './messages/en.json'
 import esMessages from './messages/es.json'
-import frMessages from './messages/fr.json'
+import frMessages from './messages/tr.json'
 import jaMessages from './messages/ja.json'
 import zhMessages from './messages/zh.json'
-import trMessages from './messages/tr.json'
-import arMessages from './messages/ar.json'
 import { WithChildren } from '../helpers'
 
 const allMessages = {
   de: deMessages,
   en: enMessages,
   es: esMessages,
-  fr: frMessages,
+  tr: frMessages,
   ja: jaMessages,
   zh: zhMessages,
-  tr: trMessages,
-  ar: zhMessages,
 }
 
 const I18nProvider: FC<WithChildren> = ({children}) => {

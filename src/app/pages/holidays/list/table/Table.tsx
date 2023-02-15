@@ -20,18 +20,17 @@ const Table = () => {
     columns,
     data,
   })
-  console.log(data)
 
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>
         <table
           id='kt_table_items'
-          className='table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'
+          className='table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer'
           {...getTableProps()}
         >
           <thead>
-            <tr className='text-muted fw-bolder text-uppercase'>
+            <tr className='text-start text-muted fw-bolder fs-7 text-uppercase gs-0'>
               {headers.map((column: ColumnInstance<Model>) => (
                 <CustomHeaderColumn key={column.id} column={column} />
               ))}
@@ -56,7 +55,7 @@ const Table = () => {
         </table>
       </div>
       <ListPagination />
-      {isLoading && <ListLoading />}
+      {isLoading ? <ListLoading /> : null}
     </KTCardBody>
   )
 }

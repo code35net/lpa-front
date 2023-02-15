@@ -6,7 +6,7 @@ import {useFormik} from 'formik'
 import {requestPassword} from '../core/_requests'
 
 const initialValues = {
-  email: '',
+  email: 'admin@demo.com',
 }
 
 const forgotPasswordSchema = Yup.object().shape({

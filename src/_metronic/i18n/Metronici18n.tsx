@@ -1,13 +1,14 @@
 import {FC, createContext, useContext} from 'react'
 import {WithChildren} from '../helpers'
 
+
 const I18N_CONFIG_KEY = process.env.REACT_APP_I18N_CONFIG_KEY || 'i18nConfig'
 
 type Props = {
-  selectedLang: 'de' | 'en' | 'es' | 'fr' | 'ja' | 'zh'
+  selectedLang: 'de' | 'en' | 'es' | 'tr' | 'ja' | 'zh'
 }
 const initialState: Props = {
-  selectedLang: 'en',
+  selectedLang: 'tr',
 }
 
 function getConfig(): Props {
@@ -24,7 +25,9 @@ function getConfig(): Props {
 
 // Side effect
 export function setLanguage(lang: string) {
+
   localStorage.setItem(I18N_CONFIG_KEY, JSON.stringify({selectedLang: lang}))
+  //  navigate('/dashboard')
   //window.location.reload()
 }
 

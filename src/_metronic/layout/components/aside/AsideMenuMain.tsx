@@ -1,162 +1,161 @@
 /* eslint-disable react/jsx-no-target-blank */
 import {useIntl} from 'react-intl'
+import {KTSVG} from '../../../helpers'
 import {AsideMenuItemWithSub} from './AsideMenuItemWithSub'
 import {AsideMenuItem} from './AsideMenuItem'
+import { Console } from 'console'
 
-export function AsideMenuMain() {
-  const intl = useIntl()
+export function AsideMenuMain(menus: Array<string>) {
+    const intl = useIntl()
+    const uniqueTags: string[] = []
+    Object.keys(menus).map((fullstr: any) => {
+        if (uniqueTags.indexOf(menus[fullstr].split('.')[0].split('_')[1]) === -1 && menus[fullstr].split('.')[0].split('_')[0] != "main") {
+            uniqueTags.push(menus[fullstr].split('.')[0].split('_')[1])
+        }
+    });
 
+   // console.log(uniqueTags)
+  /*
+  var usermanagementyetki = Object.keys(menus).some((key: any) => menus[key] == "useraction");
+  var announcementyetki = Object.keys(menus).some((key: any) => menus[key] == "announcement");
+  */
+    //console.log(menus)
+    //menus = ["main_MAIN.users_USERS", "main_MAIN.course_COURSE"]
+    //console.log(menus)
   return (
-    <>
-      <AsideMenuItem
+      <>
+          <AsideMenuItem
+              to='/dashboard'
+              icon='/media/icons/duotune/arrows/arr001.svg'
+              title={intl.formatMessage({ id: 'MENU.DASHBOARD' })}
+              fontIcon='bi-app-indicator'
+          />
+          {
+              Object.keys(menus).map((fullstr: any) => {
+                  return menus[fullstr].split('.')[0].split('_')[0] == "main" &&
+                      <AsideMenuItem
+                          to={"/" + menus[fullstr].split('.')[1].split('_')[0]}
+                          icon='/media/icons/duotune/arrows/arr001.svg'
+                          title={intl.formatMessage({ id: "MENU." + menus[fullstr].split('.')[1].split('_')[1] })}
+                          fontIcon='bi-app-indicator'
+                      />
+              }
+              )
+          }
+          {
+           uniqueTags.map((tag: any) =>
+           (
+                <AsideMenuItemWithSub
+                to='/library'
+                   title={intl.formatMessage({ id: 'MENU.' + tag})}
+                fontIcon='bi-sticky'
+                icon='/media/icons/duotune/arrows/arr001.svg'
+                >
+                   {Object.keys(menus).map((fullstr: any) =>
+                   (
+                       menus[fullstr].split('.')[0].split('_')[1] == tag &&
+                       <AsideMenuItem
+                           to={"/" + menus[fullstr].split('.')[1].split('_')[0]}
+                           icon='/media/icons/duotune/arrows/arr001.svg'
+                           title={intl.formatMessage({ id: "MENU." + menus[fullstr].split('.')[1].split('_')[1] })}
+                           fontIcon='bi-app-indicator'
+                       />
+                   )
+                   )
+                   }
+                   
+                </AsideMenuItemWithSub>                  
+           )
+               )
+          }
+          {/*
+          <AsideMenuItem
         to='/dashboard'
         icon='/media/icons/duotune/arrows/arr001.svg'
         title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         fontIcon='bi-app-indicator'
       />
-
-<AsideMenuItemWithSub
-        to='/user-management'
+      <AsideMenuItem
+        to='/user-management/users'
+        icon='/media/icons/duotune/arrows/arr001.svg'
         title={intl.formatMessage({id: 'MENU.USERS'})}
-        icon='/media/icons/duotune/arrows/arr001.svg'
         fontIcon='bi-layers'
-      >
-        <AsideMenuItem
-          to='/user-management/'
-          title={intl.formatMessage({id: 'USER.ASİDE.USERS'})}
-          hasBullet={true}
-        />
-        
-        <AsideMenuItem
-          to='/user-management/newuser'
-          title={intl.formatMessage({id: 'USER.ASİDE.NEWUSER'})}
-          hasBullet={true}
-        />
-
-        <AsideMenuItem
-          to='/role-management/'
-          title={intl.formatMessage({id: 'USER.ASİDE.ROLE'})}
-          hasBullet={true}
-        />
-        
-        
-      </AsideMenuItemWithSub>
-
-      
-      
-
-      <div className='menu-item'></div>
-
-      
-
-<AsideMenuItem
-        to='/audits'
+      />
+      <AsideMenuItem
+        to='/course'
         icon='/media/icons/duotune/arrows/arr001.svg'
-        title={intl.formatMessage({id: 'MENU.AUDITS'})}
-        fontIcon='bi-layers'
+        title={intl.formatMessage({id: 'MENU.COURSE'})}
+        fontIcon='bi-app-indicator'
+      />
+
+      <AsideMenuItem
+        to='/live'
+        icon='/media/icons/duotune/arrows/arr001.svg'
+        title={intl.formatMessage({id: 'MENU.LIVE'})}
+        fontIcon='bi-app-indicator'
+      />
+
+      <AsideMenuItem
+        to='/quiz'
+        icon='/media/icons/duotune/arrows/arr001.svg'
+        title={intl.formatMessage({id: 'MENU.QUIZ'})}
+        fontIcon='bi-app-indicator'
       />
 
 <AsideMenuItem
-        to='/actions'
+        to='/question-bank'
         icon='/media/icons/duotune/arrows/arr001.svg'
-        title={intl.formatMessage({id: 'MENU.ACTIONS'})}
-        fontIcon='bi-layers'
+        title={intl.formatMessage({id: 'MENU.QBANK'})}
+        fontIcon='bi-app-indicator'
       />
-      
-      <AsideMenuItemWithSub
-        to=''
+      <AsideMenuItem
+        to='/reports'
+        icon='/media/icons/duotune/arrows/arr001.svg'
         title={intl.formatMessage({id: 'MENU.REPORTS'})}
-        fontIcon='bi-chat-left'
-        icon='/media/icons/duotune/arrows/arr001.svg'
-      >
-      <AsideMenuItem
-        to='/tablereport/list'
-        title={`${intl.formatMessage({id: 'ASİDE.REPORT.ONE'})}`}
-        hasBullet={true}
+        fontIcon='bi-app-indicator'
       />
-        <AsideMenuItem
-          to='/reports/graphics/actionreports'
-          title={`${intl.formatMessage({id: 'ASİDE.REPORT.TWO'})}`}
-          hasBullet={true}
-        />
-      <AsideMenuItem
-        to='/questiontablereport/list'
-        title={`${intl.formatMessage({id: 'ASİDE.REPORT.THREE'})}`}
-        hasBullet={true}
-      />
-        <AsideMenuItem
-          to='/questionreport/'
-          title={`${intl.formatMessage({id: 'ASİDE.REPORT.FOUR'})}`}
-          hasBullet={true}
-        />
-      </AsideMenuItemWithSub>
 
+
+      
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
-          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Definitions</span>
+          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Tanımlar</span>
         </div>
       </div>
+      <AsideMenuItemWithSub
+        to='/library'
+        title={intl.formatMessage({id: 'MENU.LIBRARY'})}
+        fontIcon='bi-sticky'
+        icon='/media/icons/duotune/arrows/arr001.svg'
+      >
+        <AsideMenuItem to='/library-category' title={intl.formatMessage({id: 'MENU.LIBRARYCATEGORY'})} hasBullet={true} />
+        <AsideMenuItem to='/library' title={intl.formatMessage({id: 'MENU.IMAGELIBRARY'})} hasBullet={true} />
+      </AsideMenuItemWithSub>
 
       <AsideMenuItem
-        to='/questions'
+        to='/answertemplate'
         icon='/media/icons/duotune/arrows/arr001.svg'
-        title={intl.formatMessage({id: 'MENU.QUESTIONS'})}
-        fontIcon='bi-layers'
+        title={intl.formatMessage({id: 'MENU.ANSWERTEMPLATE'})}
+        fontIcon='bi-app-indicator'
       />
 
-      <div className='menu-item'></div>
-      <AsideMenuItemWithSub
-        to='/definitions'
-        title={intl.formatMessage({id: 'MENU.DEFINITIONS'})}
-        icon='/media/icons/duotune/arrows/arr001.svg'
-        fontIcon='bi-layers'
-      >
-        <AsideMenuItem
-          to='/departments'
-          title={intl.formatMessage({id: 'MENU.DEPARTMENTS'})}
-          hasBullet={true}
-        />
-        <AsideMenuItem
-          to='/staffs/'
-          title={intl.formatMessage({id: 'MENU.STAFFLIST'})}
-          hasBullet={true}
-        />
-        <AsideMenuItem
-          to='/positions'
-          title={intl.formatMessage({id: 'MENU.POSITIONS'})}
-          hasBullet={true}
-        />
-        <AsideMenuItem
-          to='/answertemplates'
-          title={intl.formatMessage({id: 'MENU.ANSWERTEMPLATES'})}
-          hasBullet={true}
-        />
-        <AsideMenuItem
-          to='/holidays'
-          title={intl.formatMessage({id: 'MENU.HOLIDAYS'})}
-          hasBullet={true}
-        />
-      </AsideMenuItemWithSub>
-      <AsideMenuItemWithSub
-        to='/categories'
-        title={intl.formatMessage({id: 'MENU.CATEGORIES'})}
-        icon='/media/icons/duotune/arrows/arr001.svg'
-        fontIcon='bi-layers'
-      >
-        <AsideMenuItem
-          to='/auditcategories'
-          title={intl.formatMessage({id: 'MENU.AUDITCATEGORIES'})}
-          hasBullet={true}
-        />
-        <AsideMenuItem
-          to='/questiongroups'
-          title={intl.formatMessage({id: 'MENU.QUESTIONCATEGORIES'})}
-          hasBullet={true}
-        />
-        
-      </AsideMenuItemWithSub>
-
       
+          <AsideMenuItem
+        to='/announcement'
+        icon='/media/icons/duotune/arrows/arr001.svg'
+        title={intl.formatMessage({id: 'MENU.ANNOUNCEMENT'})}
+        fontIcon='bi-app-indicator'
+      />
+      
+      
+     <AsideMenuItem
+        to='/survey'
+        icon='/media/icons/duotune/arrows/arr001.svg'
+        title={intl.formatMessage({id: 'MENU.SURVEY'})}
+        fontIcon='bi-app-indicator'
+      />
+     
+      */}
     </>
   )
 }

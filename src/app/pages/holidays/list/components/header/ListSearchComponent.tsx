@@ -37,7 +37,7 @@ const ListSearchComponent = () => {
           type='text'
           data-kt-item-table-filter='search'
           className='form-control form-control-solid w-250px ps-14  bg-white '
-          placeholder={intl.formatMessage({id: 'TABLE.SEARCH.PLACEHOLDER'})}
+          placeholder={intl.formatMessage({id: 'LIST.SEARCH.PLACEHOLDER'})}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

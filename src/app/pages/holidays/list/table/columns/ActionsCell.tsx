@@ -5,7 +5,7 @@ import {MenuComponent} from '../../../../../../_metronic/assets/ts/components'
 import {ID, KTSVG, QUERIES} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
-import {deleteHoliday} from '../../core/_requests'
+import {deleteThing} from '../../core/_requests'
 import {useIntl} from 'react-intl'
 import Swal from 'sweetalert2'
 
@@ -27,7 +27,7 @@ const ActionsCell: FC<Props> = ({id}) => {
     setItemIdForUpdate(id)
   }
 
-  const deleteItem = useMutation(() => deleteHoliday(id), {
+  const deleteItem = useMutation(() => deleteThing(id), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: () => {
       // ✅ update detail view directly
@@ -37,38 +37,38 @@ const ActionsCell: FC<Props> = ({id}) => {
 
   return (
     <>
-        <div className='d-flex justify-content-end flex-shrink-0'>
+    
+    <div className='d-flex justify-content-end flex-shrink-0'>
         <a
-          className='btn btn-icon btn-bg-light btn-active-color-dark btn-sm me-1'
+          className='btn btn-icon btn-light btn-active-warning btn-sm me-1'
           onClick={openEditModal}
         >
           <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
         </a>
 
         <a
-          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
-          
-          hidden data-kt-users-table-filter='delete_row'
+          className='btn btn-icon btn-light btn-active-danger btn-sm'
+          data-kt-users-table-filter='delete_row'
           onClick={async () => {
             Swal.fire({
               color : "#000000",
               title: (intl.formatMessage({id: "SWEETALERT.TITLE"})),
               text: (intl.formatMessage({id: "SWEETALERT.TEXT"})),
               icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#000',
-              cancelButtonColor: 'primary',
+              // showCancelButton: true,
+              // confirmButtonColor: '#000',
+              // cancelButtonColor: 'primary',
               confirmButtonText: (intl.formatMessage({id: "SWEETALERT.CONFIRM"})),
               cancelButtonText: (intl.formatMessage({id: "SWEETALERT.CANCEL"}))
             }).then( async (result) => {
               if (result.isConfirmed) {
                 await deleteItem.mutateAsync()
                 Swal.fire({
-                  title: (intl.formatMessage({id: "SWEETALERT.DELETED"})),
-                  text: (intl.formatMessage({id: "SWEETALERT.DELETESUCCESS"})),
+                  title: (intl.formatMessage({id: "SWEETALERT.SUCCESS"})),
+                  text: (intl.formatMessage({id: "SWEETALERT.DELETED"})),
                   icon: 'success',
                   timer: 2000,
-                  showConfirmButton:false
+                  showConfirmButton:true
                 })
                 
               }
@@ -79,6 +79,7 @@ const ActionsCell: FC<Props> = ({id}) => {
           <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
         </a>
       </div>
+      
     </>
   )
 }

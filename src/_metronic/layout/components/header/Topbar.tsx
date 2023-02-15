@@ -1,34 +1,45 @@
 import {KTSVG} from '../../../helpers'
-import {HeaderUserMenu, Search, ThemeModeSwitcher} from '../../../partials'
-import {Languages} from '../../../partials/layout/header-menus/Languages'
+import {Search, ThemeModeSwitcher} from '../../../partials'
 
 const Topbar = () => {
   return (
     <div className='d-flex align-items-center flex-shrink-0'>
-
-      {/* <Search
+      {/* Search */}
+      <Search
         className='w-lg-250px'
-        mobileToggleBtnClass='btn btn-icon btn-color-gray-700 btn-active-color-primary btn-outline btn-outline-secondary w-40px h-40px'
-      /> */}
+        mobileToggleBtnClass='btn btn-icon btn-color-gray-700 btn-active-color-primary btn-outline w-40px h-40px'
+      />
 
-      
+      {/* begin::Activities */}
       <div className='d-flex align-items-center ms-3 ms-lg-4'>
-
-        {/* <div
-          className='btn btn-icon btn-color-gray-700 btn-active-color-primary btn-outline btn-outline-secondary w-40px h-40px position-relative'
+        {/* begin::Drawer toggle */}
+        <div
+          className='btn btn-icon btn-color-gray-700 btn-active-color-primary btn-outline w-40px h-40px'
           id='kt_activities_toggle'
         >
-          <KTSVG path='/media/icons/duotune/general/gen005.svg' className='svg-icon-2' />
-        </div> */}
+          <KTSVG path='/media/icons/duotune/general/gen007.svg' className='svg-icon-1' />
+        </div>
+        {/* end::Drawer toggle */}
+      </div>
+      {/* end::Activities */}
 
-      </div>
-     
+      {/* CHAT */}
+      
+
+      {/* begin::Sidebar Toggler */}
+      {/* <button
+        className='btn btn-icon btn-active-icon-primary w-40px h-40px d-xxl-none ms-2 me-n2 d-none'
+        id='kt_sidebar_toggler'
+      >
+        <KTSVG path='/media/icons/duotune/coding/cod001.svg' className='svg-icon-2x' />
+      </button> */}
+      {/* end::Sidebar Toggler */}
+
+      {/* begin::Theme mode */}
       <div className={'d-flex align-items-center ms-3 ms-lg-4'}>
-        <ThemeModeSwitcher toggleBtnClass='btn-color-gray-700 btn-active-color-primary btn-outline btn-outline-secondary w-40px h-40px' />
+        <ThemeModeSwitcher toggleBtnClass='btn-color-gray-700 btn-active-color-primary btn-outline w-40px h-40px' />
       </div>
-      
-      
-      
+      {/* end::Theme mode */}
     </div>
   )
 }

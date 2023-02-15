@@ -41,9 +41,9 @@ const ChartsWidget5: React.FC<Props> = ({className}) => {
       {/* begin::Header */}
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
-          <span className='card-label fw-bold fs-3 mb-1'>Not Started</span>
+          <span className='card-label fw-bold fs-3 mb-1'>Recent Customers</span>
 
-          <span className='text-muted fw-semibold fs-7'>This Year</span>
+          <span className='text-muted fw-semibold fs-7'>More than 500 new customers</span>
         </h3>
 
         {/* begin::Toolbar */}

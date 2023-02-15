@@ -1,18 +1,17 @@
 import React, {useRef, useEffect} from 'react'
 import {useLocation} from 'react-router'
 import {AsideMenuMain} from './AsideMenuMain'
-import {AsideMenuUser} from './AsideMenuUser'
 import {DrawerComponent, ScrollComponent, ToggleComponent} from '../../../assets/ts/components'
-import {useAuth} from '../../../../app/modules/auth'
 
 type Props = {
   asideMenuCSSClasses: string[]
+  menus: string[]
 }
 
-const AsideMenu: React.FC<Props> = ({asideMenuCSSClasses}) => {
+const AsideMenu: React.FC<Props> = ({asideMenuCSSClasses, menus}) => {
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const {pathname} = useLocation()
-  const {currentUser} = useAuth()
+
   useEffect(() => {
     setTimeout(() => {
       DrawerComponent.reinitialization()
@@ -29,7 +28,7 @@ const AsideMenu: React.FC<Props> = ({asideMenuCSSClasses}) => {
     <div
       id='kt_aside_menu_wrapper'
       ref={scrollRef}
-      className='w-100 hover-scroll-overlay-y d-flex'
+      className='w-100 hover-scroll-overlay-y d-flex pe-2'
       data-kt-scroll='true'
       data-kt-scroll-activate='{default: false, lg: true}'
       data-kt-scroll-height='auto'
@@ -42,18 +41,7 @@ const AsideMenu: React.FC<Props> = ({asideMenuCSSClasses}) => {
         data-kt-menu='true'
         className='menu menu-column menu-rounded fw-bold my-auto'
       >
-        {currentUser?.roleName == 'Key Account' ? (        
-        <>
-          <AsideMenuMain />
-          
-          </>
-          ) :
-          (                
-            <>
-            <AsideMenuUser />
-            </>
-          )       
-        }
+        <AsideMenuMain {...menus || []} />
       </div>
     </div>
   )

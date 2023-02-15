@@ -31,7 +31,7 @@ const CustomHeader: FC<Props> = ({className, title, tableProps}) => {
       return
     }
 
-    if (isSelectedForSorting && order !== undefined) {
+    if (isSelectedForSorting ? order !== undefined : null) {
       if (order === 'asc') {
         // enable sort desc
         updateState({sort: id, order: 'desc', ...initialQueryState})

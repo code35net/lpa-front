@@ -40,13 +40,14 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
   const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
   const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
   const saveAuth = (auth: AuthModel | undefined) => {
-    setAuth(auth)
-    if (auth) {
-      authHelper.setAuth(auth)
-    } else {
-      authHelper.removeAuth()
+      setAuth(auth)
+      //console.log(auth)
+        if (auth) {
+          authHelper.setAuth(auth)
+        } else {
+          authHelper.removeAuth()
+        }
     }
-  }
 
   const logout = () => {
     saveAuth(undefined)
@@ -66,18 +67,13 @@ const AuthInit: FC<WithChildren> = ({children}) => {
   const [showSplashScreen, setShowSplashScreen] = useState(true)
   // We should request user by authToken (IN OUR EXAMPLE IT'S API_TOKEN) before rendering the application
   useEffect(() => {
-    const requestUser = async () => {
+    const requestUser = async (apiToken: string) => {
       try {
         if (!didRequest.current) {
           const {data} = await getUserByToken()
           if (data) {
-            //console.log(data)
             setCurrentUser(data)
           }
-          /*else
-          {
-            logout()
-          }*/
         }
       } catch (error) {
         console.error(error)
@@ -92,7 +88,7 @@ const AuthInit: FC<WithChildren> = ({children}) => {
     }
 
     if (auth && auth.api_token) {
-      requestUser()
+      requestUser(auth.api_token)
     } else {
       logout()
       setShowSplashScreen(false)

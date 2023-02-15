@@ -2,96 +2,259 @@ import {lazy, FC, Suspense} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import { Charts } from '../pages/dashboard/DashboardWrapper'
-import { Reports } from '../pages/reports/ReportsWrapper'
-import { Reports as QuestionReports } from '../pages/questionreport/ReportsWrapper'
+import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
+import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {DisableSidebar} from '../../_metronic/layout/core'
 import {WithChildren} from '../../_metronic/helpers'
-import {EditForm} from "../pages/questions/Add"
-import {SubUnitForm} from "../pages/subunits/Add"
-import {UnitForm} from "../pages/units/Add"
-import {Logout, AuthPage, useAuth} from '../modules/auth'
-
-import {UserEditForm} from "../pages/user-management/newuser"
-// import {UserFullEditForm} from "../pages/user-management/edit"
-import {UserPermissionForm} from "../pages/user-management/permissions"
-import {RolePermissionForm} from "../pages/role-management/permissions"
-// import {TemplateForm} from "../pages/answertemplates/Add"
-import {EditAuditForm} from "../pages/audits/Planner"
-import {EditOpAuditForm} from "../pages/audits/OpPlanner"
-import {AuditDetails} from "../pages/audits/detail/auditdetail"
-import {UserDetails} from "../pages/user-management/detail/userdetail"
-import {AuditQuestionsForm} from "../pages/audits/detail/auditquestions"
+import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
+import {AddQuestion} from '../pages/quiz/add-questions'
+import {AddUser} from '../pages/course/add-user'
+import {QuizQuestion} from '../pages/quiz/quiz-questions'
+import { KVKK } from '../pages/static/kvkk'
+import { LessonViewer } from '../pages/my-topic-lesson/LessonViewer'
 
 
-const PrivateRoutes = () => {
+const PrivateRoutes = (menus: Array<string>) => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
-  const UsersPage = lazy(() => import('../pages/user-management/Page'))
-  const RolesPage = lazy(() => import('../pages/role-management/Page'))
-  const StaffPage = lazy(() => import('../pages/staffs/Page'))
-  const ActionPage = lazy(() => import('../pages/actions/Page'))
-  const DepartmentPage = lazy(() => import('../pages/departments/Page'))
-  const TableReportPage = lazy(() => import('../pages/tablereport/Page'))
-  const QuestionTableReportPage = lazy(() => import('../pages/questiontablereport/Page'))
-  const HolidayPage = lazy(() => import('../pages/holidays/Page'))
-  const PositionsPage = lazy(() => import('../pages/positions/Page'))
-  const SectionsPage = lazy(() => import('../pages/sections/Page'))
-  const UnitsPage = lazy(() => import('../pages/units/Page'))
-  const SubUnitsPage = lazy(() => import('../pages/subunits/Page'))
-  const AnswerTemplatePage = lazy(() => import('../pages/answertemplates/Page'))
-  const AuditCategoryPage = lazy(() => import('../pages/auditcategories/Page'))
-  const QuestionGroupPage = lazy(() => import('../pages/questioncategories/Page'))
-  const QuestionPage = lazy(() => import('../pages/questions/Page'))
-  const AuditPage = lazy(() => import('../pages/audits/Page'))
+  const UsersPage = lazy(() => import('../pages/user-management/UsersPage'))
 
-  // const AuditsPage = lazy(() => import('../pages/audit/Page'))
+  const AnswerTemplatePage = lazy(() => import('../pages/answertemplate/Page'))
+  const SurveyPage = lazy(() => import('../pages/survey/Page'))
+  const SurveyGroupPage = lazy(() => import('../pages/survey-group/Page'))
+    const SurveyQuestionPage = lazy(() => import('../pages/survey-question/Page'))
+    const CoursePage = lazy(() => import('../pages/course/Page'))
+    const CertificatePage = lazy(() => import('../pages/my-certificate/Page'))
+    const MyCoursePage = lazy(() => import('../pages/my-course/Page'))
+    const MyQuizPage = lazy(() => import('../pages/my-quiz/Page'))
+    const MyCourseTopicPage = lazy(() => import('../pages/my-course-topic/Page'))
+    const MyTopicLessonPage = lazy(() => import('../pages/my-topic-lesson/Page'))
+  const TermPage = lazy(() => import('../pages/term/Page'))
+  const QuizPage = lazy(() => import('../pages/quiz/Page'))
+  const QuestionBankPage = lazy(() => import('../pages/question-bank/Page'))
+  const TopicPage = lazy(() => import('../pages/topic/Page'))
+  const LibraryCategoryPage = lazy(() => import('../pages/library-category/Page'))
+  const LibraryPage = lazy(() => import('../pages/library/Page'))
+  const LessonPage = lazy(() => import('../pages/lesson/Page'))
+  const Position = lazy (() => import('../pages/position/Page'))
+  const AuditCategory = lazy (() => import('../pages/audit-categories/Page'))
+  const QuestionCategory = lazy (() => import('../pages/question-categories/Page'))
+  const Holidays = lazy (() => import('../pages/holidays/Page'))
 
-  const {currentUser} = useAuth()
+  var usermanagementyetki = Object.keys(menus).some((key: any) => menus[key] == "useraction");
+  var announcementyetki = Object.keys(menus).some((key: any) => menus[key] == "announcement");
+  
   return (
     <Routes>
-      <Route element={<MasterLayout />}>
+    <Route element={<MasterLayout {...menus || []} />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        {currentUser?.roleName == "Key Account" ? <Route path='auth/*' element={<Navigate to='/dashboard' />} /> : <Route path='auth/*' element={<Navigate to='/audits' />} />}
+        <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         {/* Pages */}
-        <Route path='/users' element={<UsersPage />} />
-        <Route path='/users' element={<UsersPage />} />
-        <Route path='/staffs' element={<StaffPage />} />
-        <Route path='/actions' element={<ActionPage />} />
-        <Route path='/questions/add' element={<EditForm />} />
-        <Route path='/subunits/add' element={<SubUnitForm />} />
-        <Route path='/units/add' element={<UnitForm />} />
-        <Route path='/user-management/newuser' element={<UserEditForm />} />
-        {/* <Route path='/user-management/edit' element={<UserFullEditForm />} /> */}
-        {/* <Route path='/answertemplates/add' element={<TemplateForm />} /> */}
-        <Route path='/audits/planner' element={<EditAuditForm />} />
-        <Route path='/audits/opplanner' element={<EditOpAuditForm />} />
-        <Route path='/audits/auditdetail' element={<AuditDetails />} />
-        <Route path='/user-manager/userdetails' element={<UserDetails />} />
+        <Route path='dashboard' element={<DashboardWrapper />} />
+        <Route path='builder' element={<BuilderPageWrapper />} />
+        <Route path='menu-test' element={<MenuTestPage />} />
+        {/* <Route path='/course' element={<CoursePage />} /> */}
+        {/* <Route path='/lesson' element={<LessonPage />} /> */}
+        <Route path='/quiz/add-questions' element={<AddQuestion />} />
+        <Route path='/course/add-user' element={<AddUser />} />
+        <Route path='/quiz/quiz-questions' element={<QuizQuestion />} />
+        <Route path='/static/kvkk' element={<KVKK />} />
+
+              <Route path='/view-lesson' element={<LessonViewer />} />
+
+        <Route path='/user-management/*' element={<SuspensedView><UsersPage /></SuspensedView>}/>
         
-        <Route path='/departments' element={<DepartmentPage />} />
-        <Route path='/tablereport' element={<TableReportPage />} />
-        <Route path='/questiontablereport' element={<QuestionTableReportPage />} />
-        <Route path='/holidays' element={<HolidayPage />} />
-        <Route path='/positions' element={<PositionsPage />} />
-        <Route path='/auditcategories' element={<AuditCategoryPage />} />
-        <Route path='/answertemplates' element={<AnswerTemplatePage />} />
-        <Route path='/questiongroups' element={<QuestionGroupPage />} />
-        <Route path='/questions' element={<QuestionPage />} />
-        <Route path='/audits' element={<AuditPage />} />
-        {/* <Route path='/audits' element={<AuditsPage />} /> */}
+        
+        {/* {announcementyetki && <Route
+          path='/announcement/*'
+          element={
+            <SuspensedView>
+              <AnnouncementPage />
+            </SuspensedView>
+          }
+        />} */}
 
-              <Route path='dashboard' element={<Charts />} />
-              <Route path='reports' element={<Reports />} />
-              <Route path='questionreport' element={<QuestionReports />} />
-        <Route path='/role-management/permissions/:roleId' element={<RolePermissionForm />} />
+        
+        <Route
+          path='/answertemplate/*'
+          element={
+            <SuspensedView>
+              <AnswerTemplatePage />
+            </SuspensedView>
+          }
+        />
 
-        <Route path='/user-management/userpermission/:userId' element={<UserPermissionForm />} />
-        <Route path='/audits/auditquestions/:auditId' element={<AuditQuestionsForm />} />
+        <Route
+          path='/positions/*'
+          element={
+            <SuspensedView>
+              <Position />
+            </SuspensedView>
+          }
+        />
+
+        <Route
+          path='/audit-categories/*'
+          element={
+            <SuspensedView>
+              <AuditCategory />
+            </SuspensedView>
+          }
+        />
+
+        <Route
+          path='/question-categories/*'
+          element={
+            <SuspensedView>
+              <QuestionCategory />
+            </SuspensedView>
+          }
+        />
+
+        <Route
+          path='/holidays/*'
+          element={
+            <SuspensedView>
+              <Holidays />
+            </SuspensedView>
+          }
+        />
+
+       <Route
+          path='/survey/*'
+          element={
+            <SuspensedView>
+              <SurveyPage />
+            </SuspensedView>
+          }
+              />
+              <Route
+                  path='/my-certificate/*'
+                  element={
+                      <SuspensedView>
+                          <CertificatePage />
+                      </SuspensedView>
+                  }
+              />
+        <Route
+          path='/survey-group/*'
+          element={
+            <SuspensedView>
+              <SurveyGroupPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/survey-question/*'
+          element={
+            <SuspensedView>
+              <SurveyQuestionPage />
+            </SuspensedView>
+          }
+        />
+        
+        <Route
+          path='/course/*'
+          element={
+            <SuspensedView>
+              <CoursePage />
+            </SuspensedView>
+          }
+              />
+              <Route
+                  path='/my-course/*'
+                  element={
+                      <SuspensedView>
+                          <MyCoursePage />
+                      </SuspensedView>
+                  }
+              />
+              <Route
+                  path='/my-quiz/*'
+                  element={
+                      <SuspensedView>
+                          <MyQuizPage />
+                      </SuspensedView>
+                  }
+              />
+              <Route
+                  path='/my-course-topic/*'
+                  element={
+                      <SuspensedView>
+                          <MyCourseTopicPage />
+                      </SuspensedView>
+                  }
+              />
+              <Route
+                  path='/my-topic-lesson/*'
+                  element={
+                      <SuspensedView>
+                          <MyTopicLessonPage />
+                      </SuspensedView>
+                  }
+              />
+        <Route
+          path='/term/*'
+          element={
+            <SuspensedView>
+              <TermPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/lesson/*'
+          element={
+            <SuspensedView>
+              <LessonPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/quiz/*'
+          element={
+            <SuspensedView>
+              <QuizPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/question-bank/*'
+          element={
+            <SuspensedView>
+              <QuestionBankPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/topic/*'
+          element={
+            <SuspensedView>
+              <TopicPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/library/*'
+          element={
+            <SuspensedView>
+              <LibraryPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/library-category/*'
+          element={
+            <SuspensedView>
+              <LibraryCategoryPage />
+            </SuspensedView>
+          }
+        />
+
+
 
         {/* Lazy Modules */}
         <Route
@@ -134,176 +297,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-        <Route
-          path='user-management/*'
-          element={
-            <SuspensedView>
-              <UsersPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='role-management/*'
-          element={
-            <SuspensedView>
-              <RolesPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='staffs/*'
-          element={
-            <SuspensedView>
-              <StaffPage />
-            </SuspensedView>
-          }
-        />
-         <Route
-          path='Actions/*'
-          element={
-            <SuspensedView>
-              <ActionPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/departments/*'
-          element={
-            <SuspensedView>
-              <DepartmentPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/tablereport/*'
-          element={
-            <SuspensedView>
-              <TableReportPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/questiontablereport/*'
-          element={
-            <SuspensedView>
-              <QuestionTableReportPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/holidays/*'
-          element={
-            <SuspensedView>
-              <HolidayPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/sections/*'
-          element={
-            <SuspensedView>
-              <SectionsPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/units/*'
-          element={
-            <SuspensedView>
-              <UnitsPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/subunits/*'
-          element={
-            <SuspensedView>
-              <SubUnitsPage />
-            </SuspensedView>
-          }
-        />
-
-        <Route
-          path='positions/*'
-          element={
-            <SuspensedView>
-              <PositionsPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='auditcategories/*'
-          element={
-            <SuspensedView>
-              <AuditCategoryPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='answertemplates/*'
-          element={
-            <SuspensedView>
-              <AnswerTemplatePage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='questiongroups/*'
-          element={
-            <SuspensedView>
-              <QuestionGroupPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='questions/*'
-          element={
-            <SuspensedView>
-              <QuestionPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='audits/*'
-          element={
-            <SuspensedView>
-              <AuditPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='dashboard/*'
-          element={
-            <SuspensedView>
-              <Charts />
-            </SuspensedView>
-          }
-        />
-        <Route
-            path='reports/*'
-            element={
-                <SuspensedView>
-                    <Reports />
-                </SuspensedView>
-            }
-        />
-        <Route
-            path='questionreport/*'
-            element={
-                <SuspensedView>
-                    <QuestionReports />
-                </SuspensedView>
-            }
-        />
-        {/* <Route
-          path='apps/audit/*'
-          element={
-            <SuspensedView>
-              <AuditsPage />
-            </SuspensedView>
-          }
-        />
-         */}
+        
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>

@@ -9,7 +9,7 @@ type Props = {
   icon?: string
   fontIcon?: string
   menuTrigger?: 'click' | `{default:'click', lg: 'hover'}`
-  menuPlacement?: 'right-start' | 'bottom-start'
+  menuPlacement?: 'right-start' | 'bottom-start' | 'left-start'
   hasArrow?: boolean
   hasBullet?: boolean
   isMega?: boolean

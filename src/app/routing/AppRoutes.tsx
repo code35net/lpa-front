@@ -10,9 +10,9 @@ import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
 import {PrivateRoutes} from './PrivateRoutes'
 import {ErrorsPage} from '../modules/errors/ErrorsPage'
 import {Logout, AuthPage, useAuth} from '../modules/auth'
-import {App} from '../App'
-
-import {ActionDetails} from "../pages/actions/actiondetail"
+import { App } from '../App'
+import { QuizQuestionsForm } from '../pages/my-quiz/Quiz'
+import { Cert } from '../pages/cert/Index'
 
 /**
  * Base URL of the website.
@@ -23,38 +23,34 @@ const {PUBLIC_URL} = process.env
 
 const AppRoutes: FC = () => {
   const {currentUser} = useAuth()
-  console.log(currentUser)
   return (
     <BrowserRouter basename={PUBLIC_URL}>
       <Routes>
         <Route element={<App />}>
-          <Route path='error/*' element={<ErrorsPage />} />
+                  <Route path='error/*' element={<ErrorsPage />} />
+
+                  <Route
+                      path='/my-quiz/join/:QuizId'
+                      element={
+                              <QuizQuestionsForm />
+                      }
+                  />
+                  <Route
+                      path='/cert/:certid'
+                      element={
+                          <Cert />
+                      }
+                  />
           <Route path='logout' element={<Logout />} />
           {currentUser ? (
             <>
-              <Route path='/*' element={<PrivateRoutes />} />
-              {currentUser?.roleName == "Key Account" ? <Route index element={<Navigate to='/dashboard' />} /> : <Route index element={<Navigate to='/audits' />} />}
+             <Route path='/*' element={<PrivateRoutes {...currentUser.menus || []} />} />
+              <Route index element={<Navigate to='/dashboard' />} />
             </>
           ) : (
             <>
               <Route path='auth/*' element={<AuthPage />} />
               <Route path='*' element={<Navigate to='/auth' />} />
-              <Route path='/actions/actiondetail' element={<ActionDetails item={{
-                  id: undefined,
-                  auditname: undefined,
-                  departmantName: undefined,
-                  sectionName: undefined,
-                  unitName: undefined,
-                  assignedUserName: undefined,
-                  questiontext: undefined,
-                  auditDate: undefined,
-                  lastDate: undefined,
-                  finding: undefined,
-                  done: false,
-                  status: 0,
-                  actionCode: undefined,
-                  text: undefined
-                }} />} />
             </>
           )}
         </Route>

@@ -14,13 +14,6 @@ const Breadcrumbs: Array<PageLink> = [
     
   },
   {
-    title: 'Definitions',
-    path: '',
-    isSeparator: false,
-    isActive: false,
-    
-  },
-  {
     title: '',
     path: '',
     isSeparator: true,
@@ -37,7 +30,7 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'HOLIDAY.PAGE.TITLE'})}</PageTitle>
+              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'ANNOUNCEMENT.PAGE.TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }

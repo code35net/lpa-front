@@ -2,7 +2,7 @@ import {useQueryClient, useMutation} from 'react-query'
 import {QUERIES} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
-import {deleteSelectedHoliday} from '../../core/_requests'
+import {deleteSelectedThings} from '../../core/_requests'
 import {useIntl} from 'react-intl'
 
 
@@ -12,7 +12,7 @@ const ListGrouping = () => {
   const queryClient = useQueryClient()
   const {query} = useQueryResponse()
 
-  const deleteSelectedItems = useMutation(() => deleteSelectedHoliday(selected), {
+  const deleteSelectedItems = useMutation(() => deleteSelectedThings(selected), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: () => {
       // ✅ update detail view directly
@@ -24,7 +24,7 @@ const ListGrouping = () => {
   return (
     <div className='d-flex justify-content-end align-items-center'>
       <div className='fw-bolder me-5'>
-        <span className='me-2'>{selected.length}</span>  {intl.formatMessage({id: 'TABLE.SELECTED'})}
+        <span className='me-2'>{selected.length}</span>  {intl.formatMessage({id: 'LIST.TABLE.SELECTED'})}
       </div>
 
       <button
@@ -32,7 +32,7 @@ const ListGrouping = () => {
         className='btn btn-danger'
         onClick={async () => await deleteSelectedItems.mutateAsync()}
       >
-         {intl.formatMessage({id: 'TABLE.DELETESELECTED'})}
+         {intl.formatMessage({id: 'LIST.TABLE.DELETESELECTED'})}
       </button>
     </div>
   )

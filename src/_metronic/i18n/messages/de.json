@@ -6,22 +6,7 @@
   "MENU.PAGES": "Pages",
   "MENU.FEATURES": "Eigenschaften",
   "MENU.APPS": "Apps",
-
-  
   "MENU.DASHBOARD": "Instrumententafel",
-  "MENU.USERS":"Benutzer",
-  "MENU.PLACES":"Setzt",
-  "MENU.LEGISLATIONS":"Gesetzgebung",
-  "MENU.CHAPTERS":"Kapitel",
-  "MENU.AUDITS":"Prüfung",
-  "MENU.AUDITBASE":"Prüfungsgrundlage",
-  "MENU.FOLLOWUPAUDITS":"Folgeprüfungen",
-  "MENU.REPORTS":"Raubvögel",
-  "MENU.USERSREPORTS":"Benutzer berichten",
-  "MENU.SYSTEMREPORTS":"Systemberichte",
-
-
-
   "AUTH.GENERAL.OR": "Oder",
   "AUTH.GENERAL.SUBMIT_BUTTON": "einreichen",
   "AUTH.GENERAL.NO_ACCOUNT": "Hast du kein Konto?",

@@ -6,9 +6,11 @@ import {AsideMenu} from './AsideMenu'
 import {AsideUserMenu} from '../../../partials'
 import {useThemeMode} from '../../../partials/layout/theme-mode/ThemeModeProvider'
 
-const AsideDefault = () => {
+const AsideDefault = (menus: Array<string>)  => {
   const {classes} = useLayout()
   const {mode} = useThemeMode()
+  
+
   return (
     <div
       id='kt_aside'
@@ -29,7 +31,7 @@ const AsideDefault = () => {
             <img
               alt='Logo'
               className='h-75px logo theme-light-show'
-              src={toAbsoluteUrl('/media/logos/freudenberg_logo.png')}
+              src={toAbsoluteUrl('/media/logos/logo.png')}
             />
           )}
 
@@ -37,7 +39,7 @@ const AsideDefault = () => {
             <img
               alt='Logo'
               className='h-75px logo theme-dark-show'
-              src={toAbsoluteUrl('/media/logos/freudenberg_logo.png')}
+              src={toAbsoluteUrl('/media/logos/logo.png')}
             />
           )}
         </Link>
@@ -47,7 +49,7 @@ const AsideDefault = () => {
 
       {/* begin::Aside menu */}
       <div id='kt_aside_menu' className='aside-menu flex-column-fluid ps-5 pe-3 mb-9'>
-        <AsideMenu asideMenuCSSClasses={classes.asideMenu} />
+      <AsideMenu asideMenuCSSClasses={classes.asideMenu} menus={menus} />
       </div>
       {/* end::Aside menu */}
 

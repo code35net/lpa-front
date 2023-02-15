@@ -12,17 +12,14 @@ const ListToolbar = () => {
 
   return (
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
-     
-      {/* begin::Add Places */}
       <button
         type='button'
-        className='btn btn-sm btn-dark btn-active-light-dark '
+        className='btn btn-sm btn-primary btn-active-light-primary '
         onClick={openAddModal}
       >
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        {intl.formatMessage({id: 'HOLIDAY.LIST.ADD'})}
+        {intl.formatMessage({id: 'LIST.BUTTON.ADD'})}
       </button>
-      {/* end::Add Places */}
     </div>
   )
 }

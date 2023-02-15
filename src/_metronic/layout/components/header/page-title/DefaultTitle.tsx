@@ -17,7 +17,9 @@ const DefaultTitle = () => {
       {pageTitle && (
         <h1 className='d-flex flex-column text-dark fw-bolder my-0 fs-1'>
           {pageTitle}
-          
+          {pageDescription && (
+            <small className='text-muted fs-6 fw-bold ms-1 pt-1'>{pageDescription}</small>
+          )}
         </h1>
       )}
       {/* end::Heading */}

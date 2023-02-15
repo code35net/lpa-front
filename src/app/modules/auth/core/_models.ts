@@ -12,7 +12,7 @@ export interface UserAddressModel {
 
 export interface UserCommunicationModel {
   email: boolean
-  sms: boolean
+  sms: boolean  
   phone: boolean
 }
 
@@ -45,15 +45,23 @@ export interface UserSocialNetworksModel {
 
 export interface UserModel {
   id: number
-  userName: string
+  username: string
   password: string | undefined
   email: string
-  fullname: string
+  fullName?: string
+  occupation?: string
   companyName?: string
+  claims?: Array<string>
+  menus?: Array<string>
   phone?: string
   roles?: Array<number>
-  roleName: string
-  language?: 'en' | 'de' | 'es' | 'fr' | 'ja' | 'zh' | 'ru'
+  pic?: string
+  language?: 'en' | 'tr'
+  timeZone?: string
+  website?: 'https://keenthemes.com'
   emailSettings?: UserEmailSettingsModel
   auth?: AuthModel
+  communication?: UserCommunicationModel
+  address?: UserAddressModel
+  socialNetworks?: UserSocialNetworksModel
 }
