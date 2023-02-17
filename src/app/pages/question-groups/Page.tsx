@@ -30,13 +30,13 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'POSITION_PAGE_TITLE'})}</PageTitle>
+              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'QUESTION_GROUP_PAGE_TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }
         />
       </Route>
-      <Route index element={<Navigate to='/positions/list' />} />
+      <Route index element={<Navigate to='/question-groups/list' />} />
     </Routes>
   )
 }

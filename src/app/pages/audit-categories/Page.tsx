@@ -30,7 +30,7 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'SURVEY.PAGE.TITLE'})}</PageTitle>
+              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'AUDIT_CATEGORY_PAGE_TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }

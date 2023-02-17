@@ -11,8 +11,7 @@ import {PrivateRoutes} from './PrivateRoutes'
 import {ErrorsPage} from '../modules/errors/ErrorsPage'
 import {Logout, AuthPage, useAuth} from '../modules/auth'
 import { App } from '../App'
-import { QuizQuestionsForm } from '../pages/my-quiz/Quiz'
-import { Cert } from '../pages/cert/Index'
+
 
 /**
  * Base URL of the website.
@@ -29,6 +28,7 @@ const AppRoutes: FC = () => {
         <Route element={<App />}>
                   <Route path='error/*' element={<ErrorsPage />} />
 
+                  {/*
                   <Route
                       path='/my-quiz/join/:QuizId'
                       element={
@@ -40,7 +40,7 @@ const AppRoutes: FC = () => {
                       element={
                           <Cert />
                       }
-                  />
+                    /> */}
           <Route path='logout' element={<Logout />} />
           {currentUser ? (
             <>

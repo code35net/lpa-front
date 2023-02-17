@@ -192,20 +192,28 @@
   "IMAGELIBRARY.PAGE.TITLE": "Image Library",
 
 
-
+  "POSITION_PAGE_TITLE" : "Positions",
   "POSITION_NAME" : "Name",
 
+  "AUDIT_CATEGORY_PAGE_TITLE" : "Audit Categories",
   "AUDIT_CATEGORY_NAME" : "Audit Category",
   "AUDIT_CATEGORY_TYPE" : "Category Type",
-  "AUDIT_CATEGORY_ID" : "Audit Category Id",
+  "AUDIT_CATEGORY_ID" : "Audit Category",
 
-
+  "QUESTION_GROUP_PAGE_TITLE" : "Question Groups",
   "QUESTION_GROUP_NAME" : "Question Group",
+  "QUESTION_GROUP_ID" : "Question Group",
+
+  "HOLIDAY_PAGE_TITLE" : "Holidays",
   "HOLIDAYS_NAME" : "Holidays",
   "HOLIDAYS_DATE" : "Date",
 
+  "AUDIT_PAGE_TITLE" : "Audits",
+  "AUDIT_AUDITOR" : "Auditor",
+  "AUDIT_START_DATE" : "Start Date",
+  "AUDIT_END_DATE" : "End Date",
 
-
+  
 
   "boş" : "boş"
 

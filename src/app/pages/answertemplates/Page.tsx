@@ -14,6 +14,13 @@ const Breadcrumbs: Array<PageLink> = [
     
   },
   {
+    title: 'Definitions',
+    path: '',
+    isSeparator: false,
+    isActive: false,
+    
+  },
+  {
     title: '',
     path: '',
     isSeparator: true,
@@ -30,13 +37,13 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'POSITION_PAGE_TITLE'})}</PageTitle>
+              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'ANSWERTEMPLATES.PAGE.TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }
         />
       </Route>
-      <Route index element={<Navigate to='/positions/list' />} />
+      <Route index element={<Navigate to='/answertemplates/list' />} />
     </Routes>
   )
 }

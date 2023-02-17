@@ -4,7 +4,6 @@ import {ListWrapper} from './list/List'
 import {useIntl} from 'react-intl'
 
 
-
 const Breadcrumbs: Array<PageLink> = [
   {
     title: 'Home',
@@ -13,6 +12,7 @@ const Breadcrumbs: Array<PageLink> = [
     isActive: false,
     
   },
+ 
   {
     title: '',
     path: '',
@@ -30,13 +30,13 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'POSITION_PAGE_TITLE'})}</PageTitle>
+              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'QUESTIONS.PAGE.TITLE'})}</PageTitle>
               <ListWrapper />
             </>
           }
         />
       </Route>
-      <Route index element={<Navigate to='/positions/list' />} />
+      <Route index element={<Navigate to='/questions/list' />} />
     </Routes>
   )
 }

@@ -8,11 +8,7 @@ import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {DisableSidebar} from '../../_metronic/layout/core'
 import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
-import {AddQuestion} from '../pages/quiz/add-questions'
-import {AddUser} from '../pages/course/add-user'
-import {QuizQuestion} from '../pages/quiz/quiz-questions'
-import { KVKK } from '../pages/static/kvkk'
-import { LessonViewer } from '../pages/my-topic-lesson/LessonViewer'
+
 
 
 const PrivateRoutes = (menus: Array<string>) => {
@@ -23,27 +19,15 @@ const PrivateRoutes = (menus: Array<string>) => {
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
   const UsersPage = lazy(() => import('../pages/user-management/UsersPage'))
 
-  const AnswerTemplatePage = lazy(() => import('../pages/answertemplate/Page'))
-  const SurveyPage = lazy(() => import('../pages/survey/Page'))
-  const SurveyGroupPage = lazy(() => import('../pages/survey-group/Page'))
-    const SurveyQuestionPage = lazy(() => import('../pages/survey-question/Page'))
-    const CoursePage = lazy(() => import('../pages/course/Page'))
-    const CertificatePage = lazy(() => import('../pages/my-certificate/Page'))
-    const MyCoursePage = lazy(() => import('../pages/my-course/Page'))
-    const MyQuizPage = lazy(() => import('../pages/my-quiz/Page'))
-    const MyCourseTopicPage = lazy(() => import('../pages/my-course-topic/Page'))
-    const MyTopicLessonPage = lazy(() => import('../pages/my-topic-lesson/Page'))
-  const TermPage = lazy(() => import('../pages/term/Page'))
-  const QuizPage = lazy(() => import('../pages/quiz/Page'))
-  const QuestionBankPage = lazy(() => import('../pages/question-bank/Page'))
-  const TopicPage = lazy(() => import('../pages/topic/Page'))
-  const LibraryCategoryPage = lazy(() => import('../pages/library-category/Page'))
-  const LibraryPage = lazy(() => import('../pages/library/Page'))
-  const LessonPage = lazy(() => import('../pages/lesson/Page'))
+  const AnswerTemplatePage = lazy(() => import('../pages/answertemplates/Page'))
+
+  const QuestionBankPage = lazy(() => import('../pages/questions/Page'))
+
   const Position = lazy (() => import('../pages/position/Page'))
   const AuditCategory = lazy (() => import('../pages/audit-categories/Page'))
-  const QuestionCategory = lazy (() => import('../pages/question-categories/Page'))
+  const QuestionGroup = lazy (() => import('../pages/question-groups/Page'))
   const Holidays = lazy (() => import('../pages/holidays/Page'))
+  const Audits = lazy (() => import('../pages/audits/Page'))
 
   var usermanagementyetki = Object.keys(menus).some((key: any) => menus[key] == "useraction");
   var announcementyetki = Object.keys(menus).some((key: any) => menus[key] == "announcement");
@@ -59,12 +43,7 @@ const PrivateRoutes = (menus: Array<string>) => {
         <Route path='menu-test' element={<MenuTestPage />} />
         {/* <Route path='/course' element={<CoursePage />} /> */}
         {/* <Route path='/lesson' element={<LessonPage />} /> */}
-        <Route path='/quiz/add-questions' element={<AddQuestion />} />
-        <Route path='/course/add-user' element={<AddUser />} />
-        <Route path='/quiz/quiz-questions' element={<QuizQuestion />} />
-        <Route path='/static/kvkk' element={<KVKK />} />
-
-              <Route path='/view-lesson' element={<LessonViewer />} />
+        
 
         <Route path='/user-management/*' element={<SuspensedView><UsersPage /></SuspensedView>}/>
         
@@ -80,7 +59,7 @@ const PrivateRoutes = (menus: Array<string>) => {
 
         
         <Route
-          path='/answertemplate/*'
+          path='/answertemplates/*'
           element={
             <SuspensedView>
               <AnswerTemplatePage />
@@ -107,10 +86,19 @@ const PrivateRoutes = (menus: Array<string>) => {
         />
 
         <Route
-          path='/question-categories/*'
+          path='/audits/*'
           element={
             <SuspensedView>
-              <QuestionCategory />
+              <Audits/>
+            </SuspensedView>
+          }
+        />
+        
+        <Route
+          path='/question-groups/*'
+          element={
+            <SuspensedView>
+              <QuestionGroup />
             </SuspensedView>
           }
         />
@@ -124,136 +112,17 @@ const PrivateRoutes = (menus: Array<string>) => {
           }
         />
 
-       <Route
-          path='/survey/*'
-          element={
-            <SuspensedView>
-              <SurveyPage />
-            </SuspensedView>
-          }
-              />
-              <Route
-                  path='/my-certificate/*'
-                  element={
-                      <SuspensedView>
-                          <CertificatePage />
-                      </SuspensedView>
-                  }
-              />
+      
+   
         <Route
-          path='/survey-group/*'
-          element={
-            <SuspensedView>
-              <SurveyGroupPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/survey-question/*'
-          element={
-            <SuspensedView>
-              <SurveyQuestionPage />
-            </SuspensedView>
-          }
-        />
-        
-        <Route
-          path='/course/*'
-          element={
-            <SuspensedView>
-              <CoursePage />
-            </SuspensedView>
-          }
-              />
-              <Route
-                  path='/my-course/*'
-                  element={
-                      <SuspensedView>
-                          <MyCoursePage />
-                      </SuspensedView>
-                  }
-              />
-              <Route
-                  path='/my-quiz/*'
-                  element={
-                      <SuspensedView>
-                          <MyQuizPage />
-                      </SuspensedView>
-                  }
-              />
-              <Route
-                  path='/my-course-topic/*'
-                  element={
-                      <SuspensedView>
-                          <MyCourseTopicPage />
-                      </SuspensedView>
-                  }
-              />
-              <Route
-                  path='/my-topic-lesson/*'
-                  element={
-                      <SuspensedView>
-                          <MyTopicLessonPage />
-                      </SuspensedView>
-                  }
-              />
-        <Route
-          path='/term/*'
-          element={
-            <SuspensedView>
-              <TermPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/lesson/*'
-          element={
-            <SuspensedView>
-              <LessonPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/quiz/*'
-          element={
-            <SuspensedView>
-              <QuizPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/question-bank/*'
+          path='/questions/*'
           element={
             <SuspensedView>
               <QuestionBankPage />
             </SuspensedView>
           }
         />
-        <Route
-          path='/topic/*'
-          element={
-            <SuspensedView>
-              <TopicPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/library/*'
-          element={
-            <SuspensedView>
-              <LibraryPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/library-category/*'
-          element={
-            <SuspensedView>
-              <LibraryCategoryPage />
-            </SuspensedView>
-          }
-        />
-
+   
 
 
         {/* Lazy Modules */}
