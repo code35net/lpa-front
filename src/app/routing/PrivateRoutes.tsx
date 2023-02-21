@@ -8,6 +8,8 @@ import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {DisableSidebar} from '../../_metronic/layout/core'
 import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
+import {EditForm} from "../pages/questions/Add"
+
 
 
 
@@ -21,7 +23,7 @@ const PrivateRoutes = (menus: Array<string>) => {
 
   const AnswerTemplatePage = lazy(() => import('../pages/answertemplates/Page'))
 
-  const QuestionBankPage = lazy(() => import('../pages/questions/Page'))
+  const QuestionBankPage = lazy(() => import( '../pages/questions/Page'))
 
   const Position = lazy (() => import('../pages/position/Page'))
   const AuditCategory = lazy (() => import('../pages/audit-categories/Page'))
@@ -44,7 +46,8 @@ const PrivateRoutes = (menus: Array<string>) => {
         <Route path='menu-test' element={<MenuTestPage />} />
         {/* <Route path='/course' element={<CoursePage />} /> */}
         {/* <Route path='/lesson' element={<LessonPage />} /> */}
-        
+        <Route path='/questions/add' element={<EditForm />} />
+
 
         <Route path='/user-management/*' element={<SuspensedView><UsersPage /></SuspensedView>}/>
         

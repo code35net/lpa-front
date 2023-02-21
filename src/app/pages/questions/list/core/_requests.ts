@@ -9,45 +9,11 @@ const CREATE_QUESTION_URL = `${API_URL}/Custom/createBulkQuestions`
 const COPY_QUESTION_URL = `${API_URL}/Custom/editQuestion`
 
 const getQuestions = (query: string): Promise<QueryResponse> => {
-  //query = query.replace('filter_auditcategoryid=', 'AuditCategoryId-')
-  var sim = query.split('&')
-  var fltr = ""
-  var fltr2 = ""
-  var dz = ""
-  for(let i=0;i<sim.length;i++)
-  {
-   if(!(sim[i].startsWith('page') || sim[i].startsWith('items_per_page')))
-   {
-      fltr = fltr + dz + sim[i].replace('filter_auditcategoryid=', 'AuditCategoryId-').replace('filter_questiongroupid=', 'QuestionGroupId-').replace('filter_sectionid=', 'SectionId-')
-      dz = "|"   
-    }   
-     
-  }
-  if(fltr != "")
-  {
-    fltr2 = "/" + fltr
-  }
   return axios
-    .get(`${QUESTION_URL}/getAll${fltr2}?${query}&modelstoinclude=Section.Department,Unit,AuditCategory`)
+    .get(`${QUESTION_URL}/getAll?${query}&modelstoinclude=Unit,AuditCategory`)
     .then((d: AxiosResponse<QueryResponse>) => {
       const queryRaw: any = parseRequestQuery(query)
-      if (queryRaw?.filter_auditcategoryid && Array.isArray(d?.data?.data)) {
-        d.data.data = (d as any).data?.data?.filter(
-          (item: any) =>
-            parseInt(item?.auditCategoryId) === parseInt(queryRaw?.filter_auditcategoryid)
-        )
-      }
-      if (queryRaw?.filter_questiongroupid && Array.isArray(d?.data?.data)) {
-        d.data.data = (d as any).data?.data?.filter(
-          (item: any) =>
-            parseInt(item?.questionGroupId) === parseInt(queryRaw?.filter_questiongroupid)
-        )
-      }
-      if (queryRaw?.filter_sectionid && Array.isArray(d?.data?.data)) {
-        d.data.data = (d as any).data?.data?.filter(
-          (item: any) => parseInt(item?.sectionId) === parseInt(queryRaw?.filter_sectionid)
-        )
-      }
+      
 
       return d.data
     })

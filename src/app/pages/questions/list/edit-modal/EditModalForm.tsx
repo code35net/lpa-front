@@ -20,6 +20,7 @@ type Props = {
 
 const editchema = Yup.object().shape({
   text: Yup.string()
+    .max(50, 'Maximum 50 symbols')
     .required('Question required'),
 })
 
@@ -36,7 +37,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   const [isQuestionCategory, setIsQuestionCategory] = React.useState(item.isAddedQuestionCategory)
 
   useEffect(() => {
-    
+   
 
     listAuditCategories().then((res2) => {
       setAuditCategories(res2.data || [])
@@ -52,7 +53,8 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
 
   console.log(item, 'test')
   const [placeForEdit] = useState<Model>({
-    text: undefined,  
+    text: undefined,
+    unitId: undefined,
     auditCategoryId: undefined,
     isNew: undefined,
     isAddedQuestionCategory: false,
@@ -88,7 +90,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
 
   console.log(formik.values)
 
-
+  
 
   return (
     <>
@@ -175,10 +177,8 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         </div>
 
         
-        {/* begin::Input group */}
-        
-        
-        
+     
+     
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>

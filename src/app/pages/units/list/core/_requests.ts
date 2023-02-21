@@ -8,12 +8,12 @@ const LIST_THING_URL = `${API_URL}/Custom/getPartialUnit`
 
 const getThings = (query: string): Promise<QueryResponse> => {
   return axios
-    .get(`${LIST_THING_URL}${query}`)
+    .get(`${LIST_THING_URL}?${query}`)
     .then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 const listThings = async (): Promise<any> =>
-  await axios.get(`${LIST_THING_URL}`).then((res: AxiosResponse) => {
+  await axios.get(`${LIST_THING_URL}/getAll?page=1`).then((res: AxiosResponse) => {
     return res.data
   })
 

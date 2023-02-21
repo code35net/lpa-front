@@ -7,6 +7,7 @@ export type Model = {
   unitType?: string | number
   parentUnitId?:number
   parentUnit?: Unit
+  parentUnitName?: string
   auditCategoryId?: string
   shift?: number | string
 }

@@ -24,16 +24,8 @@ const Columns: ReadonlyArray<Column<Model>> = [
     id: 'name',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].name} />,
   },
-   {
-     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDIT_CATEGORY_NAME'})} className='min-w-125px' />,
-     id: 'AuditCategory',
-     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].auditCategory?.name} />,
-   },
-  {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'UNIT.NAME'})} className='min-w-125px' />,
-    id: 'ParentUnit',
-    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].parentUnit?.name} />,
-  },
+  
+  
   // {
   //   Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'SURVEY.HASCOMMENT'})} className='min-w-125px' />,
   //   id: 'hasComment',

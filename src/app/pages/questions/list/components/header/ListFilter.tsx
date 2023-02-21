@@ -10,10 +10,8 @@ import {
 import {useQueryRequest} from '../../core/QueryRequestProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {useQuery} from 'react-query'
-import {getSections, listSections} from '../../../../sections/list/core/_requests'
-import {listAuditCategories} from '../../../../auditcategories/list/core/_requests'
-import {listQuestionCategories} from '../../../../questioncategories/list/core/_requests'
-import {listDepartments} from '../../../../departments/list/core/_requests'
+import {listThings as listAuditCategories} from '../../../../audit-categories/list/core/_requests'
+import {listThings as listQuestionCategories} from '../../../../question-groups/list/core/_requests'
 
 const ListFilter = () => {
   const intl = useIntl()
@@ -31,11 +29,10 @@ const ListFilter = () => {
   const [selectedSections, setSelectedSections] = useState('')
 
   useEffect(() => {
-    Promise.all([listAuditCategories(), listQuestionCategories(), listDepartments()]).then(
+    Promise.all([listAuditCategories(), listQuestionCategories()]).then(
       (responses) => {
         const audits: Array<any> = responses?.[0]?.data || []
         const questions: Array<any> = responses?.[1]?.data || []
-        const departments: Array<any> = responses?.[2]?.data || []
 
         /*if (departments.length > 0) {
           listSections(departments[0]?.id).then((response) => {
@@ -65,18 +62,6 @@ const ListFilter = () => {
     filterData()
   }, [selectedAuditCategories, selectedQuestionCategories, selectedSections])
 
-  useEffect(() => {
-    if(selectedDepartments)
-    {
-      listSections(selectedDepartments).then((response) => {
-        setSections(response.data)
-      })
-    }
-    else{
-      setSections([])
-    }
- 
-  }, [selectedDepartments])
 
   const filterData = () => {
     let filter: any = {}
