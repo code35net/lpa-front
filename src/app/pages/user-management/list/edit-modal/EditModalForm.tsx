@@ -7,11 +7,9 @@ import {Model} from '../core/_models'
 import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
-import {createQuestion, updateQuestion} from '../core/_requests'
+import {createUser, updateUser} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
-import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
-import {listThings as listQuestionCategories} from '../../../question-groups/list/core/_requests'
-import {listAnswerTemplates} from '../../../answertemplates/list/core/_requests'
+import {listUsers} from '../../list/core/_requests'
 
 type Props = {
   isQuestionLoading: boolean
@@ -19,7 +17,8 @@ type Props = {
 }
 
 const editchema = Yup.object().shape({
-  text: Yup.string()
+  fullName: Yup.string()
+    .max(50, 'Maximum 50 symbols')
     .required('Question required'),
 })
 
@@ -28,34 +27,20 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
 
-  const [departments, setDepartments] = React.useState([])
-  const [sections, setSections] = React.useState([])
-  const [auditcategories, setAuditCategories] = React.useState([])
-  const [questioncategories, setQuestionCategories] = React.useState([])
-  const [answertemplates, setAnswertemplates] = React.useState([])
-  const [isQuestionCategory, setIsQuestionCategory] = React.useState(item.isAddedQuestionCategory)
-
+  const [users, setUsers] = React.useState([])
+  const [isDeleted, setIsDeleted] = React.useState(false)
   useEffect(() => {
-    
-
-    listAuditCategories().then((res2) => {
-      setAuditCategories(res2.data || [])
-    })
-    listQuestionCategories().then((res3) => {
-      setQuestionCategories(res3.data || [])
-    })
-
-    listAnswerTemplates().then((res2) => {
-      setAnswertemplates(res2.data || [])
+    listUsers().then((res)=>{
+      setUsers(res.data)
     })
   }, [])
 
   console.log(item, 'test')
   const [placeForEdit] = useState<Model>({
-    text: undefined,  
-    auditCategoryId: undefined,
-    isNew: undefined,
-    isAddedQuestionCategory: false,
+    fullName: undefined,
+    identity: undefined,
+    isDeleteUser: false,
+    userId: undefined,
     ...item,
   })
 
@@ -72,11 +57,13 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
       try {
+        values.isDeleteUser = isDeleted
+        values.userId = !isDeleted ? "" : values.userId
         if (isNotEmpty(values.id)) {
-          await updateQuestion(values)
-        } else {
-          await createQuestion(values)
-        }
+          await updateUser(values)
+        } /*else {
+          await createUser(values)
+        }*/
       } catch (ex) {
         console.error(ex)
       } finally {
@@ -85,9 +72,6 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
       }
     },
   })
-
-  console.log(formik.values)
-
 
 
   return (
@@ -154,128 +138,115 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         {/* end::Input group */}
 
         <div className='fv-row mb-7'>
-          {/* <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({
-              id: 'QUESTIONS.ADDPAGE.IS_NEW',
-            })}
-          </label> */}
-          <div className='form-check form-check-solid form-switch'>
-            <input
-              {...formik.getFieldProps('isNew')}
-              checked={formik.values.isNew}
-              onChange={(e) => formik.setFieldValue('isNew', e.target.checked)}
-              value={formik.values.isNew ? 'on' : 'off'}
-              className='form-check-input w-80px mt-2 border-secondary'
-              type='checkbox'
-              id='isNew'
-            />
-            <label className='form-check-label mt-3 px-5'> <small className='text-danger'>{intl.formatMessage({id: 'QUESTIONS.LIST.MODAL.MARK'})}</small> </label>
-            
-          </div>
-        </div>
-
-        
-        {/* begin::Input group */}
-        
-        
-        
-        <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY'})}
+            {intl.formatMessage({id: 'USER.ISDELETED'})}
+          </label>
+          {/* end::Label */}
+
+          {/* begin::Input */}
+          <div className='form-check form-check-solid form-switch fv-row'>
+                  <input
+                    checked={isDeleted}
+                    onChange={() => setIsDeleted(!isDeleted)}
+                    className='form-check-input w-45px h-30px'
+                    type='checkbox'
+                    id='isDeletedCheckbox'
+                  />
+                </div>
+        </div>
+        
+        {isDeleted && (<div className='fv-row mb-7'>
+          {/* begin::Label */}
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'USER.NEWUSER'})}
           </label>
           {/* end::Label */}
 
           {/* begin::Input */}
           <select
             className='form-select form-select-solid form-select-md'
-            {...formik.getFieldProps('auditCategoryId')}
-            value={formik.values.auditCategoryId}
+            {...formik.getFieldProps('userId')}
+            value={formik.values.userId}
             onChange={formik.handleChange}
           >
-            <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.MODAL.FORM'})}</option>
-            {auditcategories.map((auditcategory: any) => (
-              <option value={auditcategory?.id as any} key={auditcategory?.id as any}>
-                {auditcategory?.name as any}
+            <option value=''>{intl.formatMessage({id: 'USERS.LIST.MODAL.FORM'})}</option>
+            {users.map((user: any) => (
+              <option value={user?.id} key={user?.id as any}>
+                {user?.fullName as any}
               </option>
             ))}
           </select>
           {/* end::Input */}
-        </div>
-        <div className='fv-row mb-7'>
-          
-          <div className='form-check form-check-solid form-switch'>
-          <label className='fw-bold fs-6 mt-3 px-5'> 
-          {intl.formatMessage({
-              id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
-            })}
-             </label>
-            <input
-              {...formik.getFieldProps('isAddedQuestionCategory')}
-              checked={formik.values.isAddedQuestionCategory}
-              onChange={(e) => {formik.setFieldValue('isAddedQuestionCategory', e.target.checked); setIsQuestionCategory(e.target.checked)}}
-              value={formik.values.isAddedQuestionCategory ? 'on' : 'off'}
-              className='form-check-input w-80px mt-2 border-secondary'
-              type='checkbox'
-              id='isAddedQuestionCategory'
-            />
-          </div>
-
-        </div>
-        {
-          isQuestionCategory && (
-            
-        <div className='fv-row mb-7'>
-         
-         
-          <select
-            className='form-select form-select-solid form-select-md'
-            //onChange={(e) => handleQuestionGroupId(question.id, e.target.value)}
-            //value={question.questionGroupId || 0}
-          >
-            {questioncategories.map((questioncategory: any) => (
-              <option value={questioncategory?.id} key={questioncategory?.id as any}>
-                {questioncategory?.name as any}
-              </option>
-            ))}
-          </select>
-          {/* end::Input */}
-        </div>
-          )
+        </div>)
         }
-        <div className='fv-row mb-7'>
+        
+        {!isDeleted &&  (<div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'QUESTIONS.LIST.NAME'})}
+            {intl.formatMessage({id: 'USER.FULLNAME'})}
           </label>
           {/* end::Label */}
 
           {/* begin::Input */}
           <input
             //placeholder='Full name'
-            {...formik.getFieldProps('text')}
-            type='text'
-            name='text'
+            {...formik.getFieldProps('fullName')}
+            type='fullName'
+            name='fullName'
             className={clsx(
               'form-control form-control-solid mb-3 mb-lg-0',
-              {'is-invalid': formik.touched.text && formik.errors.text},
+              {'is-invalid': formik.touched.fullName && formik.errors.fullName},
               {
-                'is-valid': formik.touched.text && !formik.errors.text,
+                'is-valid': formik.touched.fullName && !formik.errors.fullName,
               }
             )}
             autoComplete='off'
             disabled={formik.isSubmitting || isQuestionLoading}
           />
-          {formik.touched.text && formik.errors.text && (
+          {formik.touched.fullName && formik.errors.fullName && (
             <div className='fv-plugins-message-container'>
               <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.text}</span>
+                <span role='alert'>{formik.errors.fullName}</span>
+              </div>
+            </div>
+          )}
+          {/* end::Input */}
+        </div>)}
+
+        {!isDeleted &&  (<div className='fv-row mb-7'>
+          {/* begin::Label */}
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'USER.IDENTITY'})}
+          </label>
+          {/* end::Label */}
+
+          {/* begin::Input */}
+          <input
+            //placeholder='Full name'
+            {...formik.getFieldProps('identity')}
+            type='identity'
+            name='identity'
+            className={clsx(
+              'form-control form-control-solid mb-3 mb-lg-0',
+              {'is-invalid': formik.touched.identity && formik.errors.identity},
+              {
+                'is-valid': formik.touched.identity && !formik.errors.identity,
+              }
+            )}
+            autoComplete='off'
+            disabled={formik.isSubmitting || isQuestionLoading}
+          />
+          {formik.touched.identity && formik.errors.identity && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.identity}</span>
               </div>
             </div>
           )}
           {/* end::Input */}
         </div>
-
+        )}
         {/* begin::Input group */}
 
         {/* end::Input group */}

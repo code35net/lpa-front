@@ -1,16 +1,17 @@
 import React, {FC, useState, useEffect} from 'react'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import {Model, Question} from '../questions/list/core/_models'
-
+import {Model as Section} from '../sections/list/core/_models'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import {KTSVG} from '../../../_metronic/helpers'
 import {useIntl} from 'react-intl'
 
-
-
-import {listThings as listAuditCategories} from '../audit-categories/list/core/_requests'
-import {listThings as listQuestionCategories} from '../question-groups/list/core/_requests'
+import {listDepartments} from '../departments/list/core/_requests'
+import {listSections} from '../sections/list/core/_requests'
+import {listUnits} from '../units/list/core/_requests'
+import {listAuditCategories} from '../auditcategories/list/core/_requests'
+import {listQuestionCategories} from '../questioncategories/list/core/_requests'
 import {listAnswerTemplates} from '../answertemplates/list/core/_requests'
 import {useQueryResponse} from '../questions/list/core/QueryResponseProvider'
 import {useListView} from '../questions/list/core/ListViewProvider'
@@ -62,8 +63,15 @@ const EditForm: FC<Props> = ({item}) => {
   const [questions, setQuestions] = React.useState<Array<Question>>([])
 
   useEffect(() => {
-   
-    
+    listDepartments().then((res) => {
+      if (res?.data?.length) {
+        setDepartments(res.data || [])
+
+        // listSections(res?.data[0]?.id).then((res3) => {
+        //   setSections(res3.data || [])
+        // })
+      }
+    })
     
 
     listAuditCategories().then((res2) => {
@@ -109,8 +117,13 @@ const EditForm: FC<Props> = ({item}) => {
     onSubmit: async (values) => {
       setLoading(true)
 
-     
-      
+      if (!values.departmentId && departments.length) {
+        values.departmentId = (departments[0] as any)?.id
+      }
+
+      if (!values.sectionId && sections.length) {
+        values.sectionId = (sections[0] as any)?.id
+      }
       // if (!values.unitId && units.length) {
       //   values.unitId, = (units[0] as any)?.id
       // }
@@ -144,8 +157,9 @@ const EditForm: FC<Props> = ({item}) => {
       {
         try {
           await createBulkQuestions({
-
+            sectionId: values?.sectionId,
             unitId: values?.unitId,
+            departmentId: values?.departmentId,
             auditCategoryId: values?.auditCategoryId,
             questions : [question]
           } as any)
@@ -161,13 +175,36 @@ const EditForm: FC<Props> = ({item}) => {
     },
   })
 
+  const handleChangeDepartmentId = async (event: any) => {
+    formik.setFieldValue('departmentId', event.target.value)
+    if(event.target.value != '')
+    {
+    listSections(event.target.value).then((res) => {
+      setSections(res.data)
+    })
+  }
+    else
+    {
+      setSections([])
+    }
   
-  
+  }
 
 
   
-  
-  
+  const handleChangeSectionId = async (event: any) => {
+    formik.setFieldValue('sectionId', event.target.value)
+    if(event.target.value != '')
+    {
+    listUnits(event.target.value).then((res) => {
+      setUnits(res.data.filter((a: any) => a.unitType == 2))
+    })
+  }
+  else
+  {
+    setUnits([])
+  }
+  }
 
   const handleQuestionText = (id: number, text: string) => {
     let index = questions.findIndex((question) => question.id === id)
@@ -245,8 +282,226 @@ const EditForm: FC<Props> = ({item}) => {
           noValidate
           className='form'
         >
-    
-    
+          <div className='card-body border-top p-9'>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>
+                  {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.DEPARTMENT'})}
+                </span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('departmentId')}
+                  value={formik.values.departmentId}
+                  onChange={handleChangeDepartmentId}
+                >
+                  <option value=''>Seçiniz</option>
+                  {/* ?? */}
+                  {departments.map((department: any) => (
+                    <option value={department?.id} key={department?.id as any}>
+                      {department?.name as any}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>
+                  {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.SECTION'})}
+                </span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('sectionId')}
+                  value={formik.values.sectionId}
+                  onChange={handleChangeSectionId}
+                >
+                  <option value=''>Seçiniz</option>
+                  {/* ?? */}
+                  {sections.map((section: any) => (
+                    <option value={section?.id} key={section?.id as any}>
+                      {section?.name as any}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>
+                  {intl.formatMessage({id: 'AUDITS.DETAIL.UNIT'})}
+                </span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('unitId')}
+                  value={formik.values.unitId}
+                  onChange={formik.handleChange}
+                >
+                  <option value=''>Seçiniz</option>
+                  {/* ?? */}
+                  {units.map((unit: any) => (
+                    <option value={unit?.id} key={unit?.id as any}>
+                      {unit?.name as any}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>
+                {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY'})}
+              </label>
+              <div className='col-lg-8 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('auditCategoryId')}
+                  value={formik.values.auditCategoryId}
+                  onChange={formik.handleChange}
+                >
+                  <option value=''>Seçiniz</option>
+                  {/* ?? */}
+                  {auditcategories.map((auditcategory: any) => (
+                    <option value={auditcategory?.id as any} key={auditcategory?.id as any}>
+                      {auditcategory?.name as any}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            
+
+            <div className='separator separator-dashed my-6'></div>
+            <div className='row mb-6'>
+              {questions.map((question: Question) => {
+                return (
+                  <>
+                    <label className='col-lg-4 col-form-label required fw-bold fs-6'>
+                      {question.id}.{' '}
+                      {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.QUESTIONTEXT_OPTION'})}
+                    </label>
+
+                    <div className='col-lg-12'>
+                      <div className='row'>
+                        <div className='col-md-12 fv-row'>
+                          <input
+                            key={`${question.id}`}
+                            name={`${question.id}`}
+                            id={`${question.id}`}
+                            onChange={(e) => {
+                              handleQuestionText(question.id, e.target.value)
+                            }}
+                            type='text'
+                            className='form-control form-control-solid mb-3'
+                            placeholder='Question text'
+                            value={question.text}
+                          />
+                        </div>
+                        </div>
+                        <div className='row'>
+                        <div className='col-md-3 fv-row'>
+                          
+                          <div className='form-check form-check-solid form-switch'>
+                          <label className='fw-bold mt-3'>
+                            
+                            {intl.formatMessage({
+                              id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
+                            })}
+                          </label>
+
+                   
+                   
+
+
+                              <input
+                                checked={question.isAddedQuestionCategory}
+                                onChange={(e)=> handleIsAddedQuestionCategory(question?.id,e.target.checked)}
+                                value={question.isAddedQuestionCategory ? 'on' : 'off'}
+                                className='form-check-input w-30 mt-2'
+                                type='checkbox'
+                                id='allowmarketing'
+                              />
+                              <label className='form-check-label'></label>
+                            </div>
+                         
+                        </div>
+
+                        {question.isAddedQuestionCategory && (
+                          <div className='col-md-3 fv-row'>
+                            
+
+                            <select
+                            className='form-select form-select-solid form-select-md'
+                            onChange={(e) => handleQuestionGroupId(question.id, e.target.value)}
+                            value={question.questionGroupId || 0}
+                          >
+
+                            {questioncategories.map((questioncategory: any) => (
+                              <option
+                                value={questioncategory?.id}
+                                key={questioncategory?.id as any}
+                              >
+                                {questioncategory?.name as any}
+                              </option>
+                            ))}
+                          </select> 
+                          
+                          </div>
+                        )}
+
+                        <div className='col-md-3 fv-row'>
+                        
+                        
+                        <select
+                              className='form-select form-select-solid form-select-md'
+                              onChange={(e) => handleAnswerTemplateId(question.id, e.target.value)}
+                              value={question.answerTemplateId}
+                            >
+
+                              {answertemplates.map((answertemplate: any) => (
+                                <option value={answertemplate?.id} key={answertemplate?.id as any}>
+                                  {answertemplate?.text as any}
+                                </option>
+                              ))}
+                            </select>
+                        </div>
+                        <div className='col-md-1 fv-row'>
+                          <a
+                            type='button'
+                            onClick={deleteQuestionItem}
+                            className='btn btn-sm btn-danger btn-active-light-danger'
+                          >
+                            <KTSVG path='/media/icons/duotune/arrows/arr010.svg' />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )
+              })}
+            </div>
+
+            <div className='row mb-6'>
+              <div className='mb-2 col-lg-4 fv-row'>
+                <a
+                  type='button'
+                  onClick={addQuestionItem}
+                  className='btn btn-sm btn-secondary btn-active-light-primary'
+                >
+                  <KTSVG path='/media/icons/duotune/arrows/arr075.svg' />{' '}
+                  {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.ADDBUTTON'})}
+                </a>
+              </div>
+            </div>
+          </div>
 
           <div className='card-footer d-flex justify-content-end py-6 px-9'>
             <button

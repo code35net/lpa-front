@@ -17,7 +17,7 @@ const PrivateRoutes = (menus: Array<string>) => {
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
-  const UsersPage = lazy(() => import('../pages/user-management/UsersPage'))
+  const UsersPage = lazy(() => import('../pages/user-management/Page'))
 
   const AnswerTemplatePage = lazy(() => import('../pages/answertemplates/Page'))
 
@@ -28,6 +28,7 @@ const PrivateRoutes = (menus: Array<string>) => {
   const QuestionGroup = lazy (() => import('../pages/question-groups/Page'))
   const Holidays = lazy (() => import('../pages/holidays/Page'))
   const Audits = lazy (() => import('../pages/audits/Page'))
+  const Units = lazy (() => import('../pages/units/Page'))
 
   var usermanagementyetki = Object.keys(menus).some((key: any) => menus[key] == "useraction");
   var announcementyetki = Object.keys(menus).some((key: any) => menus[key] == "announcement");
@@ -90,6 +91,15 @@ const PrivateRoutes = (menus: Array<string>) => {
           element={
             <SuspensedView>
               <Audits/>
+            </SuspensedView>
+          }
+        />
+
+        <Route
+          path='/units/*'
+          element={
+            <SuspensedView>
+              <Units/>
             </SuspensedView>
           }
         />
