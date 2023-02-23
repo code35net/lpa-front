@@ -22,7 +22,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'POSITION_NAME'})} className='min-w-125px' />,
     id: 'name',
-    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].name} />,
+    Cell: ({...props}) => <LinkCell item={props.data[props.row.index]} />,
   },
   
   

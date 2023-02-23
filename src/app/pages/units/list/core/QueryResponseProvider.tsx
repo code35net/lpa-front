@@ -13,26 +13,36 @@ import {
 import {getThings} from './_requests'
 import {Model} from './_models'
 import {useQueryRequest} from './QueryRequestProvider'
+import { useLocation } from 'react-router-dom'
 
 const QueryResponseContext = createResponseContext<Model>(initialQueryResponse)
 const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   const {state} = useQueryRequest()
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state))
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state])
-
   useEffect(() => {
+    console.log(query)
     if (query !== updatedQuery) {
       setQuery(updatedQuery)
     }
+
   }, [updatedQuery])
+
+  const location = useLocation()
 
   const {
     isFetching,
     refetch,
-    data: response,
+    data: response    
   } = useQuery(
     `${QUERIES.USERS_LIST}-${query}`,
     () => {
+      /*let id: string | null = "null"
+      if(status == "loading")
+      {
+        const searchParams = new URLSearchParams(location.search)
+        id = searchParams.get('parentUnitId')
+      }*/
       return getThings(query)
     },
     {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}

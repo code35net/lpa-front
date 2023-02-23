@@ -21,7 +21,16 @@
   "MENU.LIVE": "Live Classes",
   "MENU.DEFINITIONS": "Definitions",
   "MENU.MYCOURSE": "My Courses",
-  "MENU.MYCERTIFICATE": "My Certificates",
+  "MENU.UNITS": "Units",
+  "MENU.POSITIONS": "Positions",
+  "MENU.ANSWERTEMPLATES": "Answer Templates",
+  "MENU.HOLIDAYS": "Holidays",
+  "MENU.CATEGORIES": "Categories",
+  "MENU.AUDITCATEGORIES": "Audit Categories",
+  "MENU.AUDITS": "Audits",
+  "MENU.QUESTIONS": "Questions",
+  "MENU.QUESTIONGROUPS": "Question Categories",
+  
 
 
   "AUTH.GENERAL.OR": "Or",
@@ -200,9 +209,9 @@
   "AUDIT_CATEGORY_TYPE" : "Category Type",
   "AUDIT_CATEGORY_ID" : "Audit Category",
 
-  "QUESTION_GROUP_PAGE_TITLE" : "Question Groups",
-  "QUESTION_GROUP_NAME" : "Question Group",
-  "QUESTION_GROUP_ID" : "Question Group",
+  "QUESTION_GROUP_PAGE_TITLE" : "Question Categories",
+  "QUESTION_GROUP_NAME" : "Question Category",
+  "QUESTION_GROUP_ID" : "Question Category",
 
   "HOLIDAY_PAGE_TITLE" : "Holidays",
   "HOLIDAYS_NAME" : "Holidays",
@@ -213,6 +222,41 @@
   "AUDIT_START_DATE" : "Start Date",
   "AUDIT_END_DATE" : "End Date",
 
+  "UNIT_PAGE_TITLE" : "Units",
+  "PARENT_UNIT_ID" : "Parent Unit",
+  "UNIT_TYPE" : "Unit Type",
+  "UNIT_SHIFT" : "Shift",
+
+
+  "QUESTIONS.LIST.TABLE.QUESTION.TEXT" : "Text",
+  "QUESTIONS.LIST.TABLE.AUDIT.CATEGORY" : "Audit Category",
+  "QUESTIONS.LIST.TABLE.UNIT.NAME" : "Unit Name",
+  "TABLE.ACTIONS" : "Actions",
+  "QUESTIONS.PAGE.TITLE" : "Questions",
+  "AUDITS.DETAIL.UNIT" : "Unit",
+  "QUESTIONS.ADDPAGE.AUDITCATEGORY" : "Audit Category",
+  "QUESTIONS.ADDPAGE.QUESTIONTEXT_OPTION" : "Question Option",
+  "QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY" : "Question Category",
+  "QUESTIONS.ADDPAGE.ADDBUTTON" : "Add New",
+  "QUESTIONS.ADDPAGE.TITLE" : "ADD QUESTION",
+  "QUESTIONS.ADDPAGE.SAVE" : "Save",
+  "QUESTIONS.LIST.ADD" : "Add Question",
+  "TOOLBAR.FILTER" : "Filter",
+
+  "ANSWERTEMPLATES.LIST.NAME" : "Answer Templates",
+  "ANSWERTEMPLATES.LIST.ADD" : "Add Answer Template",
+  "ANSWERTEMPLATES.LIST.OPTIONS" : "Answer Template Options",
+  "TABLE.SEARCH.PLACEHOLDER" : "Search",
+
+  "USER.TABLE.COLUMNS.NAME" : "Name",
+  "USER.TABLE.COLUMNS.MAIL" : "Mail",
+  "USER.TABLE.COLUMNS.IDENTITY" : "Identity",
+  "USER.TABLE.COLUMNS.DEP/SEC" : "Department/Section",
+  "USER.TABLE.COLUMNS.POS" : "Position",
+  "USER.TABLE.COLUMNS.SHIFT" : "Shift",
+  "USER.TABLE.COLUMNS.ACTIONS" : "Actions",
+
+ 
   
 
   "boş" : "boş"

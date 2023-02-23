@@ -13,8 +13,6 @@ const getQuestions = (query: string): Promise<QueryResponse> => {
     .get(`${QUESTION_URL}/getAll?${query}&modelstoinclude=Unit,AuditCategory`)
     .then((d: AxiosResponse<QueryResponse>) => {
       const queryRaw: any = parseRequestQuery(query)
-      
-
       return d.data
     })
 }

@@ -6,7 +6,7 @@ import {useFormik} from 'formik'
 import {KTSVG} from '../../../_metronic/helpers'
 import {useIntl} from 'react-intl'
 
-import {listThings as listUnits} from '../units/list/core/_requests'
+import {listSomeThings as listUnits} from '../units/list/core/_requests'
 import {listThings as listAuditCategories} from '../audit-categories/list/core/_requests'
 import {listThings as listQuestionCategories} from '../question-groups/list/core/_requests'
 import {listAnswerTemplates} from '../answertemplates/list/core/_requests'
@@ -50,8 +50,6 @@ const Breadcrumbs: Array<PageLink> = [
 const EditForm: FC<Props> = ({item}) => {
   const intl = useIntl()
   const navigate = useNavigate()
-  const [departments, setDepartments] = React.useState([])
-  const [sections, setSections] = React.useState([])
   const [units, setUnits] = React.useState([])
   const [auditcategories, setAuditCategories] = React.useState([])
   const [questioncategories, setQuestionCategories] = React.useState([])
@@ -64,21 +62,28 @@ const EditForm: FC<Props> = ({item}) => {
     
 
     listAuditCategories().then((res2) => {
-      setAuditCategories(res2.data || [])
+      if(res2?.data?.length){
+        setAuditCategories(res2.data || [])
+      }
+      // setAuditCategories(res2.data || [])
     })
     listQuestionCategories().then((res3) => {
       setQuestionCategories(res3.data || [])
     })
 
+    
+
     listAnswerTemplates().then((res2) => {
       setAnswertemplates(res2.data || [])
 
+    
       setQuestions([
         {
           id: 1,
           text: '',
           answerTemplateId: Array.isArray(res2.data) && res2.data.length ? res2.data[0]?.id : null,
           questionGroupId: Array.isArray(res2.data) && res2.data.length ? res2.data[0]?.id : null,
+          unitId: Array.isArray(res2.data) && res2.data.length ? res2.data[0]?.id : null,
           isAddedQuestionCategory: true,
         },
       ] as any)
@@ -87,9 +92,6 @@ const EditForm: FC<Props> = ({item}) => {
 
   const [formForEdit] = useState<Model>({
     ...item,
-    sectionId: undefined,
-    departmentId: undefined,
-    unitId: undefined,
     auditCategoryId: undefined,
     questions: [],
   } as Model)
@@ -108,7 +110,7 @@ const EditForm: FC<Props> = ({item}) => {
 
      
       // if (!values.unitId && units.length) {
-      //   values.unitId, = (units[0] as any)?.id
+      //   values.unitId = (units[0] as any)?.id
       // }
 
       if (!values.answerTemplateId && answertemplates.length) {
@@ -140,7 +142,7 @@ const EditForm: FC<Props> = ({item}) => {
       {
         try {
           await createBulkQuestions({
-            unitId: values?.unitId,
+            
             auditCategoryId: values?.auditCategoryId,
             questions : [question]
           } as any)
@@ -176,6 +178,24 @@ const EditForm: FC<Props> = ({item}) => {
     setQuestions([...questions])
   }
 
+  const handleAuditCategoryId = async (event: any) => {
+    formik.setFieldValue('auditCategoryId', event.target.value)
+    if(event.target.value != '')
+    {
+      listUnits(event.target.value).then((res3) => {
+        setUnits(res3.data)
+      })
+    }
+  }
+
+  const handleUnitId = (id: number, name: string) => {
+    let index = questions.findIndex((question) => question.id === id)
+    if (index > -1) {
+      questions[index].unitId = parseInt(name)
+    }
+    setQuestions([...questions])
+  }
+
   const handleQuestionGroupId = (id: number, text: string) => {
     let index = questions.findIndex((question) => question.id === id)
     if (index > -1) {
@@ -199,6 +219,7 @@ const EditForm: FC<Props> = ({item}) => {
         text: '',
         answerTemplateId: (answertemplates as any)[0]?.id as number,
         questionGroupId: (questioncategories as any)[0]?.id as number,
+        unitId: (units as any)[0]?.id as number,
         isAddedQuestionCategory: true,
       })
       setQuestions([...questions])
@@ -239,30 +260,6 @@ const EditForm: FC<Props> = ({item}) => {
           <div className='card-body border-top p-9'>
             
             
-            <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>
-                  {intl.formatMessage({id: 'AUDITS.DETAIL.UNIT'})}
-                </span>
-              </label>
-
-              <div className='col-lg-8 fv-row'>
-                <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('unitId')}
-                  value={formik.values.unitId}
-                  onChange={formik.handleChange}
-                >
-                  <option value=''>Seçiniz</option>
-                  {/* ?? */}
-                  {units.map((unit: any) => (
-                    <option value={unit?.id} key={unit?.id as any}>
-                      {unit?.name as any}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
 
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>
@@ -273,7 +270,7 @@ const EditForm: FC<Props> = ({item}) => {
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('auditCategoryId')}
                   value={formik.values.auditCategoryId}
-                  onChange={formik.handleChange}
+                  onChange={(e) => handleAuditCategoryId(e)}
                 >
                   <option value=''>Seçiniz</option>
                   {/* ?? */}
@@ -315,7 +312,7 @@ const EditForm: FC<Props> = ({item}) => {
                         </div>
                         </div>
                         <div className='row'>
-                        <div className='col-md-3 fv-row'>
+                        <div className='col-md-2 fv-row'>
                           
                           <div className='form-check form-check-solid form-switch'>
                           <label className='fw-bold mt-3'>
@@ -350,8 +347,11 @@ const EditForm: FC<Props> = ({item}) => {
                             className='form-select form-select-solid form-select-md'
                             onChange={(e) => handleQuestionGroupId(question.id, e.target.value)}
                             value={question.questionGroupId || 0}
-                          >
+                            defaultValue=""
 
+                          >
+                            
+                            <option value="">Select Question Category</option>
                             {questioncategories.map((questioncategory: any) => (
                               <option
                                 value={questioncategory?.id}
@@ -371,12 +371,34 @@ const EditForm: FC<Props> = ({item}) => {
                         <select
                               className='form-select form-select-solid form-select-md'
                               onChange={(e) => handleAnswerTemplateId(question.id, e.target.value)}
-                              value={question.answerTemplateId}
+                              value={question.answerTemplateId} 
+                              defaultValue=""
                             >
-
+                              <option value="">Select Answer Template</option>
+                             
+                             
                               {answertemplates.map((answertemplate: any) => (
                                 <option value={answertemplate?.id} key={answertemplate?.id as any}>
                                   {answertemplate?.text as any}
+                                </option>
+                              ))}
+                            </select>
+                        </div>
+                        <div className='col-md-3 fv-row'>
+                        
+                        
+                        <select
+                              className='form-select form-select-solid form-select-md'
+                              
+                              value={question.unitId} 
+                              defaultValue=""
+                            >
+                              <option value="">Select Answer Template</option>
+                             
+                             
+                              {units.map((unit: any) => (
+                                <option value={unit?.id} key={unit?.id as any}>
+                                  {unit?.name as any}
                                 </option>
                               ))}
                             </select>

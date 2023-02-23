@@ -21,7 +21,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'QUESTIONS.LIST.TABLE.AUDIT.CATEGORY'})} className='min-w-125px' />,
     id: 'auditCategory',
-    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].auditCategory.name} />,
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].auditCategory?.name} />,
   },
 
   {

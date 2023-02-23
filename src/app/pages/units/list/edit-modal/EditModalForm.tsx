@@ -10,6 +10,7 @@ import {ListLoading} from '../components/loading/ListLoading'
 import {createThing, updateThing} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
+import {listThings as listParentUnits} from '../../../units/list/core/_requests'
 
 type Props = {
   isThingLoading: boolean
@@ -28,10 +29,14 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const {refetch} = useQueryResponse()
 
   const [auditCategory, setAuditCategory] = React.useState([])
+  const [parentUnitId, setParentUnitId] = React.useState([])
 
   const [placeForEdit] = useState<Model>({    
     name: undefined,
     auditCategoryId: undefined,
+    parentUnitId:undefined,
+    shift:undefined,
+    unitType:undefined,
     ...item,
     
   })
@@ -47,6 +52,10 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     listAuditCategories().then((res2) => {
       setAuditCategory(res2.data || [])
     })
+
+    listParentUnits().then((res2) => {
+      setParentUnitId(res2.data || [])
+    })
     
     
   }, [])
@@ -56,6 +65,14 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     validationSchema: editchema,
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
+      if(!values.shift){
+        values.shift = 0
+      }
+      values.shift=parseInt(values.shift.toString())
+      if(!values.unitType){
+        values.unitType = 0
+      }
+      values.unitType=parseInt(values.unitType.toString())
       try {
         if (isNotEmpty(values.id)) {
           await updateThing(values)
@@ -118,7 +135,111 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           )}
         </div>
 
-        <div className='fv-row mb-7'>    
+
+
+        <div className='fv-row mb-7'>
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'AUDIT_CATEGORY_ID'})}
+          </label>
+          
+          <input
+            //placeholder='Full name'
+            {...formik.getFieldProps('auditCategoryId')}
+            type='text'
+            name='auditCategoryId'
+            className={clsx(
+              'form-control form-control-solid mb-3 mb-lg-0',
+              {'is-invalid': formik.touched.auditCategoryId && formik.errors.auditCategoryId},
+              {
+                'is-valid': formik.touched.auditCategoryId && !formik.errors.auditCategoryId,
+              }
+            )}
+            autoComplete='off'
+            disabled={formik.isSubmitting || isThingLoading}
+          />
+          {formik.touched.auditCategoryId && formik.errors.auditCategoryId && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.auditCategoryId}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+
+        {/* <div className='fv-row mb-7'>    
+        <label className='fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'PARENT_UNIT_ID'})}
+          </label>     
+         <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('parentUnitId')}
+                  value={formik.values.parentUnitId}
+                  // onChange={handleChangeDepartmentId}
+                >
+                  <option value=''>Seçiniz</option>
+                  
+                  {parentUnitId.map((myparentunit: any) => (
+                    <option value={myparentunit?.id} key={myparentunit?.id as any}>
+                      {myparentunit?.name as any}
+                    </option>
+                  ))}
+                </select>
+          
+        </div> */}
+
+        <div className='fv-row mb-7'>
+          <label className='fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'UNIT_TYPE'})}
+          </label>
+          <select 
+           className='form-select form-select-solid form-select-md'
+           {...formik.getFieldProps('unitType')}
+           >
+            <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+            <option value='0'>Line</option>
+            <option value='1'>Operator</option>
+            <option value='2'>Setter</option>
+           </select>
+          
+          {formik.touched.unitType && formik.errors.unitType && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.unitType}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className='fv-row mb-7'>
+          <label className='fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'UNIT_SHIFT'})}
+          </label>
+          <select 
+           className='form-select form-select-solid form-select-md'
+           {...formik.getFieldProps('shift')}
+           >
+            <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+            <option value='0'>Morning</option>
+            <option value='1'>Day</option>
+            <option value='2'>Night</option>
+            <option value='3'>Regular</option>
+           </select>
+          
+          {formik.touched.shift && formik.errors.shift && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.shift}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        
+
+
+
+        {/* <div className='fv-row mb-7'>    
         <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'AUDIT_CATEGORY_ID'})}
           </label>     
@@ -129,15 +250,15 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
                   // onChange={handleChangeDepartmentId}
                 >
                   <option value=''>Seçiniz</option>
-                  {/* ?? */}
+                  
                   {auditCategory.map((myauditcategory: any) => (
                     <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
                       {myauditcategory?.name as any}
                     </option>
                   ))}
                 </select>
-          {/* end::Input */}
-        </div>
+          
+        </div> */}
 
 
         

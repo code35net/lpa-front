@@ -27,7 +27,11 @@ function stringifyRequestQuery(state: QueryState): string {
         .join('&')
     : ''
 
-  return [pagination, sort, search, filter]
+    const id = isNotEmpty(state.id)
+    ? qs.stringify(state, {filter: ['id'], skipNulls: true})
+    : ''
+
+  return [pagination, sort, search, filter, id]
     .filter((f) => f)
     .join('&')
     .toLowerCase()

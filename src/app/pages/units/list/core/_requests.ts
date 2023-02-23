@@ -1,19 +1,34 @@
 import axios, {AxiosResponse} from 'axios'
 import {ID,parseRequestQuery,  Response} from '../../../../../_metronic/helpers'
 import {Model, QueryResponse} from './_models'
+import qs from 'qs'
+import { useLocation } from 'react-router-dom'
+import { useMemo } from 'react'
+
 
 const API_URL = process.env.REACT_APP_API_URL
 const THING_URL = `${API_URL}/Unit`
 const LIST_THING_URL = `${API_URL}/Custom/getPartialUnit`
+const SOME_THING_URL = `${API_URL}/Custom/getSomeUnit`
 
 const getThings = (query: string): Promise<QueryResponse> => {
+  //console.log(query)
+  let q = query.split("id=")[1]
+  console.log(q)
+  if(q == undefined)
+    q = "null"
   return axios
-    .get(`${LIST_THING_URL}?${query}`)
+    .get(`${THING_URL}/getAll/ParentUnitId-${q}?${query}`)
     .then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 const listThings = async (): Promise<any> =>
-  await axios.get(`${LIST_THING_URL}/getAll?page=1`).then((res: AxiosResponse) => {
+  await axios.get(`${LIST_THING_URL}`).then((res: AxiosResponse) => {
+    return res.data
+  })
+
+  const listSomeThings = async (auditcategoryId: string): Promise<any> =>
+  await axios.get(`${SOME_THING_URL}/${auditcategoryId}`).then((res: AxiosResponse) => {
     return res.data
   })
 
@@ -54,5 +69,6 @@ export {
   getThingById,
   createThing,
   updateThing,
-  listThings
+  listThings,
+  listSomeThings
 }

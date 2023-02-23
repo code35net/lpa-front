@@ -21,6 +21,10 @@ export type SearchState = {
   search?: string
 }
 
+export type SubPageState = {
+  id?: string
+}
+
 export type Response<T> = {
   data?: T
   payload?: {
@@ -32,7 +36,7 @@ export type Response<T> = {
   }
 }
 
-export type QueryState = PaginationState & SortState & FilterState & SearchState
+export type QueryState = PaginationState & SortState & FilterState & SearchState & SubPageState
 
 export type QueryRequestContextProps = {
   state: QueryState

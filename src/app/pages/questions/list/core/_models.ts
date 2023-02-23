@@ -7,8 +7,7 @@ import {Model as QuestionCategory} from '../../../question-groups/list/core/_mod
 export type Model = {
   id?: ID
   text?: string
-  Unit?:Unit
-  unitId?: number
+  
   isNew?:boolean
   AnswerTemplate?:AnswerTemplate
   answerTemplateId?: number
@@ -27,6 +26,8 @@ export type Question = {
   answerTemplateId: number
   questionGroupId: number | null 
   isAddedQuestionCategory: boolean
+  Unit?:Unit
+  unitId?: number
 }
 
 export type QueryResponse = Response<Array<Model>>
