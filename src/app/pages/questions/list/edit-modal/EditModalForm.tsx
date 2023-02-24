@@ -12,6 +12,7 @@ import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
 import {listThings as listQuestionCategories} from '../../../question-groups/list/core/_requests'
 import {listAnswerTemplates} from '../../../answertemplates/list/core/_requests'
+import {listSomeThings as listUnits} from '../../../units/list/core/_requests'
 
 type Props = {
   isQuestionLoading: boolean
@@ -32,6 +33,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   const [departments, setDepartments] = React.useState([])
   const [sections, setSections] = React.useState([])
   const [auditcategories, setAuditCategories] = React.useState([])
+  const [units, setUnits] = React.useState([])
   const [questioncategories, setQuestionCategories] = React.useState([])
   const [answertemplates, setAnswertemplates] = React.useState([])
   const [isQuestionCategory, setIsQuestionCategory] = React.useState(item.isAddedQuestionCategory)
@@ -39,7 +41,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   useEffect(() => {
    
 
-    listAuditCategories().then((res2) => {
+    listAuditCategories().then((res2) => {      
       setAuditCategories(res2.data || [])
     })
     listQuestionCategories().then((res3) => {
@@ -58,6 +60,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
     auditCategoryId: undefined,
     isNew: undefined,
     isAddedQuestionCategory: false,
+    unitId: undefined,
     ...item,
   })
 
@@ -90,6 +93,15 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
 
   console.log(formik.values)
 
+  const handleAuditCategoryId = async (event: any) => {
+    formik.setFieldValue('auditCategoryId', event.target.value)
+    if(event.target.value != '')
+    {
+      listUnits(event.target.value).then((res3) => {
+        setUnits(res3.data)
+      })
+    }
+  }
   
 
   return (
@@ -153,14 +165,14 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         {/* begin::Hint */}
         {/* <div className='form-text'>Allowed file types: png, jpg, jpeg.</div> */}
         {/* end::Hint */}
-        {/* end::Input group */}
+        {/* end::Input group 
+        <div className='fv-row mb-7'>*/}
 
-        <div className='fv-row mb-7'>
           {/* <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({
               id: 'QUESTIONS.ADDPAGE.IS_NEW',
             })}
-          </label> */}
+          </label> 
           <div className='form-check form-check-solid form-switch'>
             <input
               {...formik.getFieldProps('isNew')}
@@ -176,7 +188,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           </div>
         </div>
 
-        
+        */}
      
      
         <div className='fv-row mb-7'>
@@ -191,7 +203,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
             className='form-select form-select-solid form-select-md'
             {...formik.getFieldProps('auditCategoryId')}
             value={formik.values.auditCategoryId}
-            onChange={formik.handleChange}
+            onChange={(e) => handleAuditCategoryId(e)}
           >
             <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.MODAL.FORM'})}</option>
             {auditcategories.map((auditcategory: any) => (
@@ -230,7 +242,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
          
           <select
             className='form-select form-select-solid form-select-md'
-            //onChange={(e) => handleQuestionGroupId(question.id, e.target.value)}
+            //onChange={(e) => handleQuestionCategories(e.target.value)}
             //value={question.questionGroupId || 0}
           >
             {questioncategories.map((questioncategory: any) => (
@@ -243,6 +255,29 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         </div>
           )
         }
+
+
+        <div className='fv-row mb-7'>
+          {/* begin::Label */}
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'QUESTIONS.EDIT.UNIT'})}
+          </label>
+
+          <select
+              className='form-select form-select-solid form-select-md'              
+            {...formik.getFieldProps('unitId')}
+              name='unitId'
+              defaultValue=""
+            >
+              <option value="">Select Unit</option>
+              {units.map((unit: any) => (
+                <option value={unit?.id} key={unit?.id as any}>
+                  {unit?.name as any}
+                </option>
+              ))}
+            </select>
+            </div>
+
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>

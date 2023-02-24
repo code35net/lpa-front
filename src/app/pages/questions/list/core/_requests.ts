@@ -18,7 +18,7 @@ const getQuestions = (query: string): Promise<QueryResponse> => {
 }
 
 const getQuestionById = (id: ID): Promise<Model | undefined> => {
-  return axios.get(`${QUESTION_URL}/${id}?modelstoinclude=Section`).then((response: any) => response.data)
+  return axios.get(`${QUESTION_URL}/${id}`).then((response: any) => response.data)
 }
 
 const addQuestionAnswers = (question: any) => {

@@ -23,6 +23,15 @@
   "MENU.MYCOURSE": "Kurslarım",
   "MENU.MYQUIZ": "Sınavlarım",
   "MENU.MYCERTIFICATE": "Sertifikalarım",
+  "MENU.UNITS": "Birimler",
+  "MENU.POSITIONS": "Pozisyonlar",
+  "MENU.ANSWERTEMPLATES": "Cevap Şablonları",
+  "MENU.HOLIDAYS": "Tatiller",
+  "MENU.CATEGORIES": "Kategoriler",
+  "MENU.AUDITCATEGORIES": "Denetim Kategorileri",
+  "MENU.AUDITS": "Denetimler",
+  "MENU.QUESTIONS": "Sorular",
+  "MENU.QUESTIONGROUPS": "Soru Kategorileri",
 
 
   "AUTH.GENERAL.OR": "veya",
@@ -82,6 +91,7 @@
   "SWEETALERT.DELETED": "Kayıt silindi!",
   "SWEETALERT.CONFIRM": "Onayla",
   "SWEETALERT.CANCEL": "İptal",
+  "DROPDOWN_SELECT": "Seçiniz",
 
 
 
@@ -187,10 +197,68 @@
 
 
 
+  "POSITION_PAGE_TITLE" : "Pozisyonlar",
   "POSITION_NAME" : "Ad",
+
+  "AUDIT_CATEGORY_PAGE_TITLE" : "Denetim Kategorileri",
   "AUDIT_CATEGORY_NAME" : "Denetim Kategorisi",
   "AUDIT_CATEGORY_TYPE" : "Kategori Türü",
-  "AUDIT_CATEGORY_ID" : "Denetim Kategori Id",
-  "POSITION_boş" : "boş"
+  "AUDIT_CATEGORY_ID" : "Denetim Kategorisi",
+
+  "QUESTION_GROUP_PAGE_TITLE" : "Soru Kategorileri",
+  "QUESTION_GROUP_NAME" : "Soru Kategorisi",
+  "QUESTION_GROUP_ID" : "Soru Kategorisi",
+
+  "HOLIDAY_PAGE_TITLE" : "Tatiller",
+  "HOLIDAYS_NAME" : "Tatiller",
+  "HOLIDAYS_DATE" : "Tarih",
+
+  "AUDIT_PAGE_TITLE" : "Denetimler",
+  "AUDIT_AUDITOR" : "Denetimci",
+  "AUDIT_START_DATE" : "Başlangıç Tarihi",
+  "AUDIT_END_DATE" : "Bitiş Tarihi",
+
+  "UNIT_PAGE_TITLE" : "Birimler",
+  "PARENT_UNIT_ID" : "Üst Birim",
+  "UNIT_TYPE" : "Birim Türü",
+  "UNIT_SHIFT" : "Shift",
+
+
+  "QUESTIONS.LIST.TABLE.QUESTION.TEXT" : "Text",
+  "QUESTIONS.LIST.TABLE.AUDIT.CATEGORY" : "Denetim Kategorisi",
+  "QUESTIONS.LIST.TABLE.UNIT.NAME" : "Birim Adı",
+  "TABLE.ACTIONS" : "Aksiyonlar",
+  "QUESTIONS.PAGE.TITLE" : "Sorular",
+  "AUDITS.DETAIL.UNIT" : "Birim",
+  "QUESTIONS.ADDPAGE.AUDITCATEGORY" : "Denetim Kategorisi",
+  "QUESTIONS.ADDPAGE.TEXT" : "Soru Metni",
+  "QUESTIONS.ADDPAGE.QUESTIONTEXT_OPTION" : "Question Option",
+  "QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY" : "Soru Kategorisi",
+  "QUESTIONS.ADDPAGE.ADDBUTTON" : "Yeni Ekle",
+  "QUESTIONS.ADDPAGE.TITLE" : "Soru Ekle",
+  "QUESTIONS.ADDPAGE.SAVE" : "Kaydet",
+  "QUESTIONS.LIST.ADD" : "Soru Ekle",
+  "TOOLBAR.FILTER" : "Filtre",
+
+  "ANSWERTEMPLATES.LIST.NAME" : "Cevap Şablonları",
+  "ANSWERTEMPLATES.LIST.ADD" : "Cevap Şablonu Ekle",
+  "ANSWERTEMPLATES.LIST.OPTIONS" : "Answer Template Options",
+  "TABLE.SEARCH.PLACEHOLDER" : "Ara",
+
+  "USER.TABLE.COLUMNS.NAME" : "İsİm",
+  "USER.TABLE.COLUMNS.MAIL" : "Maİl",
+  "USER.TABLE.COLUMNS.IDENTITY" : "Identity",
+  "USER.TABLE.COLUMNS.DEP/SEC" : "Departman/Bölüm",
+  "USER.TABLE.COLUMNS.POS" : "Pozİsyon",
+  "USER.TABLE.COLUMNS.SHIFT" : "Shift",
+  "USER.TABLE.COLUMNS.ACTIONS" : "Aksiyonlar",
+  "USER.PAGE.TITLE" : "Kullanıcılar",
+
+ 
+  
+
+  "boş" : "boş"
+
+
 
 }

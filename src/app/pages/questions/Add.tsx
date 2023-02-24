@@ -52,6 +52,7 @@ const EditForm: FC<Props> = ({item}) => {
   const navigate = useNavigate()
   const [units, setUnits] = React.useState([])
   const [auditcategories, setAuditCategories] = React.useState([])
+  const [questionText, setQuestionText] = React.useState("")
   const [questioncategories, setQuestionCategories] = React.useState([])
   const [answertemplates, setAnswertemplates] = React.useState([])
 
@@ -162,12 +163,16 @@ const EditForm: FC<Props> = ({item}) => {
 
   
 
-  const handleQuestionText = (id: number, text: string) => {
-    let index = questions.findIndex((question) => question.id === id)
-    if (index > -1) {
+  const handleQuestionText = (text: string) => {
+    //let index = questions.findIndex((question) => question.id === id)
+    /*if (index > -1) {
       questions[index].text = text
-    }
+    }*/
+    questions.map((a) => {
+      a.text = text
+    })
     setQuestions([...questions])
+    setQuestionText(text)
   }
 
   const handleAnswerTemplateId = (id: number, text: string) => {
@@ -216,7 +221,7 @@ const EditForm: FC<Props> = ({item}) => {
     if (questions[questions.length - 1].text) {
       questions.push({
         id: questions[questions.length - 1].id + 1,
-        text: '',
+        text: questionText,
         answerTemplateId: (answertemplates as any)[0]?.id as number,
         questionGroupId: (questioncategories as any)[0]?.id as number,
         unitId: (units as any)[0]?.id as number,
@@ -283,6 +288,24 @@ const EditForm: FC<Props> = ({item}) => {
               </div>
             </div>
             
+            
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>
+                {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.TEXT'})}
+              </label>
+
+                        <div className='col-md-8 fv-row'>
+                          <input
+                            onChange={(e) => {
+                              handleQuestionText(e.target.value)
+                            }}
+                            type='text'
+                            className='form-control form-control-solid mb-3'
+                            placeholder='Question text'
+                            value={questionText}
+                          />
+                        </div>
+                        </div>
 
             <div className='separator separator-dashed my-6'></div>
             <div className='row mb-6'>
@@ -295,22 +318,7 @@ const EditForm: FC<Props> = ({item}) => {
                     </label>
 
                     <div className='col-lg-12'>
-                      <div className='row'>
-                        <div className='col-md-12 fv-row'>
-                          <input
-                            key={`${question.id}`}
-                            name={`${question.id}`}
-                            id={`${question.id}`}
-                            onChange={(e) => {
-                              handleQuestionText(question.id, e.target.value)
-                            }}
-                            type='text'
-                            className='form-control form-control-solid mb-3'
-                            placeholder='Question text'
-                            value={question.text}
-                          />
-                        </div>
-                        </div>
+                      
                         <div className='row'>
                         <div className='col-md-2 fv-row'>
                           
@@ -389,7 +397,7 @@ const EditForm: FC<Props> = ({item}) => {
                         
                         <select
                               className='form-select form-select-solid form-select-md'
-                              
+                              onChange={(e) => handleUnitId(question.id, e.target.value)}
                               value={question.unitId} 
                               defaultValue=""
                             >

@@ -17,6 +17,7 @@ export type Model = {
   questionGroupId?: number | null
   questions?: Array<Question>
   isAddedQuestionCategory? : boolean
+  unitId?: number
  
 }
 
