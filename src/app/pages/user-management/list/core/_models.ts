@@ -5,16 +5,14 @@ export type Model = {
   role?:string
   roleName?:string
   fullName?:string
-  shift?:number
   identity?: string
   positionId?:number
   positionName?:string
-  departmentName?:string
-  departmentId?:number  
-  sectionId?:number
-  sectionName?:string
+  unitName?:string
+  unitId?:number  
   isDeleteUser?:boolean
   userId?: string
+  parentUnitId?: number
 }
 
 export type QueryResponse = Response<Array<Model>>

@@ -11,18 +11,18 @@ const Footer: FC = () => {
       <div className={`${classes.footerContainer} d-flex flex-column flex-md-row flex-stack`}>
         {/* begin::Copyright */}
         <div className='text-dark order-2 order-md-1'>
-          <a href='https://nessworldwideservices.com/' target='_blank' className='text-muted text-hover-primary fw-bold me-2 fs-6'>
-            Ness Worldwide Services
+          <a href='https://iqualitor.com/' target='_blank' className='text-muted text-hover-primary fw-bold me-2 fs-6'>
+            CODE35 Audit Software
           </a>
         </div>
         {/* end::Copyright */}
 
         {/* begin::Menu */}
         <ul className='menu menu-gray-600 menu-hover-primary fw-bold order-1'>
-          <li className='menu-item'>
-          <Link to={`/static/kvkk`}> KVKK</Link>      
+          {/*<li className='menu-item'>
+           <Link to={`/static/kvkk`}> KVKK</Link>       
             
-          </li>
+          </li>*/}
           {/* <li className='menu-item'>
             <a href='#' className='menu-link px-2'>
               Contact

@@ -8,6 +8,9 @@ import {KTSVG} from '../../../_metronic/helpers'
 import {useIntl} from 'react-intl'
 import {useNavigate} from 'react-router-dom'
 
+
+import {listThings as listUnits} from '../units/list/core/_requests'
+import {listOtherThings as listOtherUnits} from '../units/list/core/_requests'
 import {listThings as listPositions} from '../position/list/core/_requests'
 import {useQueryResponse} from './list/core/QueryResponseProvider'
 import {useListView} from './list/core/ListViewProvider'
@@ -28,14 +31,10 @@ const editchema = Yup.object().shape({
   identity: Yup.string()
     .max(50, 'Maximum 50 symbols')
    .required('Identity required'),
-  departmentId: Yup.string()
-  .required('Department required'),
-  sectionId: Yup.string()
+  unitId: Yup.string()
   .required('Section required'),
   positionId: Yup.string()
   .required('Position required'),
-  shift: Yup.string()
-  .required('Shift required'),
 })
 
 const UserEditForm: FC<Props> = ({item}) => {
@@ -45,17 +44,23 @@ const UserEditForm: FC<Props> = ({item}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
-  const [departments, setDepartments] = React.useState([])
-  const [sections, setSections] = React.useState([])
+  const [units, setUnits] = React.useState([])
+  const [otherunits, setOtherUnits] = React.useState([])
   const [positions, setPositions] = React.useState([])
 
   useEffect(() => {
-    
+    listUnits().then((res) => {
+      if (res?.data?.length) {
+        setUnits(res.data || [])
+      }
+    })
+
     listPositions().then((res) => {
       if (res?.data?.length) {
         setPositions(res.data || [])
       }
     })
+   
   }, [])
 
   const [formForEdit] = useState<Model>({
@@ -65,12 +70,23 @@ const UserEditForm: FC<Props> = ({item}) => {
     fullName:undefined,
     identity: undefined,
     positionId:undefined,
-  })
+    unitId:undefined, 
+    parentUnitId:undefined
+    })
 
   //   const updateData = (fieldsToUpdate: Partial<Model>): void => {
   //     const updatedData = Object.assign(data, fieldsToUpdate)
   //     setData(updatedData)
   //   }
+
+  
+const handleChangeUnitId = async (event:any) => {
+
+  formik.setFieldValue('unitId',event?.target.value)
+  listOtherUnits(event.target.value).then((res) => {
+    setOtherUnits(res.data)
+  })
+}
 
 
   const [loading, setLoading] = useState(false)
@@ -80,7 +96,9 @@ const UserEditForm: FC<Props> = ({item}) => {
     onSubmit: async (values) => {
       setLoading(true)
 
-      
+      if (!values.unitId && units.length) {
+        values.unitId = (units[0] as any)?.id
+      }
 
       if (!values.positionId && positions.length) {
         values.positionId = (positions[0] as any)?.id
@@ -89,10 +107,7 @@ const UserEditForm: FC<Props> = ({item}) => {
 
       values.role = "Inspector"
 
-      if (!values.shift) {
-        values.shift = 0
-      }
-      values.shift = parseInt(values.shift.toString())
+      
 
       values.identity = values.identity?.toString()
 
@@ -232,7 +247,68 @@ const UserEditForm: FC<Props> = ({item}) => {
                 )}
               </div>
             </div>
-            
+             <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>
+                {intl.formatMessage({id: 'USER.NEWUSER.UNIT'})}
+                </span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+              <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('parentUnitId')}
+                  value={formik.values.parentUnitId}
+                  onChange={handleChangeUnitId}
+                >
+                  <option value=''>Seçiniz</option>
+                  {units.map((unit: any) => (
+                    <option value={unit?.id} key={unit?.id as any}>
+                      {unit?.name as any}
+                    </option>
+                  ))}
+                </select>
+                {formik.touched.unitId && formik.errors.unitId && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.unitId}</span>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </div> 
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>
+                {intl.formatMessage({id: 'USER.NEWUSER.UNIT'})}
+                </span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+              <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('unitId')}
+                  // value={formik.values.unitId}
+                  // onChange={handleChangeUnitId}
+                >
+                  <option value=''>Seçiniz</option>
+                  {otherunits.map((otherunit: any) => (
+                    <option value={otherunit?.id} key={otherunit?.id as any}>
+                      {otherunit?.name as any}
+                    </option>
+                  ))}
+                </select>
+                {formik.touched.unitId && formik.errors.unitId && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.unitId}</span>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </div> 
             
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
@@ -264,29 +340,7 @@ const UserEditForm: FC<Props> = ({item}) => {
               </div>
             </div>
             
-            <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>
-              {intl.formatMessage({id: 'USER.NEWUSER.SHIFT'})}
-              </label>
-              <div className='col-lg-8 fv-row'>
-                <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('shift')}
-                >
-                  <option value='0'>07:30 - 15:30</option>
-                  <option value='1'>15:30 - 23:30</option>
-                  <option value='2'>23:30 - 07:30</option>                  
-                  <option value='3'>07:30 - 17:30</option> 
-                </select>
-                {formik.touched.shift && formik.errors.shift && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                      <span role='alert'>{formik.errors.shift}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
+            
             {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>{intl.formatMessage({id: 'USER.NEWUSER.ROLE'})}</label>
 
@@ -327,7 +381,6 @@ const UserEditForm: FC<Props> = ({item}) => {
           <button
             type='submit'
             onClick={() => {
-              formik.submitForm()
 
               formik.submitForm().then(() => {
                 navigate('/user-management/users')

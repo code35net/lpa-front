@@ -9,6 +9,7 @@ import {DisableSidebar} from '../../_metronic/layout/core'
 import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import {EditForm} from "../pages/questions/Add"
+import {UserEditForm} from "../pages/user-management/newuser"
 
 
 
@@ -47,6 +48,7 @@ const PrivateRoutes = (menus: Array<string>) => {
         {/* <Route path='/course' element={<CoursePage />} /> */}
         {/* <Route path='/lesson' element={<LessonPage />} /> */}
         <Route path='/questions/add' element={<EditForm />} />
+        <Route path='/user-management/newuser' element={<UserEditForm />} />
 
 
         <Route path='/user-management/*' element={<SuspensedView><UsersPage /></SuspensedView>}/>

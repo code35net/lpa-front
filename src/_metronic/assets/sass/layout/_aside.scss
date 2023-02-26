@@ -74,6 +74,7 @@
 		bottom: get($content-spacing, desktop);
 		left: get($content-spacing, desktop);
 		z-index: get($aside-config, z-index);
+		box-shadow: 0px 0px 10px #808080;
 		overflow: hidden;
 		width: get($aside-config, width);
 		@include border-radius(get($aside-config, border-radius));

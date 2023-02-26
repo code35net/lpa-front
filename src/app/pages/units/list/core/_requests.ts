@@ -23,7 +23,12 @@ const getThings = (query: string): Promise<QueryResponse> => {
 }
 
 const listThings = async (): Promise<any> =>
-  await axios.get(`${LIST_THING_URL}`).then((res: AxiosResponse) => {
+  await axios.get(`${THING_URL}/getAll/ParentUnitId-null`).then((res: AxiosResponse) => {
+    return res.data
+  })
+
+  const listOtherThings = async (q: number): Promise<any> =>
+  await axios.get(`${THING_URL}/getAll/ParentUnitId-${q}`).then((res: AxiosResponse) => {
     return res.data
   })
 
@@ -70,5 +75,6 @@ export {
   createThing,
   updateThing,
   listThings,
-  listSomeThings
+  listSomeThings,
+  listOtherThings
 }
