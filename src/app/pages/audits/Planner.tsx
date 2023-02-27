@@ -174,9 +174,14 @@ const EditAuditForm: FC<Props> = ({item}) => {
     if(event.target.value != '')
     {
       listPartialUnits(event.target.value).then((res3) => {
-        setUnits(res3.data)
+        setUnits(res3.data)      
+      })
+    }
 
-      
+    if(event.target.value != '')
+    {
+      listPartialUnits(event.target.value).then((res3) => {
+        setUnits(res3.data)      
       })
     }
 
@@ -320,7 +325,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
               </div>
             </div>
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.USER'})}</label>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-md'
@@ -429,7 +434,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
               className='btn btn-sm btn-dark'
               disabled={loading}
             >
-              {!loading && `${intl.formatMessage({id: 'USER.PERMISSIONS.SAVE'})}`}
+              {!loading && `${intl.formatMessage({id: 'AUDITS.PLANNER.SAVE'})}`}
               {loading && (
                 <span className='indicator-progress' style={{display: 'block'}}>
                   {intl.formatMessage({id: 'MODALFORM.WAIT'})}

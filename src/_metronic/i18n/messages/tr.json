@@ -165,6 +165,10 @@
   "QUESTION.HASTHREAD.TEXT": "Lütfen görsel üzerinden tehlikeli maddeyi işaretleyiniz!",
   "QUESTION.HASTHREAD": "Tehlikeli madde var mı?",
 
+  "QUESTIONS.ADDPAGE.SELECT.UNIT": "Birim Seçiniz",
+  "QUESTIONS.ADDPAGE.SELECT.ANSWERTEMPLATE": "Cevap Şablonu Seçiniz",
+  "QUESTIONS.ADDPAGE.SELECT.QUESTION.CATEGORY": "Soru Kategorisi Seçiniz",
+
 
   "USERS.FULLNAME": "Tam Adı",
   "USERS.PAGE.TITLE": "Kullanıcılar",
@@ -239,6 +243,7 @@
   "QUESTIONS.ADDPAGE.SAVE" : "Kaydet",
   "QUESTIONS.LIST.ADD" : "Soru Ekle",
   "TOOLBAR.FILTER" : "Filtre",
+  
 
   "ANSWERTEMPLATES.LIST.NAME" : "Cevap Şablonları",
   "ANSWERTEMPLATES.LIST.ADD" : "Cevap Şablonu Ekle",
@@ -264,9 +269,52 @@
   "USER.NEWUSER.POSITION" : "Pozisyon",
   "MODALFORM.SAVE" : "Kaydet",
   
+
+  "AUDITS.LIST.AUDITNAME" : "Denetim Adı",
+  "AUDITS.LIST.UNITNAME" : "Birim Adı",
+  "AUDITS.LIST.DATE" : "Denetim Tarihi",
+  "AUDITS.LIST.AUDITOR" : "Denetmen",
+  "AUDITS.LIST.STATUS" : "Denetim Durumu",
+  "AUDITS.PAGE.TITLE" : "DENETİMLER",
+  "AUDITS.LIST.ADD" : "Denetim Planlayıcı",
+  "AUDITS.PLANNER.TITLE" : "Denetim Planlama",
+  "ADD.QUESTION.AUDITCATEGORY" : "Denetim Kategorisi",
+  "AUDITS.PLANNER.UNIT" : "Birim",
+  "ADD.QUESTION.IS_ADDED_QUESTION_CATEGORY" : "Soru Kategorisi Var mı",
+  "ADD.QUESTION.CATEGORY" : "Soru Kategorisi",
+  "AUDITS.PLANNER.POSITION" : "Pozisyon",
+
+  "AUDITS.PLANNER.YEAR" : "Denetim Yılı",
+  "AUDITS.PLANNER.MONTH" : "Denetim Ayı",
+  "AUDITS.PLANNER.CHOOSE" : "Seçiniz",
+  "AUDITS.PLANNER.SAVE" : "Kaydet",
   
+  
+  "AUDITS.PLANNER.CLOSE.SELECT" : "Seçiniz",
+
+  "USER.ISDELETED" : "Silindi mi",
+  "USER.FULLNAME" : "Adı Soyadı",
+  "USER.IDENTITY" : "Identity",
+  "USER.EDIT" : "Düzenler",
+  "USER.NEWUSER" : "Yeni Kullanıcı",
+  "USERS.LIST.MODAL.FORM" : "Kullanıcı Listesi",
+
+  "AUDITS.MODAL.EDIT" : "Düzenle",
+  "AUDITS.PLANNER.USER" : "Kullanıcılar",
+
+  
+  "ACTION.PAGE.TITLE" : "AKSİYONLAR",
+  "ACTION.LIST.COL.FIND" : "Bulgu",
+  "ACTION.LIST.COL.DONE" : "Tamamlandı mı",
+  "ACTION.LIST.COL.STAFF" : "Aksiyon Sorumlusu",
+  "ACTION.LIST.COL.STATUS" : "Aksiyon Durumu",
+  "ACTION.LIST.COL.ACTIONS" : "Aksiyonlar",
 
  
+  "ANSWERTEMPLATES.MODAL.EDIT" : "Düzenle",
+  "ANSWERTEMPLATES.LIST.ADDOPTION" : "Şık Ekle",
+  "ANSWERTEMPLATES.LIST.NEEDACTION" : "Aksiyon Gerekli",
+  "ANSWERTEMPLATES.LIST.ISTRUE" : "Doğru mu",
   
 
   "boş" : "boş"

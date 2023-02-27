@@ -301,7 +301,7 @@ const EditForm: FC<Props> = ({item}) => {
                             }}
                             type='text'
                             className='form-control form-control-solid mb-3'
-                            placeholder='Question text'
+                            placeholder={intl.formatMessage({id: 'QUESTIONS.ADDPAGE.TEXT'})}
                             value={questionText}
                           />
                         </div>
@@ -359,7 +359,7 @@ const EditForm: FC<Props> = ({item}) => {
 
                           >
                             
-                            <option value="">Select Question Category</option>
+                            <option value="">{intl.formatMessage({id: 'QUESTIONS.ADDPAGE.SELECT.QUESTION.CATEGORY'})}</option>
                             {questioncategories.map((questioncategory: any) => (
                               <option
                                 value={questioncategory?.id}
@@ -382,7 +382,7 @@ const EditForm: FC<Props> = ({item}) => {
                               value={question.answerTemplateId} 
                               defaultValue=""
                             >
-                              <option value="">Select Answer Template</option>
+                              <option value="">{intl.formatMessage({id: 'QUESTIONS.ADDPAGE.SELECT.ANSWERTEMPLATE'})}</option>
                              
                              
                               {answertemplates.map((answertemplate: any) => (
@@ -401,7 +401,7 @@ const EditForm: FC<Props> = ({item}) => {
                               value={question.unitId} 
                               defaultValue=""
                             >
-                              <option value="">Select Answer Template</option>
+                              <option value="">{intl.formatMessage({id: 'QUESTIONS.ADDPAGE.SELECT.UNIT'})}</option>
                              
                              
                               {units.map((unit: any) => (

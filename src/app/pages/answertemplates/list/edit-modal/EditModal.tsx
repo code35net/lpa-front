@@ -20,7 +20,7 @@ const EditModal = () => {
         aria-modal='true'
       >
         {/* begin::Modal dialog */}
-        <div className='modal-dialog modal-dialog-centered mw-650px'>
+        <div className='modal-dialog modal-dialog-centered mw-950px'>
           {/* begin::Modal content */}
           <div className='modal-content'>
             <EditModalHeader />

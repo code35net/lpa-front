@@ -169,6 +169,9 @@
   "SWEETALERT.OK": "Ok",
   "QUESTION.HASTHREAD.TEXT": "Please sign the threat on the image!",
   "QUESTION.HASTHREAD": "Is there a threat?",
+  "QUESTIONS.ADDPAGE.SELECT.UNIT": "Select Unit",
+  "QUESTIONS.ADDPAGE.SELECT.ANSWERTEMPLATE": "Select Answer Template",
+  "QUESTIONS.ADDPAGE.SELECT.QUESTION.CATEGORY": "Select Question Category",
 
 
   "USERS.FULLNAME": "Fullname",
@@ -268,7 +271,51 @@
   "USER.NEWUSER.POSITION" : "Position",
   "MODALFORM.SAVE" : "Save",
 
+
+  "AUDITS.LIST.AUDITNAME" : "Audit Name",
+  "AUDITS.LIST.UNITNAME" : "Unit Name",
+  "AUDITS.LIST.DATE" : "Audit Date",
+  "AUDITS.LIST.AUDITOR" : "Auditor",
+  "AUDITS.LIST.STATUS" : "Audit Status",
+  "AUDITS.PAGE.TITLE" : "AUDITS",
+  "AUDITS.LIST.ADD" : "Audit Planner",
+  "AUDITS.PLANNER.TITLE" : "AUDIT PLANNER",
+  "ADD.QUESTION.AUDITCATEGORY" : "Audit Category",
+  "AUDITS.PLANNER.UNIT" : "Unit",
+  "ADD.QUESTION.IS_ADDED_QUESTION_CATEGORY" : "Is Added Question Category",
+  "ADD.QUESTION.CATEGORY" : "Question Category",
+  "AUDITS.PLANNER.POSITION" : "Position",
+
+  "AUDITS.PLANNER.YEAR" : "Year",
+  "AUDITS.PLANNER.MONTH" : "Month",
+  "AUDITS.PLANNER.CHOOSE" : "Choose",
+  "AUDITS.PLANNER.SAVE" : "Save",
+
+  "AUDITS.PLANNER.CLOSE.SELECT" : "Select",
+
+
+  "USER.ISDELETED" : "Is Deleted",
+  "USER.FULLNAME" : "Full Name",
+  "USER.IDENTITY" : "Identity",
+  "USER.EDIT" : "Edit",
+  "USER.NEWUSER" : "New User",
+  "USERS.LIST.MODAL.FORM" : "User List",
+
  
+  "AUDITS.MODAL.EDIT" : "Edit",
+  "AUDITS.PLANNER.USER" : "Audit Planner User",
+
+  "ACTION.PAGE.TITLE" : "ACTIONS",
+  "ACTION.LIST.COL.FIND" : "Finding",
+  "ACTION.LIST.COL.DONE" : "Is Complete",
+  "ACTION.LIST.COL.STAFF" : "Staff",
+  "ACTION.LIST.COL.STATUS" : "Status",
+  "ACTION.LIST.COL.ACTIONS" : "Actions",
+
+  "ANSWERTEMPLATES.MODAL.EDIT" : "Edit",
+  "ANSWERTEMPLATES.LIST.ADDOPTION" : "Add Option",
+  "ANSWERTEMPLATES.LIST.NEEDACTION" : "Need Action",
+  "ANSWERTEMPLATES.LIST.ISTRUE" : "Is True",
   
 
   "boş" : "boş"

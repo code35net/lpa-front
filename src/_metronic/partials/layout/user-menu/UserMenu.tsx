@@ -41,11 +41,11 @@ const UserMenu = () => {
       <Languages languageMenuPlacement='right-end' />
 
       {/* begin::Menu item */}
-      <div className='menu-item px-5 my-1'>
+      {/* <div className='menu-item px-5 my-1'>
         <a href='#' className='menu-link px-5'>
           My Account
         </a>
-      </div>
+      </div> */}
       {/* end::Menu item */}
 
       {/* begin::Menu item */}
