@@ -20,13 +20,16 @@ const Table = () => {
     columns,
     data,
   })
+  console.log(data) 
+  
+
 
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>
         <table
           id='kt_table_items'
-          className='table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer'
+          className='table align-middle table-row-dashed dataTable no-footer'
           {...getTableProps()}
         >
           <thead>

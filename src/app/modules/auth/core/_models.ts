@@ -45,23 +45,17 @@ export interface UserSocialNetworksModel {
 
 export interface UserModel {
   id: number
-  username: string
+  userName: string
   password: string | undefined
   email: string
-  fullName?: string
-  occupation?: string
+  fullName: string
+  claims?: Array<string>,
+  menus?:Array<string>,
   companyName?: string
-  claims?: Array<string>
-  menus?: Array<string>
   phone?: string
   roles?: Array<number>
-  pic?: string
-  language?: 'en' | 'tr'
-  timeZone?: string
-  website?: 'https://keenthemes.com'
+  roleName: string
+  language?: 'en' | 'de' | 'es' | 'fr' | 'ja' | 'zh' | 'ru'
   emailSettings?: UserEmailSettingsModel
   auth?: AuthModel
-  communication?: UserCommunicationModel
-  address?: UserAddressModel
-  socialNetworks?: UserSocialNetworksModel
 }

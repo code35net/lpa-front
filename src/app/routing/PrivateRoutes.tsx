@@ -10,6 +10,7 @@ import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import {EditForm} from "../pages/questions/Add"
 import {UserEditForm} from "../pages/user-management/newuser"
+import {EditAuditForm} from "../pages/audits/Planner"
 
 
 
@@ -27,6 +28,7 @@ const PrivateRoutes = (menus: Array<string>) => {
   const QuestionBankPage = lazy(() => import( '../pages/questions/Page'))
 
   const Position = lazy (() => import('../pages/position/Page'))
+  const Action = lazy (() => import('../pages/actions/Page'))
   const AuditCategory = lazy (() => import('../pages/audit-categories/Page'))
   const QuestionGroup = lazy (() => import('../pages/question-groups/Page'))
   const Holidays = lazy (() => import('../pages/holidays/Page'))
@@ -49,6 +51,7 @@ const PrivateRoutes = (menus: Array<string>) => {
         {/* <Route path='/lesson' element={<LessonPage />} /> */}
         <Route path='/questions/add' element={<EditForm />} />
         <Route path='/user-management/newuser' element={<UserEditForm />} />
+        <Route path='/audits/Planner' element={<EditAuditForm />} />
 
 
         <Route path='/user-management/*' element={<SuspensedView><UsersPage /></SuspensedView>}/>
@@ -62,7 +65,14 @@ const PrivateRoutes = (menus: Array<string>) => {
             </SuspensedView>
           }
         />} */}
-
+<Route
+          path='/actions/*'
+          element={
+            <SuspensedView>
+              <Action />
+            </SuspensedView>
+          }
+        />
         
         <Route
           path='/answertemplates/*'

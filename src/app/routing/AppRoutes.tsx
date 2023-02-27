@@ -28,19 +28,8 @@ const AppRoutes: FC = () => {
         <Route element={<App />}>
                   <Route path='error/*' element={<ErrorsPage />} />
 
-                  {/*
-                  <Route
-                      path='/my-quiz/join/:QuizId'
-                      element={
-                              <QuizQuestionsForm />
-                      }
-                  />
-                  <Route
-                      path='/cert/:certid'
-                      element={
-                          <Cert />
-                      }
-                    /> */}
+                  
+                  
           <Route path='logout' element={<Logout />} />
           {currentUser ? (
             <>

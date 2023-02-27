@@ -1,57 +1,115 @@
 import axios, {AxiosResponse} from 'axios'
-import {ID,parseRequestQuery,  Response} from '../../../../../_metronic/helpers'
+import {ID, parseRequestQuery, Response} from '../../../../../_metronic/helpers'
 import {Model, QueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL
-const THING_URL = `${API_URL}/Audit`
+const AUDIT_URL = `${API_URL}/Audit`
+const CREATE_AUDIT_URL = `${API_URL}/Custom/createAudit`
+const CREATE_OP_AUDIT_URL = `${API_URL}/Custom/createOpAudit`
+const GET_AUDITS_URL = `${API_URL}/Custom/getAudit`
+const AUDIT_DETAILS_URL = `${API_URL}/Custom/getAuditDetail`
+const AUDIT_QUESTIONS_URL = `${API_URL}/Custom/getAuditQuestions`
+const FINISH_AUDIT = `${API_URL}/Custom/finishAudit`
+const UNITS_URL = `${API_URL}/Custom/listUnits`
 
-const getThings = (query: string): Promise<QueryResponse> => {
-  return axios
-    .get(`${THING_URL}/getAll/?${query}&modelstoinclude=QuestionGroup,AuditCategory`)
-    .then((d: AxiosResponse<QueryResponse>) => d.data)
-}
 
-const listThings = async (): Promise<any> =>
-  await axios.get(`${THING_URL}/getAll?page=1`).then((res: AxiosResponse) => {
+const listUnits = async (SectionId: any): Promise<any> =>
+  await axios.get(`${UNITS_URL}?SectionId=${SectionId}`).then((res: AxiosResponse) => {
     return res.data
   })
 
-const getThingById = (id: ID): Promise<Model | undefined> => {
+
+const finishAudit = (auditid: any) => {
+    return axios
+        .put(`${FINISH_AUDIT}?auditid=${auditid}`).then((response: any) => response.data)
+}
+
+const getAuditDetails = async (id : string): Promise<any> => await axios.get(`${AUDIT_DETAILS_URL}?Id=${id}`).then((res : AxiosResponse) => 
+ {
+   return res.data;
+ }
+ 
+ );
+
+ const getAuditQuestions = async (auditId : string): Promise<any> => await axios.get(`${AUDIT_QUESTIONS_URL}?auditId=${auditId}`).then((res : AxiosResponse) => 
+ {
+   return res.data;
+ }
+ 
+ );
+
+const getAudits = (query: string, onlyauditor: string): Promise<QueryResponse> => {
+
+  const callurl = onlyauditor == "0" ? `${GET_AUDITS_URL}?${query}` : `${GET_AUDITS_URL}?${query}&isonlyauditor=1`
+
+  return axios.get(callurl).then((d: AxiosResponse<QueryResponse>) => {
+    const queryRaw: any = parseRequestQuery(query)
+    if (queryRaw?.filter_auditcategoryid && Array.isArray(d?.data?.data)) {
+      d.data.data = (d as any).data?.data?.filter(
+        (item: any) =>
+          parseInt(item?.auditCategoryId) === parseInt(queryRaw?.filter_auditcategoryid)
+      )
+    } if (queryRaw?.filter_questiongroupid && Array.isArray(d?.data?.data)) {
+      d.data.data = (d as any).data?.data?.filter(
+        (item: any) =>
+          parseInt(item?.questionGroupId) === parseInt(queryRaw?.filter_questiongroupid)
+      )
+    }
+
+    if (queryRaw?.filter_departmentid && Array.isArray(d?.data?.data)) {
+      d.data.data = (d as any).data?.data?.filter(
+        (item: any) =>
+          parseInt(item?.departmentId) === parseInt(queryRaw?.filter_departmentid)
+      )
+    }
+
+
+     if (queryRaw?.filter_sectionid && Array.isArray(d?.data?.data)) {
+      d.data.data = (d as any).data?.data?.filter(
+        (item: any) =>
+          parseInt(item?.sectionId) === parseInt(queryRaw?.filter_sectionid)
+      )
+    }
+
+    return d.data
+  })
+}
+
+const getAuditById = (id: ID): Promise<Model | undefined> => {
   return axios
-    .get(`${THING_URL}/${id}`)
+    .get(`${AUDIT_URL}/${id}`)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response as any)
 }
 
-const createThing = (thing: Model): Promise<Model | undefined> => {
+const createAudit = (audit: Model): Promise<Model | undefined> => {
   return axios
-    .put(THING_URL, thing)
+    .put(CREATE_AUDIT_URL, audit)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response.data)
 }
 
-const updateThing = (thing: Model): Promise<Model | undefined> => {
+const createOpAudit = (audit: Model): Promise<Model | undefined> => {
   return axios
-    .post(`${THING_URL}/${thing.id}`, thing)
+    .put(CREATE_OP_AUDIT_URL, audit)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response.data)
 }
 
-const deleteThing = (thingId: ID): Promise<void> => {
-  return axios.delete(`${THING_URL}/${thingId}`).then(() => {})
+const updateAudit = (audit: Model): Promise<Model | undefined> => {
+  return axios
+    .post(`${AUDIT_URL}/${audit.id}`, audit)
+    .then((response: AxiosResponse<Response<Model>>) => response.data)
+    .then((response: Response<Model>) => response.data)
 }
 
-const deleteSelectedThings = (thingIds: Array<ID>): Promise<void> => {
-  const requests = thingIds.map((id) => axios.delete(`${THING_URL}/${id}`))
+const deleteAudit = (auditId: ID): Promise<void> => {
+  return axios.delete(`${AUDIT_URL}/${auditId}`).then(() => {})
+}
+
+const deleteSelectedAudits = (auditIds: Array<ID>): Promise<void> => {
+  const requests = auditIds.map((id) => axios.delete(`${AUDIT_URL}/${id}`))
   return axios.all(requests).then(() => {})
 }
 
-export {
-  getThings,
-  deleteThing,
-  deleteSelectedThings,
-  getThingById,
-  createThing,
-  updateThing,
-  listThings
-}
+export {getAuditQuestions,getAudits, deleteAudit, deleteSelectedAudits, getAuditById, createAudit,createOpAudit, updateAudit, getAuditDetails, finishAudit, listUnits}

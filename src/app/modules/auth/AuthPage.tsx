@@ -46,13 +46,13 @@ const AuthLayout = () => {
       <div className='d-flex flex-center flex-column-auto p-10'>
         <div className='d-flex align-items-center fw-semibold fs-6'>
           Powered by
-          <a href='https://nessworldwideservices.com/' className='text-muted text-hover-primary px-2'>
+          {/*<a href='https://nessworldwideservices.com/' className='text-muted text-hover-primary px-2'>
             Ness Worldwide Services
-          </a>
-          {/* <a href='https://code35.net/' className='text-muted text-hover-primary px-2'>
+          </a>*/}
+           <a href='https://code35.net/' className='text-muted text-hover-primary px-2'>
              CODE35 | A Software Company
             
-          </a> */}
+          </a> 
 
           
         </div>

@@ -11,6 +11,7 @@ import {createThing, updateThing} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
 import {listThings as listParentUnits} from '../../../units/list/core/_requests'
+import { useQueryRequest } from '../core/QueryRequestProvider'
 
 type Props = {
   isThingLoading: boolean
@@ -27,6 +28,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
+  const { state } = useQueryRequest()
 
   const [auditCategory, setAuditCategory] = React.useState([])
   const [parentUnitId, setParentUnitId] = React.useState([])
@@ -66,7 +68,9 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
 
-      
+      if (state.id != undefined) {
+        values.parentUnitId = parseInt(state.id)
+    }
       
       
       if(!values.unitType){

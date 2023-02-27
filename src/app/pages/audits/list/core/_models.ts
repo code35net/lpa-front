@@ -1,23 +1,34 @@
 import {ID, Response} from '../../../../../_metronic/helpers'
-import {Model as AuditCategory} from '../../../position/list/core/_models'
-import {Model as QuestionGroup} from '../../../question-groups/list/core/_models'
-
 export type Model = {
   id?: ID
-  auditCategoryId?: number
-  AuditCategory?:AuditCategory
+  sectionId?: number
+  departmentId?: number
+  positionId?:number
   unitId?: number
-  //Unit?:Unit
-  score?: number
-  questionGroupId?: number
-  QuestionGroup?:QuestionGroup
-  auditDate?: Date
-  auditor?: string
-  started?: Date
-  ended?: Date
+  gunitId?: number
+  year?: number
+  month?: number
+  auditCategoryId?: number
+  questionGroupId?: number | null
+  isAddedQuestionCategory?: boolean
+  auditName?: string
+  auditId?:number
+  auditDate?: string
+  started?: string
+  ended?: string
+  auditor?:string
+  type?: string
+  userId?:string
+  unitName?:string
   categoryType?:number | string
-  status?:number | string
-
+  collarType?:number
+  status?: string
+  questionCount?: number
+  trueCount?: number
+  needActionCount?: number
+  nonPeriodicDate?:string | null
 }
+
+
 
 export type QueryResponse = Response<Array<Model>>

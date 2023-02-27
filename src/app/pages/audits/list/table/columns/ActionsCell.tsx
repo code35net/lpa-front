@@ -5,29 +5,34 @@ import {MenuComponent} from '../../../../../../_metronic/assets/ts/components'
 import {ID, KTSVG, QUERIES} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
-import {deleteThing} from '../../core/_requests'
-import {useIntl} from 'react-intl'
-import Swal from 'sweetalert2'
+import {deleteAudit} from '../../core/_requests'
+import {useAuth} from '../../../../../../app/modules/auth'
+import {useLocation, Link} from 'react-router-dom'
 
 type Props = {
   id: ID
 }
 
+
+
+
 const ActionsCell: FC<Props> = ({id}) => {
-  const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {query} = useQueryResponse()
   const queryClient = useQueryClient()
+
+  const {currentUser} = useAuth()
 
   useEffect(() => {
     MenuComponent.reinitialization()
   }, [])
 
+  
   const openEditModal = () => {
     setItemIdForUpdate(id)
   }
 
-  const deleteItem = useMutation(() => deleteThing(id), {
+  const deleteItem = useMutation(() => deleteAudit(id), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: () => {
       // ✅ update detail view directly
@@ -35,51 +40,29 @@ const ActionsCell: FC<Props> = ({id}) => {
     },
   })
 
-  return (
+  return currentUser?.roleName == "Key Account" ? (
     <>
-    
-    <div className='d-flex justify-content-end flex-shrink-0'>
-        <a
-          className='btn btn-icon btn-light btn-active-warning btn-sm me-1'
-          onClick={openEditModal}
-        >
-          <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
-        </a>
-
-        <a
-          className='btn btn-icon btn-light btn-active-danger btn-sm'
-          data-kt-users-table-filter='delete_row'
-          onClick={async () => {
-            Swal.fire({
-              color : "#000000",
-              title: (intl.formatMessage({id: "SWEETALERT.TITLE"})),
-              text: (intl.formatMessage({id: "SWEETALERT.TEXT"})),
-              icon: 'warning',
-              // showCancelButton: true,
-              // confirmButtonColor: '#000',
-              // cancelButtonColor: 'primary',
-              confirmButtonText: (intl.formatMessage({id: "SWEETALERT.CONFIRM"})),
-              cancelButtonText: (intl.formatMessage({id: "SWEETALERT.CANCEL"}))
-            }).then( async (result) => {
-              if (result.isConfirmed) {
-                await deleteItem.mutateAsync()
-                Swal.fire({
-                  title: (intl.formatMessage({id: "SWEETALERT.SUCCESS"})),
-                  text: (intl.formatMessage({id: "SWEETALERT.DELETED"})),
-                  icon: 'success',
-                  timer: 2000,
-                  showConfirmButton:true
-                })
-                
-              }
-            })
-            
-          }}
-        >
-          <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
-        </a>
-      </div>
       
+        <div className='d-flex justify-content-end flex-shrink-0'>
+          <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+           onClick={openEditModal}
+           >
+            <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+          </a>
+
+
+          <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+           data-kt-users-table-filter='delete_row'
+          onClick={async () => await deleteItem.mutateAsync()}
+          >
+            <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
+          </a>
+        </div>
+      
+    </>
+  ) : (
+    <>
+     <Link to={`/audits/auditquestions/${id}`} className="btn btn-sm btn-icon btn-dark"><KTSVG path='/media/icons/duotune/general/gen016.svg' className='svg-icon-3' /></Link>
     </>
   )
 }

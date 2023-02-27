@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect} from 'react'
+import {FC, useState, useEffect} from 'react'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import {useIntl} from 'react-intl'
@@ -7,48 +7,43 @@ import {Model} from '../core/_models'
 import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
-import {createThing, updateThing} from '../core/_requests'
+import {updateAudit, listUnits} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
-import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
-import {listThings as listQuestionGroups} from '../../../question-groups/list/core/_requests'
 import moment from 'moment'
-import { useLocation } from 'react-router-dom'
+import {listUsers} from '../../../user-management/list/core/_requests'
 
 type Props = {
-  isThingLoading: boolean
+  isAuditCategoryLoading: boolean
   item: Model
 }
 
 // const editchema = Yup.object().shape({
 //   name: Yup.string()
 //     .max(50, 'Maximum 50 symbols')
-//     .required('Thing Name required'),
+//     .required('Department Name required'),
 // })
 
-const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
+const EditModalForm: FC<Props> = ({item}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
 
-  const location = useLocation()
-  const searchParams = new URLSearchParams(location.search)
+  const [users, setUsers] = useState([])
+  const [operators, setOperators] = useState([])
+  useEffect(() => {
+    listUsers().then((res)=>{
+      setUsers(res.data)
+    })
+    listUnits(item.sectionId).then((res)=>{
+      setOperators(res)
+    })
+  }, [])
 
-  const [auditCategory, setAuditCategory] = React.useState([])
-  const [questionGroup, setQuestionGroup] = React.useState([])
-
-  const [placeForEdit] = useState<Model>({     
-    auditCategoryId: undefined,
-    unitId: undefined,    
-    score: undefined,
-    questionGroupId: undefined,  
+  const [placeForEdit] = useState<Model>({
     auditDate: undefined,
-    auditor: undefined,
-    started: undefined,
-    ended: undefined,
-    categoryType:undefined,
-    status:undefined,
-    ...item,
-    
+    auditor: undefined,    
+    unitId: undefined,    
+    ...item
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -58,33 +53,15 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     setItemIdForUpdate(undefined)
   }
 
-  useEffect(() => {
-    listAuditCategories().then((res2) => {
-      setAuditCategory(res2.data || [])
-    })    
-  }, [])
-
-  useEffect(() => {
-    listQuestionGroups().then((res3) => {
-      setQuestionGroup(res3.data || [])
-    })    
-  }, [])
-
   const formik = useFormik({
     initialValues: placeForEdit,
-    //validationSchema: editchema,
+    // validationSchema: editchema,
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
-      if(!values.categoryType){
-        values.categoryType = 0
-      }
-      values.categoryType=parseInt(values.categoryType.toString())
       try {
         if (isNotEmpty(values.id)) {
-          await updateThing(values)
-        } else {
-          await createThing(values)
-        }
+          await updateAudit(values)
+        } 
       } catch (ex) {
         console.error(ex)
       } finally {
@@ -97,6 +74,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   return (
     <>
       <form id='kt_modal_add_item_form' className='form' onSubmit={formik.handleSubmit} noValidate>
+        {/* begin::Scroll */}
         <div
           className='d-flex flex-column scroll-y me-n7 pe-7'
           id='kt_modal_add_item_scroll'
@@ -107,174 +85,170 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           data-kt-scroll-wrappers='#kt_modal_add_item_scroll'
           data-kt-scroll-offset='300px'
         >
-          
-          
-        </div>
-      
-      
-      {/*
-        <div className='fv-row mb-7'>
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'POSITION_NAME'})}
-          </label>
-          
-          <input
-            //placeholder='Full name'
-            {...formik.getFieldProps('name')}
-            type='text'
-            name='name'
-            className={clsx(
-              'form-control form-control-solid mb-3 mb-lg-0',
-              {'is-invalid': formik.touched.name && formik.errors.name},
-              {
-                'is-valid': formik.touched.name && !formik.errors.name,
-              }
+
+
+          <div className='fv-row mb-7'>
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'AUDITS.LIST.DATE'})}
+            </label>
+            {/* end::Label */}
+
+            {/* begin::Input */}
+            <input
+              //placeholder='Full name'
+              {...formik.getFieldProps('auditDate')}
+              type='datetime-local'
+              name='auditDate'
+              value={moment(formik.values.auditDate).format('YYYY-MM-DD HH:mm')}              
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                {'is-invalid': formik.touched.auditDate && formik.errors.auditDate},
+                {
+                  'is-valid': formik.touched.auditDate && !formik.errors.auditDate,
+                }
+              )}
+              autoComplete='off'
+              disabled={formik.isSubmitting}
+            />
+            {formik.touched.auditDate && formik.errors.auditDate && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.auditDate}</span>
+                </div>
+              </div>
             )}
-            autoComplete='off'
-            disabled={formik.isSubmitting || isThingLoading}
-          />
-          {formik.touched.name && formik.errors.name && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.name}</span>
-              </div>
-            </div>
-          )}
-          </div> */}
+            {/* end::Input */}
+          </div>
 
-
-
-        
-
-
-        <div className='fv-row mb-7'>
+          <div className='fv-row mb-7'>
+          {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'AUDIT_CATEGORY_TYPE'})}
+            {intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
           </label>
-          <select 
-           className='form-select form-select-solid form-select-md'
-           {...formik.getFieldProps('categoryType')}
-           >
-            <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
-            <option value='0'>Daily</option>
-            <option value='1'>Weekly</option>
-            <option value='2'>Monthly</option>
-            <option value='3'>Quarterly</option>
-            <option value='4'>DailyShift</option>
-            <option value='5'>NonPeriod</option>
-           </select>
-          
-          {formik.touched.categoryType && formik.errors.categoryType && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.categoryType}</span>
-              </div>
-            </div>
-          )}
-        </div>
+          {/* end::Label */}
 
-        <div className='fv-row mb-7'>    
-        <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'AUDIT_CATEGORY_ID'})}
-          </label>     
-         <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('auditCategoryId')}
-                  value={formik.values.auditCategoryId}
-                  // onChange={handleChangeDepartmentId}
-                >
-                  <option value=''>Select</option>
-                  {/* ?? */}
-                  {auditCategory.map((myauditcategory: any) => (
-                    <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
-                      {myauditcategory?.name as any}
-                    </option>
-                  ))}
-                </select>
-          {/* end::Input */}
-        </div>
-
-        <div className='fv-row mb-7'>
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'AUDIT_AUDITOR'})}
-          </label>
-          
-          <input
-            //placeholder='Full name'
+          {/* begin::Input */}
+          <select
+            className='form-select form-select-solid form-select-md'
             {...formik.getFieldProps('auditor')}
-            type='text'
-            name='auditor'
-            className={clsx(
-              'form-control form-control-solid mb-3 mb-lg-0',
-              {'is-invalid': formik.touched.auditor && formik.errors.auditor},
-              {
-                'is-valid': formik.touched.auditor && !formik.errors.auditor,
-              }
-            )}
-            autoComplete='off'
-            disabled={formik.isSubmitting || isThingLoading}
-          />
-          {formik.touched.auditor && formik.errors.auditor && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.auditor}</span>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className='fv-row mb-7'>    
-        <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'QUESTION_GROUP_ID'})}
-          </label>     
-         <select 
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('questionGroupId')}
-                  value={formik.values.questionGroupId}
-                  // onChange={handleChangeDepartmentId}
-                >
-                  <option value=''>Select</option>
-                  {/* ?? */}
-                  {questionGroup.map((myquestiongroup: any) => (
-                    <option value={myquestiongroup?.id} key={myquestiongroup?.id as any}>
-                      {myquestiongroup?.name as any}
-                    </option>
-                  ))}
-                </select>
+            value={formik.values.auditor}
+            onChange={formik.handleChange}
+          >
+            <option value=''>{intl.formatMessage({id: 'USERS.LIST.MODAL.FORM'})}</option>
+            {users.map((user: any) => (
+              <option value={user?.id} key={user?.id as any}>
+                {user?.fullName as any}
+              </option>
+            ))}
+          </select>
           {/* end::Input */}
         </div>
 
+        <div className='fv-row mb-7'>
+          {/* begin::Label */}
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'AUDITS.PLANNER.USER'})}
+          </label>
+          {/* end::Label */}
 
-      
-   
+          {/* begin::Input */}
+          <select
+            className='form-select form-select-solid form-select-md'
+            {...formik.getFieldProps('unitId')}
+            value={formik.values.unitId}
+            onChange={formik.handleChange}
+          >
+            <option value=''>{intl.formatMessage({id: 'SELECT'})}</option>
+            {operators.map((unit: any) => (
+              <option value={unit?.id} key={unit?.id as any}>
+                {unit?.name as any}
+              </option>
+            ))}
+          </select>
+          {/* end::Input */}
+        </div>
 
+          {/* begin::Input group */}
 
-           
+          {/* begin::Preview existing avatar */}
 
+          {/* end::Preview existing avatar */}
 
+          {/* begin::Label */}
+          {/* <label
+              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
+              data-kt-image-input-action='change'
+              data-bs-toggle='tooltip'
+              title='Change avatar'
+            >
+              <i className='bi bi-pencil-fill fs-7'></i>
+
+              <input type='file' name='avatar' accept='.png, .jpg, .jpeg' />
+              <input type='hidden' name='avatar_remove' />
+            </label> */}
+          {/* end::Label */}
+
+          {/* begin::Cancel */}
+          {/* <span
+              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
+              data-kt-image-input-action='cancel'
+              data-bs-toggle='tooltip'
+              title='Cancel avatar'
+            >
+              <i className='bi bi-x fs-2'></i>
+            </span> */}
+          {/* end::Cancel */}
+
+          {/* begin::Remove */}
+          {/* <span
+              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
+              data-kt-image-input-action='remove'
+              data-bs-toggle='tooltip'
+              title='Remove avatar'
+            >
+              <i className='bi bi-x fs-2'></i>
+            </span> */}
+          {/* end::Remove */}
+        </div>
+        {/* end::Image input */}
+
+        {/* begin::Hint */}
+        {/* <div className='form-text'>Allowed file types: png, jpg, jpeg.</div> */}
+        {/* end::Hint */}
+        {/* end::Input group */}
+
+        {/* begin::Input group */}
         
-      
+        
+
+        {/* begin::Input group */}
+
+        {/* end::Input group */}
+        {/* end::Scroll */}
+
+        {/* begin::Actions */}
         <div className='text-center pt-15'>
           <button
             type='reset'
             onClick={() => cancel()}
-            className='btn btn-sm btn-light me-3'
+            className='btn btn-light me-3'
             data-kt-items-modal-action='cancel'
-            disabled={formik.isSubmitting || isThingLoading}
+            disabled={formik.isSubmitting}
           >
             {intl.formatMessage({id: 'FORM.DISCARD'})}
           </button>
 
           <button
             type='submit'
-            className='btn btn-sm btn-info'
+            className='btn btn-sm btn-dark'
             data-kt-items-modal-action='submit'
             disabled={
-              isThingLoading || formik.isSubmitting || !formik.isValid || !formik.touched
+              formik.isSubmitting || !formik.isValid || !formik.touched
             }
           >
-            <span className='indicator-label'> {intl.formatMessage({id: 'FORM.SAVE'})}</span>
-            {(formik.isSubmitting || isThingLoading) && (
+            <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
+            {(formik.isSubmitting) && (
               <span className='indicator-progress'>
                 Please wait...{' '}
                 <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
@@ -284,7 +258,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
         </div>
         {/* end::Actions */}
       </form>
-      {(formik.isSubmitting || isThingLoading) && <ListLoading />}
+      {(formik.isSubmitting) && <ListLoading />}
     </>
   )
 }
