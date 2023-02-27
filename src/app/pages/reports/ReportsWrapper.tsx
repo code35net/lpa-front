@@ -1,4 +1,6 @@
 import React, {FC, useState} from 'react'
+import {ReportsWidget1,ReportsWidget2} from './widgets'
+import {ListFilter} from './header/ListFilter'
 import {
   ChartsWidget1,
   ChartsWidget2,
@@ -10,22 +12,33 @@ import {
   ChartsWidget8,
 } from '../../../_metronic/partials/widgets'
 
+const Reports: FC = () => {
 
-const Charts: FC = () => {
-  
+
+  const [reportsInfo,setReportsInfo] = useState();
   const [reportsInfoPercentage,setReportsInfoPercentage] = useState();
+  const [reportsInfoLeader,setReportsInfoLeader] = useState();
+
   return (
     <>
       {/* begin::Row */}
+
       <div className='row g-5 g-xl-8'>
+        <ListFilter setReportsInfo = {setReportsInfo} setReportsInfoPercentage = {setReportsInfoPercentage} setReportsInfoLeader = {setReportsInfoLeader} />
+        <div className='col-xl-12'>
+          <ReportsWidget1 reportsInfo = {reportsInfo} setReportsInfo = {setReportsInfo} className='card-xl-stretch mb-xl-8' />
+        </div>
+        
+        <div className='col-xl-12'>
+          <ReportsWidget2 reportsInfo = {reportsInfoLeader} setReportsInfo = {setReportsInfoLeader} className='card-xl-stretch mb-xl-8' />
+        </div>
+        
         <div className='col-xl-12'>
         <ChartsWidget1 reportsInfo={reportsInfoPercentage}  setReportsInfo={setReportsInfoPercentage} className='card-xl-stretch mb-xl-8' />
         </div>
-        
       </div>
       {/* end::Row */}
 
-      
       {/* end::Row */}
 
       {/* begin::Row */}
@@ -44,10 +57,10 @@ const Charts: FC = () => {
       {/* end::Row */}
 
       {/* begin::Row */}
-     
+
       {/* end::Row */}
     </>
   )
 }
 
-export {Charts}
+export {Reports}

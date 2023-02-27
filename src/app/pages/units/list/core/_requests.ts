@@ -10,6 +10,7 @@ const API_URL = process.env.REACT_APP_API_URL
 const THING_URL = `${API_URL}/Unit`
 const LIST_THING_URL = `${API_URL}/Custom/getPartialUnit`
 const SOME_THING_URL = `${API_URL}/Custom/getSomeUnit`
+const GET_PER_REPORT = `${API_URL}/Custom/getPercentageReport`
 
 const getThings = (query: string): Promise<QueryResponse> => {
   //console.log(query)
@@ -36,6 +37,14 @@ const listThings = async (): Promise<any> =>
   await axios.get(`${SOME_THING_URL}/${auditcategoryId}`).then((res: AxiosResponse) => {
     return res.data
   })
+
+  const getPercentageReport = (query: any): Promise<QueryResponse> => {
+    const queryRaw: any = parseRequestQuery(query)
+    return axios
+      .get(`${GET_PER_REPORT}?${new URLSearchParams(queryRaw).toString()}`)
+      .then((d: AxiosResponse<QueryResponse>) => d.data)
+  }
+
 
 const getThingById = (id: ID): Promise<Model | undefined> => {
   return axios
@@ -79,5 +88,6 @@ export {
   updateThing,
   listThings,
   listSomeThings,
-  listOtherThings
+  listOtherThings,
+  getPercentageReport
 }

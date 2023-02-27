@@ -2,7 +2,7 @@ import {lazy, FC, Suspense} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
+import {Charts} from '../pages/dashboard/DashboardWrapper'
 import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {DisableSidebar} from '../../_metronic/layout/core'
@@ -11,6 +11,10 @@ import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import {EditForm} from "../pages/questions/Add"
 import {UserEditForm} from "../pages/user-management/newuser"
 import {EditAuditForm} from "../pages/audits/Planner"
+import {AuditDetails} from "../pages/audits/detail/auditdetail"
+import {AuditQuestionsForm} from "../pages/audits/detail/auditquestions"
+import { Reports } from '../pages/reports/ReportsWrapper'
+// import { Reports as QuestionReports } from '../pages/questionreport/ReportsWrapper'
 
 
 
@@ -44,16 +48,19 @@ const PrivateRoutes = (menus: Array<string>) => {
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         {/* Pages */}
-        <Route path='dashboard' element={<DashboardWrapper />} />
+        <Route path='dashboard' element={<Charts />} />
         <Route path='builder' element={<BuilderPageWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
+        <Route path='/audits/auditdetail' element={<AuditDetails />} />
+        <Route path='/audits/auditquestions/:auditId' element={<AuditQuestionsForm />} />
         {/* <Route path='/course' element={<CoursePage />} /> */}
         {/* <Route path='/lesson' element={<LessonPage />} /> */}
         <Route path='/questions/add' element={<EditForm />} />
         <Route path='/user-management/newuser' element={<UserEditForm />} />
         <Route path='/audits/Planner' element={<EditAuditForm />} />
 
-
+        <Route path='reports' element={<Reports />} />
+              {/* <Route path='questionreport' element={<QuestionReports />} /> */}
         <Route path='/user-management/*' element={<SuspensedView><UsersPage /></SuspensedView>}/>
         
         

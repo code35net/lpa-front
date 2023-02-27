@@ -7,7 +7,10 @@ import {getCSS, getCSSVariableValue} from '../../../assets/ts/_utils'
 import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 
 type Props = {
+  reportsInfo: any
+  setReportsInfo: any
   className: string
+
 }
 
 const ChartsWidget1: React.FC<Props> = ({className}) => {

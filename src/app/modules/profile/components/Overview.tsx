@@ -26,7 +26,7 @@ export function Overview() {
       </div>
 
       <div className='col-xl-6'>
-        <ChartsWidget1 className='mb-5 mb-xxl-8' />
+        {/* <ChartsWidget1 className='mb-5 mb-xxl-8' /> */}
 
         <ListsWidget5 className='mb-5 mb-xxl-8' />
 
