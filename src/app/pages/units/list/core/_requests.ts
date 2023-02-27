@@ -45,6 +45,9 @@ const getThingById = (id: ID): Promise<Model | undefined> => {
 }
 
 const createThing = (thing: Model): Promise<Model | undefined> => {
+  const qsd = qs.parse(window.location.search, {ignoreQueryPrefix: true}).parentUnitId ?? null
+  if(qsd != null)
+    thing.parentUnitId = parseInt(qsd?.toString())
   return axios
     .put(THING_URL, thing)
     .then((response: AxiosResponse<Response<Model>>) => response.data)

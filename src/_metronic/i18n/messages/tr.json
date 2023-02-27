@@ -254,6 +254,18 @@
   "USER.TABLE.COLUMNS.ACTIONS" : "Aksiyonlar",
   "USER.PAGE.TITLE" : "Kullanıcılar",
 
+  "USERS.ADD" : "Kullanıcı Ekle",
+  "USER.NEWUSER.TITLE" : "YENI KULLANICI",
+  "USER.NEWUSER.MAIL" : "E-Mail",
+  "USER.NEWUSER.NAME" : "Adı",
+  "USER.NEWUSER.ID-NUM" : "Identity",
+  "USER.NEWUSER.DEPARTMENT" : "Departman",
+  "USER.NEWUSER.SECTION" : "Bölüm",
+  "USER.NEWUSER.POSITION" : "Pozisyon",
+  "MODALFORM.SAVE" : "Kaydet",
+  
+  
+
  
   
 

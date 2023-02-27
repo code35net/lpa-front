@@ -258,6 +258,16 @@
   "USER.TABLE.COLUMNS.ACTIONS" : "Actions",
   "USER.PAGE.TITLE" : "Users",
 
+  "USERS.ADD" : "Add User",
+  "USER.NEWUSER.TITLE" : "NEW USER",
+  "USER.NEWUSER.MAIL" : "E-Mail",
+  "USER.NEWUSER.NAME" : "Name",
+  "USER.NEWUSER.ID-NUM" : "Identity",
+  "USER.NEWUSER.DEPARTMENT" : "Department",
+  "USER.NEWUSER.SECTION" : "Section",
+  "USER.NEWUSER.POSITION" : "Position",
+  "MODALFORM.SAVE" : "Save",
+
  
   
 

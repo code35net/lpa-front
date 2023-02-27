@@ -250,7 +250,7 @@ const handleChangeUnitId = async (event:any) => {
              <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
-                {intl.formatMessage({id: 'USER.NEWUSER.UNIT'})}
+                {intl.formatMessage({id: 'USER.NEWUSER.DEPARTMENT'})}
                 </span>
               </label>
 
@@ -281,7 +281,7 @@ const handleChangeUnitId = async (event:any) => {
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
-                {intl.formatMessage({id: 'USER.NEWUSER.UNIT'})}
+                {intl.formatMessage({id: 'USER.NEWUSER.SECTION'})}
                 </span>
               </label>
 
