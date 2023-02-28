@@ -316,6 +316,24 @@
   "ANSWERTEMPLATES.LIST.ADDOPTION" : "Add Option",
   "ANSWERTEMPLATES.LIST.NEEDACTION" : "Need Action",
   "ANSWERTEMPLATES.LIST.ISTRUE" : "Is True",
+
+
+  "AUDITS.MOUNTH.01" : "January",
+  "AUDITS.MOUNTH.02" : "February",
+  "AUDITS.MOUNTH.03" : "March",
+  "AUDITS.MOUNTH.04" : "April",
+  "AUDITS.MOUNTH.05" : "May",
+  "AUDITS.MOUNTH.06" : "June",
+  "AUDITS.MOUNTH.07" : "July",
+  "AUDITS.MOUNTH.08" : "August",
+  "AUDITS.MOUNTH.09" : "September",
+  "AUDITS.MOUNTH.10" : "October",
+  "AUDITS.MOUNTH.11" : "November",
+  "AUDITS.MOUNTH.12" : "December",
+
+
+
+
   
 
   "boş" : "boş"

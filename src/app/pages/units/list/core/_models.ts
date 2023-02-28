@@ -1,5 +1,5 @@
 import {ID, Response} from '../../../../../_metronic/helpers'
-import {Model as AuditCategory} from '../../../position/list/core/_models'
+import {Model as AuditCategory} from '../../../audit-categories/list/core/_models'
 import {Model as Unit} from '../../../units/list/core/_models'
 export type Model = {
   id?: ID
@@ -9,6 +9,7 @@ export type Model = {
   parentUnit?: Unit
   parentUnitName?: string
   auditCategoryId?: string
+  auditCategory?: AuditCategory
   shift?: number | string
 }
 

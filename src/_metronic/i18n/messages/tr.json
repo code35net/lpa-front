@@ -317,6 +317,20 @@
   "ANSWERTEMPLATES.LIST.ISTRUE" : "Doğru mu",
   
 
+
+  "AUDITS.MOUNTH.01" : "Ocak",
+  "AUDITS.MOUNTH.02" : "Şubat",
+  "AUDITS.MOUNTH.03" : "Mart",
+  "AUDITS.MOUNTH.04" : "Nisan",
+  "AUDITS.MOUNTH.05" : "Mayıs",
+  "AUDITS.MOUNTH.06" : "Haziran",
+  "AUDITS.MOUNTH.07" : "Temmuz",
+  "AUDITS.MOUNTH.08" : "Ağustos",
+  "AUDITS.MOUNTH.09" : "Eylül",
+  "AUDITS.MOUNTH.10" : "Ekim",
+  "AUDITS.MOUNTH.11" : "Kasım",
+  "AUDITS.MOUNTH.12" : "Aralık",
+
   "boş" : "boş"
 
 

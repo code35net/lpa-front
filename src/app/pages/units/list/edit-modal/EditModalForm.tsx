@@ -11,6 +11,7 @@ import {createThing, updateThing} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
 import {listThings as listParentUnits} from '../../../units/list/core/_requests'
+import {Model as AuditCategory} from '../../../audit-categories/list/core/_models'
 import { useQueryRequest } from '../core/QueryRequestProvider'
 
 type Props = {
@@ -30,7 +31,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const {refetch} = useQueryResponse()
   const { state } = useQueryRequest()
 
-  const [auditCategory, setAuditCategory] = React.useState([])
+  const [auditCategory, setAuditCategory] = React.useState<Array<AuditCategory>>([])
   const [parentUnitId, setParentUnitId] = React.useState([])
 
   const [placeForEdit] = useState<Model>({    
@@ -71,12 +72,18 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       if (state.id != undefined) {
         values.parentUnitId = parseInt(state.id)
     }
-      
-      
-      if(!values.unitType){
-        values.unitType = 0
+      if(auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4)
+      {
+        values.unitType = undefined
       }
-      values.unitType=parseInt(values.unitType.toString())
+      else
+      {
+        if(!values.unitType){
+          values.unitType = 0
+        }
+        values.unitType=parseInt(values.unitType.toString())
+      }
+      
       
       try {
         if (isNotEmpty(values.id)) {
@@ -151,7 +158,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             {intl.formatMessage({id: 'AUDIT_CATEGORY_ID'})}
           </label>     
          <select
-                  className='form-select form-select-solid form-select-md'
+                  className='form-select form-multi form-select-solid form-select-md'
                   {...formik.getFieldProps('auditCategoryId')}
                   value={formik.values.auditCategoryId}
                   // onChange={handleChangeDepartmentId}
@@ -193,12 +200,12 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
         
 
         <div className='fv-row mb-7'>
-          <label hidden={formik.values.auditCategoryId != "1"} className='fw-bold fs-6 mb-2'>
+          <label hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4} className='fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT_TYPE'})}
           </label>
           <select 
            className='form-select form-select-solid form-select-md'
-           hidden={formik.values.auditCategoryId != "1"}
+           hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4}
            {...formik.getFieldProps('unitType')}
            >
             <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>

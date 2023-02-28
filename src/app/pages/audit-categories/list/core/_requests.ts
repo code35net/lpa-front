@@ -12,7 +12,7 @@ const getThings = (query: string): Promise<QueryResponse> => {
 }
 
 const listThings = async (): Promise<any> =>
-  await axios.get(`${THING_URL}/getAll?page=1`).then((res: AxiosResponse) => {
+  await axios.get(`${THING_URL}/getAll?page=1&items_per_page=9999`).then((res: AxiosResponse) => {
     return res.data
   })
 
