@@ -46,6 +46,7 @@ const UserEditForm: FC<Props> = ({item}) => {
   const {refetch} = useQueryResponse()
   const [units, setUnits] = React.useState([])
   const [otherunits, setOtherUnits] = React.useState([])
+  const [otherunits2, setOtherUnits2] = React.useState([])
   const [positions, setPositions] = React.useState([])
 
   useEffect(() => {
@@ -71,7 +72,8 @@ const UserEditForm: FC<Props> = ({item}) => {
     identity: undefined,
     positionId:undefined,
     unitId:undefined, 
-    parentUnitId:undefined
+    parentUnitId:undefined,
+    punitId:undefined
     })
 
   //   const updateData = (fieldsToUpdate: Partial<Model>): void => {
@@ -82,9 +84,18 @@ const UserEditForm: FC<Props> = ({item}) => {
   
 const handleChangeUnitId = async (event:any) => {
 
-  formik.setFieldValue('unitId',event?.target.value)
+  formik.setFieldValue('punitId',event?.target.value)
   listOtherUnits(event.target.value).then((res) => {
     setOtherUnits(res.data)
+    setOtherUnits2([])
+  })
+}
+
+const handleChangeUnitId2 = async (event:any) => {
+
+  formik.setFieldValue('unitId',event?.target.value)
+  listOtherUnits(event.target.value).then((res) => {
+    setOtherUnits2(res.data)
   })
 }
 
@@ -96,6 +107,8 @@ const handleChangeUnitId = async (event:any) => {
     onSubmit: async (values) => {
       setLoading(true)
 
+      console.log(values.punitId)
+      
       if (!values.unitId && units.length) {
         values.unitId = (units[0] as any)?.id
       }
@@ -121,6 +134,8 @@ const handleChangeUnitId = async (event:any) => {
       formik.setSubmitting(false)
     },
   })
+
+  
 
   return (
     <div className='card mb-5 mb-xl-10'>
@@ -288,12 +303,44 @@ const handleChangeUnitId = async (event:any) => {
               <div className='col-lg-8 fv-row'>
               <select
                   className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('unitId')}
+                  //  {...formik.getFieldProps('punitId')}
+                  //   value={formik.values.punitId}
+                   onChange={handleChangeUnitId2}
+                >
+                  <option value=''>Seçiniz</option>
+                  {otherunits.map((otherunit: any) => (
+                    <option value={otherunit?.id} key={otherunit?.id as any}>
+                      {otherunit?.name as any}
+                    </option>
+                  ))}
+                </select>
+                {formik.touched.punitId && formik.errors.punitId && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.punitId}</span>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </div> 
+
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>
+                {intl.formatMessage({id: 'USER.NEWUSER.UNIT'})}
+                </span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+              <select
+                  className='form-select form-select-solid form-select-md'
+                   {...formik.getFieldProps('unitId')}
                   // value={formik.values.unitId}
                   // onChange={handleChangeUnitId}
                 >
                   <option value=''>Seçiniz</option>
-                  {otherunits.map((otherunit: any) => (
+                  {otherunits2.map((otherunit: any) => (
                     <option value={otherunit?.id} key={otherunit?.id as any}>
                       {otherunit?.name as any}
                     </option>
@@ -309,6 +356,7 @@ const handleChangeUnitId = async (event:any) => {
 
               </div>
             </div> 
+            
             
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>

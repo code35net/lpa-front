@@ -10,6 +10,7 @@ const GET_USERS_URL = `${API_URL}/Custom/getUser`
 const GET_USER_DETAILS_URL = `${API_URL}/Custom/getUserDetail`
 const GET_USER_CLAIMS_URL = `${API_URL}/Custom/getUserClaims`
 const SET_USER_CLAIMS_URL = `${API_URL}/Custom/setClaimForUser`
+const GET_SOME_USER_URL = `${API_URL}/Custom/getSomeUser`
 
 const getUserDetails = async (id : string): Promise<any> => await axios.get(`${GET_USER_DETAILS_URL}?Id=${id}`).then((res : AxiosResponse) => 
  {
@@ -20,6 +21,12 @@ const listUsers = async (): Promise<any> =>
   await axios.get(`${GET_USERS_URL}?page=1&items_per_page=900`).then((res: AxiosResponse) => {
     return res.data
   })
+
+  const listSomeUsers = async (unitId: any): Promise<any> =>
+  await axios.get(`${GET_SOME_USER_URL}/${unitId}?page=1&items_per_page=900`).then((res: AxiosResponse) => {
+    return res.data
+  })
+
 
 const getUsers = (query: string): Promise<QueryResponse> => {
   return axios.get(`${GET_USERS_URL}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
@@ -81,5 +88,6 @@ export {
   listUsers,
   getUserClaims,
   setClaimForUser,
-  getUserDetails
+  getUserDetails,
+  listSomeUsers
 }

@@ -7,7 +7,7 @@ const THING_URL = `${API_URL}/Position`
 
 const getThings = (query: string): Promise<QueryResponse> => {
   return axios
-    .get(`${THING_URL}/getAll/?${query}&modelstoinclude=AuditCategory`)
+    .get(`${THING_URL}/getAll/?${query}`)
     .then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 

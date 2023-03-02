@@ -3,7 +3,7 @@ import {Model as AuditCategory} from '../../../position/list/core/_models'
 export type Model = {
   id?: ID
   name?: string
-  auditCategoryId?: number
+  auditCategoryId?: string
   AuditCategory?:AuditCategory
 }
 

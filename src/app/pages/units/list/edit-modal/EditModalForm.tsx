@@ -13,6 +13,9 @@ import {listThings as listAuditCategories} from '../../../audit-categories/list/
 import {listThings as listParentUnits} from '../../../units/list/core/_requests'
 import {Model as AuditCategory} from '../../../audit-categories/list/core/_models'
 import { useQueryRequest } from '../core/QueryRequestProvider'
+import {listSomeUsers as listUsers} from '../../../user-management/list/core/_requests'
+
+
 
 type Props = {
   isThingLoading: boolean
@@ -33,6 +36,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
   const [auditCategory, setAuditCategory] = React.useState<Array<AuditCategory>>([])
   const [parentUnitId, setParentUnitId] = React.useState([])
+  const [users, setUser] = React.useState([])
 
   const [placeForEdit] = useState<Model>({    
     name: undefined,
@@ -40,6 +44,9 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     parentUnitId:undefined,
     shift:undefined,
     unitType:undefined,
+    users:undefined,
+    
+    
     ...item,
     
   })
@@ -59,6 +66,10 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     listParentUnits().then((res2) => {
       setParentUnitId(res2.data || [])
     })
+
+    listUsers(state.id).then((res2) => {
+      setUser(res2.data || [])
+    })
     
     
   }, [])
@@ -68,6 +79,20 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     validationSchema: editchema,
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
+      // console.log(values.auditCategoryId)
+      
+       
+        let pids = ''
+        const x = [values.auditCategoryId]
+       
+       x?.map((r) => {
+          
+          pids = pids + r?.toString() + ','
+        })
+        // console.log(pids)
+        pids = pids.slice(0,-1)
+      values.auditCategoryId= pids
+      // console.log(values.auditCategoryId)
 
       if (state.id != undefined) {
         values.parentUnitId = parseInt(state.id)
@@ -102,7 +127,10 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
   console.log(formik.values.auditCategoryId)
 
-  
+  const options =  { value: 'chocolate', label: 'Chocolate' }
+    
+   
+  console.log(users)
 
   return (
     <>
@@ -120,8 +148,6 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           
           
         </div>
-      
-      
         <div className='fv-row mb-7'>
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'POSITION_NAME'})}
@@ -150,6 +176,9 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             </div>
           )}
         </div>
+      
+      
+       
 
    
 
@@ -158,6 +187,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             {intl.formatMessage({id: 'AUDIT_CATEGORY_ID'})}
           </label>     
          <select
+              multiple
                   className='form-select form-multi form-select-solid form-select-md'
                   {...formik.getFieldProps('auditCategoryId')}
                   value={formik.values.auditCategoryId}
@@ -173,6 +203,30 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
                 </select>
           {/* end::Input */}
         </div>
+
+
+        <div className='fv-row mb-7'>    
+        <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'UNIT_LEADER'})}
+          </label>     
+         <select
+              
+                  className='form-select form-multi form-select-solid form-select-md'
+                  {...formik.getFieldProps('users')}
+                  value={formik.values.users}
+                  // onChange={handleChangeDepartmentId}
+                >
+                  <option value=''>Seçiniz</option>
+                  {/* ?? */}
+                  {users.map((user: any) => (
+                    <option value={user?.id} key={user?.id as any}>
+                      {user?.fullName as any}
+                    </option>
+                  ))}
+                </select>
+          {/* end::Input */}
+        </div>
+  
 
     
         {/* <div className='fv-row mb-7'>    

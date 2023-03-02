@@ -13,6 +13,7 @@ export type Model = {
   isDeleteUser?:boolean
   userId?: string
   parentUnitId?: number
+  punitId? : number
 }
 
 export type QueryResponse = Response<Array<Model>>

@@ -56,6 +56,19 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     validationSchema: editchema,
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
+
+      let pids = ''
+        const x = [values.auditCategoryId]
+       
+       x?.map((r) => {
+          
+          pids = pids + r?.toString() + ','
+        })
+        // console.log(pids)
+        pids = pids.slice(0,-1)
+        values.auditCategoryId= pids
+
+
       try {
         if (isNotEmpty(values.id)) {
           await updateThing(values)
@@ -123,6 +136,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             {intl.formatMessage({id: 'AUDIT_CATEGORY_ID'})}
           </label>     
          <select
+                  multiple
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('auditCategoryId')}
                   value={formik.values.auditCategoryId}
