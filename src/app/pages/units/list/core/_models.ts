@@ -12,7 +12,8 @@ export type Model = {
   auditCategoryId?: string
   auditCategory?: AuditCategory 
   shift?: number | string
-  users?: string
+  userId?: string
+  userName?:string
 }
 
 export type QueryResponse = Response<Array<Model>>

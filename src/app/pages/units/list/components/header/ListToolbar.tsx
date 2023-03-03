@@ -12,6 +12,15 @@ const ListToolbar = () => {
 
   return (
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
+           <button
+            type='reset'
+            // onClick={() => cancel()}
+            className='btn btn-sm btn-light me-3'
+            data-kt-items-modal-action='cancel'
+           
+          >
+           Geri
+          </button>
       <button
         type='button'
         className='btn btn-sm btn-primary btn-active-light-primary '
@@ -20,6 +29,7 @@ const ListToolbar = () => {
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         {intl.formatMessage({id: 'LIST.BUTTON.ADD'})}
       </button>
+
     </div>
   )
 }

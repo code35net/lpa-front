@@ -17,24 +17,24 @@ const getThings = (query: string): Promise<QueryResponse> => {
   let q = query.split("id=")[1]
   console.log(q)
   if(q == undefined)
-    q = "null"
+    q = "0"
   return axios
-    .get(`${THING_URL}/getAll/ParentUnitId-${q}?${query}`)
+    .get(`${LIST_THING_URL}/${q}?${query}`)
     .then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 const listThings = async (): Promise<any> =>
-  await axios.get(`${THING_URL}/getAll/ParentUnitId-null`).then((res: AxiosResponse) => {
+  await axios.get(`${LIST_THING_URL}/null`).then((res: AxiosResponse) => {
     return res.data
   })
 
   const listOtherThings = async (q: number): Promise<any> =>
-  await axios.get(`${THING_URL}/getAll/ParentUnitId-${q}`).then((res: AxiosResponse) => {
+  await axios.get(`${listOtherThings}/${q}`).then((res: AxiosResponse) => {
     return res.data
   })
 
   const listSomeThings = async (auditcategoryId: string): Promise<any> =>
-  await axios.get(`${SOME_THING_URL}/${auditcategoryId}`).then((res: AxiosResponse) => {
+  await axios.get(`${LIST_THING_URL}/${auditcategoryId}`).then((res: AxiosResponse) => {
     return res.data
   })
 

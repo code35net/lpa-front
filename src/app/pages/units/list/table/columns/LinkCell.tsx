@@ -21,6 +21,8 @@ const LinkCell: FC<Props> = ({item}) => {
     <div className='d-flex flex-column'>
       <span className='text-gray-800'>
       <a className="link" style={{cursor: "pointer"}} onClick={()=> {
+        localStorage.setItem('section-name-breadcrumb', (item as any)?.name)
+        localStorage.setItem('section-id-breadcrumb', (item as any)?.id)
         console.log(item.id?.toString())
         updateState({id: item.id?.toString()})
         refetch()

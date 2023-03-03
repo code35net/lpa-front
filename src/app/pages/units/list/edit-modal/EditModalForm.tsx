@@ -36,7 +36,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
   const [auditCategory, setAuditCategory] = React.useState<Array<AuditCategory>>([])
   const [parentUnitId, setParentUnitId] = React.useState([])
-  const [users, setUser] = React.useState([])
+  const [userId, setUserId] = React.useState([])
 
   const [placeForEdit] = useState<Model>({    
     name: undefined,
@@ -44,7 +44,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     parentUnitId:undefined,
     shift:undefined,
     unitType:undefined,
-    users:undefined,
+    userId:undefined,
     
     
     ...item,
@@ -68,7 +68,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     })
 
     listUsers(state.id).then((res2) => {
-      setUser(res2.data || [])
+      setUserId(res2.data || [])
     })
     
     
@@ -130,7 +130,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const options =  { value: 'chocolate', label: 'Chocolate' }
     
    
-  console.log(users)
+
 
   return (
     <>
@@ -206,19 +206,20 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
 
         <div className='fv-row mb-7'>    
-        <label className='required fw-bold fs-6 mb-2'>
+        <label hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4} className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT_LEADER'})}
           </label>     
          <select
               
                   className='form-select form-multi form-select-solid form-select-md'
-                  {...formik.getFieldProps('users')}
-                  value={formik.values.users}
+                  hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4}
+                  {...formik.getFieldProps('userId')}
+                  value={formik.values.userId}
                   // onChange={handleChangeDepartmentId}
                 >
                   <option value=''>Seçiniz</option>
                   {/* ?? */}
-                  {users.map((user: any) => (
+                  {userId.map((user: any) => (
                     <option value={user?.id} key={user?.id as any}>
                       {user?.fullName as any}
                     </option>

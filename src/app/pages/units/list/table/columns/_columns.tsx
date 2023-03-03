@@ -9,6 +9,8 @@ import {SelectionHeader} from './SelectionHeader'
 import {Model} from '../../core/_models'
 
 const Columns: ReadonlyArray<Column<Model>> = [
+  
+  
   {
     Header: (props) => <SelectionHeader tableProps={props} />,
     id: 'selection',
@@ -24,6 +26,12 @@ const Columns: ReadonlyArray<Column<Model>> = [
     id: 'name',
     Cell: ({...props}) => <LinkCell item={props.data[props.row.index]} />,
   },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'UNIT_LEADER'})} className='min-w-125px' />,
+    id: 'userName',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].userName} />,
+  },
+
   
   
   // {
