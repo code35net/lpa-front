@@ -43,6 +43,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
         const searchParams = new URLSearchParams(location.search)
         id = searchParams.get('parentUnitId')
       }*/
+      //console.log("ççç")
       return getThings(query)
     },
     {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}

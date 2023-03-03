@@ -7,6 +7,7 @@ export interface PageLink {
   path: string
   isActive: boolean
   isSeparator?: boolean
+  id?: string
 }
 
 export interface PageDataContextModel {

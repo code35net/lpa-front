@@ -19,6 +19,7 @@ const Breadcrumbs: Array<PageLink> = [
     path: '/units',
     isSeparator: false,
     isActive: false,
+    id: "20"
   },
   {
     title: '',
@@ -47,7 +48,7 @@ const Page = () => {
     const iditem = localStorage.getItem('department-id-breadcrumb')
     if (item) {
       breadcrumbs[breadcrumbs.length - 2].title = item
-      breadcrumbs[breadcrumbs.length - 2].path = '/sections/list?departmentId='+iditem
+      breadcrumbs[breadcrumbs.length - 2].path = '/units/list?unitId='+iditem
       setBreadcrumbs([...breadcrumbs])
     }
     // Respond to the `storage` event
