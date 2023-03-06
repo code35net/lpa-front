@@ -30,8 +30,6 @@
   "MENU.AUDITS": "Audits",
   "MENU.QUESTIONS": "Questions",
   "MENU.QUESTIONGROUPS": "Question Categories",
-  
-
 
   "AUTH.GENERAL.OR": "Or",
   "AUTH.GENERAL.SUBMIT_BUTTON": "Submit",
@@ -66,8 +64,6 @@
   "AUTH.VALIDATION.MAX_LENGTH_FIELD": "Maximum field length:",
   "AUTH.VALIDATION.INVALID_FIELD": "Field is not valid",
 
-
-
   "SEARCH.PLACEHOLDER": "Search",
   "SIGNOUT": "Signout",
   "LIST.BUTTON.ADD": "Add New",
@@ -91,12 +87,6 @@
   "SWEETALERT.CONFIRM": "Confirm",
   "SWEETALERT.CANCEL": "Cancel",
   "DROPDOWN_SELECT": "Select",
-  
-
-
-
-
-
 
   "ANNOUNCEMENT.TITLE": "Title",
   "ANNOUNCEMENT.TEXT": "Text",
@@ -123,8 +113,6 @@
 
   "ANSWERTEMPLATES.LIST.OPTIONTEXT": "Text",
   "ANSWERTEMPLATES.MODAL.ADD": "Add Answer Template",
-
-  
 
   "COURSE.NAME": "Course Name",
   "COURSE.DESCRIPTION": "Course Description",
@@ -158,7 +146,6 @@
   "QUIZ.COURSENAME": "Course Name",
   "QUIZ.PAGE.TITLE": "Quiz",
 
-
   "QUESTION.TEXT": "Question Text",
   "QUESTION.COURSETOPIC": "Course / Topic",
   "QUESTION.PAGE.TITLE": "Question Bank",
@@ -178,7 +165,6 @@
   "QUESTIONS.ADDPAGE.SELECT.ANSWERTEMPLATE": "Select Answer Template",
   "QUESTIONS.ADDPAGE.SELECT.QUESTION.CATEGORY": "Select Question Category",
 
-
   "USERS.FULLNAME": "Fullname",
   "USERS.PAGE.TITLE": "Users",
   "USERS.EMAIL": "Email",
@@ -189,10 +175,8 @@
   "USERS.PARTICIPANT": "Participant",
   "USERS.PROFILE": "My Profile",
 
-
   "LIBRARYCATEGORY.NAME": "Library Category Name",
   "LIBRARYCATEGORY.PAGE.TITLE": "Library Category",
-
 
   "IMAGELIBRARY.CODE": "File Code",
   "IMAGELIBRARY.ORIGINAL": "Original File",
@@ -208,151 +192,139 @@
   "IMAGELIBRARY.FILE.TEXT": "Download Template Zip File",
   "IMAGELIBRARY.PAGE.TITLE": "Image Library",
 
+  "POSITION_PAGE_TITLE": "Positions",
+  "POSITION_NAME": "Name",
 
-  "POSITION_PAGE_TITLE" : "Positions",
-  "POSITION_NAME" : "Name",
+  "AUDIT_CATEGORY_PAGE_TITLE": "Audit Categories",
+  "AUDIT_CATEGORY_NAME": "Audit Category",
+  "AUDIT_CATEGORY_TYPE": "Category Type",
+  "AUDIT_CATEGORY_ID": "Audit Category",
 
-  "AUDIT_CATEGORY_PAGE_TITLE" : "Audit Categories",
-  "AUDIT_CATEGORY_NAME" : "Audit Category",
-  "AUDIT_CATEGORY_TYPE" : "Category Type",
-  "AUDIT_CATEGORY_ID" : "Audit Category",
+  "QUESTION_GROUP_PAGE_TITLE": "Question Categories",
+  "QUESTION_GROUP_NAME": "Question Category",
+  "QUESTION_GROUP_ID": "Question Category",
 
-  "QUESTION_GROUP_PAGE_TITLE" : "Question Categories",
-  "QUESTION_GROUP_NAME" : "Question Category",
-  "QUESTION_GROUP_ID" : "Question Category",
+  "HOLIDAY_PAGE_TITLE": "Holidays",
+  "HOLIDAYS_NAME": "Holidays",
+  "HOLIDAYS_DATE": "Date",
 
-  "HOLIDAY_PAGE_TITLE" : "Holidays",
-  "HOLIDAYS_NAME" : "Holidays",
-  "HOLIDAYS_DATE" : "Date",
+  "AUDIT_PAGE_TITLE": "Audits",
+  "AUDIT_AUDITOR": "Auditor",
+  "AUDIT_START_DATE": "Start Date",
+  "AUDIT_END_DATE": "End Date",
 
-  "AUDIT_PAGE_TITLE" : "Audits",
-  "AUDIT_AUDITOR" : "Auditor",
-  "AUDIT_START_DATE" : "Start Date",
-  "AUDIT_END_DATE" : "End Date",
+  "UNIT_PAGE_TITLE": "Units",
+  "PARENT_UNIT_ID": "Parent Unit",
+  "UNIT_TYPE": "Unit Type",
+  "UNIT_SHIFT": "Shift",
 
-  "UNIT_PAGE_TITLE" : "Units",
-  "PARENT_UNIT_ID" : "Parent Unit",
-  "UNIT_TYPE" : "Unit Type",
-  "UNIT_SHIFT" : "Shift",
+  "QUESTIONS.LIST.TABLE.QUESTION.TEXT": "Text",
+  "QUESTIONS.LIST.TABLE.AUDIT.CATEGORY": "Audit Category",
+  "QUESTIONS.LIST.TABLE.UNIT.NAME": "Unit Name",
+  "TABLE.ACTIONS": "Actions",
+  "QUESTIONS.PAGE.TITLE": "Questions",
+  "AUDITS.DETAIL.UNIT": "Unit",
+  "QUESTIONS.ADDPAGE.AUDITCATEGORY": "Audit Category",
+  "QUESTIONS.ADDPAGE.QUESTIONTEXT_OPTION": "Question Option",
+  "QUESTIONS.ADDPAGE.TEXT": "Question Text",
+  "QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY": "Question Category",
+  "QUESTIONS.ADDPAGE.ADDBUTTON": "Add New",
+  "QUESTIONS.ADDPAGE.TITLE": "ADD QUESTION",
+  "QUESTIONS.ADDPAGE.SAVE": "Save",
+  "QUESTIONS.LIST.ADD": "Add Question",
+  "TOOLBAR.FILTER": "Filter",
 
+  "QUESTIONS.ADDPAGE.AUDITCATEGORY.SELECT": "Select",
 
-  "QUESTIONS.LIST.TABLE.QUESTION.TEXT" : "Text",
-  "QUESTIONS.LIST.TABLE.AUDIT.CATEGORY" : "Audit Category",
-  "QUESTIONS.LIST.TABLE.UNIT.NAME" : "Unit Name",
-  "TABLE.ACTIONS" : "Actions",
-  "QUESTIONS.PAGE.TITLE" : "Questions",
-  "AUDITS.DETAIL.UNIT" : "Unit",
-  "QUESTIONS.ADDPAGE.AUDITCATEGORY" : "Audit Category",
-  "QUESTIONS.ADDPAGE.QUESTIONTEXT_OPTION" : "Question Option",
-  "QUESTIONS.ADDPAGE.TEXT" : "Question Text",
-  "QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY" : "Question Category",
-  "QUESTIONS.ADDPAGE.ADDBUTTON" : "Add New",
-  "QUESTIONS.ADDPAGE.TITLE" : "ADD QUESTION",
-  "QUESTIONS.ADDPAGE.SAVE" : "Save",
-  "QUESTIONS.LIST.ADD" : "Add Question",
-  "TOOLBAR.FILTER" : "Filter",
+  "ANSWERTEMPLATES.LIST.NAME": "Answer Templates",
+  "ANSWERTEMPLATES.LIST.ADD": "Add Answer Template",
+  "ANSWERTEMPLATES.LIST.OPTIONS": "Answer Template Options",
+  "TABLE.SEARCH.PLACEHOLDER": "Search",
 
-  "QUESTIONS.ADDPAGE.AUDITCATEGORY.SELECT" : "Select",
+  "USER.TABLE.COLUMNS.NAME": "Name",
+  "USER.TABLE.COLUMNS.MAIL": "Mail",
+  "USER.TABLE.COLUMNS.IDENTITY": "Identity",
+  "USER.TABLE.COLUMNS.DEP/SEC": "Department/Section",
+  "USER.TABLE.COLUMNS.POS": "Position",
+  "USER.TABLE.COLUMNS.SHIFT": "Shift",
+  "USER.TABLE.COLUMNS.ACTIONS": "Actions",
+  "USER.PAGE.TITLE": "Users",
+  "USER.PAGE.INF": "User Settings",
+  "USER.CHANGE.PASS": "Change Password",
+  "USER.CHANGE.PASSWORD": "Change Password",
+  "USER.PASS": "Password",
+  "USER.CURRENTT.PASSWORD": "Current Password",
+  "USER.NEWW.PASSWORD": " New Password",
 
-  
+  "USERS.ADD": "Add User",
+  "USER.NEWUSER.TITLE": "NEW USER",
+  "USER.NEWUSER.MAIL": "E-Mail",
+  "USER.NEWUSER.NAME": "Name",
+  "USER.NEWUSER.ID-NUM": "Identity",
+  "USER.NEWUSER.DEPARTMENT": "Department",
+  "USER.NEWUSER.SECTION": "Section",
+  "USER.NEWUSER.POSITION": "Position",
+  "MODALFORM.SAVE": "Save",
 
-  "ANSWERTEMPLATES.LIST.NAME" : "Answer Templates",
-  "ANSWERTEMPLATES.LIST.ADD" : "Add Answer Template",
-  "ANSWERTEMPLATES.LIST.OPTIONS" : "Answer Template Options",
-  "TABLE.SEARCH.PLACEHOLDER" : "Search",
+  "AUDITS.LIST.AUDITNAME": "Audit Name",
+  "AUDITS.LIST.UNITNAME": "Unit Name",
+  "AUDITS.LIST.DATE": "Audit Date",
+  "AUDITS.LIST.AUDITOR": "Auditor",
+  "AUDITS.LIST.STATUS": "Audit Status",
+  "AUDITS.PAGE.TITLE": "AUDITS",
+  "AUDITS.LIST.ADD": "Audit Planner",
+  "AUDITS.PLANNER.TITLE": "AUDIT PLANNER",
+  "ADD.QUESTION.AUDITCATEGORY": "Audit Category",
+  "AUDITS.PLANNER.UNIT": "Unit",
+  "ADD.QUESTION.IS_ADDED_QUESTION_CATEGORY": "Is Added Question Category",
+  "ADD.QUESTION.CATEGORY": "Question Category",
+  "AUDITS.PLANNER.POSITION": "Position",
 
-  "USER.TABLE.COLUMNS.NAME" : "Name",
-  "USER.TABLE.COLUMNS.MAIL" : "Mail",
-  "USER.TABLE.COLUMNS.IDENTITY" : "Identity",
-  "USER.TABLE.COLUMNS.DEP/SEC" : "Department/Section",
-  "USER.TABLE.COLUMNS.POS" : "Position",
-  "USER.TABLE.COLUMNS.SHIFT" : "Shift",
-  "USER.TABLE.COLUMNS.ACTIONS" : "Actions",
-  "USER.PAGE.TITLE" : "Users",
+  "AUDITS.PLANNER.YEAR": "Year",
+  "AUDITS.PLANNER.MONTH": "Month",
+  "AUDITS.PLANNER.CHOOSE": "Choose",
+  "AUDITS.PLANNER.SAVE": "Save",
 
-  "USERS.ADD" : "Add User",
-  "USER.NEWUSER.TITLE" : "NEW USER",
-  "USER.NEWUSER.MAIL" : "E-Mail",
-  "USER.NEWUSER.NAME" : "Name",
-  "USER.NEWUSER.ID-NUM" : "Identity",
-  "USER.NEWUSER.DEPARTMENT" : "Department",
-  "USER.NEWUSER.SECTION" : "Section",
-  "USER.NEWUSER.POSITION" : "Position",
-  "MODALFORM.SAVE" : "Save",
+  "AUDITS.PLANNER.CLOSE.SELECT": "Select",
 
+  "USER.ISDELETED": "Is Deleted",
+  "USER.FULLNAME": "Full Name",
+  "USER.IDENTITY": "Identity",
+  "USER.EDIT": "Edit",
+  "USER.NEWUSER": "New User",
+  "USERS.LIST.MODAL.FORM": "User List",
 
-  "AUDITS.LIST.AUDITNAME" : "Audit Name",
-  "AUDITS.LIST.UNITNAME" : "Unit Name",
-  "AUDITS.LIST.DATE" : "Audit Date",
-  "AUDITS.LIST.AUDITOR" : "Auditor",
-  "AUDITS.LIST.STATUS" : "Audit Status",
-  "AUDITS.PAGE.TITLE" : "AUDITS",
-  "AUDITS.LIST.ADD" : "Audit Planner",
-  "AUDITS.PLANNER.TITLE" : "AUDIT PLANNER",
-  "ADD.QUESTION.AUDITCATEGORY" : "Audit Category",
-  "AUDITS.PLANNER.UNIT" : "Unit",
-  "ADD.QUESTION.IS_ADDED_QUESTION_CATEGORY" : "Is Added Question Category",
-  "ADD.QUESTION.CATEGORY" : "Question Category",
-  "AUDITS.PLANNER.POSITION" : "Position",
+  "AUDITS.MODAL.EDIT": "Edit",
+  "AUDITS.PLANNER.USER": "Audit Planner User",
 
-  "AUDITS.PLANNER.YEAR" : "Year",
-  "AUDITS.PLANNER.MONTH" : "Month",
-  "AUDITS.PLANNER.CHOOSE" : "Choose",
-  "AUDITS.PLANNER.SAVE" : "Save",
+  "ACTION.PAGE.TITLE": "ACTIONS",
+  "ACTION.LIST.COL.FIND": "Finding",
+  "ACTION.LIST.COL.DONE": "Is Complete",
+  "ACTION.LIST.COL.STAFF": "Staff",
+  "ACTION.LIST.COL.STATUS": "Status",
+  "ACTION.LIST.COL.ACTIONS": "Actions",
 
-  "AUDITS.PLANNER.CLOSE.SELECT" : "Select",
+  "ANSWERTEMPLATES.MODAL.EDIT": "Edit",
+  "ANSWERTEMPLATES.LIST.ADDOPTION": "Add Option",
+  "ANSWERTEMPLATES.LIST.NEEDACTION": "Need Action",
+  "ANSWERTEMPLATES.LIST.ISTRUE": "Is True",
 
+  "AUDITS.MOUNTH.01": "January",
+  "AUDITS.MOUNTH.02": "February",
+  "AUDITS.MOUNTH.03": "March",
+  "AUDITS.MOUNTH.04": "April",
+  "AUDITS.MOUNTH.05": "May",
+  "AUDITS.MOUNTH.06": "June",
+  "AUDITS.MOUNTH.07": "July",
+  "AUDITS.MOUNTH.08": "August",
+  "AUDITS.MOUNTH.09": "September",
+  "AUDITS.MOUNTH.10": "October",
+  "AUDITS.MOUNTH.11": "November",
+  "AUDITS.MOUNTH.12": "December",
 
-  "USER.ISDELETED" : "Is Deleted",
-  "USER.FULLNAME" : "Full Name",
-  "USER.IDENTITY" : "Identity",
-  "USER.EDIT" : "Edit",
-  "USER.NEWUSER" : "New User",
-  "USERS.LIST.MODAL.FORM" : "User List",
+  "USER.NEWUSER.UNIT": "Unit",
 
- 
-  "AUDITS.MODAL.EDIT" : "Edit",
-  "AUDITS.PLANNER.USER" : "Audit Planner User",
+  "UNIT_LEADER": "Team Leader",
 
-  "ACTION.PAGE.TITLE" : "ACTIONS",
-  "ACTION.LIST.COL.FIND" : "Finding",
-  "ACTION.LIST.COL.DONE" : "Is Complete",
-  "ACTION.LIST.COL.STAFF" : "Staff",
-  "ACTION.LIST.COL.STATUS" : "Status",
-  "ACTION.LIST.COL.ACTIONS" : "Actions",
-
-  "ANSWERTEMPLATES.MODAL.EDIT" : "Edit",
-  "ANSWERTEMPLATES.LIST.ADDOPTION" : "Add Option",
-  "ANSWERTEMPLATES.LIST.NEEDACTION" : "Need Action",
-  "ANSWERTEMPLATES.LIST.ISTRUE" : "Is True",
-
-
-  "AUDITS.MOUNTH.01" : "January",
-  "AUDITS.MOUNTH.02" : "February",
-  "AUDITS.MOUNTH.03" : "March",
-  "AUDITS.MOUNTH.04" : "April",
-  "AUDITS.MOUNTH.05" : "May",
-  "AUDITS.MOUNTH.06" : "June",
-  "AUDITS.MOUNTH.07" : "July",
-  "AUDITS.MOUNTH.08" : "August",
-  "AUDITS.MOUNTH.09" : "September",
-  "AUDITS.MOUNTH.10" : "October",
-  "AUDITS.MOUNTH.11" : "November",
-  "AUDITS.MOUNTH.12" : "December",
-
-
-  "USER.NEWUSER.UNIT" : "Unit",
-
-  "UNIT_LEADER" : "Team Leader",
-
-  
-  
-  
-
-
-
-  
-
-  "boş" : "boş"
-
+  "boş": "boş"
 }

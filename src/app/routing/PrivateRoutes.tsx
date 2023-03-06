@@ -8,16 +8,14 @@ import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {DisableSidebar} from '../../_metronic/layout/core'
 import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
-import {EditForm} from "../pages/questions/Add"
-import {UserEditForm} from "../pages/user-management/newuser"
-import {EditAuditForm} from "../pages/audits/Planner"
-import {AuditDetails} from "../pages/audits/detail/auditdetail"
-import {AuditQuestionsForm} from "../pages/audits/detail/auditquestions"
-import { Reports } from '../pages/reports/ReportsWrapper'
+import {EditForm} from '../pages/questions/Add'
+import {UserEditForm} from '../pages/user-management/newuser'
+
+import {EditAuditForm} from '../pages/audits/Planner'
+import {AuditDetails} from '../pages/audits/detail/auditdetail'
+import {AuditQuestionsForm} from '../pages/audits/detail/auditquestions'
+import {Reports} from '../pages/reports/ReportsWrapper'
 // import { Reports as QuestionReports } from '../pages/questionreport/ReportsWrapper'
-
-
-
 
 const PrivateRoutes = (menus: Array<string>) => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -29,22 +27,23 @@ const PrivateRoutes = (menus: Array<string>) => {
 
   const AnswerTemplatePage = lazy(() => import('../pages/answertemplates/Page'))
 
-  const QuestionBankPage = lazy(() => import( '../pages/questions/Page'))
+  const QuestionBankPage = lazy(() => import('../pages/questions/Page'))
 
-  const Position = lazy (() => import('../pages/position/Page'))
-  const Action = lazy (() => import('../pages/actions/Page'))
-  const AuditCategory = lazy (() => import('../pages/audit-categories/Page'))
-  const QuestionGroup = lazy (() => import('../pages/question-groups/Page'))
-  const Holidays = lazy (() => import('../pages/holidays/Page'))
-  const Audits = lazy (() => import('../pages/audits/Page'))
-  const Units = lazy (() => import('../pages/units/Page'))
+  const Position = lazy(() => import('../pages/position/Page'))
+  const Action = lazy(() => import('../pages/actions/Page'))
+  const AuditCategory = lazy(() => import('../pages/audit-categories/Page'))
+  const QuestionGroup = lazy(() => import('../pages/question-groups/Page'))
+  const Holidays = lazy(() => import('../pages/holidays/Page'))
+  const Audits = lazy(() => import('../pages/audits/Page'))
+  const Units = lazy(() => import('../pages/units/Page'))
+  const ChangesPassword = lazy(() => import('../pages/changePassword/Page'))
 
-  var usermanagementyetki = Object.keys(menus).some((key: any) => menus[key] == "useraction");
-  var announcementyetki = Object.keys(menus).some((key: any) => menus[key] == "announcement");
-  
+  var usermanagementyetki = Object.keys(menus).some((key: any) => menus[key] == 'useraction')
+  var announcementyetki = Object.keys(menus).some((key: any) => menus[key] == 'announcement')
+
   return (
     <Routes>
-    <Route element={<MasterLayout {...menus || []} />}>
+      <Route element={<MasterLayout {...(menus || [])} />}>
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         {/* Pages */}
@@ -60,10 +59,24 @@ const PrivateRoutes = (menus: Array<string>) => {
         <Route path='/audits/Planner' element={<EditAuditForm />} />
 
         <Route path='reports' element={<Reports />} />
-              {/* <Route path='questionreport' element={<QuestionReports />} /> */}
-        <Route path='/user-management/*' element={<SuspensedView><UsersPage /></SuspensedView>}/>
-        
-        
+        {/* <Route path='questionreport' element={<QuestionReports />} /> */}
+        <Route
+          path='/user-management/*'
+          element={
+            <SuspensedView>
+              <UsersPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/change-password/*'
+          element={
+            <SuspensedView>
+              <ChangesPassword />
+            </SuspensedView>
+          }
+        />
+
         {/* {announcementyetki && <Route
           path='/announcement/*'
           element={
@@ -72,7 +85,7 @@ const PrivateRoutes = (menus: Array<string>) => {
             </SuspensedView>
           }
         />} */}
-<Route
+        <Route
           path='/actions/*'
           element={
             <SuspensedView>
@@ -80,7 +93,7 @@ const PrivateRoutes = (menus: Array<string>) => {
             </SuspensedView>
           }
         />
-        
+
         <Route
           path='/answertemplates/*'
           element={
@@ -112,7 +125,7 @@ const PrivateRoutes = (menus: Array<string>) => {
           path='/audits/*'
           element={
             <SuspensedView>
-              <Audits/>
+              <Audits />
             </SuspensedView>
           }
         />
@@ -121,11 +134,11 @@ const PrivateRoutes = (menus: Array<string>) => {
           path='/units/*'
           element={
             <SuspensedView>
-              <Units/>
+              <Units />
             </SuspensedView>
           }
         />
-        
+
         <Route
           path='/question-groups/*'
           element={
@@ -144,8 +157,6 @@ const PrivateRoutes = (menus: Array<string>) => {
           }
         />
 
-      
-   
         <Route
           path='/questions/*'
           element={
@@ -154,8 +165,6 @@ const PrivateRoutes = (menus: Array<string>) => {
             </SuspensedView>
           }
         />
-   
-
 
         {/* Lazy Modules */}
         <Route
@@ -198,7 +207,7 @@ const PrivateRoutes = (menus: Array<string>) => {
             </SuspensedView>
           }
         />
-        
+
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
