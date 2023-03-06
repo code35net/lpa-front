@@ -11,8 +11,7 @@ import {getQuestionById} from '../../questions/list/core/_requests'
 
 const AuditDetails = () => {
   const intl = useIntl()
-  
-  
+
   const useLocQuery = () => {
     const {search} = useLocation()
 
@@ -21,10 +20,7 @@ const AuditDetails = () => {
   let query = useLocQuery()
   const id: string | null = query.get('Id')
 
-  const {
-    
-    data: response,
-  } = useQuery(
+  const {data: response} = useQuery(
     `${QUERIES.USERS_LIST}-${query}`,
     () => {
       return getAuditDetails(id as string)
@@ -37,15 +33,15 @@ const AuditDetails = () => {
   const [selectedQuestionId, setSelectedQuestionId] = useState(null)
   const [selectedQuestion, setSelectedQuestion] = useState(null)
 
-const qtotal = Array.isArray(response?.data) && response?.data?.length ? response?.data[0]?.auditQuestions.length : ''
-const atotal = Array.isArray(response?.data) && response?.data?.length ? response?.data[0]?.answeredCount : ''
-const percentage = (atotal * 100) / qtotal;
+  const qtotal =
+    Array.isArray(response?.data) && response?.data?.length
+      ? response?.data[0]?.auditQuestions.length
+      : ''
+  const atotal =
+    Array.isArray(response?.data) && response?.data?.length ? response?.data[0]?.answeredCount : ''
+  const percentage = (atotal * 100) / qtotal
 
   useEffect(() => {
-
-    
-
-
     if (selectedQuestionId) {
       getQuestionById(selectedQuestionId).then((response: any) => {
         setSelectedQuestion(response)
@@ -63,123 +59,113 @@ const percentage = (atotal * 100) / qtotal;
 
   return (
     <>
-      
-      
-<div className='card mb-5 mb-xl-10'>
-      <div className='card-body pt-9 pb-0'>
-        <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
-          
-
-          <div className='flex-grow-1'>
-            <div className='d-flex justify-content-between align-items-start flex-wrap mb-2'>
-              <div className='d-flex flex-column'>
-                <div className='d-flex align-items-center mb-2'>
-                <span className='text-gray-800 fs-2 fw-bolder me-1'>
+      <div className='card mb-5 mb-xl-10'>
+        <div className='card-body pt-9 pb-0'>
+          <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
+            <div className='flex-grow-1'>
+              <div className='d-flex justify-content-between align-items-start flex-wrap mb-2'>
+                <div className='d-flex flex-column'>
+                  <div className='d-flex align-items-center mb-2'>
+                    <span className='text-gray-800 fs-2 fw-bolder me-1'>
                       {Array.isArray(response?.data) && response?.data?.length
                         ? response?.data[0]?.auditName
                         : ''}
                     </span>
+                  </div>
                 </div>
 
-              </div>
-
-              <div className='d-flex my-4'>
-              {Array.isArray(response?.data) && response?.data[0]?.status === 'NotStarted' &&
-              (
-                <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-info"> 
-                    {intl.formatMessage({id: 'AUDITS.DETAIL.START'})}
+                <div className='d-flex my-4'>
+                  {Array.isArray(response?.data) && response?.data[0]?.status === 'NotStarted' && (
+                    <Link
+                      to={`/audits/auditquestions/${response?.data[0]?.id}`}
+                      className='btn btn-sm btn-info'
+                    >
+                      {intl.formatMessage({id: 'AUDITS.DETAIL.START'})}
                     </Link>
-                ) }
-                {  
-                Array.isArray(response?.data) && response?.data[0]?.status === 'InProgress' &&
-                (
-                  <Link to={`/audits/auditquestions/${response?.data[0]?.id}`} className="btn btn-sm btn-warning"> 
+                  )}
+                  {Array.isArray(response?.data) && response?.data[0]?.status === 'InProgress' && (
+                    <Link
+                      to={`/audits/auditquestions/${response?.data[0]?.id}`}
+                      className='btn btn-sm btn-warning'
+                    >
                       {intl.formatMessage({id: 'AUDITS.DETAIL.CONTINUE'})}
-                      </Link>
-                  ) 
-              }
-
-              
-               
-                
-              </div>
-            </div>
-
-            <div className='d-flex flex-wrap flex-stack'>
-              <div className='d-flex flex-column flex-grow-1 pe-8'>
-                <div className='d-flex flex-wrap'>
-                  <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
-                    <div className='d-flex align-items-center'>
-                      
-                      <div className='fs-2 fw-bolder'>
-                      {qtotal}
-                      </div>
-                    </div>
-
-                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.TOTAL'})}</div>
-                  </div>
-
-                  <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
-                    <div className='d-flex align-items-center'>
-                      
-                      <div className='fs-2 fw-bolder'>
-                      {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.needActionCount
-                  : ''}
-                      </div>
-                    </div>
-
-                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.SUCCESS'})}</div>
-                  </div>
-
-                  <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
-                    <div className='d-flex align-items-center'>
-                      <div className='fs-2 fw-bolder'>
-                      {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.trueCount
-                  : ''}
-                      </div>
-                    </div>
-
-                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.FAIL'})}</div>
-                  </div>
-                  <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
-                    <div className='d-flex align-items-center'>
-                      <div className='fs-2 fw-bolder'>
-                      {atotal}
-                      </div>
-                    </div>
-
-                    <div className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.ANSWERED'})}</div>
-                  </div>
+                    </Link>
+                  )}
                 </div>
               </div>
 
-              <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
-                <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
-                  <span className='fw-bold fs-6 text-gray-400'>{intl.formatMessage({id: 'AUDITS.DETAIL.COMPLETION'})}</span>
-                  <span className='fw-bolder fs-6'>
-                    
-                  {percentage.toFixed(0)}%
+              <div className='d-flex flex-wrap flex-stack'>
+                <div className='d-flex flex-column flex-grow-1 pe-8'>
+                  <div className='d-flex flex-wrap'>
+                    <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
+                      <div className='d-flex align-items-center'>
+                        <div className='fs-2 fw-bolder'>{qtotal}</div>
+                      </div>
 
-                  </span>
+                      <div className='fw-bold fs-6 text-gray-400'>
+                        {intl.formatMessage({id: 'AUDITS.DETAIL.TOTAL'})}
+                      </div>
+                    </div>
+
+                    <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
+                      <div className='d-flex align-items-center'>
+                        <div className='fs-2 fw-bolder'>
+                          {Array.isArray(response?.data) && response?.data?.length
+                            ? response?.data[0]?.needActionCount
+                            : ''}
+                        </div>
+                      </div>
+
+                      <div className='fw-bold fs-6 text-gray-400'>
+                        {intl.formatMessage({id: 'AUDITS.DETAIL.SUCCESS'})}
+                      </div>
+                    </div>
+
+                    <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
+                      <div className='d-flex align-items-center'>
+                        <div className='fs-2 fw-bolder'>
+                          {Array.isArray(response?.data) && response?.data?.length
+                            ? response?.data[0]?.trueCount
+                            : ''}
+                        </div>
+                      </div>
+
+                      <div className='fw-bold fs-6 text-gray-400'>
+                        {intl.formatMessage({id: 'AUDITS.DETAIL.FAIL'})}
+                      </div>
+                    </div>
+                    <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
+                      <div className='d-flex align-items-center'>
+                        <div className='fs-2 fw-bolder'>{atotal}</div>
+                      </div>
+
+                      <div className='fw-bold fs-6 text-gray-400'>
+                        {intl.formatMessage({id: 'AUDITS.DETAIL.ANSWERED'})}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className='h-5px mx-3 w-100 bg-light mb-3'>
-                  <div
-                    className='bg-info rounded h-5px'
-                    role='progressbar'
-                    style={{width: percentage}}
-                  ></div>
+
+                <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
+                  <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
+                    <span className='fw-bold fs-6 text-gray-400'>
+                      {intl.formatMessage({id: 'AUDITS.DETAIL.COMPLETION'})}
+                    </span>
+                    <span className='fw-bolder fs-6'>{percentage.toFixed(0)}%</span>
+                  </div>
+                  <div className='h-5px mx-3 w-100 bg-light mb-3'>
+                    <div
+                      className='bg-info rounded h-5px'
+                      role='progressbar'
+                      style={{width: percentage}}
+                    ></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        
       </div>
-    </div>
-     
 
       <div className='card mb-5 mb-xl-10' id='kt_profile_details_view'>
         <div className='card-header cursor-pointer'>
@@ -190,7 +176,9 @@ const percentage = (atotal * 100) / qtotal;
 
         <div className='card-body p-9'>
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.CATEGORY'})}</label>
+            <label className='col-lg-4 fw-bold text-muted'>
+              {intl.formatMessage({id: 'AUDITS.DETAIL.CATEGORY'})}
+            </label>
 
             <div className='col-lg-8'>
               <span className='fw-bolder fs-6 text-dark'>
@@ -202,34 +190,40 @@ const percentage = (atotal * 100) / qtotal;
           </div>
 
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.DEPARTMENT'})}</label>
+            <label className='col-lg-4 fw-bold text-muted'>
+              {intl.formatMessage({id: 'AUDITS.DETAIL.DEPARTMENT'})}
+            </label>
 
             <div className='col-lg-8 fv-row'>
               <span className='fw-bold fs-6'>
-              {Array.isArray(response?.data) && response?.data?.length
-                ? response?.data[0]?.departmentName
-                : ''}
+                {Array.isArray(response?.data) && response?.data?.length
+                  ? response?.data[0]?.departmentName
+                  : ''}
               </span>
             </div>
           </div>
 
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.SECTION'})}</label>
+            <label className='col-lg-4 fw-bold text-muted'>
+              {intl.formatMessage({id: 'AUDITS.DETAIL.SECTION'})}
+            </label>
 
             <div className='col-lg-8 d-flex align-items-center'>
               <span className='fw-bolder fs-6 me-2'>
-              {Array.isArray(response?.data) && response?.data?.length
-                ? response?.data[0]?.sectionName
-                : ''}
+                {Array.isArray(response?.data) && response?.data?.length
+                  ? response?.data[0]?.sectionName
+                  : ''}
               </span>
             </div>
           </div>
 
           <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.UNIT'})}</label>
+            <label className='col-lg-4 fw-bold text-muted'>
+              {intl.formatMessage({id: 'AUDITS.DETAIL.UNITT'})}
+            </label>
 
             <div className='col-lg-8'>
-            <span className='fw-bold fs-6'>
+              <span className='fw-bold fs-6'>
                 {Array.isArray(response?.data) && response?.data?.length
                   ? response?.data[0]?.unitName
                   : ''}
@@ -237,11 +231,10 @@ const percentage = (atotal * 100) / qtotal;
             </div>
           </div>
 
-         
-         
-          
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.AUDITOR'})}</label>
+            <label className='col-lg-4 fw-bold text-muted'>
+              {intl.formatMessage({id: 'AUDITS.DETAIL.AUDITOR'})}
+            </label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
@@ -251,42 +244,50 @@ const percentage = (atotal * 100) / qtotal;
               </span>
             </div>
           </div>
-          
+
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.PLANED'})}</label>
+            <label className='col-lg-4 fw-bold text-muted'>
+              {intl.formatMessage({id: 'AUDITS.DETAIL.PLANED'})}
+            </label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
-              {Array.isArray(response?.data) && response?.data?.length
+                {Array.isArray(response?.data) && response?.data?.length
                   ? response?.data[0]?.date
                   : ''}
               </span>
             </div>
           </div>
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.STARTED'})}</label>
+            <label className='col-lg-4 fw-bold text-muted'>
+              {intl.formatMessage({id: 'AUDITS.DETAIL.STARTED'})}
+            </label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
-              {Array.isArray(response?.data) && response?.data?.length
+                {Array.isArray(response?.data) && response?.data?.length
                   ? response?.data[0]?.started
                   : ''}
               </span>
             </div>
           </div>
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.ENDED'})}</label>
+            <label className='col-lg-4 fw-bold text-muted'>
+              {intl.formatMessage({id: 'AUDITS.DETAIL.ENDED'})}
+            </label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
-              {Array.isArray(response?.data) && response?.data?.length
+                {Array.isArray(response?.data) && response?.data?.length
                   ? response?.data[0]?.ended
                   : ''}
               </span>
             </div>
           </div>
           <div className='row mb-10'>
-            <label className='col-lg-4 fw-bold text-muted'>{intl.formatMessage({id: 'AUDITS.DETAIL.STATUS'})}</label>
+            <label className='col-lg-4 fw-bold text-muted'>
+              {intl.formatMessage({id: 'AUDITS.DETAIL.STATUS'})}
+            </label>
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
@@ -305,7 +306,9 @@ const percentage = (atotal * 100) / qtotal;
             {/* begin::Header */}
             <div className='card-header border-0 pt-5'>
               <h3 className='card-title align-items-start flex-column'>
-                <span className='card-label fw-bold fs-3 mb-1'>{intl.formatMessage({id: 'AUDITS.DETAIL.AUDIT.QUESTIONS'})}</span>
+                <span className='card-label fw-bold fs-3 mb-1'>
+                  {intl.formatMessage({id: 'AUDITS.DETAIL.AUDIT.QUESTIONS'})}
+                </span>
               </h3>
             </div>
 
@@ -320,9 +323,15 @@ const percentage = (atotal * 100) / qtotal;
                   <thead>
                     <tr>
                       <th className='p-0 w-50px'>Id</th>
-                      <th className='p-0 min-w-200px'>{intl.formatMessage({id: 'AUDITS.DETAIL.QUESTION'})}</th>
-                      <th className='p-0 min-w-200px'>{intl.formatMessage({id: 'AUDITS.DETAIL.QUESTION.CATEGORY'})}</th>
-                      <th className='p-0 min-w-200px'>{intl.formatMessage({id: 'AUDITS.DETAIL.ANSWER'})}</th>
+                      <th className='p-0 min-w-200px'>
+                        {intl.formatMessage({id: 'AUDITS.DETAIL.QUESTION'})}
+                      </th>
+                      <th className='p-0 min-w-200px'>
+                        {intl.formatMessage({id: 'AUDITS.DETAIL.QUESTION.CATEGORY'})}
+                      </th>
+                      <th className='p-0 min-w-200px'>
+                        {intl.formatMessage({id: 'AUDITS.DETAIL.ANSWER'})}
+                      </th>
                     </tr>
                   </thead>
                   {/* end::Table head */}
@@ -360,7 +369,6 @@ const percentage = (atotal * 100) / qtotal;
                                 {question?.answerTemplate}
                               </a>
                             </td>
-
                           </tr>
                         )
                       })}

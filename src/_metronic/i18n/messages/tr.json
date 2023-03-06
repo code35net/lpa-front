@@ -326,5 +326,32 @@
 
   "UNIT_LEADER": "Takım Lideri",
 
+  "AUDITS.DETAIL.START": "Denetime Başla",
+  "AUDITS.DETAIL.TOTAL": "Toplam Denetim Sayısı",
+  "AUDITS.DETAIL.SUCCESS": "Başarılı Denetim Sayısı",
+  "AUDITS.DETAIL.FAIL": "Başarısız Denetim Sayısı",
+  "AUDITS.DETAIL.ANSWERED": "Cevaplanan Denetim Sayısı",
+  "AUDITS.DETAIL.DETAILS": "Denetim Detayları",
+  "AUDITS.DETAIL.COMPLETION": "Denetim Tamamlanma Yüzdesi",
+  "AUDITS.DETAIL.CATEGORY": "Denetim Kategorisi",
+  "AUDITS.DETAIL.DEPARTMENT": "Denetim Departmanı",
+  "AUDITS.DETAIL.SECTION": "Denetim Bölümü",
+  "AUDITS.DETAIL.UNITT": "Denetim Birimi",
+  "AUDITS.DETAIL.AUDITOR": "Denetmen",
+  "AUDITS.DETAIL.STARTED": "Başlangıç Tarihi",
+  "AUDITS.DETAIL.ENDED": "Bitiş Tarihi",
+  "AUDITS.DETAIL.PLANED": "Planlanan Tarih",
+  "AUDITS.DETAIL.STATUS": "Denetim Durumu",
+  "AUDITS.DETAIL.CONTINUE": "Denetime Devam Et",
+  "AUDITS.AUDITQUEDTIONS.FINISH": "Denetimi Bitir",
+  "USER.TABLE.NOMATCH": "Eşleşme Bulunamadı",
+  "FILTER.OPTIONS": "Filitre Ayarları",
+  "FILTER.YEAR": "Yıl",
+  "FILTER.MOUNTH": "Ay",
+  "FILTER.QUESTIONCATEGORIES": "Soru Kategorisi",
+  "FILTER.DEPARTMENTS": "Departmanlar",
+  "FILTER.SECTIONS": "Bölümler",
+  "FILTER.UNITS": "Birimler",
+
   "boş": "boş"
 }

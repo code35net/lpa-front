@@ -14,12 +14,16 @@ import {getPercentageReport} from '../../../../app/pages/units/list/core/_reques
 import {getReportLeader} from '../core/_requests'
 
 type Props = {
-  setReportsInfo: any,
-  setReportsInfoLeader: any,
+  setReportsInfo: any
+  setReportsInfoLeader: any
   setReportsInfoPercentage: any
 }
 
-const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, setReportsInfoLeader}) => {
+const ListFilter: React.FC<Props> = ({
+  setReportsInfo,
+  setReportsInfoPercentage,
+  setReportsInfoLeader,
+}) => {
   const intl = useIntl()
 
   const {updateState} = useQueryRequest()
@@ -73,7 +77,15 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
 
   useEffect(() => {
     filterData()
-  }, [selectedAuditCategories, selectedQuestionCategories, selectedSections, selectedDepartments, selectedUnits, selectedYears, selectedMonths])
+  }, [
+    selectedAuditCategories,
+    selectedQuestionCategories,
+    selectedSections,
+    selectedDepartments,
+    selectedUnits,
+    selectedYears,
+    selectedMonths,
+  ])
 
   // useEffect(() => {
   //   if (selectedDepartments) {
@@ -184,15 +196,14 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
               onChange={(e) => setSelectedYears(e.target.value)}
               value={selectedYears}
             >
-              <option value=''>{intl.formatMessage({id:'REPORTS.HEADER.CHOOSE'})}</option>
-                  <option value='2022'>2022</option>
-                  <option value='2023'>2023</option>
-                  <option value='2024'>2024</option>
-                  <option value='2025'>2025</option>
-              
+              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+              <option value='2022'>2022</option>
+              <option value='2023'>2023</option>
+              <option value='2024'>2024</option>
+              <option value='2025'>2025</option>
             </select>
           </div>
-          
+
           <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
               {intl.formatMessage({id: 'FILTER.MONTH'})}
@@ -207,20 +218,19 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
               onChange={(e) => setSelectedMonths(e.target.value)}
               value={selectedMonths}
             >
-              <option value=''>{intl.formatMessage({id:'REPORTS.HEADER.CHOOSE'})}</option>
-                  <option value='1'>{intl.formatMessage({id:'REPORTS.MOUNTH.01'})}</option>
-                  <option value='2'>{intl.formatMessage({id:'REPORTS.MOUNTH.02'})}</option>
-                  <option value='3'>{intl.formatMessage({id:'REPORTS.MOUNTH.03'})}</option>
-                  <option value='4'>{intl.formatMessage({id:'REPORTS.MOUNTH.04'})}</option>
-                  <option value='5'>{intl.formatMessage({id:'REPORTS.MOUNTH.05'})}</option>
-                  <option value='6'>{intl.formatMessage({id:'REPORTS.MOUNTH.06'})}</option>
-                  <option value='7'>{intl.formatMessage({id:'REPORTS.MOUNTH.07'})}</option>
-                  <option value='8'>{intl.formatMessage({id:'REPORTS.MOUNTH.08'})}</option>
-                  <option value='9'>{intl.formatMessage({id:'REPORTS.MOUNTH.09'})}</option>
-                  <option value='10'>{intl.formatMessage({id:'REPORTS.MOUNTH.10'})}</option>
-                  <option value='11'>{intl.formatMessage({id:'REPORTS.MOUNTH.11'})}</option>
-                  <option value='12'>{intl.formatMessage({id:'REPORTS.MOUNTH.12'})}</option>
-              
+              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+              <option value='1'>{intl.formatMessage({id: 'REPORTS.MOUNTH.01'})}</option>
+              <option value='2'>{intl.formatMessage({id: 'REPORTS.MOUNTH.02'})}</option>
+              <option value='3'>{intl.formatMessage({id: 'REPORTS.MOUNTH.03'})}</option>
+              <option value='4'>{intl.formatMessage({id: 'REPORTS.MOUNTH.04'})}</option>
+              <option value='5'>{intl.formatMessage({id: 'REPORTS.MOUNTH.05'})}</option>
+              <option value='6'>{intl.formatMessage({id: 'REPORTS.MOUNTH.06'})}</option>
+              <option value='7'>{intl.formatMessage({id: 'REPORTS.MOUNTH.07'})}</option>
+              <option value='8'>{intl.formatMessage({id: 'REPORTS.MOUNTH.08'})}</option>
+              <option value='9'>{intl.formatMessage({id: 'REPORTS.MOUNTH.09'})}</option>
+              <option value='10'>{intl.formatMessage({id: 'REPORTS.MOUNTH.10'})}</option>
+              <option value='11'>{intl.formatMessage({id: 'REPORTS.MOUNTH.11'})}</option>
+              <option value='12'>{intl.formatMessage({id: 'REPORTS.MOUNTH.12'})}</option>
             </select>
           </div>
           {/* begin::Input group */}
@@ -238,7 +248,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
               onChange={(e) => setSelectedQuestionCategories(e.target.value)}
               value={selectedQuestionCategories}
             >
-              <option value=''>{intl.formatMessage({id: 'REPORTS.FILTER.ALL'})}</option>
+              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
 
               {questioncategories.map((item: any) => {
                 return (
@@ -266,7 +276,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
               onChange={(e) => setSelectedDepartments(e.target.value)}
               value={selectedDepartments}
             >
-              <option value=''>{intl.formatMessage({id: 'REPORTS.FILTER.ALL'})}</option>
+              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
 
               {departments.map((item: any) => {
                 return (
@@ -294,7 +304,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
               onChange={(e) => setSelectedSections(e.target.value)}
               value={selectedSections}
             >
-              <option value=''>{intl.formatMessage({id: 'REPORTS.FILTER.ALL'})}</option>
+              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
 
               {sections.map((item: any) => {
                 return (
@@ -306,8 +316,8 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
             </select>
           </div>
           {/* end::Input group */}
-{/* begin::Input group */}
-<div className='mb-10'>
+          {/* begin::Input group */}
+          <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
               {intl.formatMessage({id: 'FILTER.UNITS'})}
             </label>
@@ -321,15 +331,15 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
               onChange={(e) => setSelectedUnits(e.target.value)}
               value={selectedUnits}
             >
-              <option value=''>{intl.formatMessage({id: 'REPORTS.FILTER.ALL'})}</option>
+              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
 
               {units.map((item: any) => {
-                return (
-                  item?.unitType == 2 ?
+                return item?.unitType == 2 ? (
                   <option key={item?.id} value={item?.id}>
-                    { item?.name}
+                    {item?.name}
                   </option>
-                  : <span></span>
+                ) : (
+                  <span></span>
                 )
               })}
             </select>
@@ -345,7 +355,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
               data-kt-menu-dismiss='true'
               data-kt-item-table-filter='reset'
             >
-              {intl.formatMessage({id: 'FILTER.RESET'})}
+              {intl.formatMessage({id: 'SWEETALERT.CANCEL'})}
             </button>
             <button
               disabled={isLoading}
@@ -355,7 +365,7 @@ const ListFilter: React.FC<Props> = ({setReportsInfo, setReportsInfoPercentage, 
               data-kt-menu-dismiss='true'
               data-kt-item-table-filter='filter'
             >
-              {intl.formatMessage({id: 'FILTER.APPLY'})}
+              {intl.formatMessage({id: 'SWEETALERT.CONFIRM'})}
             </button>
           </div>
           {/* end::Actions */}

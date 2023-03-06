@@ -326,5 +326,32 @@
 
   "UNIT_LEADER": "Team Leader",
 
+  "AUDITS.DETAIL.START": "Start Audit",
+  "AUDITS.DETAIL.TOTAL": "Total Number of Audit",
+  "AUDITS.DETAIL.SUCCESS": "Number of Successful Audits",
+  "AUDITS.DETAIL.FAIL": "Number of Failed Audits",
+  "AUDITS.DETAIL.ANSWERED": "Number of Audits Answered",
+  "AUDITS.DETAIL.DETAILS": "Audit Details",
+  "AUDITS.DETAIL.COMPLETION": "Audit Completion Percentage",
+  "AUDITS.DETAIL.CATEGORY": "Audit Category",
+  "AUDITS.DETAIL.DEPARTMENT": "Audit Department",
+  "AUDITS.DETAIL.SECTION": "Audit Section",
+  "AUDITS.DETAIL.UNITT": "Audit Uniy",
+  "AUDITS.DETAIL.AUDITOR": "Inspector",
+  "AUDITS.DETAIL.STARTED": "Starting Date",
+  "AUDITS.DETAIL.ENDED": "End Date",
+  "AUDITS.DETAIL.PLANED": "Planned Date",
+  "AUDITS.DETAIL.STATUS": "Audit Status",
+  "AUDITS.DETAIL.CONTINUE": "Continue Audit",
+  "AUDITS.AUDITQUEDTIONS.FINISH": "Finish Audit",
+  "USER.TABLE.NOMATCH": "No Match Found",
+  "FILTER.OPTIONS": "Filter Settings",
+  "FILTER.YEAR": "Year",
+  "FILTER.MOUNTH": "Mounth",
+  "FILTER.QUESTIONCATEGORIES": "Question Category",
+  "FILTER.DEPARTMENTS": "Departments",
+  "FILTER.SECTIONS": "Sections",
+  "FILTER.UNITS": "Units",
+
   "boş": "boş"
 }
