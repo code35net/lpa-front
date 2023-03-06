@@ -45,11 +45,13 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     shift:undefined,
     unitType:undefined,
     userId:undefined,
-    
+    categoryType: undefined,
     
     ...item,
     
   })
+
+  console.log(state)
 
   const cancel = (withRefresh?: boolean) => {
     if (withRefresh) {
@@ -80,8 +82,16 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
       // console.log(values.auditCategoryId)
-      
+      if(!values.categoryType){
+        values.categoryType = 0
+      }
+      values.categoryType=parseInt(values.categoryType.toString())
        
+      if(!values.unitType){
+        values.unitType = 0
+      }
+      values.unitType=parseInt(values.unitType.toString())
+
         let pids = ''
         const x = [values.auditCategoryId]
        
@@ -97,17 +107,17 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       if (state.id != undefined) {
         values.parentUnitId = parseInt(state.id)
     }
-      if(auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4)
-      {
-        values.unitType = undefined
-      }
-      else
-      {
-        if(!values.unitType){
-          values.unitType = 0
-        }
-        values.unitType=parseInt(values.unitType.toString())
-      }
+      // if(auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4)
+      // {
+      //   values.unitType = undefined
+      // }
+      // else
+      // {
+      //   if(!values.unitType){
+      //     values.unitType = 0
+      //   }
+      //   values.unitType=parseInt(values.unitType.toString())
+      // }
       
       
       try {
@@ -125,7 +135,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     },
   })
 
-  console.log(formik.values.auditCategoryId)
+
 
   const options =  { value: 'chocolate', label: 'Chocolate' }
     
@@ -178,6 +188,31 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
         </div>
       
       
+        <div className='fv-row mb-7'>
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'AUDIT_CATEGORY_TYPE'})}
+          </label>
+          <select 
+           className='form-select form-select-solid form-select-md'
+           {...formik.getFieldProps('categoryType')}
+           >
+            <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+            <option value='0'>Daily</option>
+            <option value='1'>Weekly</option>
+            <option value='2'>Monthly</option>
+            <option value='3'>Quarterly</option>
+            <option value='4'>DailyShift</option>
+            <option value='5'>NonPeriod</option>
+           </select>
+          
+          {formik.touched.categoryType && formik.errors.categoryType && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.categoryType}</span>
+              </div>
+            </div>
+          )}
+        </div>
        
 
    
@@ -206,13 +241,13 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
 
         <div className='fv-row mb-7'>    
-        <label hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4} className='required fw-bold fs-6 mb-2'>
+        <label hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.name != "LPA 1"} className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT_LEADER'})}
           </label>     
          <select
               
                   className='form-select form-multi form-select-solid form-select-md'
-                  hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4}
+                  hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.name != "LPA 1"}
                   {...formik.getFieldProps('userId')}
                   value={formik.values.userId}
                   // onChange={handleChangeDepartmentId}
@@ -228,39 +263,20 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           {/* end::Input */}
         </div>
   
+   
 
     
-        {/* <div className='fv-row mb-7'>    
-        <label className='fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'PARENT_UNIT_ID'})}
-          </label>     
-         <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('parentUnitId')}
-                  value={formik.values.parentUnitId}
-                  // onChange={handleChangeDepartmentId}
-                >
-                  <option value=''>Seçiniz</option>
-                  
-                  {parentUnitId.map((myparentunit: any) => (
-                    <option value={myparentunit?.id} key={myparentunit?.id as any}>
-                      {myparentunit?.name as any}
-                    </option>
-                  ))}
-                </select>
-          
-        </div> */}
-
-       
+        
+        
         
 
         <div className='fv-row mb-7'>
-          <label hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4} className='fw-bold fs-6 mb-2'>
+          <label hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.name != "LPA 1"} className='fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT_TYPE'})}
           </label>
           <select 
            className='form-select form-select-solid form-select-md'
-           hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4}
+           hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.name != "LPA 1"}
            {...formik.getFieldProps('unitType')}
            >
             <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>

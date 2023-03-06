@@ -9,7 +9,7 @@ export type Model = {
   positionId?:number
   positionName?:string
   unitName?:string
-  unitId?:number  
+  unitId?:string  
   isDeleteUser?:boolean
   userId?: string
   parentUnitId?: number

@@ -121,6 +121,11 @@
   "ANSWERTEMPLATES.PAGE.TITLE": "Answer Templates",
   "ANSWERTEMPLATES.ISPRESENT": "Present",
 
+  "ANSWERTEMPLATES.LIST.OPTIONTEXT": "Text",
+  "ANSWERTEMPLATES.MODAL.ADD": "Add Answer Template",
+
+  
+
   "COURSE.NAME": "Course Name",
   "COURSE.DESCRIPTION": "Course Description",
   "COURSE.DURATION": "Course Duration",
@@ -246,6 +251,10 @@
   "QUESTIONS.ADDPAGE.SAVE" : "Save",
   "QUESTIONS.LIST.ADD" : "Add Question",
   "TOOLBAR.FILTER" : "Filter",
+
+  "QUESTIONS.ADDPAGE.AUDITCATEGORY.SELECT" : "Select",
+
+  
 
   "ANSWERTEMPLATES.LIST.NAME" : "Answer Templates",
   "ANSWERTEMPLATES.LIST.ADD" : "Add Answer Template",

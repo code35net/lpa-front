@@ -20,6 +20,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   const {state} = useQueryRequest()
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state))
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state])
+  console.log(query)
   useEffect(() => {
     console.log(query)
     if (query !== updatedQuery) {

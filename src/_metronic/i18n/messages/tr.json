@@ -119,6 +119,9 @@
   "ANSWERTEMPLATES.PAGE.TITLE": "Cevap Şablonları",
   "ANSWERTEMPLATES.ISPRESENT": "Var",
 
+  "ANSWERTEMPLATES.LIST.OPTIONTEXT": "Seçenek",
+  "ANSWERTEMPLATES.MODAL.ADD": "Cevap Şablonu Ekle",
+
   "COURSE.NAME": "Kurs Adı",
   "COURSE.DESCRIPTION": "Kurs Tanımı",
   "COURSE.DURATION": "Kurs Süresi",
@@ -244,6 +247,7 @@
   "QUESTIONS.LIST.ADD" : "Soru Ekle",
   "TOOLBAR.FILTER" : "Filtre",
   
+  "QUESTIONS.ADDPAGE.AUDITCATEGORY.SELECT" : "Seçiniz",
 
   "ANSWERTEMPLATES.LIST.NAME" : "Cevap Şablonları",
   "ANSWERTEMPLATES.LIST.ADD" : "Cevap Şablonu Ekle",

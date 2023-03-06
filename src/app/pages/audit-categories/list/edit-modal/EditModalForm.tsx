@@ -30,7 +30,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const [placeForEdit] = useState<Model>({
     ...item,
     name: undefined,
-    categoryType: undefined
+   
 
     
   })
@@ -47,10 +47,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     validationSchema: editchema,
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
-      if(!values.categoryType){
-        values.categoryType = 0
-      }
-      values.categoryType=parseInt(values.categoryType.toString())
+      
       
       try {
         if (isNotEmpty(values.id)) {
@@ -112,31 +109,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           )}
         </div>
 
-        <div className='fv-row mb-7'>
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'AUDIT_CATEGORY_TYPE'})}
-          </label>
-          <select 
-           className='form-select form-select-solid form-select-md'
-           {...formik.getFieldProps('categoryType')}
-           >
-            <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
-            <option value='0'>Daily</option>
-            <option value='1'>Weekly</option>
-            <option value='2'>Monthly</option>
-            <option value='3'>Quarterly</option>
-            <option value='4'>DailyShift</option>
-            <option value='5'>NonPeriod</option>
-           </select>
-          
-          {formik.touched.categoryType && formik.errors.categoryType && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.categoryType}</span>
-              </div>
-            </div>
-          )}
-        </div>
+       
 
 
         

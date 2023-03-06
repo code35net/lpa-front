@@ -5,7 +5,7 @@ import {Model as User} from '../../../user-management/list/core/_models'
 export type Model = {
   id?: ID
   name?: string
-  unitType?: string | number
+  unitType?: number | string 
   parentUnitId?:number
   parentUnit?: Unit
   parentUnitName?: string
@@ -14,6 +14,7 @@ export type Model = {
   shift?: number | string
   userId?: string
   userName?:string
+  categoryType?:number | string
 }
 
 export type QueryResponse = Response<Array<Model>>

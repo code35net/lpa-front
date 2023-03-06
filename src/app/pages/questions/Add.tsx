@@ -277,7 +277,7 @@ const EditForm: FC<Props> = ({item}) => {
                   value={formik.values.auditCategoryId}
                   onChange={(e) => handleAuditCategoryId(e)}
                 >
-                  <option value=''>Seçiniz</option>
+                  <option value=''>{intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY.SELECT'})}</option>
                   {/* ?? */}
                   {auditcategories.map((auditcategory: any) => (
                     <option value={auditcategory?.id as any} key={auditcategory?.id as any}>
