@@ -32,6 +32,7 @@
   "MENU.AUDITS": "Denetimler",
   "MENU.QUESTIONS": "Sorular",
   "MENU.QUESTIONGROUPS": "Soru Kategorileri",
+  "MENU.CHANGEREQUESTS": "Denetim Değişiklik Talepleri",
 
   "AUTH.GENERAL.OR": "veya",
   "AUTH.GENERAL.SUBMIT_BUTTON": "Gönder",
@@ -73,7 +74,7 @@
   "LIST.TABLE.ID": "ID",
   "LIST.TABLE.ACTIONS": "Aksiyonlar",
   "LIST.TABLE.DELETESELECTED": "Seçilenleri Sil",
-  "LIST.TABLE.SELECTED": "Duyurular Seçildi",
+  "LIST.TABLE.SELECTED": "Seçilen",
   "TABLE.PROCESSING": "İşleniyor",
   "TABLE.NORECORD": "Kayıt Yok",
   "TABLE.MATCH": "Eşleşme Yok",
@@ -353,5 +354,39 @@
   "FILTER.SECTIONS": "Bölümler",
   "FILTER.UNITS": "Birimler",
 
+  "AUDIT_CHANGE_REQUEST": "Denetim Değişiklik Talebi",
+  "AUDIT_CHANGE_AUDIT": "Denetim",
+  "AUDIT_CHANGE_UNIT": "Birim",
+  "AUDIT_CHANGE_TEXT": "Metin",
+  "AUDIT_CHANGE_ISACCEPTED": "Onaylandı mı",
+
+  "FILTER.MONTH": "Ay",
+  "REPORTS.MOUNTH.01": "Ocak",
+  "REPORTS.MOUNTH.02": "Şubat",
+  "REPORTS.MOUNTH.03": "Mart",
+  "REPORTS.MOUNTH.04": "Nisan",
+  "REPORTS.MOUNTH.05": "Mayıs",
+  "REPORTS.MOUNTH.06": "Haziran",
+  "REPORTS.MOUNTH.07": "Temmuz",
+  "REPORTS.MOUNTH.08": "Ağustos",
+  "REPORTS.MOUNTH.09": "Eylül",
+  "REPORTS.MOUNTH.10": "Ekim",
+  "REPORTS.MOUNTH.11": "Kasım",
+  "REPORTS.MOUNTH.12": "Aralık",
+  
+
+  "TABLE.DELETESELECTED": "Seçilenleri Sil",
+  "TABLE.SELECTED": "Seçilen",
+
+  "AUDITS.DETAIL.AUDIT.QUESTIONS": "Denetim Soruları",
+  "AUDITS.DETAIL.QUESTION": "Soru",
+  "AUDITS.DETAIL.QUESTION.CATEGORY": "Soru Kategorisi",
+  "AUDITS.DETAIL.ANSWER": "Cevap",
+
+  "QUESTIONS.EDIT.UNIT": "Birim",
+  "QUESTIONS.LIST.NAME": "Soru Metni",
+  "QUESTIONCATEGORY.MODAL.EDIT": "Düzenle",
+
+  
   "boş": "boş"
 }

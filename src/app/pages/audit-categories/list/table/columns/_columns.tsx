@@ -24,11 +24,11 @@ const Columns: ReadonlyArray<Column<Model>> = [
     id: 'name',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].name} />,
   },
-  {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDIT_CATEGORY_TYPE'})} className='min-w-125px' />,
-    id: 'categoryType',
-    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].categoryType} />,
-  },
+  // {
+  //   Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDIT_CATEGORY_TYPE'})} className='min-w-125px' />,
+  //   id: 'categoryType',
+  //   Cell: ({...props}) => <InfoCell item={props.data[props.row.index].categoryType} />,
+  // },
   // {
   //   Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'SURVEY.ANSWERCOUNT'})} className='min-w-125px' />,
   //   id: 'answerCount',

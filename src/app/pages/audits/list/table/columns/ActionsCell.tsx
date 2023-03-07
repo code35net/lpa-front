@@ -11,12 +11,13 @@ import {useLocation, Link} from 'react-router-dom'
 
 type Props = {
   id: ID
+  isChanged: boolean
 }
 
 
 
 
-const ActionsCell: FC<Props> = ({id}) => {
+const ActionsCell: FC<Props> = ({id, isChanged}) => {
   const {setItemIdForUpdate} = useListView()
   const {query} = useQueryResponse()
   const queryClient = useQueryClient()
@@ -42,8 +43,24 @@ const ActionsCell: FC<Props> = ({id}) => {
 
   return currentUser?.roleName == "Key Account" ? (
     <>
+        
       
         <div className='d-flex justify-content-end flex-shrink-0'>
+
+          {!isChanged && (
+            <Link className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1' to ={`/audits/change-request/${id}`}>
+              <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
+            </Link>
+            )
+          }
+          {isChanged && (
+            <Link aria-disabled  className='btn btn-icon btn-danger btn-active-color-danger btn-sm me-1' to ={'#'}>
+              <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
+            </Link>
+            )
+          }
+
+
           <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
            onClick={openEditModal}
            >

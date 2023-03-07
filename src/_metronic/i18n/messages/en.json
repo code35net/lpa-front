@@ -30,6 +30,7 @@
   "MENU.AUDITS": "Audits",
   "MENU.QUESTIONS": "Questions",
   "MENU.QUESTIONGROUPS": "Question Categories",
+  "MENU.CHANGEREQUESTS": "Audit Change Requests",
 
   "AUTH.GENERAL.OR": "Or",
   "AUTH.GENERAL.SUBMIT_BUTTON": "Submit",
@@ -71,7 +72,7 @@
   "LIST.TABLE.ID": "ID",
   "LIST.TABLE.ACTIONS": "Actions",
   "LIST.TABLE.DELETESELECTED": "Delete Selected",
-  "LIST.TABLE.SELECTED": "Announcement Selected",
+  "LIST.TABLE.SELECTED": "Selected",
   "TABLE.PROCESSING": "Processing",
   "TABLE.NORECORD": "No Record",
   "TABLE.MATCH": "No Match",
@@ -352,6 +353,40 @@
   "FILTER.DEPARTMENTS": "Departments",
   "FILTER.SECTIONS": "Sections",
   "FILTER.UNITS": "Units",
+
+  "AUDIT_CHANGE_REQUEST": "Audit Change Requests",
+  "AUDIT_CHANGE_AUDIT": "Audit",
+  "AUDIT_CHANGE_UNIT_OLD": "Old Unit",
+  "AUDIT_CHANGE_UNIT": "New Unit",
+  "AUDIT_CHANGE_TEXT": "Text",
+  "AUDIT_CHANGE_ISACCEPTED": "Is Accepted",
+
+
+  "FILTER.MONTH": "Month",
+  "REPORTS.MOUNTH.01": "January",
+  "REPORTS.MOUNTH.02": "February",
+  "REPORTS.MOUNTH.03": "March",
+  "REPORTS.MOUNTH.04": "April",
+  "REPORTS.MOUNTH.05": "May",
+  "REPORTS.MOUNTH.06": "June",
+  "REPORTS.MOUNTH.07": "July",
+  "REPORTS.MOUNTH.08": "August",
+  "REPORTS.MOUNTH.09": "September",
+  "REPORTS.MOUNTH.10": "October",
+  "REPORTS.MOUNTH.11": "November",
+  "REPORTS.MOUNTH.12": "December",
+
+  "TABLE.DELETESELECTED": "Delete Selected",
+  "TABLE.SELECTED": "Selected",
+
+  "AUDITS.DETAIL.AUDIT.QUESTIONS": "Audit Questions",
+  "AUDITS.DETAIL.QUESTION": "Question",
+  "AUDITS.DETAIL.QUESTION.CATEGORY": "Question Category",
+  "AUDITS.DETAIL.ANSWER": "Answer",
+
+  "QUESTIONS.EDIT.UNIT": "Unit",
+  "QUESTIONS.LIST.NAME": "Question Text",
+  "QUESTIONCATEGORY.MODAL.EDIT": "Edit",
 
   "boş": "boş"
 }

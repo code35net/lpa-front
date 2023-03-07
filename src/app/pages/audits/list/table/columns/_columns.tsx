@@ -54,7 +54,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'TABLE.ACTIONS'})} className='text-end min-w-100px' />
     ),
     id: 'actions',
-    Cell: ({...props}) => <ActionsCell id={props.data[props.row.index].id} />,
+    Cell: ({...props}) => <ActionsCell id={props.data[props.row.index].id} isChanged={props.data[props.row.index].isChanged} />,
   },
 ]
 

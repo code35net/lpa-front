@@ -58,6 +58,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
       setRawUsers(res7.data || [])
     })
 
+   
     setQuestions([
       {
         id: 1,
@@ -173,14 +174,14 @@ const EditAuditForm: FC<Props> = ({item}) => {
     formik.setFieldValue('auditCategoryId', event.target.value)
     if(event.target.value != '')
     {
-      listPartialUnits(event.target.value).then((res3) => {
+      listPartialUnits(event.target.value, 0).then((res3) => {
         setUnits(res3.data)      
       })
     }
 
     if(event.target.value != '')
     {
-      listPartialUnits(event.target.value).then((res3) => {
+      listPartialUnits(event.target.value, 0).then((res3) => {
         setUnits(res3.data)      
       })
     }

@@ -12,7 +12,7 @@ const PositionCell: FC<Props> = ({item}) => (
   <div className='d-flex align-items-center'>
     
     <div className='d-flex flex-column'>
-        {item.unitName}
+        {/* {item.unitName} */}
     </div>
     
     

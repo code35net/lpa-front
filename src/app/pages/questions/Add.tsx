@@ -187,7 +187,7 @@ const EditForm: FC<Props> = ({item}) => {
     formik.setFieldValue('auditCategoryId', event.target.value)
     if(event.target.value != '')
     {
-      listUnits(event.target.value).then((res3) => {
+      listUnits(event.target.value, 0).then((res3) => {
         setUnits(res3.data)
       })
     }

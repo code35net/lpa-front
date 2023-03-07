@@ -25,11 +25,11 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index]} />,
   },
 
-  {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ANSWERTEMPLATES.LIST.OPTIONS'})} className='min-w-125px' />,
-    id: 'Options',
-    Cell: ({...props}) => <InfoCell item={props.data[props.row.index]} />,
-  },
+  // {
+  //   Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ANSWERTEMPLATES.LIST.OPTIONS'})} className='min-w-125px' />,
+  //   id: 'Options',
+  //   Cell: ({...props}) => <InfoCell item={props.data[props.row.index]} />,
+  // },
   
   {
     Header: (props) => (

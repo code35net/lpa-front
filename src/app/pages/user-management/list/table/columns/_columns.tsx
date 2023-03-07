@@ -30,7 +30,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.MAIL'})} className='min-w-125px' />,
     id: 'email',
 
-    Cell: ({...props}) => <InfoCell item={props.data[props.row.index]} />,
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].email} />,
   },
   
   
@@ -40,12 +40,12 @@ const Columns: ReadonlyArray<Column<Model>> = [
 
     Cell: ({...props}) => <IdentityCell item={props.data[props.row.index]} />,
   },
-  {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.DEP/SEC'})} className='min-w-125px' />,
-    id: 'positionName',
+  // {
+  //   Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.DEP/SEC'})} className='min-w-125px' />,
+  //   id: 'positionName',
 
-    Cell: ({...props}) => <PositionCell item={props.data[props.row.index]} />,
-  },
+  //   Cell: ({...props}) => <PositionCell item={props.data[props.row.index]} />,
+  // },
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.POS'})} className='min-w-125px' />,
     id: 'sectionName',

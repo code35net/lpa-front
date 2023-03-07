@@ -27,6 +27,7 @@ export type Model = {
   trueCount?: number
   needActionCount?: number
   nonPeriodicDate?:string | null
+  isChanged?: boolean
 }
 
 

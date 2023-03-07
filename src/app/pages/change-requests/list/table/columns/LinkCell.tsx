@@ -7,23 +7,18 @@ import { Link } from 'react-router-dom'
 
 
 type Props = {
-  item: string
+  item: Model
 }
 
-const InfoCell: FC<Props> = ({item}) => (
+const LinkCell: FC<Props> = ({item}) => (
   <div className='d-flex align-items-center'>
-    {/* begin:: Avatar */}
-    
     <div className='d-flex flex-column'>
-    {/* <Link to={`/user-manager/userdetails?Id=${item.id}`}> {item.email}</Link> */}
-      {/* <a href='#' className='text-gray-800 text-hover-primary mb-1'>
-        {item.email}
-      </a> */}
       <span className='text-gray-800'>
-        {item}
+      
       </span>
     </div>
   </div>
+  
 )
 
-export {InfoCell}
+export {LinkCell}

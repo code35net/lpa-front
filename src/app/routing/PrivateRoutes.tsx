@@ -14,6 +14,7 @@ import {UserEditForm} from '../pages/user-management/newuser'
 import {EditAuditForm} from '../pages/audits/Planner'
 import {AuditDetails} from '../pages/audits/detail/auditdetail'
 import {AuditQuestionsForm} from '../pages/audits/detail/auditquestions'
+import {ChangeRequestPage} from '../pages/audits/Add'
 import {Reports} from '../pages/reports/ReportsWrapper'
 // import { Reports as QuestionReports } from '../pages/questionreport/ReportsWrapper'
 
@@ -37,6 +38,7 @@ const PrivateRoutes = (menus: Array<string>) => {
   const Audits = lazy(() => import('../pages/audits/Page'))
   const Units = lazy(() => import('../pages/units/Page'))
   const ChangesPassword = lazy(() => import('../pages/changePassword/Page'))
+  const ChangesRequests = lazy(() => import('../pages/change-requests/Page'))
 
   var usermanagementyetki = Object.keys(menus).some((key: any) => menus[key] == 'useraction')
   var announcementyetki = Object.keys(menus).some((key: any) => menus[key] == 'announcement')
@@ -52,6 +54,7 @@ const PrivateRoutes = (menus: Array<string>) => {
         <Route path='menu-test' element={<MenuTestPage />} />
         <Route path='/audits/auditdetail' element={<AuditDetails />} />
         <Route path='/audits/auditquestions/:auditId' element={<AuditQuestionsForm />} />
+        <Route path='/audits/change-request/:auditId' element={<ChangeRequestPage/>} />
         {/* <Route path='/course' element={<CoursePage />} /> */}
         {/* <Route path='/lesson' element={<LessonPage />} /> */}
         <Route path='/questions/add' element={<EditForm />} />
@@ -90,6 +93,15 @@ const PrivateRoutes = (menus: Array<string>) => {
           element={
             <SuspensedView>
               <Action />
+            </SuspensedView>
+          }
+        />
+
+          <Route
+          path='/change-requests/*'
+          element={
+            <SuspensedView>
+              <ChangesRequests />
             </SuspensedView>
           }
         />

@@ -51,7 +51,7 @@ const ListFilter: React.FC<Props> = ({
 
         if (departments.length > 0) {
           listSections(departments[0]?.id).then((response) => {
-            // setSections(response.data)
+            setSections(response.data)
           })
         }
         setAuditCategories([...(audits as never[])])
@@ -87,22 +87,22 @@ const ListFilter: React.FC<Props> = ({
     selectedMonths,
   ])
 
-  // useEffect(() => {
-  //   if (selectedDepartments) {
-  //     listSections(selectedDepartments).then((response) => {
-  //       setSections(response.data)
-  //     })
-  //   } else {
-  //     setSections([])
-  //   }
-  //   if (selectedSections) {
-  //     listUnits(selectedSections).then((response) => {
-  //       setUnits(response.data)
-  //     })
-  //   } else {
-  //     setUnits([])
-  //   }
-  // }, [selectedDepartments, selectedSections])
+  useEffect(() => {
+    if (selectedDepartments) {
+      listSections(parseInt(selectedDepartments)).then((response) => {
+        setSections(response.data)
+      })
+    } else {
+      setSections([])
+    }
+    if (selectedSections) {
+      listSections(parseInt(selectedSections)).then((response) => {
+        setUnits(response.data)
+      })
+    } else {
+      setUnits([])
+    }
+  }, [selectedDepartments, selectedSections])
 
   const filterData = () => {
     let filter: any = {}
@@ -334,12 +334,10 @@ const ListFilter: React.FC<Props> = ({
               <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
 
               {units.map((item: any) => {
-                return item?.unitType == 2 ? (
+                return (
                   <option key={item?.id} value={item?.id}>
                     {item?.name}
                   </option>
-                ) : (
-                  <span></span>
                 )
               })}
             </select>

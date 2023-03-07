@@ -28,8 +28,10 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const {refetch} = useQueryResponse()
 
   const [placeForEdit] = useState<Model>({
-    ...item,
+    
     name: undefined,
+
+    ...item,
    
 
     

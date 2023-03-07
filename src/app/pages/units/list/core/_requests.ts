@@ -33,15 +33,16 @@ const listThings = async (): Promise<any> =>
     return res.data
   })
 
-  const listSomeThings = async (auditcategoryId: string): Promise<any> =>
-  await axios.get(`${SOME_THING_URL}/${auditcategoryId}`).then((res: AxiosResponse) => {
+  const listSomeThings = async (auditcategoryId: string,unitid: any): Promise<any> =>
+  await axios.get(`${SOME_THING_URL}/${auditcategoryId}?unittoexclude=${unitid}&items_per_page=999`).then((res: AxiosResponse) => {
     return res.data
   })
 
   const getPercentageReport = (query: any): Promise<QueryResponse> => {
     const queryRaw: any = parseRequestQuery(query)
+    const year = new Date().getFullYear()
     return axios
-      .get(`${GET_PER_REPORT}?${new URLSearchParams(queryRaw).toString()}`)
+      .get(`${GET_PER_REPORT}?year=${year}&${new URLSearchParams(queryRaw).toString()}`)
       .then((d: AxiosResponse<QueryResponse>) => d.data)
   }
 

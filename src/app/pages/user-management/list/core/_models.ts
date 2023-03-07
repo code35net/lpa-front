@@ -8,12 +8,13 @@ export type Model = {
   identity?: string
   positionId?:number
   positionName?:string
-  unitName?:string
-  unitId?:string  
+  
+  // unitName?:string
+  // unitId?:string  
   isDeleteUser?:boolean
   userId?: string
-  parentUnitId?: number
-  punitId? : number
+  // parentUnitId?: number
+  // punitId? : number
 }
 
 export type QueryResponse = Response<Array<Model>>

@@ -31,8 +31,6 @@ const editchema = Yup.object().shape({
   identity: Yup.string()
     .max(50, 'Maximum 50 symbols')
    .required('Identity required'),
-  unitId: Yup.string()
-  .required('Section required'),
   positionId: Yup.string()
   .required('Position required'),
 })
@@ -71,9 +69,7 @@ const UserEditForm: FC<Props> = ({item}) => {
     fullName:undefined,
     identity: undefined,
     positionId:undefined,
-    unitId:undefined, 
-    parentUnitId:undefined,
-    punitId:undefined
+
     })
 
   //   const updateData = (fieldsToUpdate: Partial<Model>): void => {
@@ -107,11 +103,11 @@ const handleChangeUnitId2 = async (event:any) => {
     onSubmit: async (values) => {
       setLoading(true)
 
-      console.log(values.punitId)
+      // console.log(values.punitId)
       
-      if (!values.unitId && units.length) {
-        values.unitId = (units[0] as any)?.id
-      }
+      // if (!values.unitId && units.length) {
+      //   values.unitId = (units[0] as any)?.id
+      // }
 
       if (!values.positionId && positions.length) {
         values.positionId = (positions[0] as any)?.id
@@ -262,7 +258,9 @@ const handleChangeUnitId2 = async (event:any) => {
                 )}
               </div>
             </div>
-             <div className='row mb-3'>
+
+
+             {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
                 {intl.formatMessage({id: 'USER.NEWUSER.DEPARTMENT'})}
@@ -355,7 +353,7 @@ const handleChangeUnitId2 = async (event:any) => {
                 )}
 
               </div>
-            </div> 
+            </div>  */}
             
             
             <div className='row mb-3'>
