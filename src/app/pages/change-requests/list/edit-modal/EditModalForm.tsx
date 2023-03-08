@@ -206,6 +206,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             {           intl.formatMessage({id: 'AUDIT_CHANGE_UNIT'})}
                     </label>     
                 <select
+                disabled
               
                   className='form-select form-multi form-select-solid form-select-md'
                   
@@ -230,6 +231,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           </label>
           
           <input
+          disabled
             //placeholder='Full name'
             {...formik.getFieldProps('text')}
             type='text'
@@ -242,7 +244,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
               }
             )}
             autoComplete='off'
-            disabled={formik.isSubmitting || isThingLoading}
+            // disabled={formik.isSubmitting || isThingLoading}
           />
           {formik.touched.text && formik.errors.text && (
             <div className='fv-plugins-message-container'>

@@ -363,6 +363,7 @@
   "AUDIT_CHANGE_UNIT": "Birim",
   "AUDIT_CHANGE_TEXT": "Metin",
   "AUDIT_CHANGE_ISACCEPTED": "Onaylandı mı",
+  "AUDIT_CHANGE_UNIT_OLD": "Eski Birim",
 
   "FILTER.MONTH": "Ay",
   "REPORTS.MOUNTH.01": "Ocak",
@@ -390,6 +391,11 @@
   "QUESTIONS.EDIT.UNIT": "Birim",
   "QUESTIONS.LIST.NAME": "Soru Metni",
   "QUESTIONCATEGORY.MODAL.EDIT": "Düzenle",
+
+  "FILTER.AUDITCATEGORIES": "Denetim Kategorileri",
+  "FILTER.APPLY": "Uygula",
+  "FILTER.RESET": "Temizle",
+  "QUESTIONS.LIST.HEADER": "Seçiniz",
 
   
   "boş": "boş"
