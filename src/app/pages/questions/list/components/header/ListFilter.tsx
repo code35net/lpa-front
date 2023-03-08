@@ -12,6 +12,8 @@ import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {useQuery} from 'react-query'
 import {listThings as listAuditCategories} from '../../../../audit-categories/list/core/_requests'
 import {listThings as listQuestionCategories} from '../../../../question-groups/list/core/_requests'
+import {listThings as listDepartments} from '../../../../units/list/core/_requests'
+import {listOtherThings as listSections} from '../../../../units/list/core/_requests'
 
 const ListFilter = () => {
   const intl = useIntl()
@@ -27,25 +29,31 @@ const ListFilter = () => {
   const [selectedQuestionCategories, setSelectedQuestionCategories] = useState('')
   const [selectedDepartments, setSelectedDepartments] = useState('')
   const [selectedSections, setSelectedSections] = useState('')
+  const [units, setUnits] = useState([])
+  const [selectedUnits, setSelectedUnits] = useState('')
 
   useEffect(() => {
-    Promise.all([listAuditCategories(), listQuestionCategories()]).then(
+    Promise.all([listAuditCategories(), listQuestionCategories(), listDepartments()]).then(
       (responses) => {
         const audits: Array<any> = responses?.[0]?.data || []
         const questions: Array<any> = responses?.[1]?.data || []
+        const departments: Array<any> = responses?.[2]?.data || []
 
-        /*if (departments.length > 0) {
+        if (departments.length > 0) {
           listSections(departments[0]?.id).then((response) => {
-            //setSections(response.data)
+            setSections(response.data)
           })
         }
-        */
+
         setAuditCategories([...(audits as never[])])
         setQuestionCategories([...(questions as never[])])
         setDepartments([...(departments as never[])])
       }
     )
   }, [])
+
+  console.log(departments)
+  console.log(sections)
 
   useEffect(() => {
     MenuComponent.reinitialization()
@@ -62,6 +70,22 @@ const ListFilter = () => {
     filterData()
   }, [selectedAuditCategories, selectedQuestionCategories, selectedSections])
 
+  useEffect(() => {
+    if (selectedDepartments) {
+      listSections(parseInt(selectedDepartments)).then((response) => {
+        setSections(response.data)
+      })
+    } else {
+      setSections([])
+    }
+    if (selectedSections) {
+      listSections(parseInt(selectedSections)).then((response) => {
+        setUnits(response.data)
+      })
+    } else {
+      setUnits([])
+    }
+  }, [selectedDepartments, selectedSections])
 
   const filterData = () => {
     let filter: any = {}
@@ -95,7 +119,7 @@ const ListFilter = () => {
       </button>
       {/* end::Filter Button */}
       {/* begin::SubMenu */}
-      <div className='menu menu-sub menu-sub-dropdown w-300px w-md-325px' data-kt-menu='true'>
+      <div className='menu menu-sub menu-sub-dropdown w-300px w-md-325px ' data-kt-menu='true'>
         {/* begin::Header */}
         <div className='px-7 py-5'>
           <div className='fs-5 text-dark fw-bolder'>
@@ -109,7 +133,11 @@ const ListFilter = () => {
         {/* end::Separator */}
 
         {/* begin::Content */}
-        <div className='px-7 py-5' data-kt-item-table-filter='form'>
+        <div
+          className='px-7 py-5'
+          data-kt-item-table-filter='form'
+          style={{overflowX: 'scroll', maxHeight: '400px'}}
+        >
           {/* begin::Input group */}
           <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
@@ -128,7 +156,11 @@ const ListFilter = () => {
               <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
               {auditcategories.map((item: any) => {
-                return <option key={item?.id} value={item?.id}>{item?.name}</option>
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                )
               })}
             </select>
           </div>
@@ -150,10 +182,13 @@ const ListFilter = () => {
               value={selectedQuestionCategories}
             >
               <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
-              
 
               {questioncategories.map((item: any) => {
-                return <option key={item?.id} value={item?.id}>{item?.name}</option>
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                )
               })}
             </select>
           </div>
@@ -162,7 +197,7 @@ const ListFilter = () => {
           {/* begin::Input group */}
           <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'FILTER.DEPARTMENTS'})}
+              {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
             </label>
             <select
               className='form-select form-select-solid fw-bolder'
@@ -171,40 +206,88 @@ const ListFilter = () => {
               data-allow-clear='true'
               data-kt-item-table-filter='role'
               data-hide-search='true'
-              onChange={(e) => setSelectedDepartments(e.target.value)}
+              onChange={(e) => {
+                setSelectedDepartments(e.target.value)
+                setSelectedSections('')
+              }}
               value={selectedDepartments}
             >
               <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
               {departments.map((item: any) => {
-                return <option key={item?.id} value={item?.id}>{item?.name}</option>
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                )
               })}
             </select>
           </div>
           {/* end::Input group */}
 
           {/* begin::Input group */}
-          <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'FILTER.SECTIONS'})}
-            </label>
-            <select
-              className='form-select form-select-solid fw-bolder'
-              data-kt-select2='true'
-              data-placeholder='Select option'
-              data-allow-clear='true'
-              data-kt-item-table-filter='role'
-              data-hide-search='true'
-              onChange={(e) => setSelectedSections(e.target.value)}
-              value={selectedSections}
-            >
-              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
+          {selectedDepartments ? (
+            <div className='mb-10'>
+              <label className='form-label fs-6 fw-bold'>
+                {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
+              </label>
+              <select
+                className='form-select form-select-solid fw-bolder'
+                data-kt-select2='true'
+                data-placeholder='Select option'
+                data-allow-clear='true'
+                data-kt-item-table-filter='role'
+                data-hide-search='true'
+                onChange={(e) => setSelectedSections(e.target.value)}
+                value={selectedSections}
+              >
+                <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
-              {sections.map((item: any) => {
-                return <option key={item?.id} value={item?.id}>{item?.name}</option>
-              })}
-            </select>
-          </div>
+                {sections.map((item: any) => {
+                  return (
+                    <option key={item?.id} value={item?.id}>
+                      {item?.name}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+          ) : (
+            <></>
+          )}
+
+          {/* end::Input group */}
+          {/* begin::Input group */}
+          {selectedSections ? (
+            <div className='mb-10'>
+              <label className='form-label fs-6 fw-bold'>
+                {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
+              </label>
+              <select
+                className='form-select form-select-solid fw-bolder'
+                data-kt-select2='true'
+                data-placeholder='Select option'
+                data-allow-clear='true'
+                data-kt-item-table-filter='role'
+                data-hide-search='true'
+                onChange={(e) => setSelectedUnits(e.target.value)}
+                value={selectedUnits}
+              >
+                <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+
+                {units.map((item: any) => {
+                  return (
+                    <option key={item?.id} value={item?.id}>
+                      {item?.name}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+          ) : (
+            <></>
+          )}
+
           {/* end::Input group */}
 
           {/* begin::Actions */}

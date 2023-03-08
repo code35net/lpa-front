@@ -150,6 +150,13 @@ const ListFilter: React.FC<Props> = ({
     })
   }
 
+  {
+    console.log(selectedDepartments)
+  }
+  {
+    console.log(selectedSections)
+  }
+
   return (
     <>
       {/* begin::Filter Button */}
@@ -264,7 +271,7 @@ const ListFilter: React.FC<Props> = ({
           {/* begin::Input group */}
           <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'FILTER.DEPARTMENTS'})}
+              {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
             </label>
             <select
               className='form-select form-select-solid fw-bolder'
@@ -273,7 +280,10 @@ const ListFilter: React.FC<Props> = ({
               data-allow-clear='true'
               data-kt-item-table-filter='role'
               data-hide-search='true'
-              onChange={(e) => setSelectedDepartments(e.target.value)}
+              onChange={(e) => {
+                setSelectedDepartments(e.target.value)
+                setSelectedSections('')
+              }}
               value={selectedDepartments}
             >
               <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
@@ -290,58 +300,69 @@ const ListFilter: React.FC<Props> = ({
           {/* end::Input group */}
 
           {/* begin::Input group */}
-          <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'FILTER.SECTIONS'})}
-            </label>
-            <select
-              className='form-select form-select-solid fw-bolder'
-              data-kt-select2='true'
-              data-placeholder='Select option'
-              data-allow-clear='true'
-              data-kt-item-table-filter='role'
-              data-hide-search='true'
-              onChange={(e) => setSelectedSections(e.target.value)}
-              value={selectedSections}
-            >
-              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
 
-              {sections.map((item: any) => {
-                return (
-                  <option key={item?.id} value={item?.id}>
-                    {item?.name}
-                  </option>
-                )
-              })}
-            </select>
-          </div>
+          {selectedDepartments ? (
+            <div className='mb-10'>
+              <label className='form-label fs-6 fw-bold'>
+                {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
+              </label>
+              <select
+                className='form-select form-select-solid fw-bolder'
+                data-kt-select2='true'
+                data-placeholder='Select option'
+                data-allow-clear='true'
+                data-kt-item-table-filter='role'
+                data-hide-search='true'
+                onChange={(e) => setSelectedSections(e.target.value)}
+                value={selectedSections}
+              >
+                <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+
+                {sections.map((item: any) => {
+                  return (
+                    <option key={item?.id} value={item?.id}>
+                      {item?.name}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+          ) : (
+            <></>
+          )}
+
           {/* end::Input group */}
           {/* begin::Input group */}
-          <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'FILTER.UNITS'})}
-            </label>
-            <select
-              className='form-select form-select-solid fw-bolder'
-              data-kt-select2='true'
-              data-placeholder='Select option'
-              data-allow-clear='true'
-              data-kt-item-table-filter='role'
-              data-hide-search='true'
-              onChange={(e) => setSelectedUnits(e.target.value)}
-              value={selectedUnits}
-            >
-              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+          {selectedSections ? (
+            <div className='mb-10'>
+              <label className='form-label fs-6 fw-bold'>
+                {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
+              </label>
+              <select
+                className='form-select form-select-solid fw-bolder'
+                data-kt-select2='true'
+                data-placeholder='Select option'
+                data-allow-clear='true'
+                data-kt-item-table-filter='role'
+                data-hide-search='true'
+                onChange={(e) => setSelectedUnits(e.target.value)}
+                value={selectedUnits}
+              >
+                <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
 
-              {units.map((item: any) => {
-                return (
-                  <option key={item?.id} value={item?.id}>
-                    {item?.name}
-                  </option>
-                )
-              })}
-            </select>
-          </div>
+                {units.map((item: any) => {
+                  return (
+                    <option key={item?.id} value={item?.id}>
+                      {item?.name}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+          ) : (
+            <></>
+          )}
+
           {/* end::Input group */}
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>

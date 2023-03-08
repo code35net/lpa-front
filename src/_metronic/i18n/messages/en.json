@@ -90,7 +90,6 @@
   "DROPDOWN_SELECT": "Select",
   "REPORTS.LOANDING": "Loading",
   "ACTION.LIST.LOADING": "Loading",
-  
 
   "ANNOUNCEMENT.TITLE": "Title",
   "ANNOUNCEMENT.TEXT": "Text",
@@ -366,7 +365,6 @@
   "AUDIT_CHANGE_TEXT": "Text",
   "AUDIT_CHANGE_ISACCEPTED": "Is Accepted",
 
-
   "FILTER.MONTH": "Month",
   "REPORTS.MOUNTH.01": "January",
   "REPORTS.MOUNTH.02": "February",
@@ -397,8 +395,10 @@
   "FILTER.APPLY": "Apply",
   "FILTER.RESET": "Reset",
   "QUESTIONS.LIST.HEADER": "Select",
-  
-
+  "QUESTIONS.TITLEE": "Units",
+  "TITLE_DEFİNİTİONS": "Definitions",
+  "TITLE_CATEGORİES": "Categories",
+  "FILTER.AUDIT.UNITS": "Audit Unit",
 
   "boş": "boş"
 }

@@ -174,7 +174,7 @@
   "USERS.PAGE.TITLE": "Kullanıcılar",
   "USERS.EMAIL": "Email",
   "USERS.ROLE": "Rol",
-  "USERS.IDENTITY": "Kimlik Numarası",
+  "USERS.IDENTITY": "Sicil No",
   "USERS.AUTHORITY": "Yetkiler",
   "USERS.INSTRUCTOR": "Eğitmen",
   "USERS.PARTICIPANT": "Katılımcı",
@@ -248,7 +248,7 @@
 
   "USER.TABLE.COLUMNS.NAME": "İsİm",
   "USER.TABLE.COLUMNS.MAIL": "Maİl",
-  "USER.TABLE.COLUMNS.IDENTITY": "Identity",
+  "USER.TABLE.COLUMNS.IDENTITY": "Sicil No",
   "USER.TABLE.COLUMNS.DEP/SEC": "Departman/Bölüm",
   "USER.TABLE.COLUMNS.POS": "Pozİsyon",
   "USER.TABLE.COLUMNS.SHIFT": "Shift",
@@ -258,14 +258,14 @@
   "USER.CHANGE.PASS": "Şifre Değiştir",
   "USER.CHANGE.PASSWORD": "Şifreyi Değiştir",
   "USER.PASS": "Şifreniz",
-  "USER.CURRENTT.PASSWORD": " Şimdiki Şifreniz",
-  "USER.NEWW.PASSWORD": " Yeni Şifreniz",
+  "USER.CURRENTT.PASSWORD": "Eski Şifre",
+  "USER.NEWW.PASSWORD": " Yeni Şifre",
 
   "USERS.ADD": "Kullanıcı Ekle",
   "USER.NEWUSER.TITLE": "YENI KULLANICI",
   "USER.NEWUSER.MAIL": "E-Mail",
   "USER.NEWUSER.NAME": "Adı",
-  "USER.NEWUSER.ID-NUM": "Identity",
+  "USER.NEWUSER.ID-NUM": "Sicil No",
   "USER.NEWUSER.DEPARTMENT": "Departman",
   "USER.NEWUSER.SECTION": "Bölüm",
   "USER.NEWUSER.POSITION": "Pozisyon",
@@ -294,8 +294,8 @@
 
   "USER.ISDELETED": "Silindi mi",
   "USER.FULLNAME": "Adı Soyadı",
-  "USER.IDENTITY": "Identity",
-  "USER.EDIT": "Düzenler",
+  "USER.IDENTITY": "Sicil No",
+  "USER.EDIT": "Düzenle",
   "USER.NEWUSER": "Yeni Kullanıcı",
   "USERS.LIST.MODAL.FORM": "Kullanıcı Listesi",
 
@@ -350,13 +350,14 @@
   "AUDITS.DETAIL.CONTINUE": "Denetime Devam Et",
   "AUDITS.AUDITQUEDTIONS.FINISH": "Denetimi Bitir",
   "USER.TABLE.NOMATCH": "Eşleşme Bulunamadı",
-  "FILTER.OPTIONS": "Filitre Ayarları",
+  "FILTER.OPTIONS": "Filtre Ayarları",
   "FILTER.YEAR": "Yıl",
   "FILTER.MOUNTH": "Ay",
   "FILTER.QUESTIONCATEGORIES": "Soru Kategorisi",
   "FILTER.DEPARTMENTS": "Departmanlar",
   "FILTER.SECTIONS": "Bölümler",
   "FILTER.UNITS": "Birimler",
+  "FILTER.AUDIT.UNITS": "Denetleme Birimi",
 
   "AUDIT_CHANGE_REQUEST": "Denetim Değişiklik Talebi",
   "AUDIT_CHANGE_AUDIT": "Denetim",
@@ -378,7 +379,6 @@
   "REPORTS.MOUNTH.10": "Ekim",
   "REPORTS.MOUNTH.11": "Kasım",
   "REPORTS.MOUNTH.12": "Aralık",
-  
 
   "TABLE.DELETESELECTED": "Seçilenleri Sil",
   "TABLE.SELECTED": "Seçilen",
@@ -396,7 +396,9 @@
   "FILTER.APPLY": "Uygula",
   "FILTER.RESET": "Temizle",
   "QUESTIONS.LIST.HEADER": "Seçiniz",
+  "QUESTIONS.TITLEE": "Birimler",
+  "TITLE_DEFİNİTİONS": "Tanımlamalar",
+  "TITLE_CATEGORİES": "Kategoriler",
 
-  
   "boş": "boş"
 }

@@ -50,7 +50,7 @@ const ListToolbar = () => {
         className='btn btn-sm btn-light me-3'
         data-kt-items-modal-action='cancel'
       >
-        Geri
+        {intl.formatMessage({id: 'AUTH.GENERAL.BACK_BUTTON'})}
       </button>
       <button
         type='button'

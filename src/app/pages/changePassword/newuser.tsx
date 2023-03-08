@@ -84,6 +84,7 @@ const ChangePassword: FC<Props> = ({item}) => {
               <div className='col-lg-8 fv-row'>
                 <input
                   //placeholder='Email'
+
                   {...formik.getFieldProps('email')}
                   className={clsx(
                     'form-control form-control-solid mb-3 mb-lg-0',
@@ -116,7 +117,7 @@ const ChangePassword: FC<Props> = ({item}) => {
 
               <div className='col-lg-8 fv-row'>
                 <input
-                  // placeholder={formik.errors.fullName}
+                  // placeholder='{formik.errors.fullName}'
                   {...formik.getFieldProps('oldPassword')}
                   className={clsx(
                     'form-control form-control-solid mb-3 mb-lg-0',

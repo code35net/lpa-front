@@ -4,41 +4,36 @@ import {ListWrapper} from './list/List'
 import {useIntl} from 'react-intl'
 import {useEffect, useState} from 'react'
 
-
-
-const Breadcrumbs: Array<PageLink> = [
-  {
-    title: 'Home',
-    path: '/dashboard',
-    isSeparator: false,
-    isActive: false,
-    
-  },
-  {
-    title: 'Unit',
-    path: '/units',
-    isSeparator: false,
-    isActive: false,
-    id: "20"
-  },
-  {
-    title: '',
-    path: '/units',
-    isSeparator: false,
-    isActive: false,
-  },
-  {
-    title: '',
-    path: '',
-    isSeparator: true,
-    isActive: false,
-  },
-]
-
-
-
 const Page = () => {
   const intl = useIntl()
+
+  const Breadcrumbs: Array<PageLink> = [
+    {
+      title: `${intl.formatMessage({id: 'TITLE_DEFİNİTİONS'})}`,
+      path: '/units/list',
+      isSeparator: false,
+      isActive: false,
+    },
+    // {
+    //   title: 'Unit',
+    //   path: '/units',
+    //   isSeparator: false,
+    //   isActive: false,
+    //   id: '20',
+    // },
+    // {
+    //   title: '',
+    //   path: '/units',
+    //   isSeparator: false,
+    //   isActive: false,
+    // },
+    {
+      title: '',
+      path: '',
+      isSeparator: true,
+      isActive: false,
+    },
+  ]
 
   const [breadcrumbs, setBreadcrumbs] = useState(Breadcrumbs)
 
@@ -48,7 +43,7 @@ const Page = () => {
     const iditem = localStorage.getItem('department-id-breadcrumb')
     if (item) {
       breadcrumbs[breadcrumbs.length - 2].title = item
-      breadcrumbs[breadcrumbs.length - 2].path = '/units/list?unitId='+iditem
+      breadcrumbs[breadcrumbs.length - 2].path = '/units/list?unitId=' + iditem
       setBreadcrumbs([...breadcrumbs])
     }
     // Respond to the `storage` event
@@ -73,7 +68,9 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle breadcrumbs={Breadcrumbs}>units</PageTitle>
+              <PageTitle breadcrumbs={Breadcrumbs}>
+                {intl.formatMessage({id: 'QUESTIONS.TITLEE'})}
+              </PageTitle>
               <ListWrapper />
             </>
           }

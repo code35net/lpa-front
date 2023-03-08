@@ -3,15 +3,12 @@ import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import {ListWrapper} from './list/List'
 import {useIntl} from 'react-intl'
 
-
-
 const Breadcrumbs: Array<PageLink> = [
   {
     title: 'Home',
     path: '/dashboard',
     isSeparator: false,
     isActive: false,
-    
   },
   {
     title: '',
@@ -30,7 +27,7 @@ const Page = () => {
           path='list'
           element={
             <>
-              <PageTitle breadcrumbs={Breadcrumbs}>{intl.formatMessage({id: 'AUDIT_CHANGE_REQUEST'})}</PageTitle>
+              <PageTitle>{intl.formatMessage({id: 'AUDIT_CHANGE_REQUEST'})}</PageTitle>
               <ListWrapper />
             </>
           }
