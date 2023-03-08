@@ -88,6 +88,9 @@
   "SWEETALERT.CONFIRM": "Confirm",
   "SWEETALERT.CANCEL": "Cancel",
   "DROPDOWN_SELECT": "Select",
+  "REPORTS.LOANDING": "Loading",
+  "ACTION.LIST.LOADING": "Loading",
+  
 
   "ANNOUNCEMENT.TITLE": "Title",
   "ANNOUNCEMENT.TEXT": "Text",
@@ -165,6 +168,8 @@
   "QUESTIONS.ADDPAGE.SELECT.UNIT": "Select Unit",
   "QUESTIONS.ADDPAGE.SELECT.ANSWERTEMPLATE": "Select Answer Template",
   "QUESTIONS.ADDPAGE.SELECT.QUESTION.CATEGORY": "Select Question Category",
+  "QUESTIONS.LIST.MODAL.FORM": "Select",
+  "QUESTIONS.LIST.LOADING": "Loading",
 
   "USERS.FULLNAME": "Fullname",
   "USERS.PAGE.TITLE": "Users",
@@ -337,7 +342,7 @@
   "AUDITS.DETAIL.CATEGORY": "Audit Category",
   "AUDITS.DETAIL.DEPARTMENT": "Audit Department",
   "AUDITS.DETAIL.SECTION": "Audit Section",
-  "AUDITS.DETAIL.UNITT": "Audit Uniy",
+  "AUDITS.DETAIL.UNITT": "Audit Unit",
   "AUDITS.DETAIL.AUDITOR": "Inspector",
   "AUDITS.DETAIL.STARTED": "Starting Date",
   "AUDITS.DETAIL.ENDED": "End Date",

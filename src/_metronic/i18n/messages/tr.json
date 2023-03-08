@@ -90,6 +90,8 @@
   "SWEETALERT.CONFIRM": "Onayla",
   "SWEETALERT.CANCEL": "İptal",
   "DROPDOWN_SELECT": "Seçiniz",
+  "REPORTS.LOANDING": "Yükleniyor",
+  "ACTION.LIST.LOADING": "Yükleniyor",
 
   "ANNOUNCEMENT.TITLE": "Başlık",
   "ANNOUNCEMENT.TEXT": "Metin",
@@ -161,6 +163,8 @@
   "SWEETALERT.OK": "Tamam",
   "QUESTION.HASTHREAD.TEXT": "Lütfen görsel üzerinden tehlikeli maddeyi işaretleyiniz!",
   "QUESTION.HASTHREAD": "Tehlikeli madde var mı?",
+  "QUESTIONS.LIST.MODAL.FORM": "Seçiniz",
+  "QUESTIONS.LIST.LOADING": "Yükleniyor",
 
   "QUESTIONS.ADDPAGE.SELECT.UNIT": "Birim Seçiniz",
   "QUESTIONS.ADDPAGE.SELECT.ANSWERTEMPLATE": "Cevap Şablonu Seçiniz",

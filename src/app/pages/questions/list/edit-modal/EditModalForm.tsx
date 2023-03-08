@@ -7,7 +7,7 @@ import {Model} from '../core/_models'
 import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
-import {createQuestion, updateQuestion} from '../core/_requests'
+import { updateQuestion} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
 import {listThings as listQuestionCategories} from '../../../question-groups/list/core/_requests'
@@ -39,9 +39,9 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   const [isQuestionCategory, setIsQuestionCategory] = React.useState(item.isAddedQuestionCategory)
 
   useEffect(() => {
-   
 
-    listAuditCategories().then((res2) => {      
+
+    listAuditCategories().then((res2) => {
       setAuditCategories(res2.data || [])
     })
     listQuestionCategories().then((res3) => {
@@ -56,7 +56,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   console.log(item, 'test')
   const [placeForEdit] = useState<Model>({
     text: undefined,
-    
+
     auditCategoryId: undefined,
     isNew: undefined,
     isAddedQuestionCategory: false,
@@ -79,8 +79,6 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
       try {
         if (isNotEmpty(values.id)) {
           await updateQuestion(values)
-        } else {
-          await createQuestion(values)
         }
       } catch (ex) {
         console.error(ex)
@@ -102,7 +100,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
       })
     }
   }
-  
+
 
   return (
     <>
@@ -165,14 +163,14 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         {/* begin::Hint */}
         {/* <div className='form-text'>Allowed file types: png, jpg, jpeg.</div> */}
         {/* end::Hint */}
-        {/* end::Input group 
+        {/* end::Input group
         <div className='fv-row mb-7'>*/}
 
           {/* <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({
               id: 'QUESTIONS.ADDPAGE.IS_NEW',
             })}
-          </label> 
+          </label>
           <div className='form-check form-check-solid form-switch'>
             <input
               {...formik.getFieldProps('isNew')}
@@ -184,13 +182,13 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
               id='isNew'
             />
             <label className='form-check-label mt-3 px-5'> <small className='text-danger'>{intl.formatMessage({id: 'QUESTIONS.LIST.MODAL.MARK'})}</small> </label>
-            
+
           </div>
         </div>
 
         */}
-     
-     
+
+
         <div className='fv-row mb-7'>
           {/* begin::Label */}
           <label className='required fw-bold fs-6 mb-2'>
@@ -215,9 +213,9 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           {/* end::Input */}
         </div>
         <div className='fv-row mb-7'>
-          
+
           <div className='form-check form-check-solid form-switch'>
-          <label className='fw-bold fs-6 mt-3 px-5'> 
+          <label className='fw-bold fs-6 mt-3 px-5'>
           {intl.formatMessage({
               id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
             })}
@@ -236,10 +234,10 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         </div>
         {
           isQuestionCategory && (
-            
+
         <div className='fv-row mb-7'>
-         
-         
+
+
           <select
             className='form-select form-select-solid form-select-md'
             //onChange={(e) => handleQuestionCategories(e.target.value)}
@@ -264,8 +262,9 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           </label>
 
           <select
-              className='form-select form-select-solid form-select-md'              
+              className='form-select form-select-solid form-select-md'
             {...formik.getFieldProps('unitId')}
+            // value={formik.values.unitId}
               name='unitId'
               defaultValue=""
             >

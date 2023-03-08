@@ -38,16 +38,16 @@ const createBulkQuestions = (question: Model): Promise<Model | undefined> => {
     .then((response: Response<Model>) => response as any)
 }
 
-const createQuestion = (question: Model): Promise<Model | undefined> => {
-  return axios
-    .put(COPY_QUESTION_URL, question)
-    .then((response: AxiosResponse<Response<Model>>) => response.data)
-    .then((response: Response<Model>) => response as any)
-}
+// const createQuestion = (question: Model): Promise<Model | undefined> => {
+//   return axios
+//     .put(COPY_QUESTION_URL, question)
+//     .then((response: AxiosResponse<Response<Model>>) => response.data)
+//     .then((response: Response<Model>) => response as any)
+// }
 
 const updateQuestion = (question: Model): Promise<Model | undefined> => {
   return axios
-    .put(`${COPY_QUESTION_URL}/${question.id}`, question)
+    .post(`${COPY_QUESTION_URL}/${question.id}`, question)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response.data)
 }
@@ -66,7 +66,7 @@ export {
   deleteQuestion,
   deleteSelectedQuestions,
   getQuestionById,
-  createQuestion,
+  //createQuestion,
   updateQuestion,
   addQuestionAnswers,
   createBulkQuestions,
