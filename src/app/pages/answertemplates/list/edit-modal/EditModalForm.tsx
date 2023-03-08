@@ -20,9 +20,7 @@ type Props = {
 }
 
 const editchema = Yup.object().shape({
-  answerText: Yup.string()
-    .max(50, 'Maximum 50 symbols')
-    .required('Answer Text required'),
+  answerText: Yup.string().max(50, 'Maximum 50 symbols').required('Answer Text required'),
 })
 
 const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
@@ -31,18 +29,17 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
   const {refetch} = useQueryResponse()
   const [options, setOptions] = React.useState<Array<TemplateOptions>>([])
 
-     
   useEffect(() => {
     if (itemIdForUpdate) {
       getAnswerTemplateOptions(itemIdForUpdate).then((data) => {
         const answers: Array<TemplateOptions> = []
-        let datatext = ""
+        let datatext = ''
         data?.data.forEach((item: any) => {
           answers.push({
             id: item.id,
             optionname: item.optionName,
             needAction: item.needAction ? true : false,
-            isTrue: item.isTrue ? true : false
+            isTrue: item.isTrue ? true : false,
           })
           datatext = item.answerTemplate.text
         })
@@ -67,7 +64,12 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
     templateoptions: [],
   } as Model)
 
-  const handleTemplateOption = (id: number, optionname: string, needAction: boolean, isTrue:boolean) => {
+  const handleTemplateOption = (
+    id: number,
+    optionname: string,
+    needAction: boolean,
+    isTrue: boolean
+  ) => {
     let index = options.findIndex((option) => option.id === id)
     if (index > -1) {
       options[index].optionname = optionname
@@ -88,10 +90,14 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
     }
   }
 
-  const deleteOptionItem = () => {
+  const deleteOptionItem = (id: any) => {
+    console.log(id)
     if (options.length > 1) {
-      options.pop()
-      setOptions([...options])
+      const element = options.filter((x) => x.id != id)
+      console.log(element)
+      console.log(options)
+      // options.pop()
+      setOptions([...element])
     }
   }
 
@@ -136,7 +142,8 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
           await updateAnswerTemplate({
             id: values.id,
             text: values?.answerText || values?.text,
-            templateoptions: (values as any)?.templateoptions || (values as any)?.answerTemplateOptions,
+            templateoptions:
+              (values as any)?.templateoptions || (values as any)?.answerTemplateOptions,
           })
         } else {
           await createAnswerTemplate(values)
@@ -263,7 +270,12 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
                         name={`${option.id}`}
                         id={`${option.id}`}
                         onChange={(e) => {
-                          handleTemplateOption(option.id, e.target.value, option.needAction, option.isTrue)
+                          handleTemplateOption(
+                            option.id,
+                            e.target.value,
+                            option.needAction,
+                            option.isTrue
+                          )
                         }}
                         type='text'
                         className='form-control form-control-solid'
@@ -300,11 +312,11 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
                         </span>
                       </label>
                     </div>
-                    
+
                     <div className='col-md-2 fv-row'>
                       <a
                         type='button'
-                        onClick={deleteOptionItem}
+                        onClick={() => deleteOptionItem(option.id)}
                         className='btn btn-sm btn-danger btn-active-light-danger'
                       >
                         <KTSVG path='/media/icons/duotune/arrows/arr010.svg' />
