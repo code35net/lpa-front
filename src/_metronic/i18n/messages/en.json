@@ -393,5 +393,12 @@
   "QUESTIONS.LIST.NAME": "Question Text",
   "QUESTIONCATEGORY.MODAL.EDIT": "Edit",
 
+  "FILTER.AUDITCATEGORIES": "Audit Categories",
+  "FILTER.APPLY": "Apply",
+  "FILTER.RESET": "Reset",
+  "QUESTIONS.LIST.HEADER": "Select",
+  
+
+
   "boş": "boş"
 }
