@@ -189,7 +189,7 @@ const AuditDetails = () => {
             </div>
           </div>
 
-          <div className='row mb-7'>
+          {/* <div className='row mb-7'>
             <label className='col-lg-4 fw-bold text-muted'>
               {intl.formatMessage({id: 'AUDITS.DETAIL.DEPARTMENT'})}
             </label>
@@ -215,7 +215,7 @@ const AuditDetails = () => {
                   : ''}
               </span>
             </div>
-          </div>
+          </div> */}
 
           <div className='row mb-7'>
             <label className='col-lg-4 fw-bold text-muted'>
