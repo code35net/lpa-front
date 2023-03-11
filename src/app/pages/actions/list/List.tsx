@@ -4,6 +4,7 @@ import {QueryResponseProvider} from './core/QueryResponseProvider'
 import {ListHeader} from './components/header/ListHeader'
 import {Table} from './table/Table'
 import {KTCard} from '../../../../_metronic/helpers'
+import {EditModal} from './edit-modal/EditModal'
 
 const List = () => {
   const {itemIdForUpdate} = useListView()
@@ -14,6 +15,7 @@ const List = () => {
         <Table />
       </KTCard>
 
+      {itemIdForUpdate !== undefined && <EditModal />}
     </>
   )
 }

@@ -13,6 +13,7 @@ import {
   finishAudit as finishAuditB,
 } from '../list/core/_requests'
 import {addQuestionAnswers, getQuestionById} from '../../questions/list/core/_requests'
+import {listUsers} from '../../user-management/list/core/_requests'
 
 import {useParams} from 'react-router-dom'
 import clsx from 'clsx'
@@ -65,6 +66,10 @@ const AuditQuestionsForm = () => {
 
           setQuestions(res?.data)
         }
+      })
+
+      listUsers().then((res) => {
+          setPStaffList(res.data)
       })
     }
   }, [params])
@@ -307,7 +312,7 @@ const AuditQuestionsForm = () => {
                         <option value=''>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.CHOOSE'})}</option>
                         {pStaffList.map((user: any) => (
                           <option value={user?.id as any} key={user?.id as any}>
-                            {user?.fullname as any}
+                            {user?.fullName as any}
                           </option>
                         ))}
                       </select>

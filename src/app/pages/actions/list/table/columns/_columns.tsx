@@ -26,11 +26,11 @@ const Columns: ReadonlyArray<Column<Model>> = [
     id: 'done',
     Cell: ({...props}) => <DoneCell item={props.data[props.row.index]} />,
   },
-  {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.STAFF'})} className='min-w-125px' />,
-    id: 'fullName',
-    Cell: ({...props}) => <UserCell item={props.data[props.row.index]} />,
-  },
+  // {
+  //   Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.STAFF'})} className='min-w-125px' />,
+  //   id: 'fullName',
+  //   Cell: ({...props}) => <UserCell item={props.data[props.row.index]} />,
+  // },
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.STATUS'})} className='min-w-125px' />,
     id: 'status',

@@ -21,6 +21,7 @@ const ActionsCell: FC<Props> = ({id}) => {
   }, [])
 
   const openEditModal = () => {
+    console.log(id)
     setItemIdForUpdate(id)
   }
 

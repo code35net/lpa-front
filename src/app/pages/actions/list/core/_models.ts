@@ -12,8 +12,8 @@ export type Model = {
   auditDate?:string
   lastDate?:string
   finding?:string
-  done:boolean
-  status:number
+  done?:boolean
+  status?:number
   actionCode?:string
   text?:string
 }
