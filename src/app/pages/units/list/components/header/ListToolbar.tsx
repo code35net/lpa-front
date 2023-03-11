@@ -20,17 +20,31 @@ const ListToolbar = () => {
   const {refetch} = useQueryResponse()
 
   const [query, setquery] = useState<string>(stringifyRequestQuery(state))
-  const [oldquery, setoldquery] = useState<string>(stringifyRequestQuery(state))
+  const [oldqueries, setoldqueries] = useState<Array<string>>([])
+
+  const [chk, setchk] = useState<boolean>(false)
+  const [chk2, setchk2] = useState<boolean>(false)
 
   useEffect(() => {
-    setquery(stringifyRequestQuery(state))
-    setoldquery(query)
+    if (chk != chk2) {
+      setchk(chk2)
+    } else {
+      setquery(stringifyRequestQuery(state))
+      oldqueries.push(query)
+      setoldqueries(oldqueries)
+    }
   }, [state])
 
   const back = () => {
-    let q = oldquery.split('id=')[1]
-    console.log(q)
-    console.log('x')
+    setchk(!chk)
+    console.log(oldqueries)
+    let oq = oldqueries[oldqueries.length - 1]
+    let q = oq.split('id=')[1]
+    oldqueries.pop()
+    console.log(oldqueries)
+    setoldqueries(oldqueries)
+    //console.log(q)
+    //console.log('x')
     if (q == undefined) {
       updateState({id: '0'})
       refetch()
