@@ -20,7 +20,7 @@ type Props = {
 }
 
 const editchema = Yup.object().shape({
-  answerText: Yup.string().max(50, 'Maximum 50 symbols').required('Answer Text required'),
+  text: Yup.string().max(50, 'Maximum 50 symbols').required('Answer Text required'),
 })
 
 const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
@@ -34,6 +34,7 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
       getAnswerTemplateOptions(itemIdForUpdate).then((data) => {
         const answers: Array<TemplateOptions> = []
         let datatext = ''
+        
         data?.data.forEach((item: any) => {
           answers.push({
             id: item.id,
@@ -43,7 +44,8 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
           })
           datatext = item.answerTemplate.text
         })
-        formik.setFieldValue('answerText', datatext)
+        formik.setFieldValue('text', datatext)
+        
         setOptions([...answers])
       })
     } else {
@@ -60,7 +62,7 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
 
   const [placeForEdit] = useState<Model>({
     ...item,
-    answerText: undefined,
+    text: undefined,
     templateoptions: [],
   } as Model)
 
@@ -141,7 +143,7 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
         if (isNotEmpty(values.id)) {
           await updateAnswerTemplate({
             id: values.id,
-            text: values?.answerText || values?.text,
+            text: values?.text || values?.text,
             templateoptions:
               (values as any)?.templateoptions || (values as any)?.answerTemplateOptions,
           })
@@ -231,23 +233,23 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
           {/* begin::Input */}
           <input
             //placeholder='Full name'
-            {...formik.getFieldProps('answerText')}
+            {...formik.getFieldProps('text')}
             type='text'
-            name='answerText'
+            name='text'
             className={clsx(
               'form-control form-control-solid mb-3 mb-lg-0',
-              {'is-invalid': formik.touched.answerText && formik.errors.answerText},
+              {'is-invalid': formik.touched.text && formik.errors.text},
               {
-                'is-valid': formik.touched.answerText && !formik.errors.answerText,
+                'is-valid': formik.touched.text && !formik.errors.text,
               }
             )}
             autoComplete='off'
             disabled={formik.isSubmitting || isTemplateLoading}
           />
-          {formik.touched.answerText && formik.errors.answerText && (
+          {formik.touched.text && formik.errors.text && (
             <div className='fv-plugins-message-container'>
               <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.answerText}</span>
+                <span role='alert'>{formik.errors.text}</span>
               </div>
             </div>
           )}

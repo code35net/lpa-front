@@ -400,5 +400,25 @@
   "TITLE_DEFİNİTİONS": "Tanımlamalar",
   "TITLE_CATEGORİES": "Kategoriler",
 
+  "ACTION.TABLE.NOTSTART": "Başlamadı",
+  "ACTION.TABLE.PROGRESS": "Devam Ediyor",
+  "ACTION.TABLE.FINISHED": "Bitti",
+
+  "AUDITS.AUDITQUEDTIONS.NOTES": "Notlar",
+  "AUDITS.AUDITQUEDTIONS.FILE": "Dosya",
+
+  "AUDITS.AUDITQUEDTIONS.FIND": "Bulgular",
+  "AUDITS.AUDITQUEDTIONS.STAFF": "Çalışan",
+  "AUDITS.AUDITQUEDTIONS.CHOOSE": "Seçiniz",
+  "AUDITS.AUDITQUEDTIONS.DATE": "Tarih",
+
+  "AUDITS.AUDITQUEDTIONS.ANSWERED": "Cevaplandı",
+
+  "AUDITS.AUDITQUEDTIONS.SAVEANSWERS": "Kaydediliyor",
+
+  "MODALFORM.WAIT": "Kaydediliyor",
+
+  
+
   "boş": "boş"
 }

@@ -2,7 +2,7 @@ import {ID, Response} from '../../../../../_metronic/helpers'
 export type Model = {
   id?: ID
   text?:string
-  answerText?: string
+  //answerText?: string
   templateoptions?: Array<TemplateOptions>
 }
 

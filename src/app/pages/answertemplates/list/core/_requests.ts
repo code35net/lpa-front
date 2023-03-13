@@ -29,7 +29,7 @@ const getAnswerTemplates = (query: string): Promise<QueryResponse> => {
 
 const getAnswerTemplatesById = (id: ID): Promise<Model | undefined> => {
   return axios
-    .get(`${GET_ANSWERTEMPLATEOPTIONS_URL}/${id}`)
+    .get(`${GET_ANSWERTEMPLATES_URL}/${id}`)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response as any)
 }
@@ -43,7 +43,7 @@ const createAnswerTemplate = (AnswerTemplate: Model): Promise<Model | undefined>
 
 const updateAnswerTemplate = (AnswerTemplate: Model): Promise<Model | undefined> => {
   return axios
-    .post(`${ANSWERTEMPLATE_URL}/${AnswerTemplate.id}`, AnswerTemplate)
+    .put(`${CREATE_ANSWERTEMPLATE_URL}`, AnswerTemplate)
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response.data)
 }
