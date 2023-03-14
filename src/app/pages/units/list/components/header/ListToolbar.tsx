@@ -29,20 +29,22 @@ const ListToolbar = () => {
     if (chk != chk2) {
       setchk(chk2)
     } else {
-      setquery(stringifyRequestQuery(state))
-      oldqueries.push(query)
+      //setquery(stringifyRequestQuery(state))
+      oldqueries.push(stringifyRequestQuery(state))
       setoldqueries(oldqueries)
+      console.log(stringifyRequestQuery(state), '...')
     }
   }, [state])
 
   const back = () => {
     setchk(!chk)
     console.log(oldqueries)
-    let oq = oldqueries[oldqueries.length - 1]
+    let oqa = oldqueries
+    oqa.pop()
+    let oq = oqa[oqa.length - 1]
     let q = oq.split('id=')[1]
-    oldqueries.pop()
     console.log(oldqueries)
-    setoldqueries(oldqueries)
+    setoldqueries(oqa)
     //console.log(q)
     //console.log('x')
     if (q == undefined) {
