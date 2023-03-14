@@ -202,7 +202,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             <option value='2'>Monthly</option>
             <option value='3'>Quarterly</option>
             <option value='4'>DailyShift</option>
-            <option value='5'>NonPeriod</option>
+            {/* <option value='5'>NonPeriod</option> */}
            </select>
           
           {formik.touched.categoryType && formik.errors.categoryType && (
@@ -307,7 +307,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
           <button
             type='submit'
-            className='btn btn-sm btn-info'
+            className='btn btn-sm btn-dark btn-active-light-dark'
             data-kt-items-modal-action='submit'
             disabled={
               isThingLoading || formik.isSubmitting || !formik.isValid || !formik.touched

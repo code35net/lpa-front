@@ -128,7 +128,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
           <button
             type='submit'
-            className='btn btn-sm btn-info'
+            className='btn btn-sm btn-dark btn-active-light-dark'
             data-kt-items-modal-action='submit'
             disabled={
               isThingLoading || formik.isSubmitting || !formik.isValid || !formik.touched

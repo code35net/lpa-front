@@ -115,7 +115,7 @@ const ListFilter: React.FC<Props> = ({
       filter.questionGroupId = selectedQuestionCategories
     }
     if (selectedDepartments) {
-      filter.departmentId = selectedDepartments
+      filter.unitId = selectedDepartments
     }
     if (selectedYears) {
       filter.Year = selectedYears
@@ -125,7 +125,7 @@ const ListFilter: React.FC<Props> = ({
     }
 
     if (selectedSections) {
-      filter.sectionId = selectedSections
+      filter.unitId = selectedSections
     }
 
     if (selectedUnits) {
@@ -380,7 +380,7 @@ const ListFilter: React.FC<Props> = ({
               disabled={isLoading}
               type='button'
               onClick={filterData}
-              className='btn btn-primary fw-bold px-6'
+              className='btn btn-sm btn-dark btn-active-light-dark'
               data-kt-menu-dismiss='true'
               data-kt-item-table-filter='filter'
             >

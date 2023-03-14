@@ -40,14 +40,14 @@ const ActionsCell: FC<Props> = ({id}) => {
     
     <div className='d-flex justify-content-end flex-shrink-0'>
         <a
-          className='btn btn-icon btn-light btn-active-warning btn-sm me-1'
+          className='btn btn-icon btn-light btn-active-color-primary btn-sm me-1'
           onClick={openEditModal}
         >
           <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
         </a>
 
         <a
-          className='btn btn-icon btn-light btn-active-danger btn-sm'
+          className='btn btn-icon btn-light btn-active-color-primary btn-sm'
           data-kt-users-table-filter='delete_row'
           onClick={async () => {
             Swal.fire({

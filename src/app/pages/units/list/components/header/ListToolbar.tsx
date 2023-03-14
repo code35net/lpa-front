@@ -70,7 +70,7 @@ const ListToolbar = () => {
       </button>
       <button
         type='button'
-        className='btn btn-sm btn-primary btn-active-light-primary '
+        className='btn btn-sm btn-dark btn-active-light-dark'
         onClick={openAddModal}
       >
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
