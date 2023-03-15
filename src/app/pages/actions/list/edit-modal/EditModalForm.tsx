@@ -12,6 +12,9 @@ import {useQueryResponse} from '../core/QueryResponseProvider'
 import moment from 'moment'
 import {updateAction} from '../core/_requests'
 import { format } from 'date-fns'
+import {FileUploader} from 'react-drag-drop-files'
+
+const fileTypes = ['jpg', 'png']
 
 type Props = {
   item: Model
@@ -33,11 +36,23 @@ const EditModalForm: FC<Props> = ({item}) => {
     
   }, [])
 
+  const [file, setFile] = useState<any>([])
+
   const [placeForEdit] = useState<Model>({
+   
+    filePath: undefined,
+    text: undefined,
+    finding: undefined,
+    lastDate: undefined,
+    status: undefined,
+    answerId: undefined,
+   
+
     auditDate: undefined,
     //auditor: undefined,    
     //unitId: undefined,    
-    ...item
+    ...item,
+    
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -47,12 +62,21 @@ const EditModalForm: FC<Props> = ({item}) => {
     setItemIdForUpdate(undefined)
   }
 
+  const handleFileChange = (file: any) => {
+    if (file) {
+      setFile(file)
+    }
+  }
+
+
   const formik = useFormik({
     initialValues: placeForEdit,
     // validationSchema: editchema,
     onSubmit: async (values, {setSubmitting}) => {
       //console.log("girior " )
       setSubmitting(true)
+
+      values.file = file
       try {
         if (isNotEmpty(values.id)) {
           //values.lastDate = format(new Date(), 'yyyy-MM-dd H:mm:ss').replace(' ', 'T')
@@ -204,6 +228,34 @@ const EditModalForm: FC<Props> = ({item}) => {
             )}
             {/* end::Input */}
           </div>
+
+          <div className='fv-row mb-7'>
+          <label className=' fw-bold fs-6 mb-2'>File</label>
+          {/* <a href='' className='p-10'>
+            <small style={{color: 'blue'}}>
+              {intl.formatMessage({id: 'IMAGELIBRARY.FILE.TEXT'})}
+            </small>
+          </a> */}
+          <FileUploader
+            multiple={false}
+            handleChange={handleFileChange}
+            name='file'
+            types={fileTypes}
+          />
+          <p>
+            {/* {library?.file
+                        ? `File name: ${library?.file?.[0]?.name || ''}`
+                        : 'no files uploaded yet'} */}
+          </p>
+          {/* {formik.touched.file && formik.errors.file && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.file}</span>
+              </div>
+            </div>
+          )} */}
+        </div>
+
 
 
         <div className='text-center pt-15'>

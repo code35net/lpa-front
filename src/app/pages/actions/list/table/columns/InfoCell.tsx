@@ -6,14 +6,14 @@ import {toAbsoluteUrl} from '../../../../../../_metronic/helpers'
 import {Model} from '../../core/_models'
 
 type Props = {
-  item: Model
+  item: any
 }
 
 const InfoCell: FC<Props> = ({item}) => (
   <div className='d-flex align-items-center'>
     <div className='d-flex flex-column'>
     <span className='text-gray-800 text-hover-primary'>
-{item.finding}
+        {item}
       </span>
     </div>
   </div>

@@ -39,6 +39,7 @@ const PrivateRoutes = (menus: Array<string>) => {
   const Units = lazy(() => import('../pages/units/Page'))
   const ChangesPassword = lazy(() => import('../pages/changePassword/Page'))
   const ChangesRequests = lazy(() => import('../pages/change-requests/Page'))
+  const TableReports = lazy(() => import('../pages/tablereport/Page'))
 
   var usermanagementyetki = Object.keys(menus).some((key: any) => menus[key] == 'useraction')
   var announcementyetki = Object.keys(menus).some((key: any) => menus[key] == 'announcement')
@@ -102,6 +103,15 @@ const PrivateRoutes = (menus: Array<string>) => {
           element={
             <SuspensedView>
               <ChangesRequests />
+            </SuspensedView>
+          }
+        />
+
+            <Route
+          path='/tablereport/*'
+          element={
+            <SuspensedView>
+              <TableReports />
             </SuspensedView>
           }
         />

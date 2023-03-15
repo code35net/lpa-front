@@ -7,7 +7,8 @@ const GET_PER_REPORT = `${API_URL}/Custom/getPercentageReportCombined`
 
 const getReport = async (query: string): Promise<QueryResponse> => {
   const queryRaw: any = parseRequestQuery(query)
-  let qr = new URLSearchParams(queryRaw).toString().replace("filter_departmentid", "DepartmentId")
+  let qr = new URLSearchParams(queryRaw).toString()
+  .replace("filter_departmentid", "DepartmentId")
   .replace("filter_questiongroupid","QuestionGroupId")
   .replace("filter_year","Year")
   .replace("filter_month","Month")

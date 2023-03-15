@@ -31,6 +31,7 @@
   "MENU.QUESTIONS": "Questions",
   "MENU.QUESTIONGROUPS": "Question Categories",
   "MENU.CHANGEREQUESTS": "Audit Change Requests",
+  "MENU.TABLEREPORT": "Table Reports",
 
   "AUTH.GENERAL.OR": "Or",
   "AUTH.GENERAL.SUBMIT_BUTTON": "Submit",
@@ -417,6 +418,16 @@
   "AUDITS.AUDITQUEDTIONS.SAVEANSWERS": "Saving",
 
   "MODALFORM.WAIT": "Saving",
+
+  "ACTION.LIST.COL.PATH": "File",
+  "ACTION.LIST.COL.TEXT": "Text",
+
+  "REPORTS.TABLE.AVERAGE": "Average",
+  "REPORTS.TABLE.PERCENT": "Percent",
+  "REPORTS.HEADER.CHOOSE": "Select",
+  "REPORTS.FILTER.ALL": "Select",
+ 
+
 
   "boş": "boş"
 }

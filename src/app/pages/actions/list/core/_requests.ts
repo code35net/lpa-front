@@ -8,6 +8,7 @@ const GET_ACTIONS_URL = `${API_URL}/Custom/getAuctions`
 const SAVE_ACTIONS_URL = `${API_URL}/Custom/saveActions`
 const GET_ACTION_DETAIL_URL = `${API_URL}/Custom/getAuctions`
 const ACTION_DETAILS_URL = `${API_URL}/Custom/getAuctionDetail`
+const UPDATE_ACTION_URL = `${API_URL}/Custom/updateAuction`
 
 
 // const getAuctionDetails = async (actionCode : string): Promise<any> => await axios.get(`${ACTION_DETAILS_URL}/${actionCode}`).then((res : AxiosResponse) => 
@@ -58,9 +59,34 @@ const createAction = (action: Model): Promise<Model | undefined> => {
     .then((response: Response<Model>) => response.data)
 }
 
-const updateAction = (action: Model): Promise<Model | undefined> => {
+// const updateAction = (action: Model): Promise<Model | undefined> => {
+//   return axios
+//     .post(`${ACTION_URL}/${action.id}`, action)
+//     .then((response: AxiosResponse<Response<Model>>) => response.data)
+//     .then((response: Response<Model>) => response.data)
+// }
+
+const updateAction = (thing: any): Promise<Model | undefined> => {
+  const formData = new FormData()
+  
+  formData.append('text', thing.text) 
+  //formData.append('answerId', '25') 
+  formData.append('status', thing.status) 
+  formData.append('lastDate', thing.lastDate) 
+
+  if (thing.finding != undefined) {
+    formData.append('finding', (thing as any)?.finding)
+  }
+
+  if (thing.file != undefined) {
+    formData.append('file', (thing as any)?.file)
+  }
   return axios
-    .post(`${ACTION_URL}/${action.id}`, action)
+    .post(`${UPDATE_ACTION_URL}/${thing.id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
     .then((response: AxiosResponse<Response<Model>>) => response.data)
     .then((response: Response<Model>) => response.data)
 }

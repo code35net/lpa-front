@@ -8,7 +8,9 @@ import {Model} from '../../core/_models'
 import { DoneCell } from './DoneCell'
 import { UserCell } from './UserCell'
 import { StatusCell } from './StatusCell'
+import {ImgCell} from './ImgCell'
 import {useIntl} from 'react-intl'
+import {LinkCell} from './LinkCell'
 
 const Columns: ReadonlyArray<Column<Model>> = [
   {
@@ -19,23 +21,44 @@ const Columns: ReadonlyArray<Column<Model>> = [
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.FIND'})} className='min-w-125px' />,
     id: 'finding',
-    Cell: ({...props}) => <InfoCell item={props.data[props.row.index]} />,
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].finding} />,
   },
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.DONE'})} className='min-w-125px' />,
     id: 'done',
     Cell: ({...props}) => <DoneCell item={props.data[props.row.index]} />,
   },
-  // {
-  //   Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.STAFF'})} className='min-w-125px' />,
-  //   id: 'fullName',
-  //   Cell: ({...props}) => <UserCell item={props.data[props.row.index]} />,
-  // },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.STAFF'})} className='min-w-125px' />,
+    id: 'fullName',
+    Cell: ({...props}) => <UserCell item={props.data[props.row.index]} />,
+  },
+
+  {
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.TEXT'})} className='min-w-125px' />,
+    id: 'text',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].text} />,
+  },
+
+
+
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.STATUS'})} className='min-w-125px' />,
     id: 'status',
     Cell: ({...props}) => <StatusCell item={props.data[props.row.index]} />,
   },
+
+  // {
+  //   Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.PATH'})} className='min-w-125px' />,
+  //   id: 'filePath',
+  //   Cell: ({...props}) => <ImgCell item={props.data[props.row.index].filePath} />,
+  // },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.PATH'})} className='min-w-125px' />,
+    id: 'filePath',
+    Cell: ({...props}) => <LinkCell item={props.data[props.row.index]}  />,
+  },
+
   {
     Header: (props) => (
       <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.ACTIONS'})} className='text-end min-w-100px' />

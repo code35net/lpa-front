@@ -33,6 +33,7 @@
   "MENU.QUESTIONS": "Sorular",
   "MENU.QUESTIONGROUPS": "Soru Kategorileri",
   "MENU.CHANGEREQUESTS": "Denetim Değişiklik Talepleri",
+  "MENU.TABLEREPORT": "Tablo Raporları",
 
   "AUTH.GENERAL.OR": "veya",
   "AUTH.GENERAL.SUBMIT_BUTTON": "Gönder",
@@ -417,6 +418,17 @@
   "AUDITS.AUDITQUEDTIONS.SAVEANSWERS": "Kaydediliyor",
 
   "MODALFORM.WAIT": "Kaydediliyor",
+
+  "ACTION.LIST.COL.PATH": "Dosya",
+  "ACTION.LIST.COL.TEXT": "Mesaj",
+
+  "REPORTS.TABLE.AVERAGE": "Ortalama",
+  "REPORTS.TABLE.PERCENT": "Yüzde",
+
+  "REPORTS.HEADER.CHOOSE": "Seçiniz",
+  "REPORTS.FILTER.ALL": "Seçiniz",
+ 
+
 
   
 

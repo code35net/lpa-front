@@ -16,6 +16,9 @@ export type Model = {
   status?:number
   actionCode?:string
   text?:string
-}
+  file?: string
+  filePath?: string
+  answerId?: number
 
+}
 export type QueryResponse = Response<Array<Model>>
