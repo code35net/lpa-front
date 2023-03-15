@@ -283,6 +283,7 @@ const ListFilter: React.FC<Props> = ({
               onChange={(e) => {
                 setSelectedDepartments(e.target.value)
                 setSelectedSections('')
+                setSelectedUnits('')
               }}
               value={selectedDepartments}
             >
