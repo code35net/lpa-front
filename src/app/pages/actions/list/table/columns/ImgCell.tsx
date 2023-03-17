@@ -9,12 +9,18 @@ type Props = {
   item: string
 }
 
+
+
 const ImgCell: FC<Props> = ({item}) => (
   <div className='d-flex align-items-center'>
     <div className='d-flex flex-column'>
-      <span className='text-gray-800'>
-        <img width='90' height= '80' src={`http://localhost:33755/${item}`} />
-      </span>
+      {item == undefined ?  '-' : <a target={'_blank'} href={`http://localhost:33755/${item}` } download >
+          <span className='text-gray-800'>
+            <img width='90' height= '80' src={`http://localhost:33755/${item}`} />
+          </span>
+          </a>}
+    
+   
     </div>
   </div>
 )

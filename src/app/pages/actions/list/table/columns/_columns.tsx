@@ -56,7 +56,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'ACTION.LIST.COL.PATH'})} className='min-w-125px' />,
     id: 'filePath',
-    Cell: ({...props}) => <LinkCell item={props.data[props.row.index]}  />,
+    Cell: ({...props}) => <ImgCell item={props.data[props.row.index].filePath}  />,
   },
 
   {
