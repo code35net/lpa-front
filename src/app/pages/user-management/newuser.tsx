@@ -11,7 +11,7 @@ import {useNavigate} from 'react-router-dom'
 
 import {listThings as listUnits} from '../units/list/core/_requests'
 import {listOtherThings as listOtherUnits} from '../units/list/core/_requests'
-import {listThings as listPositions} from '../position/list/core/_requests'
+import {listThings as listAuditCategories} from '../audit-categories/list/core/_requests'
 import {useQueryResponse} from './list/core/QueryResponseProvider'
 import {useListView} from './list/core/ListViewProvider'
 import {createUser} from './list/core/_requests'
@@ -31,8 +31,6 @@ const editchema = Yup.object().shape({
   identity: Yup.string()
     .max(50, 'Maximum 50 symbols')
    .required('Identity required'),
-  positionId: Yup.string()
-  .required('Position required'),
 })
 
 const UserEditForm: FC<Props> = ({item}) => {
@@ -46,6 +44,7 @@ const UserEditForm: FC<Props> = ({item}) => {
   const [otherunits, setOtherUnits] = React.useState([])
   const [otherunits2, setOtherUnits2] = React.useState([])
   const [positions, setPositions] = React.useState([])
+  const [auditcategories, setAuditCategories] = React.useState([])
 
   useEffect(() => {
     listUnits().then((res) => {
@@ -54,9 +53,9 @@ const UserEditForm: FC<Props> = ({item}) => {
       }
     })
 
-    listPositions().then((res) => {
+    listAuditCategories().then((res) => {
       if (res?.data?.length) {
-        setPositions(res.data || [])
+        setAuditCategories(res.data || [])
       }
     })
    
@@ -69,6 +68,7 @@ const UserEditForm: FC<Props> = ({item}) => {
     fullName:undefined,
     identity: undefined,
     positionId:undefined,
+    auditCategoryId:undefined,
 
     })
 
@@ -111,6 +111,10 @@ const handleChangeUnitId2 = async (event:any) => {
 
       if (!values.positionId && positions.length) {
         values.positionId = (positions[0] as any)?.id
+      }
+
+      if (!values.auditCategoryId && auditcategories.length) {
+        values.auditCategoryId = (auditcategories[0] as any)?.id
       }
 
 
@@ -356,7 +360,7 @@ const handleChangeUnitId2 = async (event:any) => {
             </div>  */}
             
             
-            <div className='row mb-3'>
+            {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
                 {intl.formatMessage({id: 'USER.NEWUSER.POSITION'})}
@@ -380,6 +384,36 @@ const handleChangeUnitId2 = async (event:any) => {
                   <div className='fv-plugins-message-container'>
                     <div className='fv-help-block'>
                       <span role='alert'>{formik.errors.positionId}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div> */}
+
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>
+                {intl.formatMessage({id: 'USER.NEWUSER.AUDITCATEGORY'})}
+                </span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('auditCategoryId')}
+                  value={formik.values.auditCategoryId}
+                >
+                   <option value=''>Seçiniz</option>
+                  {auditcategories.map((auditcategory: any) => (
+                    <option value={auditcategory?.id} key={auditcategory?.id as any}>
+                      {auditcategory?.name as any}
+                    </option>
+                  ))}
+                </select>
+                {formik.touched.auditCategoryId && formik.errors.auditCategoryId && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.auditCategoryId}</span>
                     </div>
                   </div>
                 )}

@@ -15,6 +15,7 @@ export type Model = {
   userId?: string
   userName?:string
   categoryType?:number | string
+  positionId?:number
 }
 
 export type QueryResponse = Response<Array<Model>>

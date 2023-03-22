@@ -17,6 +17,7 @@ import {listUsers as listUsers} from '../../../user-management/list/core/_reques
 
 
 
+
 type Props = {
   isThingLoading: boolean
   item: Model
@@ -37,6 +38,9 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const [auditCategory, setAuditCategory] = React.useState<Array<AuditCategory>>([])
   const [parentUnitId, setParentUnitId] = React.useState([])
   const [userId, setUserId] = React.useState([])
+  const [positions, setPositions] = React.useState([])
+  const [users, setUsers] = React.useState([])
+  const [rawUsers, setRawUsers] = React.useState([])
 
   const [placeForEdit] = useState<Model>({    
     name: undefined,
@@ -46,6 +50,8 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     unitType:undefined,
     userId:undefined,
     categoryType: undefined,
+    positionId: undefined,
+    
     
     ...item,
     
@@ -72,7 +78,14 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     listUsers().then((res2) => {
       setUserId(res2.data || [])
     })
-    
+
+
+    listUsers().then((res7) => {
+      console.log(res7)
+      setUsers(res7.data || [])
+      setRawUsers(res7.data || [])
+    })
+
     
   }, [])
 
@@ -119,7 +132,14 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       //   values.unitType=parseInt(values.unitType.toString())
       // }
       
-      
+      if (!values.positionId && positions.length) {
+        values.positionId = (positions[0] as any)?.id
+      }
+
+      if (!values.auditCategoryId && auditCategory.length) {
+        values.auditCategoryId = (auditCategory[0] as any)?.id
+      }
+
       try {
         if (isNotEmpty(values.id)) {
           await updateThing(values)
@@ -138,6 +158,24 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
 
   const options =  { value: 'chocolate', label: 'Chocolate' }
+
+  const handleUsers = (value: string, type: string) => {
+    let filteredData = [...rawUsers]
+    console.log(value)
+    console.log(type)
+    
+    
+    if (type === 'auditCategoryId' && value !== '' && value !== undefined && value !== null) {
+      console.log(filteredData)
+      filteredData = filteredData.filter(
+        (item: any) => parseInt(item?.auditCategoryId) === parseInt(value)
+      )
+    }
+    console.log(filteredData)
+
+    setUsers([...filteredData])
+  }
+
     
    
 
@@ -226,7 +264,10 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
                   className='form-select form-multi form-select-solid form-select-md'
                   {...formik.getFieldProps('auditCategoryId')}
                   value={formik.values.auditCategoryId}
-                  // onChange={handleChangeDepartmentId}
+                  onChange={(e) => {
+                    formik.setFieldValue('auditCategoryId', e.target.value)
+                    handleUsers(e.target.value, 'auditCategoryId')
+                  }}
                 >
                   <option value=''>Seçiniz</option>
                   {/* ?? */}
@@ -239,8 +280,47 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           {/* end::Input */}
         </div>
 
+        {/* <div className='fv-row mb-7'>
+              <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.PLANNER.POSITION'})}</label>
+              
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('positionId')}
+                  value={formik.values.positionId}
+                  onChange={(e) => {
+                    formik.setFieldValue('positionId', e.target.value)
+                    handleUsers(e.target.value, 'positionId')
+                  }}
+                >
+                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
+                  {positions.map((position: any) => (
+                    <option value={position?.id as any} key={position?.id as any}>
+                      {position?.name as any}
+                    </option>
+                  ))}
+                </select>
+             
+            </div> */}
 
-        <div className='fv-row mb-7'>    
+            <div className='fv-row mb-7'>
+              <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}</label>            
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('userId')}
+                  value={formik.values.userId}
+                  onChange={formik.handleChange}
+                >
+                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
+                  {users.map((user: any) => (
+                    <option value={user?.id as any} key={user?.id as any}>
+                      {user?.fullName as any}
+                    </option>
+                  ))}
+                </select>              
+            </div>
+
+
+        {/* <div className='fv-row mb-7'>    
         <label hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.name != "LPA 1"} className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT_LEADER'})}
           </label>     
@@ -253,15 +333,15 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
                   // onChange={handleChangeDepartmentId}
                 >
                   <option value=''>Seçiniz</option>
-                  {/* ?? */}
+                  
                   {userId.map((user: any) => (
                     <option value={user?.id} key={user?.id as any}>
                       {user?.fullName as any}
                     </option>
                   ))}
                 </select>
-          {/* end::Input */}
-        </div>
+          
+        </div> */}
   
    
 

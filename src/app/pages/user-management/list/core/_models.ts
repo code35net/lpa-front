@@ -1,3 +1,4 @@
+import { number } from 'yup'
 import {ID, Response} from '../../../../../_metronic/helpers'
 export type Model = {
   id?: ID
@@ -8,6 +9,9 @@ export type Model = {
   identity?: string
   positionId?:number
   positionName?:string
+  auditCategoryId?:number
+  auditCategoryName?:string
+
   
   // unitName?:string
   // unitId?:string  

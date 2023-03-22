@@ -240,7 +240,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
            
             
 
-            <div className='row mb-3'>
+            {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>{intl.formatMessage({id: 'AUDITS.PLANNER.UNIT'})}</span>
               </label>
@@ -261,7 +261,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   ))}
                 </select>
               </div>
-            </div>
+            </div> */}
 
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
@@ -304,7 +304,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
               </div>
             )}
 
-            <div className='row mb-3'>
+            {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.POSITION'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
@@ -324,8 +324,9 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   ))}
                 </select>
               </div>
-            </div>
-            <div className='row mb-3'>
+            </div> */}
+
+            {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
@@ -342,7 +343,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   ))}
                 </select>
               </div>
-            </div>
+            </div> */}
 
             
 
@@ -398,7 +399,8 @@ const EditAuditForm: FC<Props> = ({item}) => {
                 </select>
               </div>
             </div>
-            <div className='row mb-3'>
+
+            {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.MONTH'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
@@ -420,7 +422,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   <option value='12'>{intl.formatMessage({id: 'AUDITS.MOUNTH.12'})}</option>
                 </select>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className='card-footer d-flex justify-content-end py-6 px-9'>
