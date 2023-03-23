@@ -100,10 +100,15 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       }
       values.categoryType=parseInt(values.categoryType.toString())
        
+      // if(!values.unitType){
+      //   values.unitType = 0
+      // }
+      // values.unitType=parseInt(values.unitType.toString())
+
       if(!values.unitType){
-        values.unitType = 0
+        values.unitType = undefined
       }
-      values.unitType=parseInt(values.unitType.toString())
+      values.unitType= undefined
 
         let pids = ''
         const x = [values.auditCategoryId]
@@ -161,8 +166,6 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
   const handleUsers = (value: string, type: string) => {
     let filteredData = [...rawUsers]
-    console.log(value)
-    console.log(type)
     
     
     if (type === 'auditCategoryId' && value !== '' && value !== undefined && value !== null) {
