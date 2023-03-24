@@ -47,8 +47,8 @@ const Columns: ReadonlyArray<Column<Model>> = [
   //   Cell: ({...props}) => <PositionCell item={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.POS'})} className='min-w-125px' />,
-    id: 'sectionName',
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.AUDITCAT'})} className='min-w-125px' />,
+    id: 'auditCategoryName',
 
     Cell: ({...props}) => <SectionCell item={props.data[props.row.index]} />,
   },

@@ -13,8 +13,9 @@ import {listThings as listAuditCategories} from '../../../audit-categories/list/
 import {listThings as listParentUnits} from '../../../units/list/core/_requests'
 import {Model as AuditCategory} from '../../../audit-categories/list/core/_models'
 import { useQueryRequest } from '../core/QueryRequestProvider'
-import {listUsers as listUsers} from '../../../user-management/list/core/_requests'
 
+import {listUsers as listUsers} from '../../../user-management/list/core/_requests'
+import {useParams} from 'react-router-dom'
 
 
 
@@ -41,6 +42,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const [positions, setPositions] = React.useState([])
   const [users, setUsers] = React.useState([])
   const [rawUsers, setRawUsers] = React.useState([])
+  const params = useParams()
 
   const [placeForEdit] = useState<Model>({    
     name: undefined,

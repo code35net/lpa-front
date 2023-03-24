@@ -252,6 +252,7 @@
   "USER.TABLE.COLUMNS.IDENTITY": "Sicil No",
   "USER.TABLE.COLUMNS.DEP/SEC": "Departman/Bölüm",
   "USER.TABLE.COLUMNS.POS": "Pozİsyon",
+  "USER.TABLE.COLUMNS.AUDITCAT":"Denetim Kategorisi",
   "USER.TABLE.COLUMNS.SHIFT": "Shift",
   "USER.TABLE.COLUMNS.ACTIONS": "Aksiyonlar",
   "USER.PAGE.TITLE": "Kullanıcılar",
@@ -261,6 +262,7 @@
   "USER.PASS": "Şifreniz",
   "USER.CURRENTT.PASSWORD": "Eski Şifre",
   "USER.NEWW.PASSWORD": " Yeni Şifre",
+  "USER.NEWUSER.AUDITCATEGORY" :"Denetim Kategorisi",
 
   "USERS.ADD": "Kullanıcı Ekle",
   "USER.NEWUSER.TITLE": "YENI KULLANICI",

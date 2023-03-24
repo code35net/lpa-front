@@ -252,6 +252,7 @@
   "USER.TABLE.COLUMNS.IDENTITY": "Identity",
   "USER.TABLE.COLUMNS.DEP/SEC": "Department/Section",
   "USER.TABLE.COLUMNS.POS": "Position",
+  "USER.TABLE.COLUMNS.AUDITCAT":"Audit Category",
   "USER.TABLE.COLUMNS.SHIFT": "Shift",
   "USER.TABLE.COLUMNS.ACTIONS": "Actions",
   "USER.PAGE.TITLE": "Users",
@@ -261,6 +262,7 @@
   "USER.PASS": "Password",
   "USER.CURRENTT.PASSWORD": "Current Password",
   "USER.NEWW.PASSWORD": " New Password",
+  "USER.NEWUSER.AUDITCATEGORY" :"Audit Category",
 
   "USERS.ADD": "Add User",
   "USER.NEWUSER.TITLE": "NEW USER",
