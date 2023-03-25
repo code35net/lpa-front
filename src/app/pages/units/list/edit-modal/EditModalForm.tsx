@@ -37,6 +37,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const { state } = useQueryRequest()
 
   const [auditCategory, setAuditCategory] = React.useState<Array<AuditCategory>>([])
+  const [selectedAuditCategories, setSelectedAuditCategories] = React.useState<Array<string>>([])
   const [parentUnitId, setParentUnitId] = React.useState([])
   const [userId, setUserId] = React.useState([])
   const [positions, setPositions] = React.useState([])
@@ -67,7 +68,16 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     }
     setItemIdForUpdate(undefined)
   }
-
+useEffect(() => {
+  let filteredData = [...rawUsers]
+      
+  filteredData = filteredData.filter((item: any) => {
+    console.log(item.auditCategoryId)
+    return selectedAuditCategories.includes(item.auditCategoryId.toString())
+  })
+console.log(filteredData)
+    setUsers([...filteredData])
+}, [selectedAuditCategories])
   useEffect(() => {
     listAuditCategories().then((res2) => {
       setAuditCategory(res2.data || [])
@@ -77,14 +87,14 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       setParentUnitId(res2.data || [])
     })
 
-    listUsers().then((res2) => {
+    /*listUsers().then((res2) => {
       setUserId(res2.data || [])
-    })
+    })*/
 
 
     listUsers().then((res7) => {
       console.log(res7)
-      setUsers(res7.data || [])
+      //setUsers(res7.data || [])
       setRawUsers(res7.data || [])
     })
 
@@ -110,12 +120,15 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       if(!values.unitType){
         values.unitType = undefined
       }
-      values.unitType= undefined
+      else{
+        values.unitType=parseInt(values.unitType.toString())
+      }
+      
 
         let pids = ''
-        const x = [values.auditCategoryId]
+        //const x = [values.auditCategoryId]
        
-       x?.map((r) => {
+       selectedAuditCategories?.map((r) => {
           
           pids = pids + r?.toString() + ','
         })
@@ -167,18 +180,31 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const options =  { value: 'chocolate', label: 'Chocolate' }
 
   const handleUsers = (value: string, type: string) => {
-    let filteredData = [...rawUsers]
-    
+    if(selectedAuditCategories?.indexOf(value) > -1)
+    {
+      selectedAuditCategories.splice(selectedAuditCategories?.indexOf(value), 1)
+    }
+    else
+    {
+      selectedAuditCategories?.push(value)
+    }
+    if(selectedAuditCategories != undefined)
+    {
+      setSelectedAuditCategories([...selectedAuditCategories])
+    }
+    console.log(selectedAuditCategories)
+    /*let filteredData = [...rawUsers]
+    console.log(value)
     
     if (type === 'auditCategoryId' && value !== '' && value !== undefined && value !== null) {
-      console.log(filteredData)
+      //console.log(filteredData)
       filteredData = filteredData.filter(
         (item: any) => parseInt(item?.auditCategoryId) === parseInt(value)
       )
     }
-    console.log(filteredData)
+    //console.log(filteredData)
 
-    setUsers([...filteredData])
+    setUsers([...filteredData])*/
   }
 
     
@@ -266,15 +292,14 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           </label>     
          <select
               multiple
-                  className='form-select form-multi form-select-solid form-select-md'
+                  className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('auditCategoryId')}
-                  value={formik.values.auditCategoryId}
+                  value={selectedAuditCategories}
                   onChange={(e) => {
                     formik.setFieldValue('auditCategoryId', e.target.value)
                     handleUsers(e.target.value, 'auditCategoryId')
                   }}
                 >
-                  <option value=''>Seçiniz</option>
                   {/* ?? */}
                   {auditCategory.map((myauditcategory: any) => (
                     <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
@@ -356,12 +381,12 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
         
 
         <div className='fv-row mb-7'>
-          <label hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.name != "LPA 1"} className='fw-bold fs-6 mb-2'>
+          <label hidden={auditCategory.filter((a) => selectedAuditCategories.includes(a.id?.toString() || "0"))[0]?.name != "LPA 1"} className='fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'UNIT_TYPE'})}
           </label>
           <select 
            className='form-select form-select-solid form-select-md'
-           hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.name != "LPA 1"}
+           hidden={auditCategory.filter((a) => selectedAuditCategories.includes(a.id?.toString() || "0"))[0]?.name != "LPA 1"}
            {...formik.getFieldProps('unitType')}
            >
             <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
