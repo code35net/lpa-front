@@ -378,6 +378,8 @@ const EditForm: FC<Props> = ({item}) => {
                             ))}
                           </select>
                         </div>
+
+
                         <div className='col-md-3 fv-row'>
                           <select
                             className='form-select form-select-solid form-select-md'
@@ -418,6 +420,8 @@ const EditForm: FC<Props> = ({item}) => {
                             )}
                           </select>
                         </div>
+
+                        
                         <div className='col-md-1 fv-row'>
                           <a
                             type='button'

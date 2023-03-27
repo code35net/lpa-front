@@ -15,6 +15,7 @@ import {useQueryResponse} from './list/core/QueryResponseProvider'
 import {useListView} from './list/core/ListViewProvider'
 import {createAudit} from './list/core/_requests'
 import {useNavigate} from 'react-router-dom'
+import {listSomeThings as listUnits} from '../units/list/core/_requests'
 import clsx from 'clsx'
 
 type Props = {
@@ -22,7 +23,7 @@ type Props = {
   item?: Model
 }
 
-const EditAuditForm: FC<Props> = ({item}) => {
+const EditAuditForm2: FC<Props> = ({item}) => {
   const intl = useIntl()
   const navigate = useNavigate()
   const {setItemIdForUpdate} = useListView()
@@ -36,6 +37,9 @@ const EditAuditForm: FC<Props> = ({item}) => {
   const [questioncategories, setQuestionCategories] = React.useState([])
   const [users, setUsers] = React.useState([])
   const [rawUsers, setRawUsers] = React.useState([])
+  const [parentUnits, setParentUnits] = React.useState<any>([])
+
+
 
   const [questions, setQuestions] = React.useState<Array<Model>>([])
 
@@ -153,7 +157,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
     },
   })
 
- console.log('çalıştı')
+
   
 
 
@@ -238,7 +242,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
            
             
 
-            {/* <div className='row mb-3'>
+            <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>{intl.formatMessage({id: 'AUDITS.PLANNER.UNIT'})}</span>
               </label>
@@ -259,7 +263,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   ))}
                 </select>
               </div>
-            </div> */}
+            </div>
 
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
@@ -324,7 +328,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
               </div>
             </div> */}
 
-            {/* <div className='row mb-3'>
+            <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}</label>
               <div className='col-lg-8 fv-row'>
                 <select
@@ -341,46 +345,12 @@ const EditAuditForm: FC<Props> = ({item}) => {
                   ))}
                 </select>
               </div>
-            </div> */}
+            </div>
 
             
 
 
-            {
-            //   parseInt(formik.values.categoryType as string) === 5 &&
-            //   <div className='fv-row mb-3'>
-            //   {/* begin::Label */}
-            //   <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.INSTANT.DATE'})}</label>
-            //   {/* end::Label */}
-
-            //   {/* begin::Input */}
-            //   <input
-            //     //placeholder='Full name'
-            //     {...formik.getFieldProps('nonPeriodicDate')}
-            //     type='datetime-local'
-            //     name='nonPeriodicDate'
-            //     className={clsx(
-            //       'form-control form-control-solid mb-3 mb-lg-0',
-            //       {'is-invalid': formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate},
-            //       {
-            //         'is-valid': formik.touched.nonPeriodicDate && !formik.errors.nonPeriodicDate,
-            //       }
-            //     )}
-            //     autoComplete='off'
-            //     disabled={formik.isSubmitting}
-            //   />
-            //   {formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate && (
-            //     <div className='fv-plugins-message-container'>
-            //       <div className='fv-help-block'>
-            //         <span role='alert'>{formik.errors.nonPeriodicDate}</span>
-            //       </div>
-            //     </div>
-            //   )}
-            //   {/* end::Input */}
-            // </div>
-
-            }
-
+           
         
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.YEAR'})}</label>
@@ -397,6 +367,45 @@ const EditAuditForm: FC<Props> = ({item}) => {
                 </select>
               </div>
             </div>
+
+            {
+            //    parseInt(formik.values.categoryType as string) === 5 &&
+               <div className='row mb-3'>
+               
+               <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.INSTANT.DATE'})}</label>
+              
+                <div className='col-lg-8 fv-row'>
+               <input
+                 //placeholder='Full name'
+                 {...formik.getFieldProps('nonPeriodicDate')}
+                type='datetime-local'
+                 name='nonPeriodicDate'
+                 className={clsx(
+                   'form-control form-control-solid mb-3 mb-lg-0 ',
+                  {'is-invalid': formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate},
+                  {
+                     'is-valid': formik.touched.nonPeriodicDate && !formik.errors.nonPeriodicDate,
+                   }
+                    )}
+                 autoComplete='off'
+                 disabled={formik.isSubmitting}
+               />
+               </div>
+               {formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate && (
+                 <div className='fv-plugins-message-container'>
+                   <div className='fv-help-block'>
+                     <span role='alert'>{formik.errors.nonPeriodicDate}</span>
+                   </div>
+                 </div>
+               )}
+               
+             </div>
+
+            }
+
+
+          
+
 
             {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.MONTH'})}</label>
@@ -450,4 +459,4 @@ const EditAuditForm: FC<Props> = ({item}) => {
   )
 }
 
-export {EditAuditForm}
+export {EditAuditForm2}

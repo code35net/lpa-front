@@ -12,6 +12,7 @@ import {EditForm} from '../pages/questions/Add'
 import {UserEditForm} from '../pages/user-management/newuser'
 
 import {EditAuditForm} from '../pages/audits/Planner'
+import {EditAuditForm2} from '../pages/audits/Planner2'
 import {AuditDetails} from '../pages/audits/detail/auditdetail'
 import {AuditQuestionsForm} from '../pages/audits/detail/auditquestions'
 import {ChangeRequestPage} from '../pages/audits/Add'
@@ -61,6 +62,7 @@ const PrivateRoutes = (menus: Array<string>) => {
         <Route path='/questions/add' element={<EditForm />} />
         <Route path='/user-management/newuser' element={<UserEditForm />} />
         <Route path='/audits/Planner' element={<EditAuditForm />} />
+        <Route path='/audits/Planner2' element={<EditAuditForm2 />} />
 
         <Route path='reports' element={<Reports />} />
         {/* <Route path='questionreport' element={<QuestionReports />} /> */}
