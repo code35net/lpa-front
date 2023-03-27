@@ -140,9 +140,7 @@ const handleChangeUnitId2 = async (event:any) => {
   return (
     <div className='card mb-5 mb-xl-10'>
       <div
-        className='card-header border-0 cursor-pointer'
-        role='button'
-        data-bs-toggle='collapse'
+        className='card-header border-0'
         data-bs-target='#kt_account_profile_details'
         aria-expanded='true'
         aria-controls='kt_account_profile_details'

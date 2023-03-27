@@ -13,21 +13,32 @@ type Props = {
 }
 
 const LinkCell: FC<Props> = ({item}) => {
-  
+  console.log(item)
   const {updateState} = useQueryRequest()
   const {refetch} = useQueryResponse()
   return (
   <div className='d-flex align-items-center'>
     <div className='d-flex flex-column'>
-      <span className='text-gray-800'>
-      <a className="link" style={{cursor: "pointer"}} onClick={()=> {
-        localStorage.setItem('section-name-breadcrumb', (item as any)?.name)
-        localStorage.setItem('section-id-breadcrumb', (item as any)?.id)
-        console.log(item.id?.toString())
-        updateState({id: item.id?.toString()})
-        refetch()
-      }}> {item.name}</a>  
-      </span>
+
+{(item.unitType == 2) || (item.unitType == 1) ? 
+
+<span className='text-gray-800'>
+ {item.name}  
+</span>
+:
+<span className='text-gray-800'>
+<a className="link" style={{cursor: "pointer"}} onClick={()=> {
+      localStorage.setItem('section-name-breadcrumb', (item as any)?.name)
+      localStorage.setItem('section-id-breadcrumb', (item as any)?.id)
+      console.log(item.id?.toString())
+      updateState({id: item.id?.toString()})
+      refetch()
+    }}> {item.name}</a>
+    </span>
+
+}
+
+     
     </div>
   </div>
   

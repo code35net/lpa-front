@@ -2,6 +2,7 @@ import {Column} from 'react-table'
 import {InfoCell} from './InfoCell'
 import {ActionsCell} from './ActionsCell'
 import {SelectionCell} from './SelectionCell'
+import {TypeCell} from './TypeCell'
 import {LinkCell} from './LinkCell'
 import {useIntl} from 'react-intl'
 import {CustomHeader} from './CustomHeader'
@@ -25,6 +26,21 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'POSITION_NAME'})} className='min-w-125px' />,
     id: 'name',
     Cell: ({...props}) => <LinkCell item={props.data[props.row.index]} />,
+  },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDIT_CATEGORY_NAME'})} className='min-w-125px' />,
+    id: 'auditCategoryName',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].auditCategoryName} />,
+  },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDIT_CATEGORY_TYPE'})} className='min-w-125px' />,
+    id: 'categoryType',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].categoryType} />,
+  },
+  {
+    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'UNIT_TYPE'})} className='min-w-125px' />,
+    id: 'unitType',
+    Cell: ({...props}) => <TypeCell item={props.data[props.row.index]} />,
   },
   {
     Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'UNIT_LEADER'})} className='min-w-125px' />,

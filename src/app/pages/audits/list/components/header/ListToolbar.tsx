@@ -21,6 +21,7 @@ const ListToolbar = () => {
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
       {/* { currentUser?.roleName == "Key Account" && (<ListFilter />) } */}
       {/* begin::Add Places */}
+      { currentUser?.roleName == "Key Account" && (<Link className='btn btn-sm btn-dark btn-active-light-dark' to={`../Add`}>{intl.formatMessage({id: 'AUDITS.LIST.ADDINSTANT'})}</Link>) }
       { currentUser?.roleName == "Key Account" && (<Link className='btn btn-sm btn-dark btn-active-light-dark' to={`../Planner`}>{intl.formatMessage({id: 'AUDITS.LIST.ADD'})}</Link>) }
       {/* <a href='Planner'
         type='button'

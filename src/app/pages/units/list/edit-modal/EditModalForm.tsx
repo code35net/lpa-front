@@ -266,11 +266,11 @@ console.log(filteredData)
            {...formik.getFieldProps('categoryType')}
            >
             <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
-            <option value='0'>Daily</option>
-            <option value='1'>Weekly</option>
-            <option value='2'>Monthly</option>
-            <option value='3'>Quarterly</option>
-            <option value='4'>DailyShift</option>
+            <option value='4'>Günlük</option>
+            <option value='1'>Haftalık</option>
+            <option value='2'>Aylık</option>
+            <option value='3'>3 Aylık</option>
+            
             {/* <option value='5'>NonPeriod</option> */}
            </select>
           
@@ -390,8 +390,8 @@ console.log(filteredData)
            {...formik.getFieldProps('unitType')}
            >
             <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
-            <option value='0'>Line</option>
-            <option value='1'>Operator</option>
+            <option value='0'>Hat</option>
+            <option value='1'>Operatör</option>
             <option value='2'>Setter</option>
            </select>
           
