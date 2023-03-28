@@ -37,7 +37,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const { state } = useQueryRequest()
 
   const [auditCategory, setAuditCategory] = React.useState<Array<AuditCategory>>([])
-  const [selectedAuditCategories, setSelectedAuditCategories] = React.useState<Array<string>>([])
+  const [selectedAuditCategories, setSelectedAuditCategories] = React.useState<string>("0")
   const [parentUnitId, setParentUnitId] = React.useState([])
   const [userId, setUserId] = React.useState([])
   const [positions, setPositions] = React.useState([])
@@ -128,13 +128,13 @@ console.log(filteredData)
         let pids = ''
         //const x = [values.auditCategoryId]
        
-       selectedAuditCategories?.map((r) => {
+       /*selectedAuditCategories?.map((r) => {
           
           pids = pids + r?.toString() + ','
         })
         // console.log(pids)
-        pids = pids.slice(0,-1)
-      values.auditCategoryId= pids
+        pids = pids.slice(0,-1)*/
+      values.auditCategoryId= selectedAuditCategories
       // console.log(values.auditCategoryId)
 
       if (state.id != undefined) {
@@ -180,7 +180,8 @@ console.log(filteredData)
   const options =  { value: 'chocolate', label: 'Chocolate' }
 
   const handleUsers = (value: string, type: string) => {
-    if(selectedAuditCategories?.indexOf(value) > -1)
+    
+    /*if(selectedAuditCategories?.indexOf(value) > -1)
     {
       selectedAuditCategories.splice(selectedAuditCategories?.indexOf(value), 1)
     }
@@ -189,9 +190,9 @@ console.log(filteredData)
       selectedAuditCategories?.push(value)
     }
     if(selectedAuditCategories != undefined)
-    {
-      setSelectedAuditCategories([...selectedAuditCategories])
-    }
+    {*/
+      setSelectedAuditCategories(value)
+    //}
     console.log(selectedAuditCategories)
     /*let filteredData = [...rawUsers]
     console.log(value)
@@ -291,7 +292,7 @@ console.log(filteredData)
             {intl.formatMessage({id: 'AUDIT_CATEGORY_ID'})}
           </label>     
          <select
-              multiple
+              
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('auditCategoryId')}
                   value={selectedAuditCategories}
@@ -300,6 +301,7 @@ console.log(filteredData)
                     handleUsers(e.target.value, 'auditCategoryId')
                   }}
                 >
+                  {/* <option value=''>Seçiniz</option> */}
                   {/* ?? */}
                   {auditCategory.map((myauditcategory: any) => (
                     <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
