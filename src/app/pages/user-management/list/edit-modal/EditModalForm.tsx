@@ -10,6 +10,7 @@ import {ListLoading} from '../components/loading/ListLoading'
 import {createUser, updateUser} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listUsers} from '../../list/core/_requests'
+import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
 
 type Props = {
   isQuestionLoading: boolean
@@ -29,9 +30,17 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
 
   const [users, setUsers] = React.useState([])
   const [isDeleted, setIsDeleted] = React.useState(false)
+  const [auditcategories, setAuditCategories] = React.useState([])
   useEffect(() => {
     listUsers().then((res)=>{
       setUsers(res.data)
+    })
+
+    listAuditCategories().then((res2) => {
+      if (res2?.data?.length) {
+        setAuditCategories(res2.data || [])
+      }
+      // setAuditCategories(res2.data || [])
     })
   }, [])
 
@@ -247,12 +256,33 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           {/* end::Input */}
         </div>
         )}
-        {/* begin::Input group */}
 
-        {/* end::Input group */}
-        {/* end::Scroll */}
+          
+            <div className='fv-row mb-7'>
+              <label className='required fw-bold fs-6 mb-2'>
+                {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY'})}
+              </label>
+              <div className='col-lg-12 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md mb-3 mb-lg-0'
+                  {...formik.getFieldProps('auditCategoryId')}
+                  value={formik.values.auditCategoryId}
+                  
+                >
+                  <option value=''>
+                    {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY.SELECT'})}
+                  </option>
+                  {auditcategories.map((myauditcategory: any) => (
+                    <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
+                      {myauditcategory?.name as any}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            
 
-        {/* begin::Actions */}
+
         <div className='text-center pt-15'>
           <button
             type='reset'

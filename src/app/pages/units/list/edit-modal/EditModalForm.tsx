@@ -101,6 +101,7 @@ console.log(filteredData)
     
   }, [])
 
+
   const formik = useFormik({
     initialValues: placeForEdit,
     validationSchema: editchema,
@@ -301,6 +302,7 @@ console.log(filteredData)
                     handleUsers(e.target.value, 'auditCategoryId')
                   }}
                 >
+                  <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
                   {/* <option value=''>Seçiniz</option> */}
                   {/* ?? */}
                   {auditCategory.map((myauditcategory: any) => (
@@ -342,6 +344,7 @@ console.log(filteredData)
                   value={formik.values.userId}
                   onChange={formik.handleChange}
                 >
+                  
                   <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
                   {users.map((user: any) => (
                     <option value={user?.id as any} key={user?.id as any}>
