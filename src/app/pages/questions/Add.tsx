@@ -170,25 +170,40 @@ const EditForm: FC<Props> = ({item}) => {
   //   }
   // }
 
+  // const handleAuditCategoryId = async (event: any) => {
+  //   console.log(event.target.value)
+  //   formik.setFieldValue('auditCategoryId', event.target.value)
+  //   if (event.target.value == '9') {
+  //     setSelectoption('select')
+  //     listUnits(event.target.value, 0).then((res3) => {
+  //       setUnits(res3.data)
+  //     })
+  //   } else if (event.target.value == '12') {
+  //     setSelectoption('select')
+  //     listUnits(event.target.value, 0).then((res3) => {
+  //       setUnits(res3.data)
+  //     })
+  //   } else {
+  //     setSelectoption('selectgroup')
+  //     listUnits(event.target.value, 0).then((res3) => {
+  //       setUnits(res3.data)
+  //     })
+  //   }
+  // }
+
   const handleAuditCategoryId = async (event: any) => {
     console.log(event.target.value)
     formik.setFieldValue('auditCategoryId', event.target.value)
-    if (event.target.value == '9') {
-      setSelectoption('select')
-      listUnits(event.target.value, 0).then((res3) => {
+    listUnits(event.target.value, 0).then((res3) => {
+      console.log(res3.data)
+      if (res3.data[0].parentUnitId == null) {
+        setSelectoption('select')
         setUnits(res3.data)
-      })
-    } else if (event.target.value == '12') {
-      setSelectoption('select')
-      listUnits(event.target.value, 0).then((res3) => {
+      } else {
+        setSelectoption('selectgroup')
         setUnits(res3.data)
-      })
-    } else {
-      setSelectoption('selectgroup')
-      listUnits(event.target.value, 0).then((res3) => {
-        setUnits(res3.data)
-      })
-    }
+      }
+    })
   }
 
   const handleUnitId = (id: number, name: string) => {
@@ -379,7 +394,6 @@ const EditForm: FC<Props> = ({item}) => {
                           </select>
                         </div>
 
-
                         <div className='col-md-3 fv-row'>
                           <select
                             className='form-select form-select-solid form-select-md'
@@ -421,7 +435,6 @@ const EditForm: FC<Props> = ({item}) => {
                           </select>
                         </div>
 
-                        
                         <div className='col-md-1 fv-row'>
                           <a
                             type='button'
