@@ -12,36 +12,41 @@ const GET_USER_CLAIMS_URL = `${API_URL}/Custom/getUserClaims`
 const SET_USER_CLAIMS_URL = `${API_URL}/Custom/setClaimForUser`
 const GET_SOME_USER_URL = `${API_URL}/Custom/getSomeUser`
 
-
-const getUserDetails = async (id : string): Promise<any> => await axios.get(`${GET_USER_DETAILS_URL}?Id=${id}`).then((res : AxiosResponse) => 
- {
-   return res.data;
- });
+const getUserDetails = async (id: string): Promise<any> =>
+  await axios.get(`${GET_USER_DETAILS_URL}?Id=${id}`).then((res: AxiosResponse) => {
+    return res.data
+  })
 
 const listUsers = async (): Promise<any> =>
   await axios.get(`${GET_USERS_URL}?page=1&items_per_page=900`).then((res: AxiosResponse) => {
     return res.data
   })
 
-  const listSomeUsers = async (unitId: any): Promise<any> =>
-  await axios.get(`${GET_SOME_USER_URL}/${unitId}?page=1&items_per_page=900`).then((res: AxiosResponse) => {
-    return res.data
-  })
-  
- 
+const listSomeUsers = async (unitId: any): Promise<any> =>
+  await axios
+    .get(`${GET_SOME_USER_URL}/${unitId}?page=1&items_per_page=900`)
+    .then((res: AxiosResponse) => {
+      return res.data
+    })
+
+const listSomeUsers2 = async (Id: any): Promise<any> =>
+  await axios
+    .get(`${GET_SOME_USER_URL}/${Id}?page=1&items_per_page=900`)
+    .then((res: AxiosResponse) => {
+      return res.data
+    })
 
 const getUsers = (query: string): Promise<QueryResponse> => {
   return axios.get(`${GET_USERS_URL}?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
 }
-
 
 const getUserClaims = async (id: ID): Promise<any> =>
   await axios.get(`${GET_USER_CLAIMS_URL}?userId=${id}`).then((res: AxiosResponse) => {
     return res.data
   })
 
-const setClaimForUser = async (requestBody : any): Promise<any> =>
-  await axios.post(`${SET_USER_CLAIMS_URL}`,requestBody).then((res: AxiosResponse) => {
+const setClaimForUser = async (requestBody: any): Promise<any> =>
+  await axios.post(`${SET_USER_CLAIMS_URL}`, requestBody).then((res: AxiosResponse) => {
     return res.data
   })
 
@@ -55,7 +60,6 @@ const setClaimForUser = async (requestBody : any): Promise<any> =>
 const getUserById = (id: ID): Promise<Model | undefined> => {
   return axios.get(`${USER_URL}/${id}`).then((response: any) => response.data)
 }
-
 
 const createUser = (user: Model): Promise<Model | undefined> => {
   return axios
@@ -92,4 +96,5 @@ export {
   setClaimForUser,
   getUserDetails,
   listSomeUsers,
+  listSomeUsers2,
 }

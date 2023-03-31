@@ -1,12 +1,10 @@
-
-
 // import {ListFilter} from './ListFilter'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {useIntl} from 'react-intl'
 import {KTSVG} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {Languages} from '../../../../../../_metronic/partials/layout/header-menus/Languages'
-
+import {ListFilter} from './ListFilter'
 import {useAuth} from '../../../../../../app/modules/auth'
 
 const ListToolbar = () => {
@@ -15,14 +13,23 @@ const ListToolbar = () => {
   const openAddModal = () => {
     setItemIdForUpdate(null)
   }
-  
+
   const {currentUser} = useAuth()
   return (
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
+      <ListFilter />
       {/* { currentUser?.roleName == "Key Account" && (<ListFilter />) } */}
       {/* begin::Add Places */}
-      { currentUser?.roleName == "Key Account" && (<Link className='btn btn-sm btn-dark btn-active-light-dark' to={`../Planner2`}>{intl.formatMessage({id: 'AUDITS.LIST.ADDINSTANT'})}</Link>) }
-      { currentUser?.roleName == "Key Account" && (<Link className='btn btn-sm btn-dark btn-active-light-dark' to={`../Planner`}>{intl.formatMessage({id: 'AUDITS.LIST.ADD'})}</Link>) }
+      {currentUser?.roleName == 'Key Account' && (
+        <Link className='btn btn-sm btn-dark btn-active-light-dark' to={`../Planner2`}>
+          {intl.formatMessage({id: 'AUDITS.LIST.ADDINSTANT'})}
+        </Link>
+      )}
+      {currentUser?.roleName == 'Key Account' && (
+        <Link className='btn btn-sm btn-dark btn-active-light-dark' to={`../Planner`}>
+          {intl.formatMessage({id: 'AUDITS.LIST.ADD'})}
+        </Link>
+      )}
       {/* <a href='Planner'
         type='button'
         className='btn btn-sm btn-dark btn-active-light-dark'

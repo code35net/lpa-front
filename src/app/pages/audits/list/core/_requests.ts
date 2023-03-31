@@ -12,36 +12,30 @@ const AUDIT_QUESTIONS_URL = `${API_URL}/Custom/getAuditQuestions`
 const FINISH_AUDIT = `${API_URL}/Custom/finishAudit`
 const UNITS_URL = `${API_URL}/Custom/listUnits`
 
-
 const listUnits = async (SectionId: any): Promise<any> =>
   await axios.get(`${UNITS_URL}?SectionId=${SectionId}`).then((res: AxiosResponse) => {
     return res.data
   })
 
-
 const finishAudit = (auditid: any) => {
-    return axios
-        .put(`${FINISH_AUDIT}?auditid=${auditid}`).then((response: any) => response.data)
+  return axios.put(`${FINISH_AUDIT}?auditid=${auditid}`).then((response: any) => response.data)
 }
 
-const getAuditDetails = async (id : string): Promise<any> => await axios.get(`${AUDIT_DETAILS_URL}?Id=${id}`).then((res : AxiosResponse) => 
- {
-   return res.data;
- }
- 
- );
+const getAuditDetails = async (id: string): Promise<any> =>
+  await axios.get(`${AUDIT_DETAILS_URL}?Id=${id}`).then((res: AxiosResponse) => {
+    return res.data
+  })
 
- const getAuditQuestions = async (auditId : string): Promise<any> => await axios.get(`${AUDIT_QUESTIONS_URL}?auditId=${auditId}`).then((res : AxiosResponse) => 
- {
-   return res.data;
- }
- 
- );
+const getAuditQuestions = async (auditId: string): Promise<any> =>
+  await axios.get(`${AUDIT_QUESTIONS_URL}?auditId=${auditId}`).then((res: AxiosResponse) => {
+    return res.data
+  })
 
 const getAudits = (query: string, onlyauditor: string): Promise<QueryResponse> => {
-
-  const callurl = onlyauditor == "0" ? `${GET_AUDITS_URL}?${query}` : `${GET_AUDITS_URL}?${query}&isonlyauditor=1`
-
+  const callurl =
+    onlyauditor == '0' ? `${GET_AUDITS_URL}?${query}` : `${GET_AUDITS_URL}?${query}&isonlyauditor=1`
+  console.log(callurl)
+  console.log(onlyauditor)
   return axios.get(callurl).then((d: AxiosResponse<QueryResponse>) => {
     const queryRaw: any = parseRequestQuery(query)
     if (queryRaw?.filter_auditcategoryid && Array.isArray(d?.data?.data)) {
@@ -49,7 +43,8 @@ const getAudits = (query: string, onlyauditor: string): Promise<QueryResponse> =
         (item: any) =>
           parseInt(item?.auditCategoryId) === parseInt(queryRaw?.filter_auditcategoryid)
       )
-    } if (queryRaw?.filter_questiongroupid && Array.isArray(d?.data?.data)) {
+    }
+    if (queryRaw?.filter_questiongroupid && Array.isArray(d?.data?.data)) {
       d.data.data = (d as any).data?.data?.filter(
         (item: any) =>
           parseInt(item?.questionGroupId) === parseInt(queryRaw?.filter_questiongroupid)
@@ -58,16 +53,19 @@ const getAudits = (query: string, onlyauditor: string): Promise<QueryResponse> =
 
     if (queryRaw?.filter_departmentid && Array.isArray(d?.data?.data)) {
       d.data.data = (d as any).data?.data?.filter(
-        (item: any) =>
-          parseInt(item?.departmentId) === parseInt(queryRaw?.filter_departmentid)
+        (item: any) => parseInt(item?.departmentId) === parseInt(queryRaw?.filter_departmentid)
       )
     }
 
-
-     if (queryRaw?.filter_sectionid && Array.isArray(d?.data?.data)) {
+    if (queryRaw?.filter_sectionid && Array.isArray(d?.data?.data)) {
       d.data.data = (d as any).data?.data?.filter(
-        (item: any) =>
-          parseInt(item?.sectionId) === parseInt(queryRaw?.filter_sectionid)
+        (item: any) => parseInt(item?.sectionId) === parseInt(queryRaw?.filter_sectionid)
+      )
+    }
+
+    if (queryRaw?.filter_auditor && Array.isArray(d?.data?.data)) {
+      d.data.data = (d as any).data?.data?.filter(
+        (item: any) => item?.auditor === queryRaw?.filter_auditor
       )
     }
 
@@ -112,4 +110,16 @@ const deleteSelectedAudits = (auditIds: Array<ID>): Promise<void> => {
   return axios.all(requests).then(() => {})
 }
 
-export {getAuditQuestions,getAudits, deleteAudit, deleteSelectedAudits, getAuditById, createAudit,createOpAudit, updateAudit, getAuditDetails, finishAudit, listUnits}
+export {
+  getAuditQuestions,
+  getAudits,
+  deleteAudit,
+  deleteSelectedAudits,
+  getAuditById,
+  createAudit,
+  createOpAudit,
+  updateAudit,
+  getAuditDetails,
+  finishAudit,
+  listUnits,
+}
