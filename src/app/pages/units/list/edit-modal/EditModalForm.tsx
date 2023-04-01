@@ -12,12 +12,10 @@ import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
 import {listThings as listParentUnits} from '../../../units/list/core/_requests'
 import {Model as AuditCategory} from '../../../audit-categories/list/core/_models'
-import { useQueryRequest } from '../core/QueryRequestProvider'
+import {useQueryRequest} from '../core/QueryRequestProvider'
 
 import {listUsers as listUsers} from '../../../user-management/list/core/_requests'
 import {useParams} from 'react-router-dom'
-
-
 
 type Props = {
   isThingLoading: boolean
@@ -25,19 +23,19 @@ type Props = {
 }
 
 const editchema = Yup.object().shape({
-  name: Yup.string()
-    .max(50, 'Maximum 50 symbols')
-    .required('Thing Name required'),
+  name: Yup.string().max(50, 'Maximum 50 symbols').required('Thing Name required'),
+  auditCategoryId: Yup.string().required('Thing Audit Category required'),
+  userId: Yup.string().required('Auditor required'),
 })
 
 const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
-  const { state } = useQueryRequest()
+  const {state} = useQueryRequest()
 
   const [auditCategory, setAuditCategory] = React.useState<Array<AuditCategory>>([])
-  const [selectedAuditCategories, setSelectedAuditCategories] = React.useState<string>("0")
+  const [selectedAuditCategories, setSelectedAuditCategories] = React.useState<string>('0')
   const [parentUnitId, setParentUnitId] = React.useState([])
   const [userId, setUserId] = React.useState([])
   const [positions, setPositions] = React.useState([])
@@ -45,19 +43,17 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const [rawUsers, setRawUsers] = React.useState([])
   const params = useParams()
 
-  const [placeForEdit] = useState<Model>({    
+  const [placeForEdit] = useState<Model>({
     name: undefined,
     auditCategoryId: undefined,
-    parentUnitId:undefined,
-    shift:undefined,
-    unitType:undefined,
-    userId:undefined,
+    parentUnitId: undefined,
+    shift: undefined,
+    unitType: undefined,
+    userId: undefined,
     categoryType: undefined,
     positionId: undefined,
-    
-    
+
     ...item,
-    
   })
 
   console.log(state)
@@ -68,16 +64,16 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     }
     setItemIdForUpdate(undefined)
   }
-useEffect(() => {
-  let filteredData = [...rawUsers]
-      
-  filteredData = filteredData.filter((item: any) => {
-    console.log(item.auditCategoryId)
-    return selectedAuditCategories.includes(item.auditCategoryId.toString())
-  })
-console.log(filteredData)
+  useEffect(() => {
+    let filteredData = [...rawUsers]
+
+    filteredData = filteredData.filter((item: any) => {
+      console.log(item.auditCategoryId)
+      return selectedAuditCategories.includes(item.auditCategoryId.toString())
+    })
+    console.log(filteredData)
     setUsers([...filteredData])
-}, [selectedAuditCategories])
+  }, [selectedAuditCategories])
   useEffect(() => {
     listAuditCategories().then((res2) => {
       setAuditCategory(res2.data || [])
@@ -91,16 +87,12 @@ console.log(filteredData)
       setUserId(res2.data || [])
     })*/
 
-
     listUsers().then((res7) => {
       console.log(res7)
       //setUsers(res7.data || [])
       setRawUsers(res7.data || [])
     })
-
-    
   }, [])
-
 
   const formik = useFormik({
     initialValues: placeForEdit,
@@ -108,39 +100,37 @@ console.log(filteredData)
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
       // console.log(values.auditCategoryId)
-      if(!values.categoryType){
+      if (!values.categoryType) {
         values.categoryType = 0
       }
-      values.categoryType=parseInt(values.categoryType.toString())
-       
+      values.categoryType = parseInt(values.categoryType.toString())
+
       // if(!values.unitType){
       //   values.unitType = 0
       // }
       // values.unitType=parseInt(values.unitType.toString())
 
-      if(!values.unitType){
+      if (!values.unitType) {
         values.unitType = undefined
+      } else {
+        values.unitType = parseInt(values.unitType.toString())
       }
-      else{
-        values.unitType=parseInt(values.unitType.toString())
-      }
-      
 
-        let pids = ''
-        //const x = [values.auditCategoryId]
-       
-       /*selectedAuditCategories?.map((r) => {
+      let pids = ''
+      //const x = [values.auditCategoryId]
+
+      /*selectedAuditCategories?.map((r) => {
           
           pids = pids + r?.toString() + ','
         })
         // console.log(pids)
         pids = pids.slice(0,-1)*/
-      values.auditCategoryId= selectedAuditCategories
+      values.auditCategoryId = selectedAuditCategories
       // console.log(values.auditCategoryId)
 
       if (state.id != undefined) {
         values.parentUnitId = parseInt(state.id)
-    }
+      }
       // if(auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4)
       // {
       //   values.unitType = undefined
@@ -152,7 +142,7 @@ console.log(filteredData)
       //   }
       //   values.unitType=parseInt(values.unitType.toString())
       // }
-      
+
       if (!values.positionId && positions.length) {
         values.positionId = (positions[0] as any)?.id
       }
@@ -176,12 +166,9 @@ console.log(filteredData)
     },
   })
 
-
-
-  const options =  { value: 'chocolate', label: 'Chocolate' }
+  const options = {value: 'chocolate', label: 'Chocolate'}
 
   const handleUsers = (value: string, type: string) => {
-    
     /*if(selectedAuditCategories?.indexOf(value) > -1)
     {
       selectedAuditCategories.splice(selectedAuditCategories?.indexOf(value), 1)
@@ -192,7 +179,7 @@ console.log(filteredData)
     }
     if(selectedAuditCategories != undefined)
     {*/
-      setSelectedAuditCategories(value)
+    setSelectedAuditCategories(value)
     //}
     console.log(selectedAuditCategories)
     /*let filteredData = [...rawUsers]
@@ -209,10 +196,6 @@ console.log(filteredData)
     setUsers([...filteredData])*/
   }
 
-    
-   
-
-
   return (
     <>
       <form id='kt_modal_add_item_form' className='form' onSubmit={formik.handleSubmit} noValidate>
@@ -225,15 +208,12 @@ console.log(filteredData)
           data-kt-scroll-dependencies='#kt_modal_add_item_header'
           data-kt-scroll-wrappers='#kt_modal_add_item_scroll'
           data-kt-scroll-offset='300px'
-        >
-          
-          
-        </div>
+        ></div>
         <div className='fv-row mb-7'>
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'POSITION_NAME'})}
           </label>
-          
+
           <input
             //placeholder='Full name'
             {...formik.getFieldProps('name')}
@@ -257,9 +237,8 @@ console.log(filteredData)
             </div>
           )}
         </div>
-      
-      
-        <div className='fv-row mb-7'>
+
+        {/* <div className='fv-row mb-7'>
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'AUDIT_CATEGORY_TYPE'})}
           </label>
@@ -273,7 +252,7 @@ console.log(filteredData)
             <option value='2'>Aylık</option>
             <option value='3'>3 Aylık</option>
             
-            {/* <option value='5'>NonPeriod</option> */}
+            
            </select>
           
           {formik.touched.categoryType && formik.errors.categoryType && (
@@ -283,34 +262,30 @@ console.log(filteredData)
               </div>
             </div>
           )}
-        </div>
-       
+        </div> */}
 
-   
-
-        <div className='fv-row mb-7'>    
-        <label className='required fw-bold fs-6 mb-2'>
+        <div className='fv-row mb-7'>
+          <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'AUDIT_CATEGORY_ID'})}
-          </label>     
-         <select
-              
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('auditCategoryId')}
-                  value={selectedAuditCategories}
-                  onChange={(e) => {
-                    formik.setFieldValue('auditCategoryId', e.target.value)
-                    handleUsers(e.target.value, 'auditCategoryId')
-                  }}
-                >
-                  <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
-                  {/* <option value=''>Seçiniz</option> */}
-                  {/* ?? */}
-                  {auditCategory.map((myauditcategory: any) => (
-                    <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
-                      {myauditcategory?.name as any}
-                    </option>
-                  ))}
-                </select>
+          </label>
+          <select
+            className='form-select form-select-solid form-select-md'
+            {...formik.getFieldProps('auditCategoryId')}
+            value={selectedAuditCategories}
+            onChange={(e) => {
+              formik.setFieldValue('auditCategoryId', e.target.value)
+              handleUsers(e.target.value, 'auditCategoryId')
+            }}
+          >
+            <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+            {/* <option value=''>Seçiniz</option> */}
+            {/* ?? */}
+            {auditCategory.map((myauditcategory: any) => (
+              <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
+                {myauditcategory?.name as any}
+              </option>
+            ))}
+          </select>
           {/* end::Input */}
         </div>
 
@@ -336,24 +311,24 @@ console.log(filteredData)
              
             </div> */}
 
-            <div className='fv-row mb-7'>
-              <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}</label>            
-                <select
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('userId')}
-                  value={formik.values.userId}
-                  onChange={formik.handleChange}
-                >
-                  
-                  <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
-                  {users.map((user: any) => (
-                    <option value={user?.id as any} key={user?.id as any}>
-                      {user?.fullName as any}
-                    </option>
-                  ))}
-                </select>              
-            </div>
-
+        <div className='fv-row mb-7'>
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
+          </label>
+          <select
+            className='form-select form-select-solid form-select-md'
+            {...formik.getFieldProps('userId')}
+            value={formik.values.userId}
+            onChange={formik.handleChange}
+          >
+            <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
+            {users.map((user: any) => (
+              <option value={user?.id as any} key={user?.id as any}>
+                {user?.fullName as any}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {/* <div className='fv-row mb-7'>    
         <label hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.name != "LPA 1"} className='required fw-bold fs-6 mb-2'>
@@ -377,29 +352,33 @@ console.log(filteredData)
                 </select>
           
         </div> */}
-  
-   
-
-    
-        
-        
-        
 
         <div className='fv-row mb-7'>
-          <label hidden={auditCategory.filter((a) => selectedAuditCategories.includes(a.id?.toString() || "0"))[0]?.name != "LPA 1"} className='fw-bold fs-6 mb-2'>
+          <label
+            hidden={
+              auditCategory.filter((a) =>
+                selectedAuditCategories.includes(a.id?.toString() || '0')
+              )[0]?.name != 'LPA 1'
+            }
+            className='fw-bold fs-6 mb-2'
+          >
             {intl.formatMessage({id: 'UNIT_TYPE'})}
           </label>
-          <select 
-           className='form-select form-select-solid form-select-md'
-           hidden={auditCategory.filter((a) => selectedAuditCategories.includes(a.id?.toString() || "0"))[0]?.name != "LPA 1"}
-           {...formik.getFieldProps('unitType')}
-           >
+          <select
+            className='form-select form-select-solid form-select-md'
+            hidden={
+              auditCategory.filter((a) =>
+                selectedAuditCategories.includes(a.id?.toString() || '0')
+              )[0]?.name != 'LPA 1'
+            }
+            {...formik.getFieldProps('unitType')}
+          >
             <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
             <option value='0'>Hat</option>
             <option value='1'>Operatör</option>
             <option value='2'>Setter</option>
-           </select>
-          
+          </select>
+
           {formik.touched.unitType && formik.errors.unitType && (
             <div className='fv-plugins-message-container'>
               <div className='fv-help-block'>
@@ -424,9 +403,7 @@ console.log(filteredData)
             type='submit'
             className='btn btn-sm btn-dark btn-active-light-dark'
             data-kt-items-modal-action='submit'
-            disabled={
-              isThingLoading || formik.isSubmitting || !formik.isValid || !formik.touched
-            }
+            disabled={isThingLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
           >
             <span className='indicator-label'> {intl.formatMessage({id: 'FORM.SAVE'})}</span>
             {(formik.isSubmitting || isThingLoading) && (
