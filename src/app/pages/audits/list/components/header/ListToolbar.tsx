@@ -21,7 +21,7 @@ const ListToolbar = () => {
       {/* { currentUser?.roleName == "Key Account" && (<ListFilter />) } */}
       {/* begin::Add Places */}
       {currentUser?.roleName == 'Key Account' && (
-        <Link className='btn btn-sm btn-dark btn-active-light-dark' to={`../Planner2`}>
+        <Link className='btn btn-sm btn-dark btn-active-light-dark me-3' to={`../Planner2`}>
           {intl.formatMessage({id: 'AUDITS.LIST.ADDINSTANT'})}
         </Link>
       )}

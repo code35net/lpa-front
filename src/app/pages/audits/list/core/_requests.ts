@@ -38,37 +38,43 @@ const getAudits = (query: string, onlyauditor: string): Promise<QueryResponse> =
   console.log(onlyauditor)
   return axios.get(callurl).then((d: AxiosResponse<QueryResponse>) => {
     const queryRaw: any = parseRequestQuery(query)
+
     if (queryRaw?.filter_auditcategoryid && Array.isArray(d?.data?.data)) {
       d.data.data = (d as any).data?.data?.filter(
         (item: any) =>
           parseInt(item?.auditCategoryId) === parseInt(queryRaw?.filter_auditcategoryid)
       )
     }
-    if (queryRaw?.filter_questiongroupid && Array.isArray(d?.data?.data)) {
-      d.data.data = (d as any).data?.data?.filter(
-        (item: any) =>
-          parseInt(item?.questionGroupId) === parseInt(queryRaw?.filter_questiongroupid)
-      )
-    }
+    // if (queryRaw?.filter_questiongroupid && Array.isArray(d?.data?.data)) {
+    //   d.data.data = (d as any).data?.data?.filter(
+    //     (item: any) =>
+    //       parseInt(item?.questionGroupId) === parseInt(queryRaw?.filter_questiongroupid)
+    //   )
+    // }
 
-    if (queryRaw?.filter_departmentid && Array.isArray(d?.data?.data)) {
-      d.data.data = (d as any).data?.data?.filter(
-        (item: any) => parseInt(item?.departmentId) === parseInt(queryRaw?.filter_departmentid)
-      )
-    }
+    // if (queryRaw?.filter_departmentid && Array.isArray(d?.data?.data)) {
+    //   d.data.data = (d as any).data?.data?.filter(
+    //     (item: any) => parseInt(item?.departmentId) === parseInt(queryRaw?.filter_departmentid)
+    //   )
+    // }
 
-    if (queryRaw?.filter_sectionid && Array.isArray(d?.data?.data)) {
-      d.data.data = (d as any).data?.data?.filter(
-        (item: any) => parseInt(item?.sectionId) === parseInt(queryRaw?.filter_sectionid)
-      )
-    }
+    // if (queryRaw?.filter_sectionid && Array.isArray(d?.data?.data)) {
+    //   d.data.data = (d as any).data?.data?.filter(
+    //     (item: any) => parseInt(item?.sectionId) === parseInt(queryRaw?.filter_sectionid)
+    //   )
+    // }
 
     if (queryRaw?.filter_auditor && Array.isArray(d?.data?.data)) {
-      d.data.data = (d as any).data?.data?.filter(
-        (item: any) => item?.auditor === queryRaw?.filter_auditor
-      )
-    }
+      console.log(queryRaw)
+      console.log(d.data.data)
+      let x = 'Mühendis / BU Lider'
+      console.log(x.toLowerCase())
 
+      // d.data.data = (d as any).data?.data?.filter(
+      //   (item: any) => item?.auditor.toLowerCase() !== queryRaw?.filter_selectedusersname
+      // )
+    }
+    console.log(d.data)
     return d.data
   })
 }

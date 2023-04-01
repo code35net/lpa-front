@@ -35,11 +35,10 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   } = useQuery(
     `${QUERIES.USERS_LIST}-${query}`,
     () => {
-      return currentUser?.roleName == "Key Account" ? getAudits(query, "0") : getAudits(query,"1")
+      return currentUser?.roleName == 'Key Account' ? getAudits(query, '0') : getAudits(query, '1')
     },
     {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
   )
-  
 
   return (
     <QueryResponseContext.Provider value={{isLoading: isFetching, refetch, response, query}}>
@@ -52,6 +51,7 @@ const useQueryResponse = () => useContext(QueryResponseContext)
 
 const useQueryResponseData = () => {
   const {response} = useQueryResponse()
+
   if (!response) {
     return []
   }

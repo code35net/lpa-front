@@ -20,6 +20,7 @@ const ListFilter = () => {
   const intl = useIntl()
   const {updateState} = useQueryRequest()
   const {isLoading} = useQueryResponse()
+  const {refetch} = useQueryResponse()
 
   const [auditcategories, setAuditCategories] = useState([])
   const [questioncategories, setQuestionCategories] = useState([])
@@ -34,6 +35,7 @@ const ListFilter = () => {
   const [selectedUnits, setSelectedUnits] = useState('')
   const [users, setUsers] = useState([])
   const [selectedUsers, setSelectedUsers] = useState('')
+  const [selectedUsersName, setSelectedUsersName] = useState('')
 
   useEffect(() => {
     Promise.all([listAuditCategories(), listQuestionCategories(), listDepartments()]).then(
@@ -55,9 +57,6 @@ const ListFilter = () => {
     )
   }, [])
 
-  console.log(departments)
-  console.log(sections)
-
   useEffect(() => {
     MenuComponent.reinitialization()
   }, [])
@@ -71,7 +70,7 @@ const ListFilter = () => {
 
   useEffect(() => {
     filterData()
-  }, [selectedUsers])
+  }, [selectedUsers, selectedAuditCategories])
 
   useEffect(() => {
     if (selectedDepartments) {
@@ -93,29 +92,32 @@ const ListFilter = () => {
   const filterData = () => {
     let filter: any = {}
     console.log(selectedUsers)
+    if (selectedAuditCategories) {
+      filter.auditCategoryId = selectedAuditCategories
+    }
+
     if (selectedUsers) {
       filter.auditor = selectedUsers
+      filter.selectedUsersName = selectedUsersName
     }
 
-    if (selectedQuestionCategories) {
-      filter.questionGroupId = selectedQuestionCategories
-    }
-
-    if (selectedSections) {
-      filter.sectionId = selectedSections
-    }
-    console.log(filter)
     updateState({filter: filter})
   }
 
   const handleAuditCategoryId = async (id: any) => {
-    console.log(id)
     setSelectedAuditCategories(id)
     listSomeUsers2(id).then((res3) => {
       setUsers(res3.data)
     })
   }
   console.log(users)
+
+  const UserInfo = (item: any) => {
+    console.log(item.target.selectedOptions[0].label)
+    console.log(item.target.value)
+    setSelectedUsers(item.target.value)
+    setSelectedUsersName(item.target.selectedOptions[0].label)
+  }
   return (
     <>
       {/* begin::Filter Button */}
@@ -181,7 +183,9 @@ const ListFilter = () => {
 
           {/* begin::Input group */}
           <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>Denetçiii</label>
+            <label className='form-label fs-6 fw-bold'>
+              {intl.formatMessage({id: 'AUDITS.DETAIL.AUDITOR'})}
+            </label>
             <select
               className='form-select form-select-solid fw-bolder'
               data-kt-select2='true'
@@ -189,7 +193,8 @@ const ListFilter = () => {
               data-allow-clear='true'
               data-kt-item-table-filter='role'
               data-hide-search='true'
-              onChange={(e) => setSelectedUsers(e.target.value)}
+              // onChange={(e) => setSelectedUsers(e.target.value)}
+              onChange={(e: any) => UserInfo(e)}
               value={selectedUsers}
             >
               <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
@@ -317,7 +322,7 @@ const ListFilter = () => {
               disabled={isLoading}
               type='button'
               onClick={filterData}
-              className='btn btn-primary fw-bold px-6'
+              className='btn btn-dark fw-bold px-6'
               data-kt-menu-dismiss='true'
               data-kt-item-table-filter='filter'
             >
