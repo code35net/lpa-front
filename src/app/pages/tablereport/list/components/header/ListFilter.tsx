@@ -39,7 +39,7 @@ const ListFilter = () => {
 
         if (departments.length > 0) {
           listSections(departments[0]?.id).then((response) => {
-             setSections(response.data)
+            setSections(response.data)
           })
         }
         setAuditCategories([...(audits as never[])])
@@ -103,7 +103,6 @@ const ListFilter = () => {
       filter.questionGroupId = selectedQuestionCategories
     }
     if (selectedDepartments) {
-      
       filter.unitId = selectedDepartments
     }
     if (selectedYears) {
@@ -114,15 +113,13 @@ const ListFilter = () => {
     }
 
     if (selectedSections) {
-      
       filter.unitId = selectedSections
     }
 
     if (selectedUnits) {
-     
       filter.unitId = selectedUnits
     }
-    
+
     updateState({filter: filter, ...initialQueryState})
   }
 
@@ -155,7 +152,11 @@ const ListFilter = () => {
         {/* end::Separator */}
 
         {/* begin::Content */}
-        <div className='px-7 py-5' data-kt-item-table-filter='form'>
+        <div
+          className='px-7 py-5'
+          data-kt-item-table-filter='form'
+          style={{overflowX: 'scroll', maxHeight: '400px'}}
+        >
           {/* begin::Input group */}
           {/* end::Input group */}
           <div className='mb-10'>
@@ -238,8 +239,8 @@ const ListFilter = () => {
           {/* end::Input group */}
 
           {/* begin::Actions */}
-            {/* begin::Input group */}
-            <div className='mb-10'>
+          {/* begin::Input group */}
+          <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
               {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
             </label>
@@ -349,7 +350,7 @@ const ListFilter = () => {
               disabled={isLoading}
               type='button'
               onClick={filterData}
-              className='btn btn-primary fw-bold px-6'
+              className='btn btn-dark fw-bold px-6'
               data-kt-menu-dismiss='true'
               data-kt-item-table-filter='filter'
             >

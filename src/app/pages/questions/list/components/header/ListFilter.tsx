@@ -306,7 +306,7 @@ const ListFilter = () => {
               disabled={isLoading}
               type='button'
               onClick={filterData}
-              className='btn btn-primary fw-bold px-6'
+              className='btn btn-dark fw-bold px-6'
               data-kt-menu-dismiss='true'
               data-kt-item-table-filter='filter'
             >
