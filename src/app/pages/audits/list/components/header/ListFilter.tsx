@@ -36,6 +36,7 @@ const ListFilter = () => {
   const [users, setUsers] = useState([])
   const [selectedUsers, setSelectedUsers] = useState('')
   const [selectedUsersName, setSelectedUsersName] = useState('')
+  const [status, setStatus] = useState('')
 
   useEffect(() => {
     Promise.all([listAuditCategories(), listQuestionCategories(), listDepartments()]).then(
@@ -208,6 +209,34 @@ const ListFilter = () => {
               })}
             </select>
           </div>
+
+          <div className='mb-10'>
+            <label className='form-label fs-6 fw-bold'>
+              {intl.formatMessage({id: 'FILTER.AUDITCATEGORIES'})}
+            </label>
+            <select
+              className='form-select form-select-solid fw-bolder'
+              data-kt-select2='true'
+              data-placeholder='Select option'
+              data-allow-clear='true'
+              data-kt-item-table-filter='role'
+              data-hide-search='true'
+              // onChange={(e) => setSelectedAuditCategories(e.target.value)}
+              // onChange={(e) => handleStatus(e.target.value)}
+              value={selectedAuditCategories}
+            >
+              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
+
+              {auditcategories.map((item: any) => {
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                )
+              })}
+            </select>
+          </div>
+
           {/* end::Input group */}
 
           {/* begin::Input group */}
