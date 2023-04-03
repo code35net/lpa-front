@@ -20,9 +20,7 @@ import clsx from 'clsx'
 import moment from 'moment'
 import Swal from 'sweetalert2'
 import {FileUploader} from 'react-drag-drop-files'
-
-
-
+import {set} from 'date-fns'
 
 const fileTypes = ['JPEG', 'PNG', 'JPG']
 
@@ -35,11 +33,13 @@ const AuditQuestionsForm = () => {
 
   const [questions, setQuestions] = useState([])
 
+  const [findings, setfindings] = useState<any>([])
+
   const [pStaffList, setPStaffList] = useState([])
 
   const [questionAnswers, setQuestionAnswers] = useState<any>([])
   const [loading, setLoading] = useState(false)
-  
+
   const navigate = useNavigate()
 
   const [allQuestionAnswered, setAllQuestionAnswered] = useState(false)
@@ -69,13 +69,10 @@ const AuditQuestionsForm = () => {
       })
 
       listUsers().then((res) => {
-          setPStaffList(res.data)
+        setPStaffList(res.data)
       })
     }
   }, [params])
-
-
-  
 
   useEffect(() => {
     checkAllQuestionsAnswered()
@@ -86,10 +83,6 @@ const AuditQuestionsForm = () => {
       const optionIndex: number = (questions as any)[index].answerOptions.findIndex(
         (o: any) => o?.id === optionId
       )
-
-        
-      
-      
 
       if (optionIndex !== -1) {
         ;(questions as any)[index].needAction = (questions as any)[index].answerOptions[
@@ -157,7 +150,7 @@ const AuditQuestionsForm = () => {
         questionAnswers[index]?.answerTemplateOptionId !== -1
       ) {
         const formData = new FormData()
-        
+
         if (questionAnswers[index]?.files?.[0])
           formData.append('files', questionAnswers[index]?.files?.[0])
         formData.append('questionId', questionAnswers[index].questionId)
@@ -210,6 +203,23 @@ const AuditQuestionsForm = () => {
     setAllQuestionAnswered(result)
   }
 
+  useEffect(() => {
+    let x = ''
+    let y = ''
+    y = (questions as any).filter((item: any) => item?.needAction == true)
+    console.log(y)
+    console.log(questionAnswers)
+
+    const filteredArray = (questionAnswers as any).filter((item1: any) =>
+      (y as any).some((item2: any) => item2.id === item1.questionId)
+    )
+    x = (filteredArray as any).filter((item: any) => item?.finding == '')
+    setfindings(x)
+  }, [questionAnswers])
+
+  // console.log(questionAnswers)
+  // console.log(questions)
+
   return (
     // <PageTitle>sdfsdfs</PageTitle>
 
@@ -224,14 +234,12 @@ const AuditQuestionsForm = () => {
                 {/* begin::User */}
                 <div className='d-flex align-items-center flex-grow-1'>
                   {/* begin::Avatar */}
-                  <div className='symbol symbol-45px me-5'>{i+1}</div>
+                  <div className='symbol symbol-45px me-5'>{i + 1}</div>
                   {/* end::Avatar */}
 
                   {/* begin::Info */}
                   <div className='d-flex flex-column'>
-                    <span className='text-gray-800 fs-6 fw-bold'>
-                      {question?.text}
-                    </span>
+                    <span className='text-gray-800 fs-6 fw-bold'>{question?.text}</span>
                   </div>
                   {/* end::Info */}
                 </div>
@@ -243,11 +251,10 @@ const AuditQuestionsForm = () => {
               {!question?.auditQAnswer?.length ? (
                 <>
                   <div className='mb-5'>
-                        <div className='row mb-3'>
-                    {/* begin::Text */}
-                    {question.answerOptions.map((opt: any) => {
-                      return (
-                        
+                    <div className='row mb-3'>
+                      {/* begin::Text */}
+                      {question.answerOptions.map((opt: any) => {
+                        return (
                           <div className='col-lg-1 fv-row'>
                             <div className='d-flex align-items-center mt-3'>
                               <label className='form-check form-check-inline form-check-solid me-5'>
@@ -264,13 +271,15 @@ const AuditQuestionsForm = () => {
                               </label>
                             </div>
                           </div>
-                      )
-                    })}
+                        )
+                      })}
                     </div>
                     {/* end::Text */}
-                    {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.NOTES'})}
+                    <label className=' fw-bold fs-6 mb-2'>
+                      {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.NOTES'})}
+                    </label>
                     <textarea
-                      className='form-control border-1 p-0 pe-5 resize-none min-h-25px'
+                      className='form-control p-2 border-1 p-0 pe-5 resize-none min-h-25px'
                       rows={4}
                       name={`${question?.id}-notes`}
                       value={questionAnswers[i].notes}
@@ -279,7 +288,6 @@ const AuditQuestionsForm = () => {
                         handleNotes(i, e.target.value)
                       }}
                     ></textarea>
-                   
                   </div>
                   {/* end::Post */}
                   {/* begin::Separator */}
@@ -288,9 +296,11 @@ const AuditQuestionsForm = () => {
                   {/* begin::Reply input */}
                   {question?.needAction && (
                     <div>
-                      {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FIND'})}
+                      <label className='required fw-bold fs-6 mb-2'>
+                        {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FIND'})}
+                      </label>
                       <textarea
-                        className='form-control border-1 p-0 pe-10 resize-none min-h-25px'
+                        className='form-control p-2   border-1 p-0 pe-10 resize-none min-h-25px'
                         // required={question?.needAction}
                         rows={4}
                         name={`${question?.id}-finding`}
@@ -300,7 +310,9 @@ const AuditQuestionsForm = () => {
                           handleActionText(i, e.target.value)
                         }}
                       ></textarea>
-                      {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.STAFF'})}
+                      <label className='required fw-bold fs-6 mb-2 mt-4'>
+                        {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.STAFF'})}
+                      </label>
                       <select
                         className='form-select form-select-solid form-select-md'
                         name={`${question?.id}-actionUser`}
@@ -309,7 +321,9 @@ const AuditQuestionsForm = () => {
                           handleActionUser(i, e.target.value)
                         }}
                       >
-                        <option value=''>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.CHOOSE'})}</option>
+                        <option value=''>
+                          {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.CHOOSE'})}
+                        </option>
                         {pStaffList.map((user: any) => (
                           <option value={user?.id as any} key={user?.id as any}>
                             {user?.fullName as any}
@@ -318,7 +332,9 @@ const AuditQuestionsForm = () => {
                       </select>
                       <div className='fv-row mb-3'>
                         {/* begin::Label */}
-                        <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.DATE'})}</label>
+                        <label className='required fw-bold fs-6 mb-2 mt-4'>
+                          {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.DATE'})}
+                        </label>
                         {/* end::Label */}
 
                         {/* begin::Input */}
@@ -342,7 +358,9 @@ const AuditQuestionsForm = () => {
 
                   <div className='fv-row mb-3'>
                     {/* begin::Label */}
-                    <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FILE'})}</label>
+                    <label className='required fw-bold fs-6 mb-2'>
+                      {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FILE'})}
+                    </label>
                     {/* end::Label */}
                     <FileUploader
                       multiple={true}
@@ -361,7 +379,9 @@ const AuditQuestionsForm = () => {
                 </>
               ) : (
                 <div className='d-flex flex-column'>
-                  <span className='text-success fs-6 fw-bold pb-4'>{intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.ANSWERED'})}</span>
+                  <span className='text-success fs-6 fw-bold pb-4'>
+                    {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.ANSWERED'})}
+                  </span>
                 </div>
               )}
             </div>
@@ -369,41 +389,40 @@ const AuditQuestionsForm = () => {
           </div>
         )
       })}
-    
-    {!allQuestionAnswered && (<button
-        type='button'
-        style={{ width:"200px", position: "fixed", bottom: "0px", right: "200px" }}
-        disabled={allQuestionAnswered || loading}
-        className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
-        onClick={() => submitAnswers()}
-       
-      >
-        {!loading && 'Save Changes'}
-              {loading && (
-                <span className='indicator-progress' style={{display: 'block'}}>
-                  <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-                 {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.SAVEANSWERS'})}{' '}
-                  <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
-                </span>
-              )}
-       
-       
-        
-      </button>
-      )}  
 
-      {allQuestionAnswered && (<button
-        type='button'
-        style={{ width:"200px", position: "fixed", bottom: "0px", right: "200px" }}
-        className='btn btn-sm btn-secondary btn-active-light-danger  mt-3 mb-3'
-        onClick={() => finishAudit().then(() => {
-          navigate('/audits/list')
-        })}
-      >
-        
-        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FINISH'})}
-      </button>
+      {!allQuestionAnswered && (
+        <button
+          type='button'
+          style={{width: '200px', position: 'fixed', bottom: '0px', right: '200px'}}
+          disabled={allQuestionAnswered || loading || findings.length}
+          className='btn btn-sm btn-dark btn-active-light-dark  mt-3 mb-3'
+          onClick={() => submitAnswers()}
+        >
+          {!loading && 'Save Changes'}
+          {loading && (
+            <span className='indicator-progress' style={{display: 'block'}}>
+              <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+              {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.SAVEANSWERS'})}{' '}
+              <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+            </span>
+          )}
+        </button>
+      )}
+
+      {allQuestionAnswered && (
+        <button
+          type='button'
+          style={{width: '200px', position: 'fixed', bottom: '0px', right: '200px'}}
+          className='btn btn-sm btn-secondary btn-active-light-danger  mt-3 mb-3'
+          onClick={() =>
+            finishAudit().then(() => {
+              navigate('/audits/list')
+            })
+          }
+        >
+          <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+          {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.FINISH'})}
+        </button>
       )}
     </>
   )
