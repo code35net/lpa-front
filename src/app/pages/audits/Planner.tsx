@@ -40,9 +40,6 @@ const EditAuditForm: FC<Props> = ({item}) => {
   const [questions, setQuestions] = React.useState<Array<Model>>([])
 
   useEffect(() => {
-    
-    
-
     listAuditCategories().then((res2) => {
       setAuditCategories(res2.data || [])
     })
@@ -58,7 +55,6 @@ const EditAuditForm: FC<Props> = ({item}) => {
       setRawUsers(res7.data || [])
     })
 
-   
     setQuestions([
       {
         id: 1,
@@ -79,7 +75,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
     questionGroupId: undefined,
     positionId: undefined,
     year: undefined,
-    month:undefined,
+    month: undefined,
     fullname: undefined,
     userId: undefined,
     isAddedQuestionCategory: true,
@@ -103,12 +99,9 @@ const EditAuditForm: FC<Props> = ({item}) => {
       // }
       // values.categoryType = parseInt(values.categoryType.toString())
 
-    
-      
-
-      if (!values.unitId && units.length) {
-        values.unitId = (units[0] as any)?.id
-      }
+      // if (!values.unitId && units.length) {
+      //   values.unitId = (units[0] as any)?.id
+      // }
 
       if (!values.year) {
         values.year = 2022
@@ -125,13 +118,10 @@ const EditAuditForm: FC<Props> = ({item}) => {
       if (!values.questionGroupId && questioncategories.length) {
         values.questionGroupId = (questioncategories[0] as any)?.id
       }
-      
-      
 
       if (!values.userId && users.length) {
         values.userId = (users[0] as any)?.id
       }
-
 
       // if(parseInt(values.categoryType as unknown as string) === 4 && values.nonPeriodicDate)
       // {
@@ -140,7 +130,6 @@ const EditAuditForm: FC<Props> = ({item}) => {
       // else{
       //   values.nonPeriodicDate = null
       // }
-
 
       try {
         await createAudit(values)
@@ -153,14 +142,11 @@ const EditAuditForm: FC<Props> = ({item}) => {
     },
   })
 
- console.log('çalıştı')
-  
-
+  console.log('çalıştı')
 
   const handleUsers = (value: string, type: string) => {
     let filteredData = [...rawUsers]
-    
-    
+
     if (type === 'positionId' && value !== '' && value !== undefined && value !== null) {
       filteredData = filteredData.filter(
         (item: any) => parseInt(item?.positionId) === parseInt(value)
@@ -172,17 +158,15 @@ const EditAuditForm: FC<Props> = ({item}) => {
 
   const handleAuditCategoryId = async (event: any) => {
     formik.setFieldValue('auditCategoryId', event.target.value)
-    if(event.target.value != '')
-    {
+    if (event.target.value != '') {
       listPartialUnits(event.target.value, 0).then((res3) => {
-        setUnits(res3.data)      
+        setUnits(res3.data)
       })
     }
 
-    if(event.target.value != '')
-    {
+    if (event.target.value != '') {
       listPartialUnits(event.target.value, 0).then((res3) => {
-        setUnits(res3.data)      
+        setUnits(res3.data)
       })
     }
 
@@ -190,7 +174,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
     // {
     //   listPositions(event.target.value).then((res3) => {
     //     setPositions(res3.data)
-    //   })  
+    //   })
     // }
   }
   return (
@@ -235,8 +219,6 @@ const EditAuditForm: FC<Props> = ({item}) => {
                 </select>
               </div>
             </div>
-           
-            
 
             {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
@@ -277,7 +259,12 @@ const EditAuditForm: FC<Props> = ({item}) => {
                     type='checkbox'
                     id='allowmarketing'
                   />
-                  <label className='form-check-label mt-1 px-5'> <small className='text-danger'>{intl.formatMessage({id: 'AUDITS.PLANNER.CLOSE.SELECT'})}</small> </label>
+                  <label className='form-check-label mt-1 px-5'>
+                    {' '}
+                    <small className='text-danger'>
+                      {intl.formatMessage({id: 'AUDITS.PLANNER.CLOSE.SELECT'})}
+                    </small>{' '}
+                  </label>
                 </div>
               </div>
             </div>
@@ -343,47 +330,43 @@ const EditAuditForm: FC<Props> = ({item}) => {
               </div>
             </div> */}
 
-            
-
-
             {
-            //   parseInt(formik.values.categoryType as string) === 5 &&
-            //   <div className='fv-row mb-3'>
-            //   {/* begin::Label */}
-            //   <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.INSTANT.DATE'})}</label>
-            //   {/* end::Label */}
-
-            //   {/* begin::Input */}
-            //   <input
-            //     //placeholder='Full name'
-            //     {...formik.getFieldProps('nonPeriodicDate')}
-            //     type='datetime-local'
-            //     name='nonPeriodicDate'
-            //     className={clsx(
-            //       'form-control form-control-solid mb-3 mb-lg-0',
-            //       {'is-invalid': formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate},
-            //       {
-            //         'is-valid': formik.touched.nonPeriodicDate && !formik.errors.nonPeriodicDate,
-            //       }
-            //     )}
-            //     autoComplete='off'
-            //     disabled={formik.isSubmitting}
-            //   />
-            //   {formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate && (
-            //     <div className='fv-plugins-message-container'>
-            //       <div className='fv-help-block'>
-            //         <span role='alert'>{formik.errors.nonPeriodicDate}</span>
-            //       </div>
-            //     </div>
-            //   )}
-            //   {/* end::Input */}
-            // </div>
-
+              //   parseInt(formik.values.categoryType as string) === 5 &&
+              //   <div className='fv-row mb-3'>
+              //   {/* begin::Label */}
+              //   <label className='required fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.INSTANT.DATE'})}</label>
+              //   {/* end::Label */}
+              //   {/* begin::Input */}
+              //   <input
+              //     //placeholder='Full name'
+              //     {...formik.getFieldProps('nonPeriodicDate')}
+              //     type='datetime-local'
+              //     name='nonPeriodicDate'
+              //     className={clsx(
+              //       'form-control form-control-solid mb-3 mb-lg-0',
+              //       {'is-invalid': formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate},
+              //       {
+              //         'is-valid': formik.touched.nonPeriodicDate && !formik.errors.nonPeriodicDate,
+              //       }
+              //     )}
+              //     autoComplete='off'
+              //     disabled={formik.isSubmitting}
+              //   />
+              //   {formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate && (
+              //     <div className='fv-plugins-message-container'>
+              //       <div className='fv-help-block'>
+              //         <span role='alert'>{formik.errors.nonPeriodicDate}</span>
+              //       </div>
+              //     </div>
+              //   )}
+              //   {/* end::Input */}
+              // </div>
             }
 
-        
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.YEAR'})}</label>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>
+                {intl.formatMessage({id: 'AUDITS.PLANNER.YEAR'})}
+              </label>
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-md'
@@ -427,7 +410,6 @@ const EditAuditForm: FC<Props> = ({item}) => {
             <button
               type='submit'
               onClick={() => {
-                
                 formik.submitForm().then(() => {
                   navigate('/audits/list')
                 })
