@@ -408,6 +408,7 @@
   "ACTION.TABLE.NOTSTART": "Başlamadı",
   "ACTION.TABLE.PROGRESS": "Devam Ediyor",
   "ACTION.TABLE.FINISHED": "Bitti",
+  "ACTION.TABLE.Canceled": "İptal Edildi",
 
   "AUDITS.AUDITQUEDTIONS.NOTES": "Notlar",
   "AUDITS.AUDITQUEDTIONS.FILE": "Dosya",

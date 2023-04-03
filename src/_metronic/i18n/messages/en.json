@@ -406,6 +406,7 @@
   "ACTION.TABLE.NOTSTART": "Not Started",
   "ACTION.TABLE.PROGRESS": "Progress",
   "ACTION.TABLE.FINISHED": "Finished",
+  "ACTION.TABLE.Canceled": "Canceled",
 
   "AUDITS.AUDITQUEDTIONS.NOTES": "Notes",
   "AUDITS.AUDITQUEDTIONS.FILE": "File",

@@ -11,7 +11,7 @@ import {useIntl} from 'react-intl'
 import {CustomHeader} from './CustomHeader'
 import {SelectionHeader} from './SelectionHeader'
 import {Model} from '../../core/_models'
-import { OperatorCell } from './OperatorCell'
+import {OperatorCell} from './OperatorCell'
 
 const Columns: ReadonlyArray<Column<Model>> = [
   {
@@ -20,22 +20,46 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <SelectionCell id={props.data[props.row.index].id} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDITS.LIST.AUDITNAME'})} className='min-w-125px' />,
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'AUDITS.LIST.AUDITNAME'})}
+        className='min-w-125px'
+      />
+    ),
     id: 'name',
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index]} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDITS.LIST.UNITNAME'})} className='min-w-125px' />,
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'AUDITS.LIST.UNITNAME'})}
+        className='min-w-125px'
+      />
+    ),
     id: 'fullname',
     Cell: ({...props}) => <OperatorCell item={props.data[props.row.index]} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDITS.LIST.DATE'})} className='min-w-125px' />,
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'AUDITS.LIST.DATE'})}
+        className='min-w-125px'
+      />
+    ),
     id: 'auditDate',
     Cell: ({...props}) => <DateCell item={props.data[props.row.index]} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDITS.LIST.AUDITOR'})} className='min-w-125px' />,
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
+        className='min-w-125px'
+      />
+    ),
     id: 'auditor',
     Cell: ({...props}) => <AuditorCell item={props.data[props.row.index]} />,
   },
@@ -45,16 +69,31 @@ const Columns: ReadonlyArray<Column<Model>> = [
   //   Cell: ({...props}) => <TypeCell item={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'AUDITS.LIST.STATUS'})} className='min-w-125px' />,
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'AUDITS.LIST.STATUS'})}
+        className='min-w-125px'
+      />
+    ),
     id: 'status',
     Cell: ({...props}) => <StatusCell item={props.data[props.row.index]} />,
   },
   {
     Header: (props) => (
-      <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'TABLE.ACTIONS'})} className='text-end min-w-100px' />
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'TABLE.ACTIONS'})}
+        className='text-end min-w-100px'
+      />
     ),
     id: 'actions',
-    Cell: ({...props}) => <ActionsCell id={props.data[props.row.index].id} isChanged={props.data[props.row.index].isChanged} />,
+    Cell: ({...props}) => (
+      <ActionsCell
+        id={props.data[props.row.index].id}
+        isChanged={props.data[props.row.index].isChanged}
+      />
+    ),
   },
 ]
 

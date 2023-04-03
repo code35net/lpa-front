@@ -36,7 +36,13 @@ const ListFilter = () => {
   const [users, setUsers] = useState([])
   const [selectedUsers, setSelectedUsers] = useState('')
   const [selectedUsersName, setSelectedUsersName] = useState('')
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState([
+    {name: `${intl.formatMessage({id: 'ACTION.TABLE.NOTSTART'})}`, id: 0},
+    {name: `${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`},
+    {name: `${intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}`},
+    {name: `${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`},
+  ])
+  const [selectedStatus, setSelectedStatus] = useState('')
 
   useEffect(() => {
     Promise.all([listAuditCategories(), listQuestionCategories(), listDepartments()]).then(
@@ -71,7 +77,7 @@ const ListFilter = () => {
 
   useEffect(() => {
     filterData()
-  }, [selectedUsers, selectedAuditCategories])
+  }, [selectedUsers, selectedAuditCategories, selectedStatus])
 
   useEffect(() => {
     if (selectedDepartments) {
@@ -102,6 +108,10 @@ const ListFilter = () => {
       filter.selectedUsersName = selectedUsersName
     }
 
+    if (selectedStatus) {
+      filter.status = selectedStatus
+    }
+
     updateState({filter: filter})
   }
 
@@ -111,7 +121,11 @@ const ListFilter = () => {
       setUsers(res3.data)
     })
   }
-  console.log(users)
+
+  const handleStatus = async (name: any) => {
+    setSelectedStatus(name)
+  }
+  console.log(selectedStatus)
 
   const UserInfo = (item: any) => {
     console.log(item.target.selectedOptions[0].label)
@@ -212,7 +226,7 @@ const ListFilter = () => {
 
           <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'FILTER.AUDITCATEGORIES'})}
+              {intl.formatMessage({id: 'AUDITS.LIST.STATUS'})}
             </label>
             <select
               className='form-select form-select-solid fw-bolder'
@@ -222,14 +236,14 @@ const ListFilter = () => {
               data-kt-item-table-filter='role'
               data-hide-search='true'
               // onChange={(e) => setSelectedAuditCategories(e.target.value)}
-              // onChange={(e) => handleStatus(e.target.value)}
-              value={selectedAuditCategories}
+              onChange={(e) => handleStatus(e.target.value)}
+              value={selectedStatus}
             >
               <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
-              {auditcategories.map((item: any) => {
+              {status.map((item: any) => {
                 return (
-                  <option key={item?.id} value={item?.id}>
+                  <option key={item?.id} value={item?.name}>
                     {item?.name}
                   </option>
                 )

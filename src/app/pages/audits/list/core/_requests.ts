@@ -66,11 +66,20 @@ const getAudits = (query: string, onlyauditor: string): Promise<QueryResponse> =
     // }
 
     if (queryRaw?.filter_auditor && Array.isArray(d?.data?.data)) {
-      console.log(queryRaw)
-      console.log(d.data.data)
-      let x = 'Mühendis / BU Lider'
-      console.log(x.toLowerCase())
+      // console.log(queryRaw)
+      // console.log(d.data.data)
+      // let x = 'Mühendis / BU Lider'
+      // console.log(x.toLowerCase())
+      // d.data.data = (d as any).data?.data?.filter(
+      //   (item: any) => item?.auditor.toLowerCase() !== queryRaw?.filter_selectedusersname
+      // )
+    }
 
+    if (queryRaw?.filter_status && Array.isArray(d?.data?.data)) {
+      // console.log(queryRaw)
+      // console.log(d.data.data)
+      // let x = 'Mühendis / BU Lider'
+      // console.log(x.toLowerCase())
       // d.data.data = (d as any).data?.data?.filter(
       //   (item: any) => item?.auditor.toLowerCase() !== queryRaw?.filter_selectedusersname
       // )
