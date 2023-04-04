@@ -439,5 +439,14 @@
 
   "AUDITS_DELETE_ALL": "Tümünü Sil",
 
+  "LINE": "Hat",
+  "OPERATOR": "Operatör",
+  "SETTER": "Setter",
+
+  "DAILY": "Günlük",
+  "WEEKLY": "Haftalık",
+  "MONTHLY": "Aylık",
+  "QUARTERLY": "3 Aylık",
+
   "boş": "boş"
 }

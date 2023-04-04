@@ -116,10 +116,10 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             {...formik.getFieldProps('categoryType')}
           >
             <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
-            <option value='4'>Günlük</option>
-            <option value='1'>Haftalık</option>
-            <option value='2'>Aylık</option>
-            <option value='3'>3 Aylık</option>
+            <option value='4'>{intl.formatMessage({id: 'DAILY'})}</option>
+            <option value='1'>{intl.formatMessage({id: 'WEEKLY'})}</option>
+            <option value='2'>{intl.formatMessage({id: 'MONTHLY'})}</option>
+            <option value='3'>{intl.formatMessage({id: 'QUARTERLY'})}</option>
           </select>
 
           {formik.touched.categoryType && formik.errors.categoryType && (

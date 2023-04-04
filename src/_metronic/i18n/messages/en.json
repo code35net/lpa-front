@@ -280,6 +280,8 @@
   "AUDITS.LIST.AUDITOR": "Auditor",
   "AUDITS.LIST.STATUS": "Audit Status",
   "AUDITS.PAGE.TITLE": "AUDITS",
+  "SWEETALERT.ALL": "Delete All Recordings",
+  "SWEETALERT.ALL2": "Do You Confirm the Deletion of All Records?",
   "AUDITS.LIST.ADD": "Audit Planner",
   "AUDITS.PLANNER.TITLE": "AUDIT PLANNER",
   "ADD.QUESTION.AUDITCATEGORY": "Audit Category",
@@ -436,6 +438,15 @@
   "AUDITS.LIST.ADDINSTANT": "Non-Periodic Planner",
 
   "AUDITS_DELETE_ALL": "Delete All",
+
+  "LINE": "Line",
+  "OPERATOR": "Operator",
+  "SETTER": "Setter",
+
+  "DAILY": "Daily",
+  "WEEKLY": "Weekly",
+  "MONTHLY": "Monthly",
+  "QUARTERLY": "Quarterly",
 
   "boş": "boş"
 }

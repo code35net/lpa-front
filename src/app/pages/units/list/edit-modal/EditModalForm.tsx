@@ -374,9 +374,9 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             {...formik.getFieldProps('unitType')}
           >
             <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
-            <option value='0'>Hat</option>
-            <option value='1'>Operatör</option>
-            <option value='2'>Setter</option>
+            <option value='0'>{intl.formatMessage({id: 'LINE'})}</option>
+            <option value='1'>{intl.formatMessage({id: 'OPERATOR'})}</option>
+            <option value='2'>{intl.formatMessage({id: 'SETTER'})}</option>
           </select>
 
           {formik.touched.unitType && formik.errors.unitType && (
