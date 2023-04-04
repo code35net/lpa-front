@@ -40,14 +40,14 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
   const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
   const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
   const saveAuth = (auth: AuthModel | undefined) => {
-      setAuth(auth)
-      //console.log(auth)
-        if (auth) {
-          authHelper.setAuth(auth)
-        } else {
-          authHelper.removeAuth()
-        }
+    setAuth(auth)
+    //console.log(auth)
+    if (auth) {
+      authHelper.setAuth(auth)
+    } else {
+      authHelper.removeAuth()
     }
+  }
 
   const logout = () => {
     saveAuth(undefined)
@@ -71,7 +71,9 @@ const AuthInit: FC<WithChildren> = ({children}) => {
       try {
         if (!didRequest.current) {
           const {data} = await getUserByToken()
-          if (data) {
+          if (data.email == undefined || data.email == '') {
+            logout()
+          } else if (data) {
             setCurrentUser(data)
           }
         }

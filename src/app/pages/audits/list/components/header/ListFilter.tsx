@@ -38,9 +38,9 @@ const ListFilter = () => {
   const [selectedUsersName, setSelectedUsersName] = useState('')
   const [status, setStatus] = useState([
     {name: `${intl.formatMessage({id: 'ACTION.TABLE.NOTSTART'})}`, id: 0},
-    {name: `${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`},
-    {name: `${intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}`},
-    {name: `${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`},
+    {name: `${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`, id: 1},
+    {name: `${intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}`, id: 2},
+    {name: `${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`, id: 3},
   ])
   const [selectedStatus, setSelectedStatus] = useState('')
 
@@ -105,7 +105,7 @@ const ListFilter = () => {
 
     if (selectedUsers) {
       filter.auditor = selectedUsers
-      filter.selectedUsersName = selectedUsersName
+      // filter.selectedUsersName = selectedUsersName
     }
 
     if (selectedStatus) {
@@ -243,7 +243,7 @@ const ListFilter = () => {
 
               {status.map((item: any) => {
                 return (
-                  <option key={item?.id} value={item?.name}>
+                  <option key={item?.id} value={item?.id}>
                     {item?.name}
                   </option>
                 )
