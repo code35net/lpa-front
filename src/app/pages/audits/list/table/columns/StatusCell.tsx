@@ -21,9 +21,9 @@ const StatusCell: FC<Props> = ({item}) => {
       setValue(`${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`)
     } else if (item.status == 'Finished') {
       setValue(`${intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}`)
-    } else {
+    } else if (item.status == 'Canceled') {
       setValue(`${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`)
-    }
+    } else setValue(``)
   }, [item])
 
   return (
