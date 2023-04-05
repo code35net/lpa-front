@@ -10,22 +10,29 @@ import {
   ChartsWidget8,
 } from '../../../_metronic/partials/widgets'
 
-
 const Charts: FC = () => {
-  
-  const [reportsInfoPercentage,setReportsInfoPercentage] = useState();
+  const [reportsInfoPercentage, setReportsInfoPercentage] = useState()
+  const fileUrl = 'http://freudenberg.iqualitor.com/Files/file/katalog.pdf'
   return (
     <>
       {/* begin::Row */}
       <div className='row g-5 g-xl-8'>
         <div className='col-xl-12'>
-        <ChartsWidget1 reportsInfo={reportsInfoPercentage}  setReportsInfo={setReportsInfoPercentage} className='card-xl-stretch mb-xl-8' />
+          <ChartsWidget1
+            reportsInfo={reportsInfoPercentage}
+            setReportsInfo={setReportsInfoPercentage}
+            className='card-xl-stretch mb-xl-8'
+          />
         </div>
-        
+
+        <div>
+          <a href={fileUrl} target='_blank' rel='noopener noreferrer'>
+            Dökümanı indirmek için tıklayın
+          </a>
+        </div>
       </div>
       {/* end::Row */}
 
-      
       {/* end::Row */}
 
       {/* begin::Row */}
@@ -44,7 +51,7 @@ const Charts: FC = () => {
       {/* end::Row */}
 
       {/* begin::Row */}
-     
+
       {/* end::Row */}
     </>
   )
