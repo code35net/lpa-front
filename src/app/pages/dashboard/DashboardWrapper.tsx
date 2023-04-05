@@ -12,7 +12,7 @@ import {
 
 const Charts: FC = () => {
   const [reportsInfoPercentage, setReportsInfoPercentage] = useState()
-  const fileUrl = 'http://freudenberg.iqualitor.com/Files/file/katalog.pdf'
+  const fileUrl = 'http://freudapi.iqualitor.com/Files/file/katalog.pdf'
   return (
     <>
       {/* begin::Row */}
