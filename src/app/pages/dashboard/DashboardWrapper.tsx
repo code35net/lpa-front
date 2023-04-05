@@ -15,8 +15,8 @@ const Charts: FC = () => {
   const [reportsInfoPercentage, setReportsInfoPercentage] = useState()
   const {currentUser} = useAuth()
   console.log(currentUser)
-  const fileUrl = 'http://freudapi.iqualitor.com/Files/file/katalog.pdf'
-  const fileUrl2 = 'http://freudapi.iqualitor.com/Files/file/örnekpdf.pdf'
+  const fileUrl = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Admin.pdf'
+  const fileUrl2 = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Auditor.pdf'
   return (
     <>
       {/* begin::Row */}
@@ -31,13 +31,13 @@ const Charts: FC = () => {
         {currentUser?.roleName == 'Key Account' ? (
           <div>
             <a href={fileUrl} target='_blank' rel='noopener noreferrer'>
-              Dökümanı indirmek için tıklayın
+              Dökümanı açmak için tıklayın
             </a>
           </div>
         ) : (
           <div>
             <a href={fileUrl2} target='_blank' rel='noopener noreferrer'>
-              Dökümanı indirmek için tıklayın
+              Dökümanı açmak için tıklayın
             </a>
           </div>
         )}
