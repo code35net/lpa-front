@@ -99,7 +99,9 @@ const EditAuditForm2: FC<Props> = ({item}) => {
 
     onSubmit: async (values) => {
       setLoading(true)
-
+      if (!isOperator) {
+        values.unitId = unitValue
+      }
       // if (!values.categoryType) {
       //   values.categoryType = 0
       // }
