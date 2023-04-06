@@ -490,7 +490,7 @@ const EditAuditForm2: FC<Props> = ({item}) => {
               type='submit'
               onClick={() => {
                 formik.submitForm().then(() => {
-                  // navigate('/audits/list')
+                  navigate('/audits/list')
                 })
               }}
               className='btn btn-sm btn-dark'
