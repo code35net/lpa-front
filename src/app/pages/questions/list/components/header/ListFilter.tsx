@@ -109,9 +109,7 @@ const ListFilter = () => {
     // if ((selectedSections, selectedDepartments, selectedUnits)) {
     //   filter.sectionId = selectedSections
     // }
-    console.log(selectedUnits)
-    console.log(selectedSections)
-    console.log(selectedDepartments)
+
     if (selectedUnits) {
       filter.unitId = selectedUnits
     } else if (selectedSections) {
@@ -121,8 +119,6 @@ const ListFilter = () => {
     }
     updateState({filter: filter})
   }
-
-  console.log(units)
 
   return (
     <>
