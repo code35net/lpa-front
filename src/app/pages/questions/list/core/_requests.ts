@@ -7,14 +7,14 @@ const QUESTION_URL = `${API_URL}/Question`
 const PUT_QUESTIONS_ANSWER = `${API_URL}/Custom/answerQuestion`
 const CREATE_QUESTION_URL = `${API_URL}/Custom/createBulkQuestions`
 const COPY_QUESTION_URL = `${API_URL}/Custom/editQuestion`
+const CUSTOM_FILTER_URL = `${API_URL}/Custom/getQuestions`
 
 const getQuestions = (query: string): Promise<QueryResponse> => {
-  return axios
-    .get(`${QUESTION_URL}/getAll?${query}&modelstoinclude=Unit,AuditCategory`)
-    .then((d: AxiosResponse<QueryResponse>) => {
-      const queryRaw: any = parseRequestQuery(query)
-      return d.data
-    })
+  console.log(query)
+  return axios.get(`${CUSTOM_FILTER_URL}?${query}`).then((d: AxiosResponse<QueryResponse>) => {
+    const queryRaw: any = parseRequestQuery(query)
+    return d.data
+  })
 }
 
 const getQuestionById = (id: ID): Promise<Model | undefined> => {

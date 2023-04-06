@@ -29,7 +29,7 @@ const ListFilter = () => {
   const [selectedQuestionCategories, setSelectedQuestionCategories] = useState('')
   const [selectedDepartments, setSelectedDepartments] = useState('')
   const [selectedSections, setSelectedSections] = useState('')
-  const [units, setUnits] = useState([])
+  const [units, setUnits] = useState<any>([])
   const [selectedUnits, setSelectedUnits] = useState('')
 
   useEffect(() => {
@@ -68,7 +68,13 @@ const ListFilter = () => {
 
   useEffect(() => {
     filterData()
-  }, [selectedAuditCategories, selectedQuestionCategories, selectedSections])
+  }, [
+    selectedAuditCategories,
+    selectedQuestionCategories,
+    selectedSections,
+    selectedUnits,
+    selectedDepartments,
+  ])
 
   useEffect(() => {
     if (selectedDepartments) {
@@ -98,11 +104,23 @@ const ListFilter = () => {
       filter.questionGroupId = selectedQuestionCategories
     }
 
-    if (selectedSections) {
-      filter.sectionId = selectedSections
+    // if ((selectedSections, selectedDepartments, selectedUnits)) {
+    //   filter.sectionId = selectedSections
+    // }
+    console.log(selectedUnits)
+    console.log(selectedSections)
+    console.log(selectedDepartments)
+    if (selectedUnits) {
+      filter.unitId = selectedUnits
+    } else if (selectedSections) {
+      filter.unitId = selectedSections
+    } else if (selectedDepartments) {
+      filter.unitId = selectedDepartments
     }
     updateState({filter: filter})
   }
+
+  console.log(units)
 
   return (
     <>
@@ -258,7 +276,7 @@ const ListFilter = () => {
 
           {/* end::Input group */}
           {/* begin::Input group */}
-          {selectedSections ? (
+          {units.length > 0 && units[0]?.unitType == null && selectedSections ? (
             <div className='mb-10'>
               <label className='form-label fs-6 fw-bold'>
                 {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}

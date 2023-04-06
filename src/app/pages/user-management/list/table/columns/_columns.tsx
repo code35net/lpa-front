@@ -12,30 +12,45 @@ import {CustomHeader} from './CustomHeader'
 import {SelectionHeader} from './SelectionHeader'
 import {Model} from '../../core/_models'
 
-
 const Columns: ReadonlyArray<Column<Model>> = [
-  
+  // {
+  //   Header: (props) => <SelectionHeader tableProps={props} />,
+  //   id: 'selection',
+  //   Cell: ({...props}) => <SelectionCell id={props.data[props.row.index].id} />,
+  // },
   {
-    Header: (props) => <SelectionHeader tableProps={props} />,
-    id: 'selection',
-    Cell: ({...props}) => <SelectionCell id={props.data[props.row.index].id} />,
-  },
-  {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.NAME'})} className='min-w-125px' />,
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.NAME'})}
+        className='min-w-125px'
+      />
+    ),
     id: 'fullname',
 
     Cell: ({...props}) => <FullnameCell item={props.data[props.row.index]} />,
   },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.MAIL'})} className='min-w-125px' />,
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.MAIL'})}
+        className='min-w-125px'
+      />
+    ),
     id: 'email',
 
     Cell: ({...props}) => <InfoCell item={props.data[props.row.index].email} />,
   },
-  
-  
+
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.IDENTITY'})} className='min-w-125px' />,
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.IDENTITY'})}
+        className='min-w-125px'
+      />
+    ),
     id: 'identity',
 
     Cell: ({...props}) => <IdentityCell item={props.data[props.row.index]} />,
@@ -47,14 +62,24 @@ const Columns: ReadonlyArray<Column<Model>> = [
   //   Cell: ({...props}) => <PositionCell item={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.AUDITCAT'})} className='min-w-125px' />,
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.AUDITCAT'})}
+        className='min-w-125px'
+      />
+    ),
     id: 'auditCategoryName',
 
     Cell: ({...props}) => <SectionCell item={props.data[props.row.index]} />,
   },
   {
     Header: (props) => (
-      <CustomHeader tableProps={props} title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.ACTIONS'})} className='text-end min-w-100px' />
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'USER.TABLE.COLUMNS.ACTIONS'})}
+        className='text-end min-w-100px'
+      />
     ),
     id: 'actions',
     Cell: ({...props}) => <ActionsCell id={props.data[props.row.index].id} />,

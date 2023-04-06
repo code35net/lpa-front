@@ -103,7 +103,7 @@
   "SURVEY.NAME": "Anket Adı",
   "SURVEY.ANSWERCOUNT": "Cevap Sayısı",
   "SURVEY.PAGE.TITLE": "Anket",
-  "SURVEY.HASCOMMENT": "Yorum Var Mı",
+  "SURVEY.HASCOMMENT": "Yorum Var Mı ?",
 
   "SURVEYGROUP.NAME": "Anket Grup Adı",
   "SURVEYGROUP.PAGE.TITLE": "Anket Grupları",
@@ -447,6 +447,9 @@
   "WEEKLY": "Haftalık",
   "MONTHLY": "Aylık",
   "QUARTERLY": "3 Aylık",
+
+  "OPERATOR_IsCHOOSE": "Operatör Seçilecek mi ?",
+  "OPERATOR_CHOOSE": "Operatör Seç",
 
   "boş": "boş"
 }

@@ -101,10 +101,10 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       setSubmitting(true)
       // console.log(values.auditCategoryId)
       if (!values.categoryType) {
-        values.categoryType = 0
+        values.categoryType = undefined
+      } else {
+        values.categoryType = parseInt(values.categoryType.toString())
       }
-      values.categoryType = parseInt(values.categoryType.toString())
-
       // if(!values.unitType){
       //   values.unitType = 0
       // }

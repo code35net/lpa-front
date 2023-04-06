@@ -7,27 +7,28 @@ import {Model as QuestionCategory} from '../../../question-groups/list/core/_mod
 export type Model = {
   id?: ID
   text?: string
-  
-  isNew?:boolean
-  AnswerTemplate?:AnswerTemplate
+
+  isNew?: boolean
+  AnswerTemplate?: AnswerTemplate
   answerTemplateId?: number
   auditCategory?: ac
   auditCategoryId?: number
-  QuestionCategory?:QuestionCategory
+  QuestionCategory?: QuestionCategory
   questionGroupId?: number | null
   questions?: Array<Question>
-  isAddedQuestionCategory? : boolean
+  isAddedQuestionCategory?: boolean
   unitId?: number
- 
+  unitName?: string
+  auditCategoryName?: string
 }
 
 export type Question = {
   id: number
   text: string
   answerTemplateId: number
-  questionGroupId: number | null 
+  questionGroupId: number | null
   isAddedQuestionCategory: boolean
-  Unit?:Unit
+  Unit?: Unit
   unitId?: number
 }
 

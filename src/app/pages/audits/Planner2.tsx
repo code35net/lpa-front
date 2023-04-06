@@ -16,6 +16,7 @@ import {useListView} from './list/core/ListViewProvider'
 import {createAudit} from './list/core/_requests'
 import {useNavigate} from 'react-router-dom'
 import {listSomeThings as listUnits} from '../units/list/core/_requests'
+import {listOtherThings} from '../units/list/core/_requests'
 import clsx from 'clsx'
 
 type Props = {
@@ -38,15 +39,13 @@ const EditAuditForm2: FC<Props> = ({item}) => {
   const [users, setUsers] = React.useState([])
   const [rawUsers, setRawUsers] = React.useState([])
   const [parentUnits, setParentUnits] = React.useState<any>([])
-
-
+  const [isOperator, setIsOperator] = React.useState(true)
+  const [operators, setOperators] = React.useState<any>([])
+  const [unitValue, setUnitValue] = React.useState<any>([])
 
   const [questions, setQuestions] = React.useState<Array<Model>>([])
 
   useEffect(() => {
-    
-    
-
     listAuditCategories().then((res2) => {
       setAuditCategories(res2.data || [])
     })
@@ -62,7 +61,6 @@ const EditAuditForm2: FC<Props> = ({item}) => {
       setRawUsers(res7.data || [])
     })
 
-   
     setQuestions([
       {
         id: 1,
@@ -83,7 +81,7 @@ const EditAuditForm2: FC<Props> = ({item}) => {
     questionGroupId: undefined,
     positionId: undefined,
     year: undefined,
-    month:undefined,
+    month: undefined,
     fullname: undefined,
     userId: undefined,
     isAddedQuestionCategory: true,
@@ -107,9 +105,6 @@ const EditAuditForm2: FC<Props> = ({item}) => {
       // }
       // values.categoryType = parseInt(values.categoryType.toString())
 
-    
-      
-
       if (!values.unitId && units.length) {
         values.unitId = (units[0] as any)?.id
       }
@@ -129,13 +124,10 @@ const EditAuditForm2: FC<Props> = ({item}) => {
       if (!values.questionGroupId && questioncategories.length) {
         values.questionGroupId = (questioncategories[0] as any)?.id
       }
-      
-      
 
       if (!values.userId && users.length) {
         values.userId = (users[0] as any)?.id
       }
-
 
       // if(parseInt(values.categoryType as unknown as string) === 4 && values.nonPeriodicDate)
       // {
@@ -144,7 +136,6 @@ const EditAuditForm2: FC<Props> = ({item}) => {
       // else{
       //   values.nonPeriodicDate = null
       // }
-
 
       try {
         await createAudit(values)
@@ -157,14 +148,9 @@ const EditAuditForm2: FC<Props> = ({item}) => {
     },
   })
 
-
-  
-
-
   const handleUsers = (value: string, type: string) => {
     let filteredData = [...rawUsers]
-    
-    
+
     if (type === 'positionId' && value !== '' && value !== undefined && value !== null) {
       filteredData = filteredData.filter(
         (item: any) => parseInt(item?.positionId) === parseInt(value)
@@ -176,17 +162,15 @@ const EditAuditForm2: FC<Props> = ({item}) => {
 
   const handleAuditCategoryId = async (event: any) => {
     formik.setFieldValue('auditCategoryId', event.target.value)
-    if(event.target.value != '')
-    {
+    if (event.target.value != '') {
       listPartialUnits(event.target.value, 0).then((res3) => {
-        setUnits(res3.data)      
+        setUnits(res3.data)
       })
     }
 
-    if(event.target.value != '')
-    {
+    if (event.target.value != '') {
       listPartialUnits(event.target.value, 0).then((res3) => {
-        setUnits(res3.data)      
+        setUnits(res3.data)
       })
     }
 
@@ -194,9 +178,20 @@ const EditAuditForm2: FC<Props> = ({item}) => {
     // {
     //   listPositions(event.target.value).then((res3) => {
     //     setPositions(res3.data)
-    //   })  
+    //   })
     // }
   }
+  const hadleFindOperator = async (event: any) => {
+    // formik.setFieldValue('auditCategoryId', event.target.value),
+    console.log(event.target.value)
+    setUnitValue(event.target.value)
+    if (event.target.value != '') {
+      listOtherThings(parseInt(event.target.value)).then((response) => {
+        setOperators(response.data)
+      })
+    }
+  }
+  console.log(operators)
   return (
     <div className='card mb-5 mb-xl-10'>
       <div
@@ -239,8 +234,6 @@ const EditAuditForm2: FC<Props> = ({item}) => {
                 </select>
               </div>
             </div>
-           
-            
 
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
@@ -251,11 +244,16 @@ const EditAuditForm2: FC<Props> = ({item}) => {
                 <select
                   className='form-select form-select-solid form-select-md'
                   {...formik.getFieldProps('unitId')}
-                  value={formik.values.unitId}
-                  onChange={formik.handleChange}
+                  value={unitValue}
+                  onChange={(e) => {
+                    hadleFindOperator(e)
+                    formik.handleChange(e)
+                  }}
                   disabled={units.length === 0}
                 >
-                  {units.length && <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>}
+                  {units.length && (
+                    <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
+                  )}
                   {units.map((unit: any) => (
                     <option value={unit?.id} key={unit?.id as any}>
                       {unit?.name as any}
@@ -264,6 +262,58 @@ const EditAuditForm2: FC<Props> = ({item}) => {
                 </select>
               </div>
             </div>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                {' '}
+                {intl.formatMessage({id: 'OPERATOR_IsCHOOSE'})}
+              </label>
+
+              <div className='col-lg-8 d-flex align-items-center'>
+                <div className='form-check form-check-solid form-switch fv-row'>
+                  <input
+                    // {...formik.getFieldProps('isAddedQuestionCategory')}
+                    checked={isOperator}
+                    onChange={() => setIsOperator(!isOperator)}
+                    // value={isOperator}
+                    className='form-check-input w-45px h-30px'
+                    type='checkbox'
+                    id='allowmarketing'
+                  />
+                  <label className='form-check-label mt-1 px-5'>
+                    {' '}
+                    <small className='text-danger'>
+                      {intl.formatMessage({id: 'DROPDOWN_SELECT'})}{' '}
+                    </small>{' '}
+                  </label>
+                </div>
+              </div>
+            </div>
+            {isOperator && (
+              <div className='row mb-3'>
+                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                  <span className='required'> {intl.formatMessage({id: 'OPERATOR_CHOOSE'})}</span>
+                </label>
+
+                <div className='col-lg-8 fv-row'>
+                  <select
+                    className='form-select form-select-solid form-select-md'
+                    {...formik.getFieldProps('unitId')}
+                    value={formik.values.unitId}
+                    onChange={formik.handleChange}
+                    disabled={operators.length === 0}
+                  >
+                    {operators.length && (
+                      <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
+                    )}
+                    {operators.map((unit: any) => (
+                      <option value={unit?.id} key={unit?.id as any}>
+                        {unit?.name as any}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
 
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
@@ -281,7 +331,12 @@ const EditAuditForm2: FC<Props> = ({item}) => {
                     type='checkbox'
                     id='allowmarketing'
                   />
-                  <label className='form-check-label mt-1 px-5'> <small className='text-danger'>{intl.formatMessage({id: 'AUDITS.PLANNER.CLOSE.SELECT'})}</small> </label>
+                  <label className='form-check-label mt-1 px-5'>
+                    {' '}
+                    <small className='text-danger'>
+                      {intl.formatMessage({id: 'AUDITS.PLANNER.CLOSE.SELECT'})}
+                    </small>{' '}
+                  </label>
                 </div>
               </div>
             </div>
@@ -329,7 +384,9 @@ const EditAuditForm2: FC<Props> = ({item}) => {
             </div> */}
 
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}</label>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>
+                {intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
+              </label>
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-md'
@@ -347,13 +404,10 @@ const EditAuditForm2: FC<Props> = ({item}) => {
               </div>
             </div>
 
-            
-
-
-           
-        
             <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.YEAR'})}</label>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>
+                {intl.formatMessage({id: 'AUDITS.PLANNER.YEAR'})}
+              </label>
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-md'
@@ -369,43 +423,42 @@ const EditAuditForm2: FC<Props> = ({item}) => {
             </div>
 
             {
-            //    parseInt(formik.values.categoryType as string) === 5 &&
-               <div className='row mb-3'>
-               
-               <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.INSTANT.DATE'})}</label>
-              
+              //    parseInt(formik.values.categoryType as string) === 5 &&
+              <div className='row mb-3'>
+                <label className='col-lg-4 col-form-label required fw-bold fs-6'>
+                  {intl.formatMessage({id: 'AUDITS.PLANNER.OPTIONS.INSTANT.DATE'})}
+                </label>
+
                 <div className='col-lg-8 fv-row'>
-               <input
-                 //placeholder='Full name'
-                 {...formik.getFieldProps('nonPeriodicDate')}
-                type='datetime-local'
-                 name='nonPeriodicDate'
-                 className={clsx(
-                   'form-control form-control-solid mb-3 mb-lg-0 ',
-                  {'is-invalid': formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate},
-                  {
-                     'is-valid': formik.touched.nonPeriodicDate && !formik.errors.nonPeriodicDate,
-                   }
+                  <input
+                    //placeholder='Full name'
+                    {...formik.getFieldProps('nonPeriodicDate')}
+                    type='datetime-local'
+                    name='nonPeriodicDate'
+                    className={clsx(
+                      'form-control form-control-solid mb-3 mb-lg-0 ',
+                      {
+                        'is-invalid':
+                          formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate,
+                      },
+                      {
+                        'is-valid':
+                          formik.touched.nonPeriodicDate && !formik.errors.nonPeriodicDate,
+                      }
                     )}
-                 autoComplete='off'
-                 disabled={formik.isSubmitting}
-               />
-               </div>
-               {formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate && (
-                 <div className='fv-plugins-message-container'>
-                   <div className='fv-help-block'>
-                     <span role='alert'>{formik.errors.nonPeriodicDate}</span>
-                   </div>
-                 </div>
-               )}
-               
-             </div>
-
+                    autoComplete='off'
+                    disabled={formik.isSubmitting}
+                  />
+                </div>
+                {formik.touched.nonPeriodicDate && formik.errors.nonPeriodicDate && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.nonPeriodicDate}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
             }
-
-
-          
-
 
             {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>{intl.formatMessage({id: 'AUDITS.PLANNER.MONTH'})}</label>
@@ -436,9 +489,8 @@ const EditAuditForm2: FC<Props> = ({item}) => {
             <button
               type='submit'
               onClick={() => {
-                
                 formik.submitForm().then(() => {
-                  navigate('/audits/list')
+                  // navigate('/audits/list')
                 })
               }}
               className='btn btn-sm btn-dark'

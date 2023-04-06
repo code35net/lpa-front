@@ -15,7 +15,7 @@ const StatusCell: FC<Props> = ({item}) => {
   console.log(item.categoryType)
 
   useEffect(() => {
-    if (item.categoryType == 'Daily') {
+    if (item.categoryType == 'DailyShift') {
       setValue(`${intl.formatMessage({id: 'DAILY'})}`)
     } else if (item.categoryType == 'Weekly') {
       setValue(`${intl.formatMessage({id: 'WEEKLY'})}`)
