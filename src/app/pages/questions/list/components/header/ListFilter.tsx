@@ -64,6 +64,7 @@ const ListFilter = () => {
     setSelectedQuestionCategories('')
     setSelectedDepartments('')
     setSelectedSections('')
+    setSelectedUnits('')
   }
 
   useEffect(() => {
@@ -94,6 +95,7 @@ const ListFilter = () => {
   }, [selectedDepartments, selectedSections])
 
   const filterData = () => {
+    console.log('filtirele')
     let filter: any = {}
 
     if (selectedAuditCategories) {

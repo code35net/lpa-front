@@ -39,7 +39,7 @@ const EditAuditForm2: FC<Props> = ({item}) => {
   const [users, setUsers] = React.useState([])
   const [rawUsers, setRawUsers] = React.useState([])
   const [parentUnits, setParentUnits] = React.useState<any>([])
-  const [isOperator, setIsOperator] = React.useState(true)
+  const [isOperator, setIsOperator] = React.useState(false)
   const [operators, setOperators] = React.useState<any>([])
   const [unitValue, setUnitValue] = React.useState<any>([])
 
