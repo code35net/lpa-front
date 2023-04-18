@@ -451,5 +451,10 @@
   "OPERATOR_IsCHOOSE": "Operatör Seçilecek mi ?",
   "OPERATOR_CHOOSE": "Operatör Seç",
 
+  "FINDINGS": "Bulgular",
+  "ANSWER": "Cevap",
+  "STATUS": "Durum",
+  "LASTDATE": "Hedef Tarihi",
+  "FILE": "Dosya",
   "boş": "boş"
 }

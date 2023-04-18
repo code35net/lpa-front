@@ -111,7 +111,7 @@ const AuditDetails = () => {
                       <div className='d-flex align-items-center'>
                         <div className='fs-2 fw-bolder'>
                           {Array.isArray(response?.data) && response?.data?.length
-                            ? response?.data[0]?.needActionCount
+                            ? response?.data[0]?.trueCount
                             : ''}
                         </div>
                       </div>
@@ -125,7 +125,7 @@ const AuditDetails = () => {
                       <div className='d-flex align-items-center'>
                         <div className='fs-2 fw-bolder'>
                           {Array.isArray(response?.data) && response?.data?.length
-                            ? response?.data[0]?.trueCount
+                            ? response?.data[0]?.needActionCount
                             : ''}
                         </div>
                       </div>

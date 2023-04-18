@@ -11,7 +11,7 @@ import {ListLoading} from '../components/loading/ListLoading'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import moment from 'moment'
 import {updateAction} from '../core/_requests'
-import { format } from 'date-fns'
+import {format} from 'date-fns'
 import {FileUploader} from 'react-drag-drop-files'
 
 const fileTypes = ['jpg', 'png']
@@ -30,29 +30,23 @@ const EditModalForm: FC<Props> = ({item}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
-
-  
-  useEffect(() => {
-    
-  }, [])
+  console.log(item)
+  useEffect(() => {}, [])
 
   const [file, setFile] = useState<any>([])
 
   const [placeForEdit] = useState<Model>({
-   
     filePath: undefined,
     text: undefined,
     finding: undefined,
     lastDate: undefined,
     status: undefined,
     answerId: undefined,
-   
 
     auditDate: undefined,
-    //auditor: undefined,    
-    //unitId: undefined,    
+    //auditor: undefined,
+    //unitId: undefined,
     ...item,
-    
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -68,7 +62,6 @@ const EditModalForm: FC<Props> = ({item}) => {
     }
   }
 
-
   const formik = useFormik({
     initialValues: placeForEdit,
     // validationSchema: editchema,
@@ -80,11 +73,11 @@ const EditModalForm: FC<Props> = ({item}) => {
       try {
         if (isNotEmpty(values.id)) {
           //values.lastDate = format(new Date(), 'yyyy-MM-dd H:mm:ss').replace(' ', 'T')
-          values.status = parseInt(values.status?.toString() || "0")
+          values.status = parseInt(values.status?.toString() || '0')
           console.log(values)
           //console.log("girior " )
           await updateAction(values)
-        } 
+        }
       } catch (ex) {
         console.error(ex)
       } finally {
@@ -108,13 +101,9 @@ const EditModalForm: FC<Props> = ({item}) => {
           data-kt-scroll-wrappers='#kt_modal_add_item_scroll'
           data-kt-scroll-offset='300px'
         >
-
-        
           <div className='fv-row mb-7'>
-            <label className='fw-bold fs-6 mb-2'>
-              {intl.formatMessage({id: 'FINDINGS'})}
-            </label>
-            
+            <label className='fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'FINDINGS'})}</label>
+
             <input
               //placeholder='Full name'
               {...formik.getFieldProps('finding')}
@@ -136,101 +125,99 @@ const EditModalForm: FC<Props> = ({item}) => {
                   <span role='alert'>{formik.errors.finding}</span>
                 </div>
               </div>
-            ) : null }
+            ) : null}
           </div>
 
-
           <div className='fv-row mb-7'>
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'ANSWER'})}
-          </label>
-          
-          <input
-            //placeholder='Full name'
-            {...formik.getFieldProps('text')}
-            type='text'
-            name='text'
-            className={clsx(
-              'form-control form-control-solid mb-3 mb-lg-0',
-              {'is-invalid': formik.touched.text ? formik.errors.text : null},
-              {
-                'is-valid': formik.touched.text ? !formik.errors.text : null,
-              }
-            )}
-            autoComplete='off'
-            disabled={formik.isSubmitting}
-          />
-          {formik.touched.text && formik.errors.text ? (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.text}</span>
-              </div>
-            </div>
-          ) : null }
-        </div>
-
-        <div className='fv-row mb-7'>
-          {/* begin::Label */}
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'STATUS'})}
-          </label>
-          {/* end::Label */}
-
-          {/* begin::Input */}
-          <select
-            className='form-select form-select-solid form-select-md'
-            {...formik.getFieldProps('status')}
-            value={formik.values.status}
-          >
-            <option value=''>{intl.formatMessage({id: 'SELECT'})}</option>
-            <option value='0'>{intl.formatMessage({id: 'ACTION.TABLE.NOTSTART'})}</option>
-            <option value='1'>{intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}</option>
-            <option value='2'>{intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}</option>
-          </select>
-          {/* end::Input */}
-        </div>
-        </div>
-        
-
-        <div className='fv-row mb-7'>
-            {/* begin::Label */}
             <label className='required fw-bold fs-6 mb-2'>
-              {intl.formatMessage({id: 'LASTDATE'})}
+              {intl.formatMessage({id: 'ANSWER'})}
             </label>
-            {/* end::Label */}
 
-            {/* begin::Input */}
             <input
               //placeholder='Full name'
-              {...formik.getFieldProps('lastDate')}
-              type='date'
-              name='lastDate'
-              value={moment(formik.values.lastDate).format('YYYY-MM-DD')}
-              onChange={(e) => {
-                formik.setFieldValue('lastDate', new Date(e.target.value).toISOString())
-              }}
+              {...formik.getFieldProps('text')}
+              type='text'
+              name='text'
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
-                {'is-invalid': formik.touched.lastDate && formik.errors.lastDate},
+                {'is-invalid': formik.touched.text ? formik.errors.text : null},
                 {
-                  'is-valid': formik.touched.lastDate && !formik.errors.lastDate,
+                  'is-valid': formik.touched.text ? !formik.errors.text : null,
                 }
               )}
               autoComplete='off'
               disabled={formik.isSubmitting}
             />
-            {formik.touched.lastDate && formik.errors.lastDate && (
+            {formik.touched.text && formik.errors.text ? (
               <div className='fv-plugins-message-container'>
                 <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.lastDate}</span>
+                  <span role='alert'>{formik.errors.text}</span>
                 </div>
               </div>
-            )}
-            {/* end::Input */}
+            ) : null}
           </div>
 
           <div className='fv-row mb-7'>
-          <label className=' fw-bold fs-6 mb-2'>File</label>
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'STATUS'})}
+            </label>
+            {/* end::Label */}
+
+            {/* begin::Input */}
+            <select
+              className='form-select form-select-solid form-select-md'
+              {...formik.getFieldProps('status')}
+              value={formik.values.status}
+            >
+              <option value=''>{intl.formatMessage({id: 'SELECT'})}</option>
+              <option value='0'>{intl.formatMessage({id: 'ACTION.TABLE.NOTSTART'})}</option>
+              <option value='1'>{intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}</option>
+              <option value='2'>{intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}</option>
+            </select>
+            {/* end::Input */}
+          </div>
+        </div>
+
+        <div className='fv-row mb-7'>
+          {/* begin::Label */}
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'LASTDATE'})}
+          </label>
+          {/* end::Label */}
+
+          {/* begin::Input */}
+          <input
+            //placeholder='Full name'
+            {...formik.getFieldProps('lastDate')}
+            type='date'
+            name='lastDate'
+            value={moment(formik.values.lastDate).format('YYYY-MM-DD')}
+            onChange={(e) => {
+              formik.setFieldValue('lastDate', new Date(e.target.value).toISOString())
+            }}
+            className={clsx(
+              'form-control form-control-solid mb-3 mb-lg-0',
+              {'is-invalid': formik.touched.lastDate && formik.errors.lastDate},
+              {
+                'is-valid': formik.touched.lastDate && !formik.errors.lastDate,
+              }
+            )}
+            autoComplete='off'
+            disabled={formik.isSubmitting}
+          />
+          {formik.touched.lastDate && formik.errors.lastDate && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.lastDate}</span>
+              </div>
+            </div>
+          )}
+          {/* end::Input */}
+        </div>
+
+        <div className='fv-row mb-7'>
+          <label className=' fw-bold fs-6 mb-2'> {intl.formatMessage({id: 'FILE'})}</label>
           {/* <a href='' className='p-10'>
             <small style={{color: 'blue'}}>
               {intl.formatMessage({id: 'IMAGELIBRARY.FILE.TEXT'})}
@@ -256,8 +243,6 @@ const EditModalForm: FC<Props> = ({item}) => {
           )} */}
         </div>
 
-
-
         <div className='text-center pt-15'>
           <button
             type='reset'
@@ -273,12 +258,10 @@ const EditModalForm: FC<Props> = ({item}) => {
             type='submit'
             className='btn btn-sm btn-dark'
             data-kt-items-modal-action='submit'
-            disabled={
-              formik.isSubmitting || !formik.isValid || !formik.touched
-            }
+            disabled={formik.isSubmitting || !formik.isValid || !formik.touched}
           >
             <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
-            {(formik.isSubmitting) && (
+            {formik.isSubmitting && (
               <span className='indicator-progress'>
                 Please wait...{' '}
                 <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
@@ -288,7 +271,7 @@ const EditModalForm: FC<Props> = ({item}) => {
         </div>
         {/* end::Actions */}
       </form>
-      {(formik.isSubmitting) && <ListLoading />}
+      {formik.isSubmitting && <ListLoading />}
     </>
   )
 }

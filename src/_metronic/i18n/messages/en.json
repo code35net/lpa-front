@@ -448,5 +448,11 @@
   "MONTHLY": "Monthly",
   "QUARTERLY": "Quarterly",
 
+  "FINDINGS": "FINDINGS",
+  "ANSWER": "Answer",
+  "STATUS": "Status",
+  "LASTDATE": "Targer Date",
+  "FILE": "File",
+
   "boş": "boş"
 }
