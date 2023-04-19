@@ -194,7 +194,7 @@ const EditModalForm: FC<Props> = ({item}) => {
                 }
               )}
               autoComplete='off'
-              disabled={formik.isSubmitting}
+              disabled={formik.isSubmitting || formik.values.status == 2}
             />
             {formik.touched.text && formik.errors.text ? (
               <div className='fv-plugins-message-container'>
@@ -217,6 +217,7 @@ const EditModalForm: FC<Props> = ({item}) => {
               className='form-select form-select-solid form-select-md'
               {...formik.getFieldProps('status')}
               value={formik.values.status}
+              disabled={formik.values.status == 2}
               // onChange={(e) => {
               //   SetEndDate2(e.target.value)
               // }}
@@ -255,7 +256,7 @@ const EditModalForm: FC<Props> = ({item}) => {
               }
             )}
             autoComplete='off'
-            disabled={formik.isSubmitting}
+            disabled={formik.isSubmitting || formik.values.status == 2}
           />
           {formik.touched.lastDate && formik.errors.lastDate && (
             <div className='fv-plugins-message-container'>
@@ -311,6 +312,7 @@ const EditModalForm: FC<Props> = ({item}) => {
             handleChange={handleFileChange}
             name='file'
             types={fileTypes}
+            disabled={formik.values.status == 2}
           />
           <p>
             {/* {library?.file

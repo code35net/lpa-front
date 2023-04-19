@@ -169,64 +169,13 @@ const ListFilter = () => {
           data-kt-item-table-filter='form'
           style={{overflowX: 'scroll', maxHeight: '400px'}}
         >
-          <label className='form-label fs-6 fw-bold'>
-            {intl.formatMessage({id: 'AUDITS.LIST.STATUS'})}
-          </label>
-          <select
-            className='form-select form-select-solid fw-bolder'
-            data-kt-select2='true'
-            data-placeholder='Select option'
-            data-allow-clear='true'
-            data-kt-item-table-filter='role'
-            data-hide-search='true'
-            // onChange={(e) => setSelectedAuditCategories(e.target.value)}
-            onChange={(e) => handleStatus(e.target.value)}
-            value={selectedStatus}
+          <div
+            className='px-7 py-5'
+            data-kt-item-table-filter='form'
+            style={{overflowX: 'scroll', maxHeight: '400px'}}
           >
-            <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
-
-            {status.map((item: any) => {
-              return (
-                <option key={item?.id} value={item?.id}>
-                  {item?.name}
-                </option>
-              )
-            })}
-          </select>
-        </div>
-        <div className='px-7 py-5'>
-          <label className='form-label fs-6 fw-bold'>
-            {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
-          </label>
-          <select
-            className='form-select form-select-solid fw-bolder'
-            data-kt-select2='true'
-            data-placeholder='Select option'
-            data-allow-clear='true'
-            data-kt-item-table-filter='role'
-            data-hide-search='true'
-            onChange={(e) => {
-              setSelectedDepartments(e.target.value)
-              setSelectedSections('')
-            }}
-            value={selectedDepartments}
-          >
-            <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
-
-            {departments.map((item: any) => {
-              return (
-                <option key={item?.id} value={item?.id}>
-                  {item?.name}
-                </option>
-              )
-            })}
-          </select>
-        </div>
-
-        {selectedDepartments ? (
-          <div className='px-7 py-5'>
             <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
+              {intl.formatMessage({id: 'AUDITS.LIST.STATUS'})}
             </label>
             <select
               className='form-select form-select-solid fw-bolder'
@@ -235,12 +184,13 @@ const ListFilter = () => {
               data-allow-clear='true'
               data-kt-item-table-filter='role'
               data-hide-search='true'
-              onChange={(e) => setSelectedSections(e.target.value)}
-              value={selectedSections}
+              // onChange={(e) => setSelectedAuditCategories(e.target.value)}
+              onChange={(e) => handleStatus(e.target.value)}
+              value={selectedStatus}
             >
               <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
-              {sections.map((item: any) => {
+              {status.map((item: any) => {
                 return (
                   <option key={item?.id} value={item?.id}>
                     {item?.name}
@@ -249,10 +199,6 @@ const ListFilter = () => {
               })}
             </select>
           </div>
-        ) : (
-          <></>
-        )}
-        {units.length > 0 && units[0]?.unitType == null && selectedSections ? (
           <div className='px-7 py-5'>
             <label className='form-label fs-6 fw-bold'>
               {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
@@ -264,12 +210,15 @@ const ListFilter = () => {
               data-allow-clear='true'
               data-kt-item-table-filter='role'
               data-hide-search='true'
-              onChange={(e) => setSelectedUnits(e.target.value)}
-              value={selectedUnits}
+              onChange={(e) => {
+                setSelectedDepartments(e.target.value)
+                setSelectedSections('')
+              }}
+              value={selectedDepartments}
             >
-              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
-              {units.map((item: any) => {
+              {departments.map((item: any) => {
                 return (
                   <option key={item?.id} value={item?.id}>
                     {item?.name}
@@ -278,41 +227,98 @@ const ListFilter = () => {
               })}
             </select>
           </div>
-        ) : (
-          <></>
-        )}
-        {/* begin::Content */}
-        <div
-          className='px-7 py-5'
-          data-kt-item-table-filter='form'
-          style={{overflowX: 'scroll', maxHeight: '400px'}}
-        >
-          {/* end::Input group */}
 
-          {/* begin::Actions */}
-          <div className='d-flex justify-content-end'>
-            <button
-              type='button'
-              disabled={isLoading}
-              onClick={resetData}
-              className='btn btn-light btn-active-light-primary fw-bold me-2 px-6'
-              data-kt-menu-dismiss='true'
-              data-kt-item-table-filter='reset'
-            >
-              {intl.formatMessage({id: 'FILTER.RESET'})}
-            </button>
-            <button
-              disabled={isLoading}
-              type='button'
-              onClick={filterData}
-              className='btn btn-dark fw-bold px-6'
-              data-kt-menu-dismiss='true'
-              data-kt-item-table-filter='filter'
-            >
-              {intl.formatMessage({id: 'FILTER.APPLY'})}
-            </button>
+          {selectedDepartments ? (
+            <div className='px-7 py-5'>
+              <label className='form-label fs-6 fw-bold'>
+                {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
+              </label>
+              <select
+                className='form-select form-select-solid fw-bolder'
+                data-kt-select2='true'
+                data-placeholder='Select option'
+                data-allow-clear='true'
+                data-kt-item-table-filter='role'
+                data-hide-search='true'
+                onChange={(e) => setSelectedSections(e.target.value)}
+                value={selectedSections}
+              >
+                <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
+
+                {sections.map((item: any) => {
+                  return (
+                    <option key={item?.id} value={item?.id}>
+                      {item?.name}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+          ) : (
+            <></>
+          )}
+          {units.length > 0 && units[0]?.unitType == null && selectedSections ? (
+            <div className='px-7 py-5'>
+              <label className='form-label fs-6 fw-bold'>
+                {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
+              </label>
+              <select
+                className='form-select form-select-solid fw-bolder'
+                data-kt-select2='true'
+                data-placeholder='Select option'
+                data-allow-clear='true'
+                data-kt-item-table-filter='role'
+                data-hide-search='true'
+                onChange={(e) => setSelectedUnits(e.target.value)}
+                value={selectedUnits}
+              >
+                <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+
+                {units.map((item: any) => {
+                  return (
+                    <option key={item?.id} value={item?.id}>
+                      {item?.name}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+          ) : (
+            <></>
+          )}
+          {/* begin::Content */}
+          <div
+            className='px-7 py-5'
+            data-kt-item-table-filter='form'
+            style={{overflowX: 'scroll', maxHeight: '400px'}}
+          >
+            {/* end::Input group */}
+
+            {/* begin::Actions */}
+            <div className='d-flex justify-content-end'>
+              <button
+                type='button'
+                disabled={isLoading}
+                onClick={resetData}
+                className='btn btn-light btn-active-light-primary fw-bold me-2 px-6'
+                data-kt-menu-dismiss='true'
+                data-kt-item-table-filter='reset'
+              >
+                {intl.formatMessage({id: 'FILTER.RESET'})}
+              </button>
+              <button
+                disabled={isLoading}
+                type='button'
+                onClick={filterData}
+                className='btn btn-dark fw-bold px-6'
+                data-kt-menu-dismiss='true'
+                data-kt-item-table-filter='filter'
+              >
+                {intl.formatMessage({id: 'FILTER.APPLY'})}
+              </button>
+            </div>
+            {/* end::Actions */}
           </div>
-          {/* end::Actions */}
         </div>
         {/* end::Content */}
       </div>
