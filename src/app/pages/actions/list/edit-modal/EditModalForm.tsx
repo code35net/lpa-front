@@ -13,6 +13,7 @@ import moment from 'moment'
 import {updateAction} from '../core/_requests'
 import {format} from 'date-fns'
 import {FileUploader} from 'react-drag-drop-files'
+import {getActions} from '../core/_requests'
 
 const fileTypes = ['jpg', 'png']
 
@@ -30,7 +31,7 @@ const EditModalForm: FC<Props> = ({item}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
-  console.log(item)
+
   useEffect(() => {}, [])
 
   const [file, setFile] = useState<any>([])
@@ -42,12 +43,21 @@ const EditModalForm: FC<Props> = ({item}) => {
     lastDate: undefined,
     status: undefined,
     answerId: undefined,
-
+    endDate: undefined,
     auditDate: undefined,
     //auditor: undefined,
     //unitId: undefined,
     ...item,
   })
+  const [filterData, setFilterData] = useState<any>([])
+  useEffect(() => {
+    let query = 'page=1&items_per_page=10'
+    getActions(query).then((res: any) => {
+      let x = res.data.filter((value: any) => value.actionCode == item.actionCode)
+
+      setFilterData(x[0])
+    })
+  }, [])
 
   const cancel = (withRefresh?: boolean) => {
     if (withRefresh) {
@@ -65,17 +75,31 @@ const EditModalForm: FC<Props> = ({item}) => {
   const formik = useFormik({
     initialValues: placeForEdit,
     // validationSchema: editchema,
+
     onSubmit: async (values, {setSubmitting}) => {
       //console.log("girior " )
       setSubmitting(true)
+      console.log(formik.values.status)
+      console.log(formik.values.endDate)
 
       values.file = file
       try {
         if (isNotEmpty(values.id)) {
           //values.lastDate = format(new Date(), 'yyyy-MM-dd H:mm:ss').replace(' ', 'T')
           values.status = parseInt(values.status?.toString() || '0')
-          console.log(values)
-          //console.log("girior " )
+
+          if (formik.values.status == 2 && formik.values.endDate == null) {
+            const currentDate = new Date()
+            const formattedDate = `${currentDate.getFullYear()}-${(
+              '0' +
+              (currentDate.getMonth() + 1)
+            ).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)}`
+
+            values.endDate = formattedDate
+          }
+          //  else if (formik.values.status != 2) {
+          // burada   values.endDate = null olmalı
+          // }
           await updateAction(values)
         }
       } catch (ex) {
@@ -101,6 +125,30 @@ const EditModalForm: FC<Props> = ({item}) => {
           data-kt-scroll-wrappers='#kt_modal_add_item_scroll'
           data-kt-scroll-offset='300px'
         >
+          <div
+            className='gap-2 d-flex flex-column mb-7 pb-5 '
+            style={{borderBottom: '1px solid #aeaeae'}}
+          >
+            <div className='d-flex flex-row gap-2'>
+              <p className='fw-semibold fs-6 mb-2 min-w-90px'>
+                {intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
+              </p>
+              <label className='fw-semibold fs-6 mb-2'>: {filterData.auditorName}</label>
+            </div>
+            <div className='d-flex flex-row gap-2'>
+              <p className='fw-semibold fs-6 mb-2 min-w-90px'>
+                {intl.formatMessage({id: 'AUDITS.LIST.AUDITNAME'})}
+              </p>
+              <label className='fw-semibold fs-6 mb-2 '>: {filterData.auditName}</label>
+            </div>
+
+            <div className='d-flex flex-row gap-2'>
+              <p className='fw-semibold fs-6 mb-2 min-w-90px'>
+                {intl.formatMessage({id: 'QUESTION.TEXT'})}
+              </p>
+              <label className='fw-semibold fs-6 mb-2'>: {filterData.questionText}</label>
+            </div>
+          </div>
           <div className='fv-row mb-7'>
             <label className='fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'FINDINGS'})}</label>
 
@@ -169,11 +217,14 @@ const EditModalForm: FC<Props> = ({item}) => {
               className='form-select form-select-solid form-select-md'
               {...formik.getFieldProps('status')}
               value={formik.values.status}
+              // onChange={(e) => {
+              //   SetEndDate2(e.target.value)
+              // }}
             >
               <option value=''>{intl.formatMessage({id: 'SELECT'})}</option>
-              <option value='0'>{intl.formatMessage({id: 'ACTION.TABLE.NOTSTART'})}</option>
-              <option value='1'>{intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}</option>
-              <option value='2'>{intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}</option>
+              <option value='0'>{intl.formatMessage({id: 'Open'})}</option>
+              {/* <option value='1'>{intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}</option> */}
+              <option value='2'>{intl.formatMessage({id: 'Close'})}</option>
             </select>
             {/* end::Input */}
           </div>
@@ -215,6 +266,38 @@ const EditModalForm: FC<Props> = ({item}) => {
           )}
           {/* end::Input */}
         </div>
+        {formik.values.endDate != null ? (
+          <div className='fv-row mb-7'>
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'CloseDate'})}
+            </label>
+            {/* end::Label */}
+
+            {/* begin::Input */}
+            <input
+              //placeholder='Full name'
+              {...formik.getFieldProps('endDate')}
+              type='date'
+              name='endDate'
+              value={moment(formik.values.endDate).format('YYYY-MM-DD')}
+              // onChange={(e) => {
+              //   formik.setFieldValue('endDate', new Date(e.target.value).toISOString())
+              // }}
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                {'is-invalid': formik.touched.endDate && formik.errors.endDate},
+                {
+                  'is-valid': formik.touched.endDate && !formik.errors.endDate,
+                }
+              )}
+              autoComplete='off'
+              disabled={true}
+            />
+
+            {/* end::Input */}
+          </div>
+        ) : null}
 
         <div className='fv-row mb-7'>
           <label className=' fw-bold fs-6 mb-2'> {intl.formatMessage({id: 'FILE'})}</label>

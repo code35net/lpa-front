@@ -12,15 +12,15 @@ type Props = {
 const StatusCell: FC<Props> = ({item}) => {
   const intl = useIntl()
   const [value, setValue] = useState('')
-  console.log(item.status)
+  // console.log(item.status)
 
   useEffect(() => {
     if (item.status == 0) {
-      setValue(`${intl.formatMessage({id: 'ACTION.TABLE.NOTSTART'})}`)
+      setValue(`${intl.formatMessage({id: 'Open'})}`)
     } else if (item.status == 1) {
       setValue(`${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`)
     } else if (item.status == 2) {
-      setValue(`${intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}`)
+      setValue(`${intl.formatMessage({id: 'Close'})}`)
     } else if (item.status == 3) {
       setValue(`${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`)
     } else setValue(``)

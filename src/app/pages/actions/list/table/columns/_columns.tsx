@@ -11,6 +11,7 @@ import {StatusCell} from './StatusCell'
 import {ImgCell} from './ImgCell'
 import {useIntl} from 'react-intl'
 import {LinkCell} from './LinkCell'
+import {LateCell} from './LateCell'
 
 const Columns: ReadonlyArray<Column<Model>> = [
   {
@@ -23,7 +24,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       <CustomHeader
         tableProps={props}
         title={useIntl().formatMessage({id: 'ACTION.LIST.COL.FIND'})}
-        className='min-w-125px'
+        className='min-w-175px'
       />
     ),
     id: 'finding',
@@ -56,8 +57,8 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Header: (props) => (
       <CustomHeader
         tableProps={props}
-        title={useIntl().formatMessage({id: 'ACTION.LIST.COL.TEXT'})}
-        className='min-w-125px'
+        title={useIntl().formatMessage({id: 'ANSWER'})}
+        className='min-w-175px'
       />
     ),
     id: 'text',
@@ -81,6 +82,30 @@ const Columns: ReadonlyArray<Column<Model>> = [
   //   id: 'filePath',
   //   Cell: ({...props}) => <ImgCell item={props.data[props.row.index].filePath} />,
   // },
+
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'CloseDate'})}
+        className='min-w-125px'
+      />
+    ),
+    id: 'CloseDate',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].endDate} />,
+  },
+
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'IsLate'})}
+        className='min-w-125px'
+      />
+    ),
+    id: 'IsLate',
+    Cell: ({...props}) => <LateCell item={props.data[props.row.index]} />,
+  },
   {
     Header: (props) => (
       <CustomHeader

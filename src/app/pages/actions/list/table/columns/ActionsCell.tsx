@@ -21,7 +21,6 @@ const ActionsCell: FC<Props> = ({id}) => {
   }, [])
 
   const openEditModal = () => {
-    console.log(id)
     setItemIdForUpdate(id)
   }
 
@@ -35,23 +34,23 @@ const ActionsCell: FC<Props> = ({id}) => {
 
   return (
     <>
-    
-        <div className='d-flex justify-content-end flex-shrink-0'>
-          <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-           onClick={openEditModal}
-           >
-            <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
-          </a>
+      <div className='d-flex justify-content-end flex-shrink-0'>
+        <a
+          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+          onClick={openEditModal}
+        >
+          <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+        </a>
 
-
-          <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
-          hidden data-kt-users-table-filter='delete_row'
+        <a
+          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+          hidden
+          data-kt-users-table-filter='delete_row'
           onClick={async () => await deleteItem.mutateAsync()}
-          >
-            <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
-          </a>
-        </div>
-      
+        >
+          <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
+        </a>
+      </div>
     </>
   )
 }

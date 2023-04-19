@@ -10,20 +10,17 @@ const GET_ACTION_DETAIL_URL = `${API_URL}/Custom/getAuctions`
 const ACTION_DETAILS_URL = `${API_URL}/Custom/getAuctionDetail`
 const UPDATE_ACTION_URL = `${API_URL}/Custom/updateAuction`
 
-
-// const getAuctionDetails = async (actionCode : string): Promise<any> => await axios.get(`${ACTION_DETAILS_URL}/${actionCode}`).then((res : AxiosResponse) => 
+// const getAuctionDetails = async (actionCode : string): Promise<any> => await axios.get(`${ACTION_DETAILS_URL}/${actionCode}`).then((res : AxiosResponse) =>
 //  {
 //    return res.data;
 //  });
 
- const getAuctionDetails = async (actionCode : string): Promise<any> => await axios.get(`${ACTION_DETAILS_URL}?actionCode=${actionCode}`).then((res : AxiosResponse) => 
- {
-   return res.data;
- }
- 
- );
+const getAuctionDetails = async (actionCode: string): Promise<any> =>
+  await axios.get(`${ACTION_DETAILS_URL}?actionCode=${actionCode}`).then((res: AxiosResponse) => {
+    return res.data
+  })
 
- const saveAction = (action: any) => {
+const saveAction = (action: any) => {
   return axios
     .put(SAVE_ACTIONS_URL, action, {
       headers: {
@@ -33,11 +30,8 @@ const UPDATE_ACTION_URL = `${API_URL}/Custom/updateAuction`
     .then((response: any) => response.data)
 }
 
-
 const getActions = (query: string): Promise<QueryResponse> => {
-  return axios
-    .get(`${GET_ACTIONS_URL}/?${query}`)
-    .then((d: AxiosResponse<QueryResponse>) => d.data)
+  return axios.get(`${GET_ACTIONS_URL}/?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
 }
 
 const listActions = async (): Promise<any> =>
@@ -68,11 +62,12 @@ const createAction = (action: Model): Promise<Model | undefined> => {
 
 const updateAction = (thing: any): Promise<Model | undefined> => {
   const formData = new FormData()
-  
-  formData.append('text', thing.text) 
-  //formData.append('answerId', '25') 
-  formData.append('status', thing.status) 
-  formData.append('lastDate', thing.lastDate) 
+
+  formData.append('text', thing.text)
+  //formData.append('answerId', '25')
+  formData.append('status', thing.status)
+  formData.append('lastDate', thing.lastDate)
+  formData.append('endDate', thing.endDate)
 
   if (thing.finding != undefined) {
     formData.append('finding', (thing as any)?.finding)
@@ -108,5 +103,6 @@ export {
   createAction,
   updateAction,
   listActions,
-  getAuctionDetails,saveAction
+  getAuctionDetails,
+  saveAction,
 }

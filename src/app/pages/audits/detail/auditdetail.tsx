@@ -8,6 +8,7 @@ import {useQuery} from 'react-query'
 import {useLocation, Link} from 'react-router-dom'
 import {getAuditDetails} from '../list/core/_requests'
 import {getQuestionById} from '../../questions/list/core/_requests'
+import moment from 'moment'
 
 const AuditDetails = () => {
   const intl = useIntl()
@@ -56,6 +57,26 @@ const AuditDetails = () => {
       setSelectedQuestionId(null)
     }
   }, [showModal])
+
+  const [value, setValue] = useState('')
+
+  useEffect(() => {
+    if (response?.data[0]?.status == 'NotStarted') {
+      setValue(`${intl.formatMessage({id: 'ACTION.TABLE.NOTSTART'})}`)
+    } else if (response?.data[0]?.status == 'InProgress') {
+      setValue(`${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`)
+    } else if (response?.data[0]?.status == 'Finished') {
+      setValue(`${intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}`)
+    } else if (response?.data[0]?.status == 'Canceled') {
+      setValue(`${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`)
+    } else setValue(``)
+  }, [value])
+
+  console.log(response?.data[0]?.status)
+
+  const percentage2 =
+    (response?.data[0]?.trueCount * 100) /
+    (response?.data[0]?.needActionCount + response?.data[0]?.trueCount)
 
   return (
     <>
@@ -141,6 +162,15 @@ const AuditDetails = () => {
 
                       <div className='fw-bold fs-6 text-gray-400'>
                         {intl.formatMessage({id: 'AUDITS.DETAIL.ANSWERED'})}
+                      </div>
+                    </div>
+                    <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
+                      <div className='d-flex align-items-center'>
+                        <div className='fs-2 fw-bolder'>{percentage2.toFixed(2)} / 100</div>
+                      </div>
+
+                      <div className='fw-bold fs-6 text-gray-400'>
+                        {intl.formatMessage({id: 'SUCCESS_PERCENTAGE'})}
                       </div>
                     </div>
                   </div>
@@ -253,7 +283,7 @@ const AuditDetails = () => {
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
                 {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.date
+                  ? moment(response?.data[0]?.date).format('DD.MM.YYYY')
                   : ''}
               </span>
             </div>
@@ -266,7 +296,7 @@ const AuditDetails = () => {
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
                 {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.started
+                  ? moment(response?.data[0]?.started).format('DD.MM.YYYY')
                   : ''}
               </span>
             </div>
@@ -279,7 +309,7 @@ const AuditDetails = () => {
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
                 {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.ended
+                  ? moment(response?.data[0]?.ended).format('DD.MM.YYYY')
                   : ''}
               </span>
             </div>
@@ -291,9 +321,7 @@ const AuditDetails = () => {
 
             <div className='col-lg-8'>
               <span className='fw-bold fs-6'>
-                {Array.isArray(response?.data) && response?.data?.length
-                  ? response?.data[0]?.status
-                  : ''}
+                {Array.isArray(response?.data) && response?.data?.length ? value : ''}
               </span>
             </div>
           </div>
@@ -366,7 +394,7 @@ const AuditDetails = () => {
                                 href='#'
                                 className='text-dark fw-bold text-hover-primary mb-1 fs-6'
                               >
-                                {question?.answerTemplate}
+                                {question?.optionName ? question?.optionName : '-'}
                               </a>
                             </td>
                           </tr>

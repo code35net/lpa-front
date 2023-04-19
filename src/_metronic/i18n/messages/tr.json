@@ -456,5 +456,15 @@
   "STATUS": "Durum",
   "LASTDATE": "Hedef Tarihi",
   "FILE": "Dosya",
+  "ACTION.LIST.SELECTED": "Öge Seçildi",
+  "ACTION.LIST.DELETE": "Seçili Ögeleri Sil",
+  "SUCCESS_PERCENTAGE": "Başarı Puanı",
+  "CloseDate": "Kapanma Tarihi",
+  "IsLate": "Geciktirildi mi?",
+  "YES": "Evet",
+  "No": "Hayır",
+  "Open": "Açık",
+  "Close": "Kapalı",
+
   "boş": "boş"
 }

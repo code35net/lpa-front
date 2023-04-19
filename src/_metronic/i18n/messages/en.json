@@ -453,6 +453,15 @@
   "STATUS": "Status",
   "LASTDATE": "Targer Date",
   "FILE": "File",
+  "ACTION.LIST.SELECTED": "Item Selected",
+  "ACTION.LIST.DELETE": "Delete Selected Items",
+  "SUCCESS_PERCENTAGE": "Success Point",
+  "CloseDate": "End Date",
+  "IsLate": "Is it Late?",
+  "YES": "Yes",
+  "No": "No",
+  "Open": "Open",
+  "Close": "Close",
 
   "boş": "boş"
 }
