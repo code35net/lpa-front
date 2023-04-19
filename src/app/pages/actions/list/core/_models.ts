@@ -20,5 +20,7 @@ export type Model = {
   filePath?: string
   answerId?: number
   endDate?: any
+  auditorName?: string
+  unitId?: number
 }
 export type QueryResponse = Response<Array<Model>>

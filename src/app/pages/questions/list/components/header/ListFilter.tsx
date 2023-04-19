@@ -152,7 +152,7 @@ const ListFilter = () => {
         <div
           className='px-7 py-5'
           data-kt-item-table-filter='form'
-          style={{overflowX: 'scroll', maxHeight: '600px'}}
+          style={{overflowX: 'scroll', maxHeight: '400px'}}
         >
           {/* begin::Input group */}
           <div className='mb-10'>

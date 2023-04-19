@@ -31,19 +31,19 @@ const EditModalForm: FC<Props> = ({item}) => {
   const [users, setUsers] = useState([])
   const [operators, setOperators] = useState([])
   useEffect(() => {
-    listUsers().then((res)=>{
+    listUsers().then((res) => {
       setUsers(res.data)
     })
-    listUnits(item.sectionId).then((res)=>{
+    listUnits(item.sectionId).then((res) => {
       setOperators(res)
     })
   }, [])
 
   const [placeForEdit] = useState<Model>({
     auditDate: undefined,
-    auditor: undefined,    
-    unitId: undefined,    
-    ...item
+    auditor: undefined,
+    unitId: undefined,
+    ...item,
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -61,7 +61,7 @@ const EditModalForm: FC<Props> = ({item}) => {
       try {
         if (isNotEmpty(values.id)) {
           await updateAudit(values)
-        } 
+        }
       } catch (ex) {
         console.error(ex)
       } finally {
@@ -85,8 +85,6 @@ const EditModalForm: FC<Props> = ({item}) => {
           data-kt-scroll-wrappers='#kt_modal_add_item_scroll'
           data-kt-scroll-offset='300px'
         >
-
-
           <div className='fv-row mb-7'>
             {/* begin::Label */}
             <label className='required fw-bold fs-6 mb-2'>
@@ -100,7 +98,7 @@ const EditModalForm: FC<Props> = ({item}) => {
               {...formik.getFieldProps('auditDate')}
               type='datetime-local'
               name='auditDate'
-              value={moment(formik.values.auditDate).format('YYYY-MM-DD HH:mm')}              
+              value={moment(formik.values.auditDate).format('YYYY-MM-DD HH:mm')}
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
                 {'is-invalid': formik.touched.auditDate && formik.errors.auditDate},
@@ -122,37 +120,35 @@ const EditModalForm: FC<Props> = ({item}) => {
           </div>
 
           <div className='fv-row mb-7'>
-          {/* begin::Label */}
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
-          </label>
-          {/* end::Label */}
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
+            </label>
+            {/* end::Label */}
 
-          {/* begin::Input */}
-          <select
-            className='form-select form-select-solid form-select-md'
-            {...formik.getFieldProps('auditor')}
-            value={formik.values.auditor}
-            onChange={formik.handleChange}
-          >
-            <option value=''>{intl.formatMessage({id: 'USERS.LIST.MODAL.FORM'})}</option>
-            {users.map((user: any) => (
-              <option value={user?.id} key={user?.id as any}>
-                {user?.fullName as any}
-              </option>
-            ))}
-          </select>
-          {/* end::Input */}
-        </div>
+            {/* begin::Input */}
+            <select
+              className='form-select form-select-solid form-select-md'
+              {...formik.getFieldProps('auditor')}
+              value={formik.values.auditor}
+              onChange={formik.handleChange}
+            >
+              <option value=''>{intl.formatMessage({id: 'USERS.LIST.MODAL.FORM'})}</option>
+              {users.map((user: any) => (
+                <option value={user?.id} key={user?.id as any}>
+                  {user?.fullName as any}
+                </option>
+              ))}
+            </select>
+            {/* end::Input */}
+          </div>
 
-        <div className='fv-row mb-7'>
-          {/* begin::Label */}
+          {/* <div className='fv-row mb-7'>
+        
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'AUDITS.PLANNER.USER'})}
           </label>
-          {/* end::Label */}
-
-          {/* begin::Input */}
+         
           <select
             className='form-select form-select-solid form-select-md'
             {...formik.getFieldProps('unitId')}
@@ -166,8 +162,8 @@ const EditModalForm: FC<Props> = ({item}) => {
               </option>
             ))}
           </select>
-          {/* end::Input */}
-        </div>
+         
+        </div> */}
 
           {/* begin::Input group */}
 
@@ -219,8 +215,6 @@ const EditModalForm: FC<Props> = ({item}) => {
         {/* end::Input group */}
 
         {/* begin::Input group */}
-        
-        
 
         {/* begin::Input group */}
 
@@ -243,12 +237,10 @@ const EditModalForm: FC<Props> = ({item}) => {
             type='submit'
             className='btn btn-sm btn-dark'
             data-kt-items-modal-action='submit'
-            disabled={
-              formik.isSubmitting || !formik.isValid || !formik.touched
-            }
+            disabled={formik.isSubmitting || !formik.isValid || !formik.touched}
           >
             <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
-            {(formik.isSubmitting) && (
+            {formik.isSubmitting && (
               <span className='indicator-progress'>
                 Please wait...{' '}
                 <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
@@ -258,7 +250,7 @@ const EditModalForm: FC<Props> = ({item}) => {
         </div>
         {/* end::Actions */}
       </form>
-      {(formik.isSubmitting) && <ListLoading />}
+      {formik.isSubmitting && <ListLoading />}
     </>
   )
 }

@@ -15,6 +15,7 @@ import {listThings as listQuestionCategories} from '../../../../question-groups/
 import {listThings as listDepartments} from '../../../../units/list/core/_requests'
 import {listOtherThings as listSections} from '../../../../units/list/core/_requests'
 import {listSomeUsers2} from '../../../../user-management/list/core/_requests'
+import {listUnits} from '../../../../audits/list/core/_requests'
 
 const ListFilter = () => {
   const intl = useIntl()
@@ -26,21 +27,22 @@ const ListFilter = () => {
   const [questioncategories, setQuestionCategories] = useState([])
   const [departments, setDepartments] = useState([])
   const [sections, setSections] = useState([])
+  const [filterunits, setFilterunits] = useState([])
 
   const [selectedAuditCategories, setSelectedAuditCategories] = useState('')
   const [selectedQuestionCategories, setSelectedQuestionCategories] = useState('')
   const [selectedDepartments, setSelectedDepartments] = useState('')
   const [selectedSections, setSelectedSections] = useState('')
-  const [units, setUnits] = useState([])
+  const [units, setUnits] = useState<any>([])
   const [selectedUnits, setSelectedUnits] = useState('')
   const [users, setUsers] = useState([])
   const [selectedUsers, setSelectedUsers] = useState('')
   const [selectedUsersName, setSelectedUsersName] = useState('')
   const [status, setStatus] = useState([
-    {name: `${intl.formatMessage({id: 'ACTION.TABLE.NOTSTART'})}`, id: 0},
-    {name: `${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`, id: 1},
-    {name: `${intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}`, id: 2},
-    {name: `${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`, id: 3},
+    {name: `${intl.formatMessage({id: 'Open'})}`, id: 0},
+    // {name: `${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`, id: 1},
+    {name: `${intl.formatMessage({id: 'Close'})}`, id: 2},
+    // {name: `${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`, id: 3},
   ])
   const [selectedStatus, setSelectedStatus] = useState('')
 
@@ -66,6 +68,7 @@ const ListFilter = () => {
 
   useEffect(() => {
     MenuComponent.reinitialization()
+    listUnits(setFilterunits)
   }, [])
 
   const resetData = () => {
@@ -73,13 +76,13 @@ const ListFilter = () => {
     setSelectedQuestionCategories('')
     setSelectedDepartments('')
     setSelectedSections('')
+    setSelectedUnits('')
     setSelectedStatus('')
-    setSelectedUsers('')
   }
 
   useEffect(() => {
     filterData()
-  }, [selectedUsers, selectedAuditCategories, selectedStatus])
+  }, [selectedStatus, selectedSections, selectedUnits, selectedDepartments])
 
   useEffect(() => {
     if (selectedDepartments) {
@@ -100,18 +103,17 @@ const ListFilter = () => {
 
   const filterData = () => {
     let filter: any = {}
-    console.log(selectedUsers)
-    if (selectedAuditCategories) {
-      filter.auditCategoryId = selectedAuditCategories
-    }
-
-    if (selectedUsers) {
-      filter.auditor = selectedUsers
-      // filter.selectedUsersName = selectedUsersName
-    }
 
     if (selectedStatus) {
       filter.status = selectedStatus
+    }
+
+    if (selectedUnits) {
+      filter.unitId = selectedUnits
+    } else if (selectedSections) {
+      filter.unitId = selectedSections
+    } else if (selectedDepartments) {
+      filter.unitId = selectedDepartments
     }
 
     updateState({filter: filter})
@@ -127,12 +129,12 @@ const ListFilter = () => {
   const handleStatus = async (name: any) => {
     setSelectedStatus(name)
   }
-  console.log(selectedStatus)
+  console.log(units)
 
   const UserInfo = (item: any) => {
     console.log(item.target.selectedOptions[0].label)
     console.log(item.target.value)
-    setSelectedUsers(item.target.value)
+    setSelectedUnits(item.target.value)
     setSelectedUsersName(item.target.selectedOptions[0].label)
   }
   return (
@@ -162,101 +164,67 @@ const ListFilter = () => {
         {/* begin::Separator */}
         <div className='separator border-gray-200'></div>
         {/* end::Separator */}
-
-        {/* begin::Content */}
         <div
           className='px-7 py-5'
           data-kt-item-table-filter='form'
           style={{overflowX: 'scroll', maxHeight: '400px'}}
         >
-          {/* begin::Input group */}
-          <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'FILTER.AUDITCATEGORIES'})}
-            </label>
-            <select
-              className='form-select form-select-solid fw-bolder'
-              data-kt-select2='true'
-              data-placeholder='Select option'
-              data-allow-clear='true'
-              data-kt-item-table-filter='role'
-              data-hide-search='true'
-              // onChange={(e) => setSelectedAuditCategories(e.target.value)}
-              onChange={(e) => handleAuditCategoryId(e.target.value)}
-              value={selectedAuditCategories}
-            >
-              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
+          <label className='form-label fs-6 fw-bold'>
+            {intl.formatMessage({id: 'AUDITS.LIST.STATUS'})}
+          </label>
+          <select
+            className='form-select form-select-solid fw-bolder'
+            data-kt-select2='true'
+            data-placeholder='Select option'
+            data-allow-clear='true'
+            data-kt-item-table-filter='role'
+            data-hide-search='true'
+            // onChange={(e) => setSelectedAuditCategories(e.target.value)}
+            onChange={(e) => handleStatus(e.target.value)}
+            value={selectedStatus}
+          >
+            <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
-              {auditcategories.map((item: any) => {
-                return (
-                  <option key={item?.id} value={item?.id}>
-                    {item?.name}
-                  </option>
-                )
-              })}
-            </select>
-          </div>
-          {/* end::Input group */}
+            {status.map((item: any) => {
+              return (
+                <option key={item?.id} value={item?.id}>
+                  {item?.name}
+                </option>
+              )
+            })}
+          </select>
+        </div>
+        <div className='px-7 py-5'>
+          <label className='form-label fs-6 fw-bold'>
+            {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
+          </label>
+          <select
+            className='form-select form-select-solid fw-bolder'
+            data-kt-select2='true'
+            data-placeholder='Select option'
+            data-allow-clear='true'
+            data-kt-item-table-filter='role'
+            data-hide-search='true'
+            onChange={(e) => {
+              setSelectedDepartments(e.target.value)
+              setSelectedSections('')
+            }}
+            value={selectedDepartments}
+          >
+            <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
-          {/* begin::Input group */}
-          <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'AUDITS.DETAIL.AUDITOR'})}
-            </label>
-            <select
-              className='form-select form-select-solid fw-bolder'
-              data-kt-select2='true'
-              data-placeholder='Select option'
-              data-allow-clear='true'
-              data-kt-item-table-filter='role'
-              data-hide-search='true'
-              // onChange={(e) => setSelectedUsers(e.target.value)}
-              onChange={(e: any) => UserInfo(e)}
-              value={selectedUsers}
-            >
-              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
+            {departments.map((item: any) => {
+              return (
+                <option key={item?.id} value={item?.id}>
+                  {item?.name}
+                </option>
+              )
+            })}
+          </select>
+        </div>
 
-              {users.map((item: any) => {
-                return (
-                  <option key={item?.id} value={item?.id}>
-                    {item?.fullName}
-                  </option>
-                )
-              })}
-            </select>
-          </div>
-
-          <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>
-              {intl.formatMessage({id: 'AUDITS.LIST.STATUS'})}
-            </label>
-            <select
-              className='form-select form-select-solid fw-bolder'
-              data-kt-select2='true'
-              data-placeholder='Select option'
-              data-allow-clear='true'
-              data-kt-item-table-filter='role'
-              data-hide-search='true'
-              // onChange={(e) => setSelectedAuditCategories(e.target.value)}
-              onChange={(e) => handleStatus(e.target.value)}
-              value={selectedStatus}
-            >
-              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
-
-              {status.map((item: any) => {
-                return (
-                  <option key={item?.id} value={item?.id}>
-                    {item?.name}
-                  </option>
-                )
-              })}
-            </select>
-          </div>
-
-          {/* end::Input group */}
-
-          {/* begin::Input group */}
-          {/* <div className='mb-10'>
+        {selectedDepartments ? (
+          <div className='px-7 py-5'>
             <label className='form-label fs-6 fw-bold'>
               {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
             </label>
@@ -267,15 +235,12 @@ const ListFilter = () => {
               data-allow-clear='true'
               data-kt-item-table-filter='role'
               data-hide-search='true'
-              onChange={(e) => {
-                setSelectedDepartments(e.target.value)
-                setSelectedSections('')
-              }}
-              value={selectedDepartments}
+              onChange={(e) => setSelectedSections(e.target.value)}
+              value={selectedSections}
             >
               <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
-              {departments.map((item: any) => {
+              {sections.map((item: any) => {
                 return (
                   <option key={item?.id} value={item?.id}>
                     {item?.name}
@@ -283,72 +248,45 @@ const ListFilter = () => {
                 )
               })}
             </select>
-          </div> */}
-          {/* end::Input group */}
+          </div>
+        ) : (
+          <></>
+        )}
+        {units.length > 0 && units[0]?.unitType == null && selectedSections ? (
+          <div className='px-7 py-5'>
+            <label className='form-label fs-6 fw-bold'>
+              {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
+            </label>
+            <select
+              className='form-select form-select-solid fw-bolder'
+              data-kt-select2='true'
+              data-placeholder='Select option'
+              data-allow-clear='true'
+              data-kt-item-table-filter='role'
+              data-hide-search='true'
+              onChange={(e) => setSelectedUnits(e.target.value)}
+              value={selectedUnits}
+            >
+              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
 
-          {/* begin::Input group */}
-          {/* {selectedDepartments ? (
-            <div className='mb-10'>
-              <label className='form-label fs-6 fw-bold'>
-                {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
-              </label>
-              <select
-                className='form-select form-select-solid fw-bolder'
-                data-kt-select2='true'
-                data-placeholder='Select option'
-                data-allow-clear='true'
-                data-kt-item-table-filter='role'
-                data-hide-search='true'
-                onChange={(e) => setSelectedSections(e.target.value)}
-                value={selectedSections}
-              >
-                <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
-
-                {sections.map((item: any) => {
-                  return (
-                    <option key={item?.id} value={item?.id}>
-                      {item?.name}
-                    </option>
-                  )
-                })}
-              </select>
-            </div>
-          ) : (
-            <></>
-          )} */}
-
-          {/* end::Input group */}
-          {/* begin::Input group */}
-          {/* {selectedSections ? (
-            <div className='mb-10'>
-              <label className='form-label fs-6 fw-bold'>
-                {intl.formatMessage({id: 'FILTER.AUDIT.UNITS'})}
-              </label>
-              <select
-                className='form-select form-select-solid fw-bolder'
-                data-kt-select2='true'
-                data-placeholder='Select option'
-                data-allow-clear='true'
-                data-kt-item-table-filter='role'
-                data-hide-search='true'
-                onChange={(e) => setSelectedUnits(e.target.value)}
-                value={selectedUnits}
-              >
-                <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
-
-                {units.map((item: any) => {
-                  return (
-                    <option key={item?.id} value={item?.id}>
-                      {item?.name}
-                    </option>
-                  )
-                })}
-              </select>
-            </div>
-          ) : (
-            <></>
-          )} */}
-
+              {units.map((item: any) => {
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                )
+              })}
+            </select>
+          </div>
+        ) : (
+          <></>
+        )}
+        {/* begin::Content */}
+        <div
+          className='px-7 py-5'
+          data-kt-item-table-filter='form'
+          style={{overflowX: 'scroll', maxHeight: '400px'}}
+        >
           {/* end::Input group */}
 
           {/* begin::Actions */}
