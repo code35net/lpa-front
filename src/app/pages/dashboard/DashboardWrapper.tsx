@@ -10,17 +10,32 @@ import {
   ChartsWidget8,
 } from '../../../_metronic/partials/widgets'
 import {useAuth} from '../../modules/auth'
-
+import {useIntl} from 'react-intl'
 const Charts: FC = () => {
   const [reportsInfoPercentage, setReportsInfoPercentage] = useState()
   const {currentUser} = useAuth()
   console.log(currentUser)
   const fileUrl = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Admin.pdf'
   const fileUrl2 = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Auditor.pdf'
+
+  const intl = useIntl()
   return (
     <>
       {/* begin::Row */}
       <div className='row g-5 g-xl-8'>
+        {currentUser?.roleName == 'Key Account' ? (
+          <div>
+            <a href={fileUrl} target='_blank' rel='noopener noreferrer'>
+              {intl.formatMessage({id: 'Doc'})}
+            </a>
+          </div>
+        ) : (
+          <div>
+            <a href={fileUrl2} target='_blank' rel='noopener noreferrer'>
+              {intl.formatMessage({id: 'Doc'})}
+            </a>
+          </div>
+        )}
         <div className='col-xl-12'>
           <ChartsWidget1
             reportsInfo={reportsInfoPercentage}
@@ -28,19 +43,6 @@ const Charts: FC = () => {
             className='card-xl-stretch mb-xl-8'
           />
         </div>
-        {currentUser?.roleName == 'Key Account' ? (
-          <div>
-            <a href={fileUrl} target='_blank' rel='noopener noreferrer'>
-              Dökümanı açmak için tıklayın
-            </a>
-          </div>
-        ) : (
-          <div>
-            <a href={fileUrl2} target='_blank' rel='noopener noreferrer'>
-              Dökümanı açmak için tıklayın
-            </a>
-          </div>
-        )}
       </div>
       {/* end::Row */}
 

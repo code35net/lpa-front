@@ -333,7 +333,7 @@ const AuditQuestionsForm = () => {
                       <div className='fv-row mb-3'>
                         {/* begin::Label */}
                         <label className='required fw-bold fs-6 mb-2 mt-4'>
-                          {intl.formatMessage({id: 'AUDITS.AUDITQUEDTIONS.DATE'})}
+                          {intl.formatMessage({id: 'LASTDATE'})}
                         </label>
                         {/* end::Label */}
 
