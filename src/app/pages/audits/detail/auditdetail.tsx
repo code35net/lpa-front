@@ -74,7 +74,11 @@ const AuditDetails = () => {
 
   console.log(response?.data[0]?.status)
 
-  const percentage2 = (response?.data[0]?.trueCount * 100) / qtotal
+  // const percentage2 = (response?.data[0]?.trueCount * 100) / qtotal
+
+  const percentage2 =
+    (response?.data[0]?.trueCount * 100) /
+    (response?.data[0]?.needActionCount + response?.data[0]?.trueCount)
 
   return (
     <>
