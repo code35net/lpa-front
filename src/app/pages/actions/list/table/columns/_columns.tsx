@@ -9,6 +9,7 @@ import {DoneCell} from './DoneCell'
 import {UserCell} from './UserCell'
 import {StatusCell} from './StatusCell'
 import {ImgCell} from './ImgCell'
+import {ImgCell2} from './ImgCell2'
 import {useIntl} from 'react-intl'
 import {LinkCell} from './LinkCell'
 import {LateCell} from './LateCell'
@@ -118,6 +119,17 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Cell: ({...props}) => <ImgCell item={props.data[props.row.index].filePath} />,
   },
 
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'ACTION.LIST.COL.FILE'})}
+        className='min-w-125px'
+      />
+    ),
+    id: 'file',
+    Cell: ({...props}) => <ImgCell2 item={props.data[props.row.index].file} />,
+  },
   {
     Header: (props) => (
       <CustomHeader
