@@ -246,7 +246,7 @@
 
   "ANSWERTEMPLATES.LIST.NAME": "Cevap Şablonları",
   "ANSWERTEMPLATES.LIST.ADD": "Cevap Şablonu Ekle",
-  "ANSWERTEMPLATES.LIST.OPTIONS": "Answer Template Options",
+  "ANSWERTEMPLATES.LIST.OPTIONS": "Cevap Şablonu Seçeneği",
   "TABLE.SEARCH.PLACEHOLDER": "Ara",
 
   "USER.TABLE.COLUMNS.NAME": "İsİm",
@@ -466,6 +466,8 @@
   "Open": "Açık",
   "Close": "Kapalı",
   "Doc": "Kullanma Klavuzu İçin Tıklayınız",
+
+  "ACTION.LIST.FILE": "Denetim Dosyası",
 
   "boş": "boş"
 }
