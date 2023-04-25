@@ -29,7 +29,7 @@ const ImgCell2: FC<Props> = ({item}) => {
           <>
             <img
               src={imageSrc}
-              width={200}
+              width={150}
               alt='Görsel'
               style={{cursor: 'pointer'}}
               onClick={openModal}
