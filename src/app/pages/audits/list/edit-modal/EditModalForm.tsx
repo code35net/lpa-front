@@ -7,7 +7,7 @@ import {Model} from '../core/_models'
 import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
-import {updateAudit, listUnits} from '../core/_requests'
+import {updateAudit2, listUnits} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import moment from 'moment'
 import {listUsers} from '../../../user-management/list/core/_requests'
@@ -58,9 +58,10 @@ const EditModalForm: FC<Props> = ({item}) => {
     // validationSchema: editchema,
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
+      console.log(values)
       try {
         if (isNotEmpty(values.id)) {
-          await updateAudit(values)
+          await updateAudit2(values.auditor, values.id)
         }
       } catch (ex) {
         console.error(ex)

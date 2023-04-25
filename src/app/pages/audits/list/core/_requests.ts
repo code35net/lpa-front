@@ -12,6 +12,7 @@ const AUDIT_QUESTIONS_URL = `${API_URL}/Custom/getAuditQuestions`
 const FINISH_AUDIT = `${API_URL}/Custom/finishAudit`
 const UNITS_URL = `${API_URL}/Custom/listUnits`
 const DELETE_ALL = `${API_URL}/Custom/deleteAllAudit`
+const UPDATE_AUDIT = `${API_URL}/Custom/updateAudit`
 
 const listUnits = async (SectionId: any): Promise<any> =>
   await axios.get(`${UNITS_URL}?SectionId=${SectionId}`).then((res: AxiosResponse) => {
@@ -117,6 +118,16 @@ const updateAudit = (audit: Model): Promise<Model | undefined> => {
     .then((response: Response<Model>) => response.data)
 }
 
+const updateAudit2 = (auditorId: any, id: any): Promise<Model | undefined> => {
+  let auditorId2 = {
+    auditorId,
+  }
+  return axios
+    .post(`${UPDATE_AUDIT}?id=${id}`, auditorId2)
+    .then((response: AxiosResponse<Response<Model>>) => response.data)
+    .then((response: Response<Model>) => response.data)
+}
+
 const deleteAudit = (auditId: ID): Promise<void> => {
   return axios.delete(`${AUDIT_URL}/${auditId}`).then(() => {})
 }
@@ -143,4 +154,5 @@ export {
   finishAudit,
   listUnits,
   deleteAllAudit,
+  updateAudit2,
 }
