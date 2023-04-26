@@ -53,6 +53,28 @@ const Columns: ReadonlyArray<Column<Model>> = [
     id: 'fullName',
     Cell: ({...props}) => <UserCell item={props.data[props.row.index]} />,
   },
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
+        className='min-w-125px'
+      />
+    ),
+    id: 'auditorName',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].auditorName} />,
+  },
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'AUDITS.LIST.AUDITNAME'})}
+        className='min-w-175px'
+      />
+    ),
+    id: 'auditName',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].auditName} />,
+  },
 
   {
     Header: (props) => (
