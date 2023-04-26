@@ -23,19 +23,6 @@ const Charts: FC = () => {
     <>
       {/* begin::Row */}
       <div className='row g-5 g-xl-8'>
-        {currentUser?.roleName == 'Key Account' ? (
-          <div>
-            <a href={fileUrl} target='_blank' rel='noopener noreferrer'>
-              {intl.formatMessage({id: 'Doc'})}
-            </a>
-          </div>
-        ) : (
-          <div>
-            <a href={fileUrl2} target='_blank' rel='noopener noreferrer'>
-              {intl.formatMessage({id: 'Doc'})}
-            </a>
-          </div>
-        )}
         <div className='col-xl-12'>
           <ChartsWidget1
             reportsInfo={reportsInfoPercentage}

@@ -4,13 +4,18 @@ import {useAuth} from '../../../../app/modules/auth'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import {UserMenu} from '../user-menu/UserMenu'
 import {Link} from 'react-router-dom'
+import {useIntl} from 'react-intl'
 
 const AsideUserMenu: FC = () => {
   const {currentUser} = useAuth()
 
+  console.log(currentUser)
+  const fileUrl = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Admin.pdf'
+  const fileUrl2 = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Auditor.pdf'
+  const intl = useIntl()
   return (
-    <>
-      <div className='d-flex flex-stack'>
+    <div className='d-flex flex-col' style={{width: '100%', flexDirection: 'column'}}>
+      <div className='d-flex flex-stack' style={{width: '100%'}}>
         {/* begin::Wrapper */}
         <div className='d-flex align-items-center'>
           {/* begin::Avatar */}
@@ -32,8 +37,10 @@ const AsideUserMenu: FC = () => {
             </a> */}
             <span className='text-muted fw-bold d-block fs-7 lh-1'> {currentUser?.email}</span>
           </div>
+
           {/* end::User info */}
         </div>
+
         {/* end::Wrapper */}
 
         {/* begin::User menu */}
@@ -48,9 +55,23 @@ const AsideUserMenu: FC = () => {
           </div>
           <UserMenu />
         </div>
+
         {/* end::User menu */}
       </div>
-    </>
+      {currentUser?.roleName == 'Key Account' ? (
+        <div style={{marginTop: '5px', marginLeft: '6px'}}>
+          <a href={fileUrl} target='_blank' rel='noopener noreferrer' className='fs-8'>
+            {intl.formatMessage({id: 'Doc'})}
+          </a>
+        </div>
+      ) : (
+        <div style={{marginTop: '5px', marginLeft: '6px'}}>
+          <a href={fileUrl2} target='_blank' rel='noopener noreferrer' className='fs-8'>
+            {intl.formatMessage({id: 'Doc'})}
+          </a>
+        </div>
+      )}
+    </div>
   )
 }
 
