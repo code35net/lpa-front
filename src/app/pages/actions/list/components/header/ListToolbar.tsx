@@ -94,14 +94,14 @@ const ListToolbar = () => {
         {intl.formatMessage({id: 'TOOLBAR.EXPORT'})}
       </button>
 
-      <button
+      {/* <button
         type='button'
         className='btn btn-sm btn-primary btn-active-light-primary '
         onClick={openAddModal}
       >
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         {intl.formatMessage({id: 'ADD'})}
-      </button>
+      </button> */}
     </div>
   )
 }
