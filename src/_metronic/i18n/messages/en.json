@@ -463,7 +463,7 @@
   "Open": "Open",
   "Close": "Close",
   "Doc": "Click to open the document",
-  "ACTION.LIST.FILE": "Audit File",
+  "ACTION.LIST.COL.FILE": "Audit File",
 
   "TOOLBAR.EXPORT": "Export Excell",
 
