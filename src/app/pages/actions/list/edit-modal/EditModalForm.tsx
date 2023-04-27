@@ -14,6 +14,7 @@ import {updateAction} from '../core/_requests'
 import {format} from 'date-fns'
 import {FileUploader} from 'react-drag-drop-files'
 import {getActions} from '../core/_requests'
+import {useAuth} from '../../../../modules/auth'
 
 const fileTypes = ['jpg', 'png']
 
@@ -31,6 +32,8 @@ const EditModalForm: FC<Props> = ({item}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
+
+  const {currentUser} = useAuth()
 
   useEffect(() => {}, [])
 
@@ -80,7 +83,7 @@ const EditModalForm: FC<Props> = ({item}) => {
       //console.log("girior " )
       setSubmitting(true)
       console.log(formik.values.status)
-      console.log(formik.values.endDate)
+      console.log(formik.values.text)
 
       values.file = file
       try {
@@ -88,7 +91,7 @@ const EditModalForm: FC<Props> = ({item}) => {
           //values.lastDate = format(new Date(), 'yyyy-MM-dd H:mm:ss').replace(' ', 'T')
           values.status = parseInt(values.status?.toString() || '0')
 
-          if (formik.values.status == 2 && formik.values.endDate == null) {
+          if (formik.values.status == 2) {
             const currentDate = new Date()
             const formattedDate = `${currentDate.getFullYear()}-${(
               '0' +
@@ -96,10 +99,9 @@ const EditModalForm: FC<Props> = ({item}) => {
             ).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)}`
 
             values.endDate = formattedDate
+          } else if (formik.values.status != 2) {
+            values.endDate = '0001-01-01'
           }
-          //  else if (formik.values.status != 2) {
-          // burada   values.endDate = null olmalı
-          // }
           await updateAction(values)
         }
       } catch (ex) {
@@ -110,7 +112,9 @@ const EditModalForm: FC<Props> = ({item}) => {
       }
     },
   })
-
+  console.log(filterData)
+  console.log(currentUser)
+  console.log(formik.values.endDate)
   return (
     <>
       <form id='kt_modal_add_item_form' className='form' onSubmit={formik.handleSubmit} noValidate>
@@ -188,21 +192,21 @@ const EditModalForm: FC<Props> = ({item}) => {
               name='text'
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
-                {'is-invalid': formik.touched.text ? formik.errors.text : null},
+                {'is-invalid': formik.touched.text && formik.errors.text},
                 {
-                  'is-valid': formik.touched.text ? !formik.errors.text : null,
+                  'is-valid': formik.touched.text && !formik.errors.text,
                 }
               )}
               autoComplete='off'
               disabled={formik.isSubmitting || formik.values.status == 2}
             />
-            {formik.touched.text && formik.errors.text ? (
+            {formik.touched.text && formik.errors.text && (
               <div className='fv-plugins-message-container'>
                 <div className='fv-help-block'>
                   <span role='alert'>{formik.errors.text}</span>
                 </div>
               </div>
-            ) : null}
+            )}
           </div>
 
           <div className='fv-row mb-7'>
@@ -222,10 +226,26 @@ const EditModalForm: FC<Props> = ({item}) => {
               //   SetEndDate2(e.target.value)
               // }}
             >
-              <option value=''>{intl.formatMessage({id: 'SELECT'})}</option>
-              <option value='0'>{intl.formatMessage({id: 'Open'})}</option>
-              {/* <option value='1'>{intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}</option> */}
-              <option value='2'>{intl.formatMessage({id: 'Close'})}</option>
+              <option value=''>{intl.formatMessage({id: 'DROPDOWN_SELECT'})}</option>
+              {currentUser?.id == filterData?.assignedUserId ||
+              currentUser?.roleName == 'Key Account' ? (
+                <option value='1'>{intl.formatMessage({id: 'InProgress'})}</option>
+              ) : (
+                <></>
+              )}
+              {currentUser?.id == filterData?.auditorId ||
+              currentUser?.roleName == 'Key Account' ? (
+                <>
+                  <option value='0'>
+                    {currentUser?.roleName == 'Key Account'
+                      ? intl.formatMessage({id: 'Open'})
+                      : intl.formatMessage({id: 'Modal.Open'})}
+                  </option>
+                  <option value='2'>{intl.formatMessage({id: 'Close'})}</option>
+                </>
+              ) : (
+                <></>
+              )}
             </select>
             {/* end::Input */}
           </div>

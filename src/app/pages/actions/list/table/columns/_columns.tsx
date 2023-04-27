@@ -13,7 +13,8 @@ import {ImgCell2} from './ImgCell2'
 import {useIntl} from 'react-intl'
 import {LinkCell} from './LinkCell'
 import {LateCell} from './LateCell'
-
+import {CloseDateCell} from './closeDate'
+import {AnswerCell} from './AnswerCell'
 const Columns: ReadonlyArray<Column<Model>> = [
   {
     Header: (props) => <SelectionHeader tableProps={props} />,
@@ -85,7 +86,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       />
     ),
     id: 'text',
-    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].text} />,
+    Cell: ({...props}) => <AnswerCell item={props.data[props.row.index].text} />,
   },
 
   {
@@ -115,7 +116,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       />
     ),
     id: 'CloseDate',
-    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].endDate} />,
+    Cell: ({...props}) => <CloseDateCell item={props.data[props.row.index].endDate} />,
   },
 
   {
@@ -161,7 +162,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       />
     ),
     id: 'actions',
-    Cell: ({...props}) => <ActionsCell id={props.data[props.row.index].id} />,
+    Cell: ({...props}) => <ActionsCell item={props.data[props.row.index]} />,
   },
 ]
 

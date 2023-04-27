@@ -6,50 +6,60 @@ import {ID, KTSVG, QUERIES} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {deleteAction} from '../../core/_requests'
+import {useAuth} from '../../../../../modules/auth'
 
 type Props = {
-  id: ID
+  item: any
 }
 
-const ActionsCell: FC<Props> = ({id}) => {
+const ActionsCell: FC<Props> = ({item}) => {
   const {setItemIdForUpdate} = useListView()
   const {query} = useQueryResponse()
   const queryClient = useQueryClient()
+
+  const {currentUser} = useAuth()
 
   useEffect(() => {
     MenuComponent.reinitialization()
   }, [])
 
   const openEditModal = () => {
-    setItemIdForUpdate(id)
+    setItemIdForUpdate(item.id)
   }
 
-  const deleteItem = useMutation(() => deleteAction(id), {
+  const deleteItem = useMutation(() => deleteAction(item.id), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: () => {
       // ✅ update detail view directly
       queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
     },
   })
+  console.log(currentUser)
+  console.log(item)
 
   return (
     <>
       <div className='d-flex justify-content-end flex-shrink-0'>
-        <a
-          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-          onClick={openEditModal}
-        >
-          <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
-        </a>
-
-        <a
-          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
-          hidden
-          data-kt-users-table-filter='delete_row'
-          onClick={async () => await deleteItem.mutateAsync()}
-        >
-          <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
-        </a>
+        {currentUser?.id == item?.assignedUserId && item?.status == 1 ? (
+          <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'>
+            <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+          </a>
+        ) : (
+          <>
+            {currentUser?.id == item?.auditorId && item?.status == 0 ? (
+              <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'>
+                <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+              </a>
+            ) : (
+              <a
+                className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                onClick={openEditModal}
+              >
+                <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+              </a>
+            )}
+          </>
+        )}
       </div>
     </>
   )

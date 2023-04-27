@@ -466,6 +466,8 @@
   "ACTION.LIST.COL.FILE": "Audit File",
 
   "TOOLBAR.EXPORT": "Export Excell",
+  "InProgress": "In Progress",
+  "Modal.Open": "Not Approved",
 
   "boş": "boş"
 }

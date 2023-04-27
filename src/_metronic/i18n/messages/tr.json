@@ -470,6 +470,9 @@
   "ACTION.LIST.COL.FILE": "Denetim Dosyası",
 
   "TOOLBAR.EXPORT": "Excell İndir",
+  "InProgress": "Onay Bekliyor",
+
+  "Modal.Open": "Reddedildi",
 
   "boş": "boş"
 }

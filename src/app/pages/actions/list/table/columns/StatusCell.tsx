@@ -18,7 +18,7 @@ const StatusCell: FC<Props> = ({item}) => {
     if (item.status == 0) {
       setValue(`${intl.formatMessage({id: 'Open'})}`)
     } else if (item.status == 1) {
-      setValue(`${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`)
+      setValue(`${intl.formatMessage({id: 'InProgress'})}`)
     } else if (item.status == 2) {
       setValue(`${intl.formatMessage({id: 'Close'})}`)
     } else if (item.status == 3) {

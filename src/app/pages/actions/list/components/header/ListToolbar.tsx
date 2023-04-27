@@ -31,7 +31,7 @@ const ListToolbar = () => {
         if (item.status == 0) {
           status = `${intl.formatMessage({id: 'Open'})}`
         } else if (item.status == 1) {
-          status = `${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`
+          status = `${intl.formatMessage({id: 'InProgress'})}`
         } else if (item.status == 2) {
           status = `${intl.formatMessage({id: 'Close'})}`
         } else if (item.status == 3) {

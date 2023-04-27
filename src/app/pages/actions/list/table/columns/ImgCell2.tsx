@@ -22,10 +22,13 @@ const ImgCell2: FC<Props> = ({item}) => {
     setImageSrc(`data:image/jpeg;base64,${item}`)
   }, [item])
 
+  console.log(item)
+  console.log(imageSrc)
+
   return (
     <div className='d-flex align-items-center'>
       <div className='d-flex flex-column'>
-        {imageSrc ? (
+        {imageSrc && item != null ? (
           <>
             <img
               src={imageSrc}
@@ -59,7 +62,7 @@ const ImgCell2: FC<Props> = ({item}) => {
             )}
           </>
         ) : (
-          <p>Görsel yükleniyor...</p>
+          <p>-</p>
         )}
       </div>
     </div>
