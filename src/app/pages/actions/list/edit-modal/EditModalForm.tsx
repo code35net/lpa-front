@@ -48,6 +48,7 @@ const EditModalForm: FC<Props> = ({item}) => {
     answerId: undefined,
     endDate: undefined,
     auditDate: undefined,
+    definition: undefined,
     //auditor: undefined,
     //unitId: undefined,
     ...item,
@@ -221,7 +222,7 @@ const EditModalForm: FC<Props> = ({item}) => {
               className='form-select form-select-solid form-select-md'
               {...formik.getFieldProps('status')}
               value={formik.values.status}
-              disabled={formik.values.status == 2}
+
               // onChange={(e) => {
               //   SetEndDate2(e.target.value)
               // }}
@@ -250,6 +251,35 @@ const EditModalForm: FC<Props> = ({item}) => {
             {/* end::Input */}
           </div>
         </div>
+        {currentUser?.id == filterData?.auditorId && formik.values.status == 0 ? (
+          <div className='fv-row mb-7'>
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'Definition'})}
+            </label>
+            <textarea
+              {...formik.getFieldProps('definition')}
+              name='definition'
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                {'is-invalid': formik.touched.definition && formik.errors.definition},
+                {
+                  'is-valid': formik.touched.definition && !formik.errors.definition,
+                }
+              )}
+              autoComplete='off'
+            ></textarea>
+
+            {formik.touched.definition && formik.errors.definition && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.definition}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
 
         <div className='fv-row mb-7'>
           {/* begin::Label */}
@@ -287,6 +317,7 @@ const EditModalForm: FC<Props> = ({item}) => {
           )}
           {/* end::Input */}
         </div>
+
         {formik.values.endDate != null ? (
           <div className='fv-row mb-7'>
             {/* begin::Label */}

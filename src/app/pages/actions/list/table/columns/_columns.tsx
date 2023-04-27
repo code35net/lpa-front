@@ -37,7 +37,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       <CustomHeader
         tableProps={props}
         title={useIntl().formatMessage({id: 'LASTDATE'})}
-        className='min-w-125px'
+        className='min-w-175px'
       />
     ),
     id: 'done',
@@ -48,7 +48,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       <CustomHeader
         tableProps={props}
         title={useIntl().formatMessage({id: 'ACTION.LIST.COL.STAFF'})}
-        className='min-w-125px'
+        className='min-w-175px'
       />
     ),
     id: 'fullName',
@@ -59,7 +59,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       <CustomHeader
         tableProps={props}
         title={useIntl().formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
-        className='min-w-125px'
+        className='min-w-175px'
       />
     ),
     id: 'auditorName',
@@ -94,11 +94,23 @@ const Columns: ReadonlyArray<Column<Model>> = [
       <CustomHeader
         tableProps={props}
         title={useIntl().formatMessage({id: 'ACTION.LIST.COL.STATUS'})}
-        className='min-w-125px'
+        className='min-w-175px'
       />
     ),
     id: 'status',
     Cell: ({...props}) => <StatusCell item={props.data[props.row.index]} />,
+  },
+
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'ACTION.LIST.COL.Definition'})}
+        className='min-w-175px'
+      />
+    ),
+    id: 'definition',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].definition} />,
   },
 
   // {
@@ -112,7 +124,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       <CustomHeader
         tableProps={props}
         title={useIntl().formatMessage({id: 'CloseDate'})}
-        className='min-w-125px'
+        className='min-w-175px'
       />
     ),
     id: 'CloseDate',
@@ -124,7 +136,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       <CustomHeader
         tableProps={props}
         title={useIntl().formatMessage({id: 'IsLate'})}
-        className='min-w-125px'
+        className='min-w-175px'
       />
     ),
     id: 'IsLate',
@@ -135,7 +147,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       <CustomHeader
         tableProps={props}
         title={useIntl().formatMessage({id: 'ACTION.LIST.COL.PATH'})}
-        className='min-w-125px'
+        className='min-w-175px'
       />
     ),
     id: 'filePath',
@@ -147,7 +159,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       <CustomHeader
         tableProps={props}
         title={useIntl().formatMessage({id: 'ACTION.LIST.COL.FILE'})}
-        className='min-w-125px'
+        className='min-w-175px'
       />
     ),
     id: 'file',

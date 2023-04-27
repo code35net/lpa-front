@@ -14,7 +14,9 @@ const CloseDateCell: FC<Props> = ({item}) => {
   return (
     <div className='d-flex align-items-center'>
       <div className='d-flex flex-column'>
-        <span className='text-gray-800 text-hover-primary'>{item == '1.01.0001' ? '' : item}</span>
+        <span className='text-gray-800 text-hover-primary'>
+          {item == '1.01.0001' || !item ? '-' : item}
+        </span>
       </div>
     </div>
   )

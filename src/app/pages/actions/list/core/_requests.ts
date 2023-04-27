@@ -68,6 +68,7 @@ const updateAction = (thing: any): Promise<Model | undefined> => {
   formData.append('status', thing.status)
   formData.append('lastDate', thing.lastDate)
   formData.append('endDate', thing.endDate)
+  formData.append('definition', thing.definition)
 
   if (thing.finding != undefined) {
     formData.append('finding', (thing as any)?.finding)

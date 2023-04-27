@@ -22,5 +22,6 @@ export type Model = {
   endDate?: any
   auditorName?: string
   unitId?: number
+  definition?: string
 }
 export type QueryResponse = Response<Array<Model>>
