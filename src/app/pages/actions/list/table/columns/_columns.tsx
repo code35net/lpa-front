@@ -15,6 +15,8 @@ import {LinkCell} from './LinkCell'
 import {LateCell} from './LateCell'
 import {CloseDateCell} from './closeDate'
 import {AnswerCell} from './AnswerCell'
+import {DefCell} from './DefCell'
+
 const Columns: ReadonlyArray<Column<Model>> = [
   {
     Header: (props) => <SelectionHeader tableProps={props} />,
@@ -110,7 +112,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
       />
     ),
     id: 'definition',
-    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].definition} />,
+    Cell: ({...props}) => <DefCell item={props.data[props.row.index]} />,
   },
 
   // {

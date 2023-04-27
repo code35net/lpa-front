@@ -254,7 +254,7 @@ const EditModalForm: FC<Props> = ({item}) => {
         {currentUser?.id == filterData?.auditorId && formik.values.status == 0 ? (
           <div className='fv-row mb-7'>
             <label className='required fw-bold fs-6 mb-2'>
-              {intl.formatMessage({id: 'Definition'})}
+              {intl.formatMessage({id: 'ACTION.LIST.COL.Definition'})}
             </label>
             <textarea
               {...formik.getFieldProps('definition')}
@@ -318,7 +318,7 @@ const EditModalForm: FC<Props> = ({item}) => {
           {/* end::Input */}
         </div>
 
-        {formik.values.endDate != null ? (
+        {formik.values.endDate != null && formik.values.endDate != '0001-01-01T00:00:00' ? (
           <div className='fv-row mb-7'>
             {/* begin::Label */}
             <label className='required fw-bold fs-6 mb-2'>

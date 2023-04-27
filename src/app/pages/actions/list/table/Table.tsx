@@ -46,7 +46,7 @@ const Table = () => {
               <tr>
                 <td colSpan={7}>
                   <div className='d-flex text-center w-100 align-content-center justify-content-center'>
-                  {intl.formatMessage({id: 'TABLE.NORECORD'})}
+                    {intl.formatMessage({id: 'TABLE.NORECORD'})}
                   </div>
                 </td>
               </tr>
