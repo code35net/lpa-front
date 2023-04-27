@@ -33,7 +33,6 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
     })
   }, [])
 
-  console.log(item, 'test')
   const [placeForEdit] = useState<Model>({
     // fullName: undefined,
     // identity: undefined,

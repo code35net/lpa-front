@@ -1,17 +1,17 @@
 import clsx from 'clsx'
-import {FC } from 'react'
+import {FC} from 'react'
 import {Link} from 'react-router-dom'
 import {useLayout} from '../../../core/LayoutProvider'
 import {usePageData} from '../../../core/PageData'
-import { useQueryRequest } from '../../../../../app/pages/units/list/core/QueryRequestProvider'
-import { useQueryResponse } from '../../../../../app/pages/units/list/core/QueryResponseProvider'
+import {useQueryRequest} from '../../../../../app/pages/units/list/core/QueryRequestProvider'
+import {useQueryResponse} from '../../../../../app/pages/units/list/core/QueryResponseProvider'
 import React from 'react'
 
 const DefaultTitle: FC = () => {
   const {pageTitle, pageDescription, pageBreadcrumbs} = usePageData()
-  
-  const { updateState } = useQueryRequest()
-  const { refetch } = useQueryResponse()
+
+  const {updateState} = useQueryRequest()
+  const {refetch} = useQueryResponse()
   const {config} = useLayout()
 
   return (
@@ -37,50 +37,48 @@ const DefaultTitle: FC = () => {
         config.pageTitle &&
         config.pageTitle.breadCrumbs && (
           <ul className='breadcrumb breadcrumb-dot fw-bold fs-base my-1'>
-            {            
-            Array.from(pageBreadcrumbs)
+            {Array.from(pageBreadcrumbs)
               .filter((b) => !b.isSeparator)
               .map((item, index) => {
-                return item.id != undefined ?
-                (
-                <li
-                  className={clsx('breadcrumb-item', {
-                    'text-dark': !item.isSeparator && item.isActive,
-                    'text-muted': !item.isSeparator && !item.isActive,
-                  })}
-                  key={`${item.path}${index}`}
-                >
-                  <a className="link" style={{cursor: "pointer"}} onClick={() => {
-                    console.log(item.id)
-                     updateState({id: item.id})
-                     refetch()
-                     //window.location.reload();
-                  }} >
-                    {item.title}
-                  </a>
-                </li>
-              ) : 
-              (
-                <li
-                  className={clsx('breadcrumb-item', {
-                    'text-dark': !item.isSeparator && item.isActive,
-                    'text-muted': !item.isSeparator && !item.isActive,
-                  })}
-                  key={`${item.path}${index}`}
-                >
-                  <Link className='text-muted' to={ item.path }>
-                    {item.title}
-                  </Link>
-                </li>
-              )
-              }
-              )            
-              }
+                return item.id != undefined ? (
+                  <li
+                    className={clsx('breadcrumb-item', {
+                      'text-dark': !item.isSeparator && item.isActive,
+                      'text-muted': !item.isSeparator && !item.isActive,
+                    })}
+                    key={`${item.path}${index}`}
+                  >
+                    <a
+                      className='link'
+                      style={{cursor: 'pointer'}}
+                      onClick={() => {
+                        updateState({id: item.id})
+                        refetch()
+                        //window.location.reload();
+                      }}
+                    >
+                      {item.title}
+                    </a>
+                  </li>
+                ) : (
+                  <li
+                    className={clsx('breadcrumb-item', {
+                      'text-dark': !item.isSeparator && item.isActive,
+                      'text-muted': !item.isSeparator && !item.isActive,
+                    })}
+                    key={`${item.path}${index}`}
+                  >
+                    <Link className='text-muted' to={item.path}>
+                      {item.title}
+                    </Link>
+                  </li>
+                )
+              })}
             <li className='breadcrumb-item text-dark'>{pageTitle}</li>
           </ul>
         )}
     </div>
-  ) 
+  )
   // : (
   //   <div
   //     data-kt-swapper='true'

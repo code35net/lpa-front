@@ -58,7 +58,7 @@ const EditModalForm: FC<Props> = ({item}) => {
     // validationSchema: editchema,
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
-      console.log(values)
+
       try {
         if (isNotEmpty(values.id)) {
           await updateAudit2(values.auditor, values.id)

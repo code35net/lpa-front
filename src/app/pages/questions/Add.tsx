@@ -192,10 +192,8 @@ const EditForm: FC<Props> = ({item}) => {
   // }
 
   const handleAuditCategoryId = async (event: any) => {
-    console.log(event.target.value)
     formik.setFieldValue('auditCategoryId', event.target.value)
     listUnits(event.target.value, 0).then((res3) => {
-      console.log(res3.data)
       if (res3.data[0].parentUnitId == null) {
         setSelectoption('select')
         setUnits(res3.data)
@@ -250,8 +248,7 @@ const EditForm: FC<Props> = ({item}) => {
       setQuestions([...questions])
     }
   }
-  console.log(selectoption)
-  console.log(parentUnits)
+
   return (
     <div className='card mb-5 mb-xl-10'>
       <div

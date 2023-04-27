@@ -22,9 +22,6 @@ const ImgCell2: FC<Props> = ({item}) => {
     setImageSrc(`data:image/jpeg;base64,${item}`)
   }, [item])
 
-  console.log(item)
-  console.log(imageSrc)
-
   return (
     <div className='d-flex align-items-center'>
       <div className='d-flex flex-column'>

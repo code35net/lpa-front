@@ -185,7 +185,7 @@ const EditAuditForm2: FC<Props> = ({item}) => {
   }
   const hadleFindOperator = async (event: any) => {
     // formik.setFieldValue('auditCategoryId', event.target.value),
-    console.log(event.target.value)
+
     setUnitValue(event.target.value)
     if (event.target.value != '') {
       listOtherThings(parseInt(event.target.value)).then((response) => {
@@ -193,7 +193,7 @@ const EditAuditForm2: FC<Props> = ({item}) => {
       })
     }
   }
-  console.log(operators)
+
   return (
     <div className='card mb-5 mb-xl-10'>
       <div

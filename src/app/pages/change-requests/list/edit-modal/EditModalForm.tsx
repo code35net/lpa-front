@@ -12,13 +12,11 @@ import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
 import {listThings as listParentUnits} from '../../../units/list/core/_requests'
 import {Model as AuditCategory} from '../../../audit-categories/list/core/_models'
-import { useQueryRequest } from '../core/QueryRequestProvider'
+import {useQueryRequest} from '../core/QueryRequestProvider'
 import {listUsers as listUsers} from '../../../user-management/list/core/_requests'
 import {listThings as listUnits} from '../../../units/list/core/_requests'
-import {getAuditById } from '../../../audits/list/core/_requests'
+import {getAuditById} from '../../../audits/list/core/_requests'
 import {listSomeThings as listPartialUnits} from '../../../units/list/core/_requests'
-
-
 
 type Props = {
   isThingLoading: boolean
@@ -35,24 +33,21 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
-  const { state } = useQueryRequest()
+  const {state} = useQueryRequest()
 
   const [auditCategory, setAuditCategory] = React.useState<Array<AuditCategory>>([])
   const [parentUnitId, setParentUnitId] = React.useState([])
   const [userId, setUserId] = React.useState([])
   const [unitId, setUnitId] = React.useState([])
 
-  const [placeForEdit] = useState<Model>({    
+  const [placeForEdit] = useState<Model>({
     text: undefined,
     auditId: undefined,
-    unitId:undefined,
-    isAccepted:undefined,
-    
-    ...item,
-    
-  })
+    unitId: undefined,
+    isAccepted: undefined,
 
-  console.log(state)
+    ...item,
+  })
 
   const cancel = (withRefresh?: boolean) => {
     if (withRefresh) {
@@ -78,14 +73,12 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       setUnitId(res2.data || [])
     })
 
-    getAuditById(formik.values.auditId).then((res: any) =>{
+    getAuditById(formik.values.auditId).then((res: any) => {
       //setAuditCategoryId(res?.auditCategoryId)
       listPartialUnits(res.auditCategoryId, 0).then((res2) => {
         setUnitId(res2.data || [])
       })
     })
-    
-    
   }, [])
 
   const formik = useFormik({
@@ -94,31 +87,31 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
       // console.log(values.auditCategoryId)
-    //   if(!values.categoryType){
-    //     values.categoryType = 0
-    //   }
-    //   values.categoryType=parseInt(values.categoryType.toString())
-       
-    //   if(!values.unitType){
-    //     values.unitType = 0
-    //   }
-    //   values.unitType=parseInt(values.unitType.toString())
+      //   if(!values.categoryType){
+      //     values.categoryType = 0
+      //   }
+      //   values.categoryType=parseInt(values.categoryType.toString())
 
-    //     let pids = ''
-    //     const x = [values.auditCategoryId]
-       
-    //    x?.map((r) => {
-          
-    //       pids = pids + r?.toString() + ','
-    //     })
-    //     // console.log(pids)
-    //     pids = pids.slice(0,-1)
-    //   values.auditCategoryId= pids
-    //   // console.log(values.auditCategoryId)
+      //   if(!values.unitType){
+      //     values.unitType = 0
+      //   }
+      //   values.unitType=parseInt(values.unitType.toString())
 
-    //   if (state.id != undefined) {
-    //     values.parentUnitId = parseInt(state.id)
-    // }
+      //     let pids = ''
+      //     const x = [values.auditCategoryId]
+
+      //    x?.map((r) => {
+
+      //       pids = pids + r?.toString() + ','
+      //     })
+      //     // console.log(pids)
+      //     pids = pids.slice(0,-1)
+      //   values.auditCategoryId= pids
+      //   // console.log(values.auditCategoryId)
+
+      //   if (state.id != undefined) {
+      //     values.parentUnitId = parseInt(state.id)
+      // }
       // if(auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.categoryType != 4)
       // {
       //   values.unitType = undefined
@@ -130,8 +123,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       //   }
       //   values.unitType=parseInt(values.unitType.toString())
       // }
-      
-      
+
       try {
         if (isNotEmpty(values.id)) {
           await updateThing(values)
@@ -147,12 +139,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     },
   })
 
-
-
-  const options =  { value: 'chocolate', label: 'Chocolate' }
-    
-   
-
+  const options = {value: 'chocolate', label: 'Chocolate'}
 
   return (
     <>
@@ -166,9 +153,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           data-kt-scroll-dependencies='#kt_modal_add_item_header'
           data-kt-scroll-wrappers='#kt_modal_add_item_scroll'
           data-kt-scroll-offset='300px'
-        >         
-        </div>
-
+        ></div>
 
         {/* <div className='fv-row mb-7'>
           <label className='required fw-bold fs-6 mb-2'>
@@ -199,29 +184,25 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           )}
         </div> */}
 
-
-
-         <div className='fv-row mb-7'>    
-                    <label  className='required fw-bold fs-6 mb-2'>
-            {           intl.formatMessage({id: 'AUDIT_CHANGE_UNIT'})}
-                    </label>     
-                <select
-                disabled
-              
-                  className='form-select form-multi form-select-solid form-select-md'
-                  
-                  {...formik.getFieldProps('unitId')}
-                  value={formik.values.unitId}
-                  // onChange={handleChangeDepartmentId}
-                >
-                  <option value=''>Seçiniz</option>
-                  {/* ?? */}
-                  {unitId.map((unit: any) => (
-                    <option value={unit?.id} key={unit?.id as any}>
-                      {unit?.name as any}
-                    </option>
-                  ))}
-                </select>
+        <div className='fv-row mb-7'>
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'AUDIT_CHANGE_UNIT'})}
+          </label>
+          <select
+            disabled
+            className='form-select form-multi form-select-solid form-select-md'
+            {...formik.getFieldProps('unitId')}
+            value={formik.values.unitId}
+            // onChange={handleChangeDepartmentId}
+          >
+            <option value=''>Seçiniz</option>
+            {/* ?? */}
+            {unitId.map((unit: any) => (
+              <option value={unit?.id} key={unit?.id as any}>
+                {unit?.name as any}
+              </option>
+            ))}
+          </select>
           {/* end::Input */}
         </div>
 
@@ -229,9 +210,9 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'AUDIT_CHANGE_TEXT'})}
           </label>
-          
+
           <input
-          disabled
+            disabled
             //placeholder='Full name'
             {...formik.getFieldProps('text')}
             type='text'
@@ -255,33 +236,31 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           )}
         </div>
 
-
         <div className='row mb-3'>
-              <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                {intl.formatMessage({id: 'AUDIT_CHANGE_ISACCEPTED'})}
+          <label className='col-lg-4 col-form-label fw-bold fs-6'>
+            {intl.formatMessage({id: 'AUDIT_CHANGE_ISACCEPTED'})}
+          </label>
+
+          <div className='col-lg-8 d-flex align-items-center'>
+            <div className='form-check form-check-solid form-switch fv-row'>
+              <input
+                {...formik.getFieldProps('isAccepted')}
+                checked={formik.values.isAccepted}
+                onChange={formik.handleChange}
+                value={String(formik.values.isAccepted)}
+                className='form-check-input w-45px h-30px'
+                type='checkbox'
+                id='allowmarketing'
+              />
+              <label className='form-check-label mt-1 px-5'>
+                {' '}
+                <small className='text-danger'>
+                  {intl.formatMessage({id: 'AUDITS.PLANNER.CLOSE.SELECT'})}
+                </small>{' '}
               </label>
-
-              <div className='col-lg-8 d-flex align-items-center'>
-                <div className='form-check form-check-solid form-switch fv-row'>
-                  <input
-                    {...formik.getFieldProps('isAccepted')}
-                    checked={formik.values.isAccepted}
-                    onChange={formik.handleChange}
-                    value={String(formik.values.isAccepted)}
-                    className='form-check-input w-45px h-30px'
-                    type='checkbox'
-                    id='allowmarketing'
-                  />
-                  <label className='form-check-label mt-1 px-5'> <small className='text-danger'>{intl.formatMessage({id: 'AUDITS.PLANNER.CLOSE.SELECT'})}</small> </label>
-                </div>
-              </div>
             </div>
-   
-
-    
-        
-        
-        
+          </div>
+        </div>
 
         {/* <div className='fv-row mb-7'>
           <label hidden={auditCategory.filter((a) => a.id==formik.values.auditCategoryId)[0]?.name != "LPA 1"} className='fw-bold fs-6 mb-2'>
@@ -322,9 +301,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             type='submit'
             className='btn btn-sm btn-dark btn-active-light-dark'
             data-kt-items-modal-action='submit'
-            disabled={
-              isThingLoading || formik.isSubmitting || !formik.isValid || !formik.touched
-            }
+            disabled={isThingLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
           >
             <span className='indicator-label'> {intl.formatMessage({id: 'FORM.SAVE'})}</span>
             {(formik.isSubmitting || isThingLoading) && (

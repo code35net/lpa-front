@@ -60,7 +60,7 @@ const Page = () => {
       window.removeEventListener('storage', storageEventHandler)
     }
   }, [])
-  console.log(breadcrumbs)
+
   return (
     <Routes>
       <Route element={<Outlet />}>

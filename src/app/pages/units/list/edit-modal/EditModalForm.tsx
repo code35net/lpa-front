@@ -56,8 +56,6 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     ...item,
   })
 
-  console.log(state)
-
   const cancel = (withRefresh?: boolean) => {
     if (withRefresh) {
       refetch()
@@ -68,10 +66,9 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     let filteredData = [...rawUsers]
 
     filteredData = filteredData.filter((item: any) => {
-      console.log(item.auditCategoryId)
       return selectedAuditCategories.includes(item.auditCategoryId.toString())
     })
-    console.log(filteredData)
+
     setUsers([...filteredData])
   }, [selectedAuditCategories])
   useEffect(() => {
@@ -88,7 +85,6 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     })*/
 
     listUsers().then((res7) => {
-      console.log(res7)
       //setUsers(res7.data || [])
       setRawUsers(res7.data || [])
     })
@@ -181,7 +177,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     {*/
     setSelectedAuditCategories(value)
     //}
-    console.log(selectedAuditCategories)
+
     /*let filteredData = [...rawUsers]
     console.log(value)
     

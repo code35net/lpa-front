@@ -100,7 +100,7 @@ const ListFilter = () => {
 
   const filterData = () => {
     let filter: any = {}
-    console.log(selectedUsers)
+
     if (selectedAuditCategories) {
       filter.auditCategoryId = selectedAuditCategories
     }
@@ -127,11 +127,8 @@ const ListFilter = () => {
   const handleStatus = async (name: any) => {
     setSelectedStatus(name)
   }
-  console.log(selectedStatus)
 
   const UserInfo = (item: any) => {
-    console.log(item.target.selectedOptions[0].label)
-    console.log(item.target.value)
     setSelectedUsers(item.target.value)
     setSelectedUsersName(item.target.selectedOptions[0].label)
   }

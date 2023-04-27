@@ -7,7 +7,7 @@ import {Model} from '../core/_models'
 import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
-import { updateQuestion} from '../core/_requests'
+import {updateQuestion} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
 import {listThings as listQuestionCategories} from '../../../question-groups/list/core/_requests'
@@ -20,9 +20,7 @@ type Props = {
 }
 
 const editchema = Yup.object().shape({
-  text: Yup.string()
-    .max(50, 'Maximum 50 symbols')
-    .required('Question required'),
+  text: Yup.string().max(50, 'Maximum 50 symbols').required('Question required'),
 })
 
 const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
@@ -39,8 +37,6 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   const [isQuestionCategory, setIsQuestionCategory] = React.useState(item.isAddedQuestionCategory)
 
   useEffect(() => {
-
-
     listAuditCategories().then((res2) => {
       setAuditCategories(res2.data || [])
     })
@@ -53,7 +49,6 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
     })
   }, [])
 
-  console.log(item, 'test')
   const [placeForEdit] = useState<Model>({
     text: undefined,
 
@@ -89,18 +84,14 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
     },
   })
 
-  console.log(formik.values)
-
   const handleAuditCategoryId = async (event: any) => {
     formik.setFieldValue('auditCategoryId', event.target.value)
-    if(event.target.value != '')
-    {
+    if (event.target.value != '') {
       listUnits(event.target.value, 0).then((res3) => {
         setUnits(res3.data)
       })
     }
   }
-
 
   return (
     <>
@@ -166,7 +157,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         {/* end::Input group
         <div className='fv-row mb-7'>*/}
 
-          {/* <label className='required fw-bold fs-6 mb-2'>
+        {/* <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({
               id: 'QUESTIONS.ADDPAGE.IS_NEW',
             })}
@@ -187,7 +178,6 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
         </div>
 
         */}
-
 
         <div className='fv-row mb-7'>
           {/* begin::Label */}
@@ -213,47 +203,42 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           {/* end::Input */}
         </div>
         <div className='fv-row mb-7'>
-
           <div className='form-check form-check-solid form-switch'>
-          <label className='fw-bold fs-6 mt-3 px-5'>
-          {intl.formatMessage({
-              id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
-            })}
-             </label>
+            <label className='fw-bold fs-6 mt-3 px-5'>
+              {intl.formatMessage({
+                id: 'QUESTIONS.ADDPAGE.IS_ADDED_QUESTION_CATEGORY',
+              })}
+            </label>
             <input
               {...formik.getFieldProps('isAddedQuestionCategory')}
               checked={formik.values.isAddedQuestionCategory}
-              onChange={(e) => {formik.setFieldValue('isAddedQuestionCategory', e.target.checked); setIsQuestionCategory(e.target.checked)}}
+              onChange={(e) => {
+                formik.setFieldValue('isAddedQuestionCategory', e.target.checked)
+                setIsQuestionCategory(e.target.checked)
+              }}
               value={formik.values.isAddedQuestionCategory ? 'on' : 'off'}
               className='form-check-input w-80px mt-2 border-secondary'
               type='checkbox'
               id='isAddedQuestionCategory'
             />
           </div>
-
         </div>
-        {
-          isQuestionCategory && (
-
-        <div className='fv-row mb-7'>
-
-
-          <select
-            className='form-select form-select-solid form-select-md'
-            //onChange={(e) => handleQuestionCategories(e.target.value)}
-            //value={question.questionGroupId || 0}
-          >
-            {questioncategories.map((questioncategory: any) => (
-              <option value={questioncategory?.id} key={questioncategory?.id as any}>
-                {questioncategory?.name as any}
-              </option>
-            ))}
-          </select>
-          {/* end::Input */}
-        </div>
-          )
-        }
-
+        {isQuestionCategory && (
+          <div className='fv-row mb-7'>
+            <select
+              className='form-select form-select-solid form-select-md'
+              //onChange={(e) => handleQuestionCategories(e.target.value)}
+              //value={question.questionGroupId || 0}
+            >
+              {questioncategories.map((questioncategory: any) => (
+                <option value={questioncategory?.id} key={questioncategory?.id as any}>
+                  {questioncategory?.name as any}
+                </option>
+              ))}
+            </select>
+            {/* end::Input */}
+          </div>
+        )}
 
         <div className='fv-row mb-7'>
           {/* begin::Label */}
@@ -262,20 +247,20 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
           </label>
 
           <select
-              className='form-select form-select-solid form-select-md'
+            className='form-select form-select-solid form-select-md'
             {...formik.getFieldProps('unitId')}
             // value={formik.values.unitId}
-              name='unitId'
-              defaultValue=""
-            >
-              <option value="">Select Unit</option>
-              {units.map((unit: any) => (
-                <option value={unit?.id} key={unit?.id as any}>
-                  {unit?.name as any}
-                </option>
-              ))}
-            </select>
-            </div>
+            name='unitId'
+            defaultValue=''
+          >
+            <option value=''>Select Unit</option>
+            {units.map((unit: any) => (
+              <option value={unit?.id} key={unit?.id as any}>
+                {unit?.name as any}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className='fv-row mb-7'>
           {/* begin::Label */}

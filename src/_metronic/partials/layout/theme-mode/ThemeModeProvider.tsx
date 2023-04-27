@@ -90,8 +90,6 @@ const ThemeModeProvider = ({children}: {children: React.ReactNode}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log('mode', mode, 'menuMode', menuMode)
-
   return (
     <ThemeModeContext.Provider value={{mode, menuMode, updateMode, updateMenuMode}}>
       {children}

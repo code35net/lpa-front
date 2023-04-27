@@ -207,8 +207,6 @@ const AuditQuestionsForm = () => {
     let x = ''
     let y = ''
     y = (questions as any).filter((item: any) => item?.needAction == true)
-    console.log(y)
-    console.log(questionAnswers)
 
     const filteredArray = (questionAnswers as any).filter((item1: any) =>
       (y as any).some((item2: any) => item2.id === item1.questionId)

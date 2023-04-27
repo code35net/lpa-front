@@ -18,9 +18,7 @@ type Props = {
 }
 
 const editchema = Yup.object().shape({
-  fullName: Yup.string()
-    .max(50, 'Maximum 50 symbols')
-    .required('Question required'),
+  fullName: Yup.string().max(50, 'Maximum 50 symbols').required('Question required'),
 })
 
 const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
@@ -32,7 +30,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   const [isDeleted, setIsDeleted] = React.useState(false)
   const [auditcategories, setAuditCategories] = React.useState([])
   useEffect(() => {
-    listUsers().then((res)=>{
+    listUsers().then((res) => {
       setUsers(res.data)
     })
 
@@ -44,7 +42,6 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
     })
   }, [])
 
-  console.log(item, 'test')
   const [placeForEdit] = useState<Model>({
     fullName: undefined,
     identity: undefined,
@@ -67,7 +64,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
       setSubmitting(true)
       try {
         values.isDeleteUser = isDeleted
-        values.userId = !isDeleted ? "" : values.userId
+        values.userId = !isDeleted ? '' : values.userId
         if (isNotEmpty(values.id)) {
           await updateUser(values)
         } /*else {
@@ -81,7 +78,6 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
       }
     },
   })
-
 
   return (
     <>
@@ -155,133 +151,133 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
 
           {/* begin::Input */}
           <div className='form-check form-check-solid form-switch fv-row'>
-                  <input
-                    checked={isDeleted}
-                    onChange={() => setIsDeleted(!isDeleted)}
-                    className='form-check-input w-45px h-30px'
-                    type='checkbox'
-                    id='isDeletedCheckbox'
-                  />
-                </div>
+            <input
+              checked={isDeleted}
+              onChange={() => setIsDeleted(!isDeleted)}
+              className='form-check-input w-45px h-30px'
+              type='checkbox'
+              id='isDeletedCheckbox'
+            />
+          </div>
         </div>
-        
-        {isDeleted && (<div className='fv-row mb-7'>
-          {/* begin::Label */}
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'USER.NEWUSER'})}
-          </label>
-          {/* end::Label */}
 
-          {/* begin::Input */}
-          <select
-            className='form-select form-select-solid form-select-md'
-            {...formik.getFieldProps('userId')}
-            value={formik.values.userId}
-            onChange={formik.handleChange}
-          >
-            <option value=''>{intl.formatMessage({id: 'USERS.LIST.MODAL.FORM'})}</option>
-            {users.map((user: any) => (
-              <option value={user?.id} key={user?.id as any}>
-                {user?.fullName as any}
-              </option>
-            ))}
-          </select>
-          {/* end::Input */}
-        </div>)
-        }
-        
-        {!isDeleted &&  (<div className='fv-row mb-7'>
-          {/* begin::Label */}
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'USER.FULLNAME'})}
-          </label>
-          {/* end::Label */}
+        {isDeleted && (
+          <div className='fv-row mb-7'>
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'USER.NEWUSER'})}
+            </label>
+            {/* end::Label */}
 
-          {/* begin::Input */}
-          <input
-            //placeholder='Full name'
-            {...formik.getFieldProps('fullName')}
-            type='fullName'
-            name='fullName'
-            className={clsx(
-              'form-control form-control-solid mb-3 mb-lg-0',
-              {'is-invalid': formik.touched.fullName && formik.errors.fullName},
-              {
-                'is-valid': formik.touched.fullName && !formik.errors.fullName,
-              }
-            )}
-            autoComplete='off'
-            disabled={formik.isSubmitting || isQuestionLoading}
-          />
-          {formik.touched.fullName && formik.errors.fullName && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.fullName}</span>
-              </div>
-            </div>
-          )}
-          {/* end::Input */}
-        </div>)}
-
-        {!isDeleted &&  (<div className='fv-row mb-7'>
-          {/* begin::Label */}
-          <label className='required fw-bold fs-6 mb-2'>
-            {intl.formatMessage({id: 'USER.IDENTITY'})}
-          </label>
-          {/* end::Label */}
-
-          {/* begin::Input */}
-          <input
-            //placeholder='Full name'
-            {...formik.getFieldProps('identity')}
-            type='identity'
-            name='identity'
-            className={clsx(
-              'form-control form-control-solid mb-3 mb-lg-0',
-              {'is-invalid': formik.touched.identity && formik.errors.identity},
-              {
-                'is-valid': formik.touched.identity && !formik.errors.identity,
-              }
-            )}
-            autoComplete='off'
-            disabled={formik.isSubmitting || isQuestionLoading}
-          />
-          {formik.touched.identity && formik.errors.identity && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.identity}</span>
-              </div>
-            </div>
-          )}
-          {/* end::Input */}
-        </div>
+            {/* begin::Input */}
+            <select
+              className='form-select form-select-solid form-select-md'
+              {...formik.getFieldProps('userId')}
+              value={formik.values.userId}
+              onChange={formik.handleChange}
+            >
+              <option value=''>{intl.formatMessage({id: 'USERS.LIST.MODAL.FORM'})}</option>
+              {users.map((user: any) => (
+                <option value={user?.id} key={user?.id as any}>
+                  {user?.fullName as any}
+                </option>
+              ))}
+            </select>
+            {/* end::Input */}
+          </div>
         )}
 
-          
-            <div className='fv-row mb-7'>
-              <label className='required fw-bold fs-6 mb-2'>
-                {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY'})}
-              </label>
-              <div className='col-lg-12 fv-row'>
-                <select
-                  className='form-select form-select-solid form-select-md mb-3 mb-lg-0'
-                  {...formik.getFieldProps('auditCategoryId')}
-                  value={formik.values.auditCategoryId}
-                  
-                >
-                  <option value=''>
-                    {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY.SELECT'})}
-                  </option>
-                  {auditcategories.map((myauditcategory: any) => (
-                    <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
-                      {myauditcategory?.name as any}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            
+        {!isDeleted && (
+          <div className='fv-row mb-7'>
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'USER.FULLNAME'})}
+            </label>
+            {/* end::Label */}
 
+            {/* begin::Input */}
+            <input
+              //placeholder='Full name'
+              {...formik.getFieldProps('fullName')}
+              type='fullName'
+              name='fullName'
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                {'is-invalid': formik.touched.fullName && formik.errors.fullName},
+                {
+                  'is-valid': formik.touched.fullName && !formik.errors.fullName,
+                }
+              )}
+              autoComplete='off'
+              disabled={formik.isSubmitting || isQuestionLoading}
+            />
+            {formik.touched.fullName && formik.errors.fullName && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.fullName}</span>
+                </div>
+              </div>
+            )}
+            {/* end::Input */}
+          </div>
+        )}
+
+        {!isDeleted && (
+          <div className='fv-row mb-7'>
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'USER.IDENTITY'})}
+            </label>
+            {/* end::Label */}
+
+            {/* begin::Input */}
+            <input
+              //placeholder='Full name'
+              {...formik.getFieldProps('identity')}
+              type='identity'
+              name='identity'
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                {'is-invalid': formik.touched.identity && formik.errors.identity},
+                {
+                  'is-valid': formik.touched.identity && !formik.errors.identity,
+                }
+              )}
+              autoComplete='off'
+              disabled={formik.isSubmitting || isQuestionLoading}
+            />
+            {formik.touched.identity && formik.errors.identity && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.identity}</span>
+                </div>
+              </div>
+            )}
+            {/* end::Input */}
+          </div>
+        )}
+
+        <div className='fv-row mb-7'>
+          <label className='required fw-bold fs-6 mb-2'>
+            {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY'})}
+          </label>
+          <div className='col-lg-12 fv-row'>
+            <select
+              className='form-select form-select-solid form-select-md mb-3 mb-lg-0'
+              {...formik.getFieldProps('auditCategoryId')}
+              value={formik.values.auditCategoryId}
+            >
+              <option value=''>
+                {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY.SELECT'})}
+              </option>
+              {auditcategories.map((myauditcategory: any) => (
+                <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
+                  {myauditcategory?.name as any}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
         <div className='text-center pt-15'>
           <button

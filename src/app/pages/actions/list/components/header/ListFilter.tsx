@@ -129,11 +129,8 @@ const ListFilter = () => {
   const handleStatus = async (name: any) => {
     setSelectedStatus(name)
   }
-  console.log(units)
 
   const UserInfo = (item: any) => {
-    console.log(item.target.selectedOptions[0].label)
-    console.log(item.target.value)
     setSelectedUnits(item.target.value)
     setSelectedUsersName(item.target.selectedOptions[0].label)
   }

@@ -17,9 +17,7 @@ type Props = {
 }
 
 const editchema = Yup.object().shape({
-  name: Yup.string()
-    .max(50, 'Maximum 50 symbols')
-    .required('Thing Name required'),
+  name: Yup.string().max(50, 'Maximum 50 symbols').required('Thing Name required'),
 })
 
 const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
@@ -29,11 +27,10 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
   const [auditCategory, setAuditCategory] = React.useState([])
 
-  const [placeForEdit] = useState<Model>({    
+  const [placeForEdit] = useState<Model>({
     name: undefined,
     auditCategoryId: undefined,
     ...item,
-    
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -47,8 +44,6 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     listAuditCategories().then((res2) => {
       setAuditCategory(res2.data || [])
     })
-    
-    
   }, [])
 
   const formik = useFormik({
@@ -58,16 +53,14 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       setSubmitting(true)
 
       let pids = ''
-        const x = [values.auditCategoryId]
-       
-       x?.map((r) => {
-          
-          pids = pids + r?.toString() + ','
-        })
-        // console.log(pids)
-        pids = pids.slice(0,-1)
-        values.auditCategoryId= pids
+      const x = [values.auditCategoryId]
 
+      x?.map((r) => {
+        pids = pids + r?.toString() + ','
+      })
+
+      pids = pids.slice(0, -1)
+      values.auditCategoryId = pids
 
       try {
         if (isNotEmpty(values.id)) {
@@ -96,17 +89,13 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           data-kt-scroll-dependencies='#kt_modal_add_item_header'
           data-kt-scroll-wrappers='#kt_modal_add_item_scroll'
           data-kt-scroll-offset='300px'
-        >
-          
-          
-        </div>
-      
-      
+        ></div>
+
         <div className='fv-row mb-7'>
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'POSITION_NAME'})}
           </label>
-          
+
           <input
             //placeholder='Full name'
             {...formik.getFieldProps('name')}
@@ -131,31 +120,28 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
           )}
         </div>
 
-        <div className='fv-row mb-7'>    
-        <label className='required fw-bold fs-6 mb-2'>
+        <div className='fv-row mb-7'>
+          <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'AUDIT_CATEGORY_ID'})}
-          </label>     
-         <select
-                  multiple
-                  className='form-select form-select-solid form-select-md'
-                  {...formik.getFieldProps('auditCategoryId')}
-                  value={formik.values.auditCategoryId}
-                  // onChange={handleChangeDepartmentId}
-                >
-                  <option value=''>Seçiniz</option>
-                  {/* ?? */}
-                  {auditCategory.map((myauditcategory: any) => (
-                    <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
-                      {myauditcategory?.name as any}
-                    </option>
-                  ))}
-                </select>
+          </label>
+          <select
+            multiple
+            className='form-select form-select-solid form-select-md'
+            {...formik.getFieldProps('auditCategoryId')}
+            value={formik.values.auditCategoryId}
+            // onChange={handleChangeDepartmentId}
+          >
+            <option value=''>Seçiniz</option>
+            {/* ?? */}
+            {auditCategory.map((myauditcategory: any) => (
+              <option value={myauditcategory?.id} key={myauditcategory?.id as any}>
+                {myauditcategory?.name as any}
+              </option>
+            ))}
+          </select>
           {/* end::Input */}
         </div>
 
-
-        
-      
         <div className='text-center pt-15'>
           <button
             type='reset'
@@ -171,9 +157,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             type='submit'
             className='btn btn-sm btn-dark btn-active-light-dark'
             data-kt-items-modal-action='submit'
-            disabled={
-              isThingLoading || formik.isSubmitting || !formik.isValid || !formik.touched
-            }
+            disabled={isThingLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
           >
             <span className='indicator-label'> {intl.formatMessage({id: 'FORM.SAVE'})}</span>
             {(formik.isSubmitting || isThingLoading) && (

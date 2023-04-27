@@ -81,10 +81,7 @@ const EditModalForm: FC<Props> = ({item}) => {
     // validationSchema: editchema,
 
     onSubmit: async (values, {setSubmitting}) => {
-      //console.log("girior " )
       setSubmitting(true)
-      console.log(formik.values.status)
-      console.log(formik.values.text)
 
       values.file = file
       try {
@@ -113,9 +110,7 @@ const EditModalForm: FC<Props> = ({item}) => {
       }
     },
   })
-  console.log(filterData)
-  console.log(currentUser)
-  console.log(formik.values.endDate)
+
   return (
     <>
       <form id='kt_modal_add_item_form' className='form' onSubmit={formik.handleSubmit} noValidate>

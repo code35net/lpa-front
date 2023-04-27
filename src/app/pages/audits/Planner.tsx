@@ -142,8 +142,6 @@ const EditAuditForm: FC<Props> = ({item}) => {
     },
   })
 
-  console.log('çalıştı')
-
   const handleUsers = (value: string, type: string) => {
     let filteredData = [...rawUsers]
 

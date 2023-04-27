@@ -32,18 +32,17 @@ const ListToolbar = () => {
       //setquery(stringifyRequestQuery(state))
       oldqueries.push(stringifyRequestQuery(state))
       setoldqueries(oldqueries)
-      console.log(stringifyRequestQuery(state), '...')
     }
   }, [state])
 
   const back = () => {
     setchk(!chk)
-    console.log(oldqueries)
+
     let oqa = oldqueries
     oqa.pop()
     let oq = oqa[oqa.length - 1]
     let q = oq.split('id=')[1]
-    console.log(oldqueries)
+
     setoldqueries(oqa)
     //console.log(q)
     //console.log('x')

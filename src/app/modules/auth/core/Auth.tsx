@@ -41,7 +41,7 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
   const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
   const saveAuth = (auth: AuthModel | undefined) => {
     setAuth(auth)
-    //console.log(auth)
+
     if (auth) {
       authHelper.setAuth(auth)
     } else {

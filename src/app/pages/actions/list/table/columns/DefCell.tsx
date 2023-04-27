@@ -10,7 +10,6 @@ type Props = {
 }
 
 const DefCell: FC<Props> = ({item}) => {
-  console.log(item)
   return (
     <div className='d-flex align-items-center'>
       <div className='d-flex flex-column'>

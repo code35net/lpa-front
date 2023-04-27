@@ -52,9 +52,6 @@ const ListFilter = () => {
     )
   }, [])
 
-  console.log(departments)
-  console.log(sections)
-
   useEffect(() => {
     MenuComponent.reinitialization()
   }, [])
@@ -95,7 +92,6 @@ const ListFilter = () => {
   }, [selectedDepartments, selectedSections])
 
   const filterData = () => {
-    console.log('filtirele')
     let filter: any = {}
 
     if (selectedAuditCategories) {

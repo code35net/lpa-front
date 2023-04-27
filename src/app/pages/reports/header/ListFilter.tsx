@@ -150,13 +150,6 @@ const ListFilter: React.FC<Props> = ({
     })
   }
 
-  {
-    console.log(selectedDepartments)
-  }
-  {
-    console.log(selectedSections)
-  }
-
   return (
     <>
       {/* begin::Filter Button */}

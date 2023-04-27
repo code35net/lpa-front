@@ -34,7 +34,7 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
       getAnswerTemplateOptions(itemIdForUpdate).then((data) => {
         const answers: Array<TemplateOptions> = []
         let datatext = ''
-        
+
         data?.data.forEach((item: any) => {
           answers.push({
             id: item.id,
@@ -45,7 +45,7 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
           datatext = item.answerTemplate.text
         })
         formik.setFieldValue('text', datatext)
-        
+
         setOptions([...answers])
       })
     } else {
@@ -93,11 +93,9 @@ const EditModalForm: FC<Props> = ({item, isTemplateLoading}) => {
   }
 
   const deleteOptionItem = (id: any) => {
-    console.log(id)
     if (options.length > 1) {
       const element = options.filter((x) => x.id != id)
-      console.log(element)
-      console.log(options)
+
       // options.pop()
       setOptions([...element])
     }

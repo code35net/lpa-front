@@ -7,7 +7,7 @@ import {getAuditById} from '../core/_requests'
 const EditModalFormWrapper = () => {
   const {itemIdForUpdate, setItemIdForUpdate} = useListView()
   const enabledQuery: boolean = isNotEmpty(itemIdForUpdate)
-  console.log(itemIdForUpdate, "ssa")
+
   const {
     isLoading,
     data: item,
@@ -26,7 +26,7 @@ const EditModalFormWrapper = () => {
       },
     }
   )
-console.log(item)
+
   if (!itemIdForUpdate) {
     return <EditModalForm isAuditCategoryLoading={isLoading} item={{id: undefined}} />
   }

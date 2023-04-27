@@ -34,8 +34,6 @@ const ActionsCell: FC<Props> = ({item}) => {
       queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
     },
   })
-  console.log(currentUser)
-  console.log(item)
 
   return (
     <>

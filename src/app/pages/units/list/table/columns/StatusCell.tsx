@@ -12,7 +12,6 @@ type Props = {
 const StatusCell: FC<Props> = ({item}) => {
   const intl = useIntl()
   const [value, setValue] = useState('')
-  console.log(item.categoryType)
 
   useEffect(() => {
     if (item.categoryType == 'DailyShift') {

@@ -9,7 +9,6 @@ import {useIntl} from 'react-intl'
 const AsideUserMenu: FC = () => {
   const {currentUser} = useAuth()
 
-  console.log(currentUser)
   const fileUrl = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Admin.pdf'
   const fileUrl2 = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Auditor.pdf'
   const intl = useIntl()

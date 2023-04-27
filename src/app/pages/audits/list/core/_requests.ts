@@ -36,8 +36,7 @@ const getAuditQuestions = async (auditId: string): Promise<any> =>
 const getAudits = (query: string, onlyauditor: string): Promise<QueryResponse> => {
   const callurl =
     onlyauditor == '0' ? `${GET_AUDITS_URL}?${query}` : `${GET_AUDITS_URL}?${query}&isonlyauditor=1`
-  console.log(callurl)
-  console.log(onlyauditor)
+
   return axios.get(callurl).then((d: AxiosResponse<QueryResponse>) => {
     const queryRaw: any = parseRequestQuery(query)
 

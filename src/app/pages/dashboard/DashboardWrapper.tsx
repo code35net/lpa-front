@@ -14,7 +14,7 @@ import {useIntl} from 'react-intl'
 const Charts: FC = () => {
   const [reportsInfoPercentage, setReportsInfoPercentage] = useState()
   const {currentUser} = useAuth()
-  console.log(currentUser)
+
   const fileUrl = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Admin.pdf'
   const fileUrl2 = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Auditor.pdf'
 

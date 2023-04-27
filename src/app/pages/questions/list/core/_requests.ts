@@ -10,7 +10,6 @@ const COPY_QUESTION_URL = `${API_URL}/Custom/editQuestion`
 const CUSTOM_FILTER_URL = `${API_URL}/Custom/getQuestions`
 
 const getQuestions = (query: string): Promise<QueryResponse> => {
-  console.log(query)
   return axios.get(`${CUSTOM_FILTER_URL}?${query}`).then((d: AxiosResponse<QueryResponse>) => {
     const queryRaw: any = parseRequestQuery(query)
     return d.data
