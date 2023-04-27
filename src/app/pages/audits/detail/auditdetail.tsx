@@ -70,7 +70,7 @@ const AuditDetails = () => {
     } else if (response?.data[0]?.status == 'Canceled') {
       setValue(`${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`)
     } else setValue(``)
-  }, [value])
+  }, [value, response])
 
   console.log(response?.data[0]?.status)
 
