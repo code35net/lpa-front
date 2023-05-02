@@ -117,9 +117,10 @@ const updateAudit = (audit: Model): Promise<Model | undefined> => {
     .then((response: Response<Model>) => response.data)
 }
 
-const updateAudit2 = (auditorId: any, id: any): Promise<Model | undefined> => {
+const updateAudit2 = (auditorId: any, auditDate: any, id: any): Promise<Model | undefined> => {
   let auditorId2 = {
     auditorId,
+    auditDate,
   }
   return axios
     .post(`${UPDATE_AUDIT}?id=${id}`, auditorId2)

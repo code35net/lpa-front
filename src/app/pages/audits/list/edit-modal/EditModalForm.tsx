@@ -61,7 +61,7 @@ const EditModalForm: FC<Props> = ({item}) => {
 
       try {
         if (isNotEmpty(values.id)) {
-          await updateAudit2(values.auditor, values.id)
+          await updateAudit2(values.auditor, values.auditDate, values.id)
         }
       } catch (ex) {
         console.error(ex)

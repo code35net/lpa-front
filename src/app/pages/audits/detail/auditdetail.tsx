@@ -78,6 +78,9 @@ const AuditDetails = () => {
     (response?.data[0]?.trueCount * 100) /
     (response?.data[0]?.needActionCount + response?.data[0]?.trueCount)
 
+  const today = new Date()
+  const dataDate = new Date(response?.data[0].date)
+
   return (
     <>
       <div className='card mb-5 mb-xl-10'>
@@ -96,21 +99,29 @@ const AuditDetails = () => {
                 </div>
 
                 <div className='d-flex my-4'>
-                  {Array.isArray(response?.data) && response?.data[0]?.status === 'NotStarted' && (
+                  {Array.isArray(response?.data) &&
+                  response?.data[0]?.status === 'NotStarted' &&
+                  today >= dataDate ? (
                     <Link
                       to={`/audits/auditquestions/${response?.data[0]?.id}`}
                       className='btn btn-sm btn-info'
                     >
                       {intl.formatMessage({id: 'AUDITS.DETAIL.START'})}
                     </Link>
+                  ) : (
+                    <></>
                   )}
-                  {Array.isArray(response?.data) && response?.data[0]?.status === 'InProgress' && (
+                  {Array.isArray(response?.data) &&
+                  response?.data[0]?.status === 'InProgress' &&
+                  today >= dataDate ? (
                     <Link
                       to={`/audits/auditquestions/${response?.data[0]?.id}`}
                       className='btn btn-sm btn-warning'
                     >
                       {intl.formatMessage({id: 'AUDITS.DETAIL.CONTINUE'})}
                     </Link>
+                  ) : (
+                    <></>
                   )}
                 </div>
               </div>
