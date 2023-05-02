@@ -17,6 +17,7 @@ import {listUsers as listUsers} from '../../../user-management/list/core/_reques
 import {listThings as listUnits} from '../../../units/list/core/_requests'
 import {getAuditById} from '../../../audits/list/core/_requests'
 import {listSomeThings as listPartialUnits} from '../../../units/list/core/_requests'
+import {getThingById} from '../../../units/list/core/_requests'
 
 type Props = {
   isThingLoading: boolean
@@ -39,6 +40,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   const [parentUnitId, setParentUnitId] = React.useState([])
   const [userId, setUserId] = React.useState([])
   const [unitId, setUnitId] = React.useState([])
+  const [unitName, setUnitName] = React.useState<any>([])
 
   const [placeForEdit] = useState<Model>({
     text: undefined,
@@ -80,6 +82,13 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
       })
     })
   }, [])
+
+  useEffect(() => {
+    getThingById(formik.values.unitId).then((res: any) => {
+      setUnitName(res)
+    })
+  }, [])
+  console.log(unitName)
 
   const formik = useFormik({
     initialValues: placeForEdit,
@@ -193,17 +202,15 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             className='form-select form-multi form-select-solid form-select-md'
             {...formik.getFieldProps('unitId')}
             value={formik.values.unitId}
-            // onChange={handleChangeDepartmentId}
           >
-            <option value=''>Seçiniz</option>
-            {/* ?? */}
+            <option value=''>{unitName?.name}</option>
+
             {unitId.map((unit: any) => (
               <option value={unit?.id} key={unit?.id as any}>
                 {unit?.name as any}
               </option>
             ))}
           </select>
-          {/* end::Input */}
         </div>
 
         <div className='fv-row mb-7'>

@@ -13,11 +13,19 @@ const FINISH_AUDIT = `${API_URL}/Custom/finishAudit`
 const UNITS_URL = `${API_URL}/Custom/listUnits`
 const DELETE_ALL = `${API_URL}/Custom/deleteAllAudit`
 const UPDATE_AUDIT = `${API_URL}/Custom/updateAudit`
+const LIST_UNIT2 = `${API_URL}/Custom/listUnit`
 
 const listUnits = async (SectionId: any): Promise<any> =>
   await axios.get(`${UNITS_URL}?SectionId=${SectionId}`).then((res: AxiosResponse) => {
     return res.data
   })
+
+const listUnits2 = async (ParentUnitId: any, AuditId: any): Promise<any> =>
+  await axios
+    .get(`${LIST_UNIT2}/${ParentUnitId}?unittoexclude=${AuditId}`)
+    .then((res: AxiosResponse) => {
+      return res.data
+    })
 
 const finishAudit = (auditid: any) => {
   return axios.put(`${FINISH_AUDIT}?auditid=${auditid}`).then((response: any) => response.data)
@@ -155,4 +163,5 @@ export {
   listUnits,
   deleteAllAudit,
   updateAudit2,
+  listUnits2,
 }

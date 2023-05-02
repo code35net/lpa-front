@@ -109,7 +109,12 @@ const AuditDetails = () => {
                       {intl.formatMessage({id: 'AUDITS.DETAIL.START'})}
                     </Link>
                   ) : (
-                    <></>
+                    <>
+                      <p className='fw-bolder fs-6 text-dark'>
+                        {moment(response?.data[0].date).format('DD-MM-YYYY')}
+                        {intl.formatMessage({id: 'AUDIT.START.TEXT'})}
+                      </p>
+                    </>
                   )}
                   {Array.isArray(response?.data) &&
                   response?.data[0]?.status === 'InProgress' &&
@@ -177,7 +182,9 @@ const AuditDetails = () => {
                     </div>
                     <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                       <div className='d-flex align-items-center'>
-                        <div className='fs-2 fw-bolder'>{percentage2.toFixed(2)} / 100</div>
+                        <div className='fs-2 fw-bolder'>
+                          {Number.isNaN(percentage2) ? '-' : percentage2.toFixed(2)} / 100
+                        </div>
                       </div>
 
                       <div className='fw-bold fs-6 text-gray-400'>
@@ -192,7 +199,9 @@ const AuditDetails = () => {
                     <span className='fw-bold fs-6 text-gray-400'>
                       {intl.formatMessage({id: 'AUDITS.DETAIL.COMPLETION'})}
                     </span>
-                    <span className='fw-bolder fs-6'>{percentage.toFixed(0)}%</span>
+                    <span className='fw-bolder fs-6'>
+                      {Number.isNaN(percentage) ? '0' : percentage.toFixed(0)}%
+                    </span>
                   </div>
                   <div className='h-5px mx-3 w-100 bg-light mb-3'>
                     <div

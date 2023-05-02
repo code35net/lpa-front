@@ -7,7 +7,7 @@ import {Model} from '../core/_models'
 import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
-import {updateAudit2, listUnits} from '../core/_requests'
+import {updateAudit, listUnits} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import moment from 'moment'
 import {listUsers} from '../../../user-management/list/core/_requests'
@@ -61,7 +61,7 @@ const EditModalForm: FC<Props> = ({item}) => {
 
       try {
         if (isNotEmpty(values.id)) {
-          await updateAudit2(values.auditor, values.auditDate, values.id)
+          await updateAudit(values)
         }
       } catch (ex) {
         console.error(ex)
@@ -120,14 +120,12 @@ const EditModalForm: FC<Props> = ({item}) => {
             {/* end::Input */}
           </div>
 
-          <div className='fv-row mb-7'>
-            {/* begin::Label */}
+          {/* <div className='fv-row mb-7'>
+            
             <label className='required fw-bold fs-6 mb-2'>
               {intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
             </label>
-            {/* end::Label */}
-
-            {/* begin::Input */}
+      
             <select
               className='form-select form-select-solid form-select-md'
               {...formik.getFieldProps('auditor')}
@@ -141,8 +139,8 @@ const EditModalForm: FC<Props> = ({item}) => {
                 </option>
               ))}
             </select>
-            {/* end::Input */}
-          </div>
+       
+          </div> */}
 
           {/* <div className='fv-row mb-7'>
         
