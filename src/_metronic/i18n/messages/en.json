@@ -310,7 +310,7 @@
   "ACTION.PAGE.TITLE": "ACTIONS",
   "ACTION.LIST.COL.FIND": "Finding",
   "ACTION.LIST.COL.DONE": "Is Complete",
-  "ACTION.LIST.COL.STAFF": "Staff",
+  "ACTION.LIST.COL.STAFF": "Action Staff",
   "ACTION.LIST.COL.STATUS": "Status",
   "ACTION.LIST.COL.ACTIONS": "Actions",
 
@@ -469,6 +469,7 @@
   "InProgress": "In Progress",
   "Modal.Open": "Not Approved",
   "ACTION.LIST.COL.Definition": "Rejection Reason",
+  "NOTES": "Notes",
 
   "boş": "boş"
 }

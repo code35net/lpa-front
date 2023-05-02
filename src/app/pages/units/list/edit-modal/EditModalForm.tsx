@@ -7,7 +7,7 @@ import {Model} from '../core/_models'
 import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
 import {ListLoading} from '../components/loading/ListLoading'
-import {createThing, updateThing} from '../core/_requests'
+import {createThing, updateUnit} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import {listThings as listAuditCategories} from '../../../audit-categories/list/core/_requests'
 import {listThings as listParentUnits} from '../../../units/list/core/_requests'
@@ -149,7 +149,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
 
       try {
         if (isNotEmpty(values.id)) {
-          await updateThing(values)
+          await updateUnit(values)
         } else {
           await createThing(values)
         }

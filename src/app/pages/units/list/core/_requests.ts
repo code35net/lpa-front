@@ -10,6 +10,7 @@ const THING_URL = `${API_URL}/Unit`
 const LIST_THING_URL = `${API_URL}/Custom/getPartialUnit`
 const SOME_THING_URL = `${API_URL}/Custom/getSomeUnit`
 const GET_PER_REPORT = `${API_URL}/Custom/getPercentageReport`
+const UPDATE_UNIT = `${API_URL}/Custom/updateUnit`
 
 const getThings = (query: string): Promise<QueryResponse> => {
   //console.log(query)
@@ -69,6 +70,13 @@ const updateThing = (thing: Model): Promise<Model | undefined> => {
     .then((response: Response<Model>) => response.data)
 }
 
+const updateUnit = (thing: Model): Promise<Model | undefined> => {
+  return axios
+    .post(`${UPDATE_UNIT}/${thing.id}`, thing)
+    .then((response: AxiosResponse<Response<Model>>) => response.data)
+    .then((response: Response<Model>) => response.data)
+}
+
 const deleteThing = (thingId: ID): Promise<void> => {
   return axios.delete(`${THING_URL}/${thingId}`).then(() => {})
 }
@@ -89,4 +97,5 @@ export {
   listSomeThings,
   listOtherThings,
   getPercentageReport,
+  updateUnit,
 }

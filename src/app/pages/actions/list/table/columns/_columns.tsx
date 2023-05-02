@@ -45,6 +45,31 @@ const Columns: ReadonlyArray<Column<Model>> = [
     id: 'done',
     Cell: ({...props}) => <DoneCell item={props.data[props.row.index]} />,
   },
+
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'CloseDate'})}
+        className='min-w-175px'
+      />
+    ),
+    id: 'CloseDate',
+    Cell: ({...props}) => <CloseDateCell item={props.data[props.row.index].endDate} />,
+  },
+
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'IsLate'})}
+        className='min-w-175px'
+      />
+    ),
+    id: 'IsLate',
+    Cell: ({...props}) => <LateCell item={props.data[props.row.index]} />,
+  },
+
   {
     Header: (props) => (
       <CustomHeader
@@ -121,29 +146,6 @@ const Columns: ReadonlyArray<Column<Model>> = [
   //   Cell: ({...props}) => <ImgCell item={props.data[props.row.index].filePath} />,
   // },
 
-  {
-    Header: (props) => (
-      <CustomHeader
-        tableProps={props}
-        title={useIntl().formatMessage({id: 'CloseDate'})}
-        className='min-w-175px'
-      />
-    ),
-    id: 'CloseDate',
-    Cell: ({...props}) => <CloseDateCell item={props.data[props.row.index].endDate} />,
-  },
-
-  {
-    Header: (props) => (
-      <CustomHeader
-        tableProps={props}
-        title={useIntl().formatMessage({id: 'IsLate'})}
-        className='min-w-175px'
-      />
-    ),
-    id: 'IsLate',
-    Cell: ({...props}) => <LateCell item={props.data[props.row.index]} />,
-  },
   {
     Header: (props) => (
       <CustomHeader

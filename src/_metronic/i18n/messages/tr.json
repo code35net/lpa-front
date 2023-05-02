@@ -414,7 +414,7 @@
   "AUDITS.AUDITQUEDTIONS.FILE": "Dosya",
 
   "AUDITS.AUDITQUEDTIONS.FIND": "Bulgular",
-  "AUDITS.AUDITQUEDTIONS.STAFF": "Çalışan",
+  "AUDITS.AUDITQUEDTIONS.STAFF": "Aksiyon Sahibi",
   "AUDITS.AUDITQUEDTIONS.CHOOSE": "Seçiniz",
   "AUDITS.AUDITQUEDTIONS.DATE": "Tarih",
 
@@ -474,6 +474,7 @@
 
   "Modal.Open": "Reddedildi",
   "ACTION.LIST.COL.Definition": "Ret Sebebi",
+  "NOTES": "Notlar",
 
   "boş": "boş"
 }

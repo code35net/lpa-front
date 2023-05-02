@@ -49,6 +49,7 @@ const EditModalForm: FC<Props> = ({item}) => {
     endDate: undefined,
     auditDate: undefined,
     definition: undefined,
+    note: undefined,
     //auditor: undefined,
     //unitId: undefined,
     ...item,
@@ -75,6 +76,7 @@ const EditModalForm: FC<Props> = ({item}) => {
       setFile(file)
     }
   }
+  console.log(filterData)
 
   const formik = useFormik({
     initialValues: placeForEdit,
@@ -88,7 +90,14 @@ const EditModalForm: FC<Props> = ({item}) => {
         if (isNotEmpty(values.id)) {
           //values.lastDate = format(new Date(), 'yyyy-MM-dd H:mm:ss').replace(' ', 'T')
           values.status = parseInt(values.status?.toString() || '0')
-
+          console.log(values.text)
+          if (values.text == 'null' || values.text == null) {
+            values.text = ''
+          }
+          if (values.definition == 'null' || values.definition == null) {
+            values.definition = ''
+          }
+          console.log(values.text)
           if (formik.values.status == 2) {
             const currentDate = new Date()
             const formattedDate = `${currentDate.getFullYear()}-${(
@@ -100,6 +109,7 @@ const EditModalForm: FC<Props> = ({item}) => {
           } else if (formik.values.status != 2) {
             values.endDate = '0001-01-01'
           }
+          console.log(values)
           await updateAction(values)
         }
       } catch (ex) {
@@ -110,6 +120,7 @@ const EditModalForm: FC<Props> = ({item}) => {
       }
     },
   })
+  console.log(formik.values.text)
 
   return (
     <>
@@ -135,6 +146,7 @@ const EditModalForm: FC<Props> = ({item}) => {
               </p>
               <label className='fw-semibold fs-6 mb-2'>: {filterData.auditorName}</label>
             </div>
+
             <div className='d-flex flex-row gap-2'>
               <p className='fw-semibold fs-6 mb-2 min-w-90px'>
                 {intl.formatMessage({id: 'AUDITS.LIST.AUDITNAME'})}
@@ -148,7 +160,15 @@ const EditModalForm: FC<Props> = ({item}) => {
               </p>
               <label className='fw-semibold fs-6 mb-2'>: {filterData.questionText}</label>
             </div>
+
+            <div className='d-flex flex-row gap-2'>
+              <p className='fw-semibold fs-6 mb-2 min-w-90px'>
+                {intl.formatMessage({id: 'LASTDATE'})}
+              </p>
+              <label className='fw-semibold fs-6 mb-2'>: {filterData.lastDate}</label>
+            </div>
           </div>
+
           <div className='fv-row mb-7'>
             <label className='fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'FINDINGS'})}</label>
 
@@ -171,6 +191,34 @@ const EditModalForm: FC<Props> = ({item}) => {
               <div className='fv-plugins-message-container'>
                 <div className='fv-help-block'>
                   <span role='alert'>{formik.errors.finding}</span>
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+          <div className='fv-row mb-7'>
+            <label className='fw-bold fs-6 mb-2'>{intl.formatMessage({id: 'NOTES'})}</label>
+
+            <input
+              //placeholder='Full name'
+              {...formik.getFieldProps('note')}
+              type='text'
+              name='note'
+              value={filterData?.note}
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                {'is-invalid': formik.touched.note ? formik.errors.note : null},
+                {
+                  'is-valid': formik.touched.note ? !formik.errors.note : null,
+                }
+              )}
+              autoComplete='off'
+              disabled={true}
+            />
+            {formik.touched.note && formik.errors.note ? (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.note}</span>
                 </div>
               </div>
             ) : null}
@@ -275,15 +323,13 @@ const EditModalForm: FC<Props> = ({item}) => {
         ) : (
           <></>
         )}
-
+        {/* 
         <div className='fv-row mb-7'>
-          {/* begin::Label */}
+         
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'LASTDATE'})}
           </label>
-          {/* end::Label */}
-
-          {/* begin::Input */}
+          
           <input
             //placeholder='Full name'
             {...formik.getFieldProps('lastDate')}
@@ -310,27 +356,23 @@ const EditModalForm: FC<Props> = ({item}) => {
               </div>
             </div>
           )}
-          {/* end::Input */}
-        </div>
+         
+        </div> */}
 
-        {formik.values.endDate != null && formik.values.endDate != '0001-01-01T00:00:00' ? (
+        {/* {formik.values.endDate != null && formik.values.endDate != '0001-01-01T00:00:00' ? (
           <div className='fv-row mb-7'>
-            {/* begin::Label */}
+          
             <label className='required fw-bold fs-6 mb-2'>
               {intl.formatMessage({id: 'CloseDate'})}
             </label>
-            {/* end::Label */}
-
-            {/* begin::Input */}
+          
             <input
-              //placeholder='Full name'
+             
               {...formik.getFieldProps('endDate')}
               type='date'
               name='endDate'
               value={moment(formik.values.endDate).format('YYYY-MM-DD')}
-              // onChange={(e) => {
-              //   formik.setFieldValue('endDate', new Date(e.target.value).toISOString())
-              // }}
+             
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
                 {'is-invalid': formik.touched.endDate && formik.errors.endDate},
@@ -342,9 +384,9 @@ const EditModalForm: FC<Props> = ({item}) => {
               disabled={true}
             />
 
-            {/* end::Input */}
+           
           </div>
-        ) : null}
+        ) : null} */}
 
         <div className='fv-row mb-7'>
           <label className=' fw-bold fs-6 mb-2'> {intl.formatMessage({id: 'FILE'})}</label>

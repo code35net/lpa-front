@@ -23,5 +23,6 @@ export type Model = {
   auditorName?: string
   unitId?: number
   definition?: string
+  note?: string
 }
 export type QueryResponse = Response<Array<Model>>

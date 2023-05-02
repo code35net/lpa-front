@@ -43,7 +43,7 @@ const AuditQuestionsForm = () => {
   const navigate = useNavigate()
 
   const [allQuestionAnswered, setAllQuestionAnswered] = useState(false)
-
+  console.log(params)
   useEffect(() => {
     if (params?.auditId) {
       getAuditQuestions(params.auditId).then((res) => {
