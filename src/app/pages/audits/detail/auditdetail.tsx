@@ -110,10 +110,14 @@ const AuditDetails = () => {
                     </Link>
                   ) : (
                     <>
-                      <p className='fw-bolder fs-6 text-dark'>
-                        {moment(response?.data[0].date).format('DD-MM-YYYY')}
-                        {intl.formatMessage({id: 'AUDIT.START.TEXT'})}
-                      </p>
+                      {response?.data[0].status === 'NotStarted' ? (
+                        <p className='fw-bolder fs-6 text-dark'>
+                          {moment(response?.data[0].date).format('DD-MM-YYYY')}
+                          {intl.formatMessage({id: 'AUDIT.START.TEXT'})}
+                        </p>
+                      ) : (
+                        <></>
+                      )}
                     </>
                   )}
                   {Array.isArray(response?.data) &&
