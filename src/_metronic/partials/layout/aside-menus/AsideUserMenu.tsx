@@ -9,8 +9,8 @@ import {useIntl} from 'react-intl'
 const AsideUserMenu: FC = () => {
   const {currentUser} = useAuth()
 
-  const fileUrl = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Admin.pdf'
-  const fileUrl2 = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Auditor.pdf'
+  const fileUrl = 'http://freudapi.iqualitor.com/Files/file/FreudLpa_KeyAccount.pdf'
+  const fileUrl2 = 'http://freudapi.iqualitor.com/Files/file/FreudLpa_Auditor.pdf'
   const intl = useIntl()
   return (
     <div className='d-flex flex-col' style={{width: '100%', flexDirection: 'column'}}>
