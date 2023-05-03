@@ -3,8 +3,9 @@ import clsx from 'clsx'
 import {FC} from 'react'
 import {toAbsoluteUrl} from '../../../helpers'
 import {useLang, setLanguage} from '../../../i18n/Metronici18n'
+import {useIntl} from 'react-intl'
 
-import { useNavigate } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 const languages = [
   {
     lang: 'en',
@@ -44,9 +45,10 @@ type Props = {
 
 const Languages: FC<Props> = ({languageMenuPlacement = 'lert-start'}) => {
   const lang = useLang()
-    const currentLanguage = languages.find((x) => x.lang === lang)
+  const currentLanguage = languages.find((x) => x.lang === lang)
 
-    const navigate = useNavigate()
+  const navigate = useNavigate()
+  const intl = useIntl()
   return (
     <div
       className='menu-item px-5'
@@ -56,7 +58,7 @@ const Languages: FC<Props> = ({languageMenuPlacement = 'lert-start'}) => {
     >
       <a href='#' className='menu-link px-5'>
         <span className='menu-title position-relative'>
-          Language
+          {intl.formatMessage({id: 'Lang'})}
           <span className='fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0'>
             {currentLanguage?.name}{' '}
             <img
@@ -73,12 +75,11 @@ const Languages: FC<Props> = ({languageMenuPlacement = 'lert-start'}) => {
           <div
             className='menu-item px-3'
             key={l.lang}
-                onClick={() => {
-
-                    const I18N_CONFIG_KEY = process.env.REACT_APP_I18N_CONFIG_KEY || 'i18nConfig'
-                    localStorage.setItem(I18N_CONFIG_KEY, JSON.stringify({ selectedLang: l.lang }))
-                    navigate(0)
-                    setLanguage(l.lang)
+            onClick={() => {
+              const I18N_CONFIG_KEY = process.env.REACT_APP_I18N_CONFIG_KEY || 'i18nConfig'
+              localStorage.setItem(I18N_CONFIG_KEY, JSON.stringify({selectedLang: l.lang}))
+              navigate(0)
+              setLanguage(l.lang)
             }}
           >
             <a

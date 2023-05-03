@@ -3,9 +3,11 @@ import {Link} from 'react-router-dom'
 import {useAuth} from '../../../../app/modules/auth'
 import {toAbsoluteUrl} from '../../../helpers'
 import {Languages} from '../header-menus/Languages'
+import {useIntl} from 'react-intl'
 
 const UserMenu = () => {
   const {currentUser, logout} = useAuth()
+  const intl = useIntl()
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
@@ -22,9 +24,7 @@ const UserMenu = () => {
 
           {/* begin::Username */}
           <div className='d-flex flex-column'>
-            <div className='fw-bolder d-flex align-items-center fs-5'>
-              {currentUser?.fullName}
-            </div>
+            <div className='fw-bolder d-flex align-items-center fs-5'>{currentUser?.fullName}</div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
               {currentUser?.email}
             </a>
@@ -34,10 +34,8 @@ const UserMenu = () => {
       </div>
       {/* end::Menu item */}
 
-     
-
       <div className='separator my-2'> </div>
-     
+
       <Languages languageMenuPlacement='right-end' />
 
       {/* begin::Menu item */}
@@ -51,7 +49,7 @@ const UserMenu = () => {
       {/* begin::Menu item */}
       <div className='menu-item px-5'>
         <a onClick={logout} className='menu-link px-5'>
-          Sign Out
+          {intl.formatMessage({id: 'Sign.Out'})}
         </a>
       </div>
     </div>

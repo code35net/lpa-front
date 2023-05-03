@@ -8,11 +8,11 @@ import {getUserByToken, login} from '../core/_requests'
 import {useAuth} from '../core/Auth'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {AuthModel, UserModel} from '../core/_models'
-
+import {useIntl} from 'react-intl'
 
 const loginSchema = Yup.object().shape({
   username: Yup.string()
-   
+
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Email is required'),
@@ -36,6 +36,7 @@ const initialValues = {
 export function Login() {
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
+  const intl = useIntl()
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
@@ -45,7 +46,7 @@ export function Login() {
         const {data: auth} = await login(values.username, values.password)
         saveAuth(auth)
         const {data: user} = await getUserByToken()
-        
+
         setCurrentUser(user)
       } catch (error) {
         console.error(error)
@@ -92,7 +93,9 @@ export function Login() {
 
       {/* begin::Form group */}
       <div className='fv-row mb-10'>
-        <label className='form-label fs-6 fw-bolder text-dark'>Username</label>
+        <label className='form-label fs-6 fw-bolder text-dark'>
+          {intl.formatMessage({id: 'AUTH.INPUT.USERNAME'})}
+        </label>
         <input
           placeholder='Email'
           {...formik.getFieldProps('username')}
@@ -120,7 +123,9 @@ export function Login() {
         <div className='d-flex justify-content-between mt-n5'>
           <div className='d-flex flex-stack mb-2'>
             {/* begin::Label */}
-            <label className='form-label fw-bolder text-dark fs-6 mb-0'>Password</label>
+            <label className='form-label fw-bolder text-dark fs-6 mb-0'>
+              {intl.formatMessage({id: 'AUTH.INPUT.PASSWORD'})}
+            </label>
             {/* end::Label */}
             {/* begin::Link */}
             {/* <Link
@@ -173,8 +178,6 @@ export function Login() {
             </span>
           )}
         </button>
-
-
       </div>
       {/* end::Action */}
     </form>
