@@ -211,7 +211,7 @@ const AuditDetails = () => {
                     <div
                       className='bg-info rounded h-5px'
                       role='progressbar'
-                      style={{width: percentage}}
+                      style={{width: `${percentage}%`}}
                     ></div>
                   </div>
                 </div>

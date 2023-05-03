@@ -31,7 +31,7 @@ const AuditQuestionsForm = () => {
 
   const intl = useIntl()
 
-  const [questions, setQuestions] = useState([])
+  const [questions, setQuestions] = useState<any>([])
 
   const [findings, setfindings] = useState<any>([])
 
@@ -140,6 +140,8 @@ const AuditQuestionsForm = () => {
       setQuestionAnswers([...questionAnswers])
     }
   }
+  console.log(questionAnswers)
+  console.log(questions)
 
   const submitAnswers = async () => {
     setLoading(true)
@@ -147,12 +149,14 @@ const AuditQuestionsForm = () => {
       if (
         questionAnswers[index]?.questionId &&
         questionAnswers[index]?.auditId &&
-        questionAnswers[index]?.answerTemplateOptionId !== -1
+        questionAnswers[index]?.answerTemplateOptionId !== -1 &&
+        questions[index].auditQAnswer.length < 1
       ) {
         const formData = new FormData()
 
         if (questionAnswers[index]?.files?.[0])
           formData.append('files', questionAnswers[index]?.files?.[0])
+
         formData.append('questionId', questionAnswers[index].questionId)
 
         formData.append('auditId', questionAnswers[index].auditId)

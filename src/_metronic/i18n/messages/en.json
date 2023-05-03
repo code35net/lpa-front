@@ -474,6 +474,7 @@
   "AUDIT.START.TEXT": " / You can start the audit.",
   "Sign.Out": "Sign Out",
   "Lang": "Language",
+  "WAIT.AUDITS_DELETE_ALL": "Processing",
 
   "boş": "boş"
 }

@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 import {deleteAllAudit} from '../../core/_requests'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {useMutation, useQueryClient} from 'react-query'
+import React, {FC, useState, useEffect} from 'react'
 
 const ListToolbar = () => {
   const intl = useIntl()
@@ -28,6 +29,7 @@ const ListToolbar = () => {
       refetch()
     },
   })
+  const [loading, setLoading] = useState(false)
   return (
     <div className='d-flex justify-content-end' data-kt-item-table-toolbar='base'>
       <ListFilter />
@@ -46,6 +48,7 @@ const ListToolbar = () => {
       {currentUser?.roleName == 'Key Account' && (
         <button
           className='btn btn-sm btn-dark btn-active-light-dark'
+          disabled={loading}
           onClick={async () => {
             Swal.fire({
               color: '#000000',
@@ -60,6 +63,7 @@ const ListToolbar = () => {
             }).then(async (result) => {
               if (result.isConfirmed) {
                 // await deleteAllAudit().then
+                setLoading(true)
                 await deleteItem.mutateAsync()
 
                 Swal.fire({
@@ -69,21 +73,21 @@ const ListToolbar = () => {
                   timer: 2000,
                   showConfirmButton: true,
                 })
+                setLoading(false)
               }
             })
           }}
         >
-          {intl.formatMessage({id: 'AUDITS_DELETE_ALL'})}
+          {' '}
+          {loading && (
+            <span className='indicator-progress' style={{display: 'block'}}>
+              {intl.formatMessage({id: 'WAIT.AUDITS_DELETE_ALL'})}
+              <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+            </span>
+          )}
+          {!loading && intl.formatMessage({id: 'AUDITS_DELETE_ALL'})}
         </button>
       )}
-      {/* <a href='Planner'
-        type='button'
-        className='btn btn-sm btn-dark btn-active-light-dark'
-      >
-        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        {intl.formatMessage({id: 'AUDITS.LIST.ADD'})}
-      </a> */}
-      {/* end::Add Places */}
     </div>
   )
 }
