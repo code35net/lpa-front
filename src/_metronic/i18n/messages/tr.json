@@ -480,6 +480,7 @@
   "Sign.Out": "Çıkış Yap",
   "Lang": "Dil",
   "WAIT.AUDITS_DELETE_ALL": "Siliniyor",
+  "QUESTIONS.ADDPAGE.ISAUTHORIZED": "Yetkilisi Var mı?",
 
   "boş": "boş"
 }

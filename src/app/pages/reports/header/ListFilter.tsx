@@ -12,17 +12,20 @@ import {listOtherThings as listSections} from '../../units/list/core/_requests'
 import {getReport} from '../core/_requests'
 import {getPercentageReport} from '../../../../app/pages/units/list/core/_requests'
 import {getReportLeader} from '../core/_requests'
+import {getQuestionCategoryReport} from '../core/_requests'
 
 type Props = {
   setReportsInfo: any
   setReportsInfoLeader: any
   setReportsInfoPercentage: any
+  setReportsInfoQCategory: any
 }
 
 const ListFilter: React.FC<Props> = ({
   setReportsInfo,
   setReportsInfoPercentage,
   setReportsInfoLeader,
+  setReportsInfoQCategory,
 }) => {
   const intl = useIntl()
 

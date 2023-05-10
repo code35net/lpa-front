@@ -48,6 +48,7 @@
     "react-topbar-progress-indicator": "4.1.1",
     "sass": "1.50.1",
     "socicon": "3.0.5",
+    "survey-creator-react": "^1.9.86",
     "sweetalert2": "^11.6.16",
     "uuidv4": "^6.2.13",
     "xlsx": "^0.18.5",

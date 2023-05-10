@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import {KTSVG} from '../../../_metronic/helpers'
 import {useIntl} from 'react-intl'
-
+import {Field, ErrorMessage} from 'formik'
 import {listSomeThings as listUnits} from '../units/list/core/_requests'
 import {listThings as listAuditCategories} from '../audit-categories/list/core/_requests'
 import {listThings as listQuestionCategories} from '../question-groups/list/core/_requests'
@@ -14,8 +14,9 @@ import {useQueryResponse} from '../questions/list/core/QueryResponseProvider'
 import {useListView} from '../questions/list/core/ListViewProvider'
 import {createBulkQuestions} from './list/core/_requests'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
-
+import {listUsers} from '../user-management/list/core/_requests'
 import {useNavigate} from 'react-router-dom'
+import CustomSelect from '../../modules/custom-select/CustomSelect'
 
 type Props = {
   //    isPlaceLoading: boolean
@@ -56,6 +57,11 @@ const EditForm: FC<Props> = ({item}) => {
 
   const [questions, setQuestions] = React.useState<Array<Question>>([])
 
+  const [Users, setUsers] = React.useState([])
+
+  console.log(Users)
+  console.log(questions)
+
   useEffect(() => {
     listAuditCategories().then((res2) => {
       if (res2?.data?.length) {
@@ -78,9 +84,21 @@ const EditForm: FC<Props> = ({item}) => {
           questionGroupId: Array.isArray(res2.data) && res2.data.length ? res2.data[0]?.id : null,
           unitId: Array.isArray(res2.data) && res2.data.length ? res2.data[0]?.id : null,
           isAddedQuestionCategory: true,
+          isAuthorized: false,
+          questionUsers: [],
         },
       ] as any)
     })
+
+    listUsers().then((res7) => {
+      console.log(res7)
+      setUsers(
+        res7.data.map((a: any) => {
+          return {value: a?.id, label: a?.fullName}
+        }) || []
+      )
+    })
+    console.log('SELAM')
   }, [])
 
   const [formForEdit] = useState<Model>({
@@ -129,6 +147,7 @@ const EditForm: FC<Props> = ({item}) => {
           await createBulkQuestions({
             auditCategoryId: values?.auditCategoryId,
             questions: [question],
+            //questionUsers:[]
           } as any)
         } catch (error) {
           console.log(error)
@@ -228,6 +247,29 @@ const EditForm: FC<Props> = ({item}) => {
     setQuestions([...questions])
   }
 
+  const handleIsAuthorized = (id: number, value: boolean) => {
+    let index = questions.findIndex((question) => question.id === id)
+    if (index > -1) {
+      questions[index].isAuthorized = value
+    }
+    setQuestions([...questions])
+  }
+
+  const handleUserId = (id: any) => (data: any) => {
+    console.log(data)
+    let x: any[] = []
+    data.map((item: any) => {
+      x.push(item.value)
+    })
+    console.log(x)
+    let index = questions.findIndex((question) => question.id === id)
+    if (index > -1 && x?.length > 0) {
+      questions[index].questionUsers = x
+    }
+    console.log(questions)
+    setQuestions([...questions])
+  }
+
   const addQuestionItem = () => {
     if (questions[questions.length - 1].text) {
       questions.push({
@@ -237,6 +279,8 @@ const EditForm: FC<Props> = ({item}) => {
         questionGroupId: (questioncategories as any)[0]?.id as number,
         unitId: (units as any)[0]?.id as number,
         isAddedQuestionCategory: true,
+        isAuthorized: false,
+        questionUsers: [],
       })
       setQuestions([...questions])
     }
@@ -318,7 +362,7 @@ const EditForm: FC<Props> = ({item}) => {
               {questions.map((question: Question) => {
                 return (
                   <>
-                    <label className='col-lg-4 col-form-label required fw-bold fs-6'>
+                    <label className='col-lg-4 col-form-label required fw-bold fs-6 mt-6'>
                       {question.id}.{' '}
                       {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.QUESTIONTEXT_OPTION'})}
                     </label>
@@ -441,6 +485,40 @@ const EditForm: FC<Props> = ({item}) => {
                             <KTSVG path='/media/icons/duotune/arrows/arr010.svg' />
                           </a>
                         </div>
+                      </div>
+                    </div>
+                    <div className='col-lg-12 mt-10'>
+                      <div className='row'>
+                        <div className='col-md-2 fv-row'>
+                          <div className='form-check form-check-solid form-switch'>
+                            <label className='fw-bold mt-3'>
+                              {intl.formatMessage({
+                                id: 'QUESTIONS.ADDPAGE.ISAUTHORIZED',
+                              })}
+                            </label>
+
+                            <input
+                              checked={question.isAuthorized}
+                              onChange={(e) => handleIsAuthorized(question?.id, e.target.checked)}
+                              value={question.isAuthorized ? 'on' : 'off'}
+                              className='form-check-input w-30 mt-2'
+                              type='checkbox'
+                              id='allowmarketing'
+                            />
+                            <label className='form-check-label'></label>
+                          </div>
+                        </div>
+                        {question.isAuthorized && (
+                          <div className='col-md-3 fv-row'>
+                            <CustomSelect
+                              options={Users}
+                              onChange={handleUserId(question.id)}
+                              // value={question.id}
+                              isSearchable={true}
+                              isMulti
+                            />
+                          </div>
+                        )}
                       </div>
                     </div>
                   </>

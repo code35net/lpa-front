@@ -30,6 +30,8 @@ export type Question = {
   isAddedQuestionCategory: boolean
   Unit?: Unit
   unitId?: number
+  isAuthorized?: boolean
+  questionUsers?: Array<string>
 }
 
 export type QueryResponse = Response<Array<Model>>

@@ -175,6 +175,7 @@ const EditAuditForm: FC<Props> = ({item}) => {
     //   })
     // }
   }
+  console.log(formik.values)
   return (
     <div className='card mb-5 mb-xl-10'>
       <div
@@ -274,11 +275,11 @@ const EditAuditForm: FC<Props> = ({item}) => {
                 <div className='col-lg-8 fv-row'>
                   <select
                     className='form-select form-select-solid form-select-md'
-                    {...formik.getFieldProps('name')}
+                    {...formik.getFieldProps('questionGroupId')}
                   >
                     <option value=''>{intl.formatMessage({id: 'AUDITS.PLANNER.CHOOSE'})}</option>
                     {questioncategories.map((questioncategory: any) => (
-                      <option key={questioncategory?.id as any}>
+                      <option value={questioncategory?.id as any} key={questioncategory?.id as any}>
                         {questioncategory?.name as any}
                       </option>
                     ))}
