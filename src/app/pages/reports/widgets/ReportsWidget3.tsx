@@ -48,7 +48,7 @@ const ReportsWidget3: React.FC<Props> = ({className, reportsInfo, setReportsInfo
 
     return chart
   }
-
+  console.log(reportsInfo)
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -85,6 +85,8 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
   const borderColor = getCSSVariableValue('--kt-gray-300')
   const baseColor = getCSSVariableValue('--kt-warning')
   const secondaryColor = getCSSVariableValue('--kt-gray-500')
+  const customColor = getCSSVariableValue('--kt-primary')
+  const dangerColor = getCSSVariableValue('--kt-danger')
 
   const series: any = []
   const categories: any = []
@@ -98,97 +100,48 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
 
     let ar: any = []
     let ar2: any = []
+    let ar3: any = []
+    let ar4: any = []
+    let ar5: any = []
     reportsInfo?.map((dat: any) => {
       //data?.lists?.map((dat : any) => {
-      const av = dat?.avarage?.toFixed(0) || 0
-      const av2 = dat?.completion?.toFixed(0) || 0
+      const av = dat?.total?.toFixed(0) || 0
+      const av2 = dat?.answered?.toFixed(0) || 0
+      const av3 = dat?.isTrue?.toFixed(0) || 0
+      const av4 = dat?.needAction?.toFixed(0) || 0
+      const av5 = dat?.successRate?.toFixed(0) || 0
 
       ar.push(av)
       ar2.push(av2)
+      ar3.push(av3)
+      ar4.push(av4)
+      ar5.push(av5)
+
       categories.push(dat?.name)
       // })
     })
 
     series.push({
-      name: 'Ortalama Puan',
+      name: 'Soru Sayısı',
       data: ar,
     })
 
     series.push({
-      name: 'Yüzdece Gerçekleşme',
+      name: 'Cevaplanan',
       data: ar2,
     })
-
-    /*
     series.push({
-      name: reportsInfo,
-      data: [
-        reportsInfo[0]?.finished || 0,
-        reportsInfo[1]?.finished || 0,
-        reportsInfo[2]?.finished || 0,
-        reportsInfo[3]?.finished || 0,
-        reportsInfo[4]?.finished || 0,
-        reportsInfo[5]?.finished || 0,
-        reportsInfo[6]?.finished || 0,
-        reportsInfo[7]?.finished || 0,
-        reportsInfo[8]?.finished || 0,
-        reportsInfo[9]?.finished || 0,
-        reportsInfo[10]?.finished || 0,
-        reportsInfo[11]?.finished || 0,
-      ],
+      name: 'Doğru',
+      data: ar3,
     })
     series.push({
-      name: 'Not Started',
-      data: [
-        reportsInfo[0]?.notStarted || 0,
-        reportsInfo[1]?.notStarted || 0,
-        reportsInfo[2]?.notStarted || 0,
-        reportsInfo[3]?.notStarted || 0,
-        reportsInfo[4]?.notStarted || 0,
-        reportsInfo[5]?.notStarted || 0,
-        reportsInfo[6]?.notStarted || 0,
-        reportsInfo[7]?.notStarted || 0,
-        reportsInfo[8]?.notStarted || 0,
-        reportsInfo[9]?.notStarted || 0,
-        reportsInfo[10]?.notStarted || 0,
-        reportsInfo[11]?.notStarted || 0,
-      ],
+      name: 'Aksiyon Gerekli',
+      data: ar4,
     })
     series.push({
-      name: 'In Progress',
-      data: [
-        reportsInfo[0]?.inProgress || 0,
-        reportsInfo[1]?.inProgress || 0,
-        reportsInfo[2]?.inProgress || 0,
-        reportsInfo[3]?.inProgress || 0,
-        reportsInfo[4]?.inProgress || 0,
-        reportsInfo[5]?.inProgress || 0,
-        reportsInfo[6]?.inProgress || 0,
-        reportsInfo[7]?.inProgress || 0,
-        reportsInfo[8]?.inProgress || 0,
-        reportsInfo[9]?.inProgress || 0,
-        reportsInfo[10]?.inProgress || 0,
-        reportsInfo[11]?.inProgress || 0,
-      ],
+      name: 'Başarı Yüzdesi',
+      data: ar5,
     })
-    series.push({
-      name: 'Cancelled',
-      data: [
-        reportsInfo[0]?.cancelled || 0,
-        reportsInfo[1]?.cancelled || 0,
-        reportsInfo[2]?.cancelled || 0,
-        reportsInfo[3]?.cancelled || 0,
-        reportsInfo[4]?.cancelled || 0,
-        reportsInfo[5]?.cancelled || 0,
-        reportsInfo[6]?.cancelled || 0,
-        reportsInfo[7]?.cancelled || 0,
-        reportsInfo[8]?.cancelled || 0,
-        reportsInfo[9]?.cancelled || 0,
-        reportsInfo[10]?.cancelled || 0,
-        reportsInfo[11]?.cancelled || 0,
-      ],
-    })
-    */
   }
   if (reportsInfo?.length > 0) {
     return {
@@ -281,7 +234,7 @@ function getChartOptions(height: number, reportsInfo: any): ApexOptions {
           },
         },
       },
-      colors: [baseColor, secondaryColor],
+      colors: [secondaryColor, customColor, baseColor, dangerColor, borderColor],
       grid: {
         borderColor: borderColor,
         strokeDashArray: 4,
