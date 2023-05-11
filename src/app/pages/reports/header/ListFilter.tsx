@@ -151,6 +151,11 @@ const ListFilter: React.FC<Props> = ({
         setReportsInfoPercentage(response.data)
       }
     })
+    getQuestionCategoryReport(filter).then((response) => {
+      if (response?.data) {
+        setReportsInfoQCategory(response.data)
+      }
+    })
   }
 
   return (

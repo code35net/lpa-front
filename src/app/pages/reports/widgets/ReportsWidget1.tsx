@@ -18,7 +18,7 @@ const ReportsWidget1: React.FC<Props> = ({className, reportsInfo, setReportsInfo
   const intl = useIntl()
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
-
+  console.log(reportsInfo)
   useEffect(() => {
     const chart = refreshChart(reportsInfo)
 
