@@ -192,6 +192,9 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
     setUsers([...filteredData])*/
   }
 
+  console.log(formik.values.auditCategoryId)
+  console.log(formik.values.unitType)
+
   return (
     <>
       <form id='kt_modal_add_item_form' className='form' onSubmit={formik.handleSubmit} noValidate>
@@ -356,7 +359,7 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
                 selectedAuditCategories.includes(a.id?.toString() || '0')
               )[0]?.name != 'LPA 1'
             }
-            className='fw-bold fs-6 mb-2'
+            className=' required fw-bold fs-6 mb-2'
           >
             {intl.formatMessage({id: 'UNIT_TYPE'})}
           </label>
@@ -399,7 +402,13 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
             type='submit'
             className='btn btn-sm btn-dark btn-active-light-dark'
             data-kt-items-modal-action='submit'
-            disabled={isThingLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
+            disabled={
+              isThingLoading ||
+              formik.isSubmitting ||
+              !formik.isValid ||
+              !formik.touched ||
+              (formik.values.auditCategoryId === '9' && formik.values.unitType === undefined)
+            }
           >
             <span className='indicator-label'> {intl.formatMessage({id: 'FORM.SAVE'})}</span>
             {(formik.isSubmitting || isThingLoading) && (
