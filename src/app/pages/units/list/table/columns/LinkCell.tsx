@@ -17,7 +17,7 @@ const LinkCell: FC<Props> = ({item}) => {
   return (
     <div className='d-flex align-items-center'>
       <div className='d-flex flex-column'>
-        {item.unitType == 2 || item.unitType == 1 ? (
+        {item.unitType == 2 || item.unitType == 1 || item.unitType == 0 ? (
           <span className='text-gray-800'>{item.name}</span>
         ) : (
           <span className='text-gray-800'>

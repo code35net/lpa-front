@@ -59,9 +59,6 @@ const EditForm: FC<Props> = ({item}) => {
 
   const [Users, setUsers] = React.useState([])
 
-  console.log(Users)
-  console.log(questions)
-
   useEffect(() => {
     listAuditCategories().then((res2) => {
       if (res2?.data?.length) {
@@ -91,14 +88,12 @@ const EditForm: FC<Props> = ({item}) => {
     })
 
     listUsers().then((res7) => {
-      console.log(res7)
       setUsers(
         res7.data.map((a: any) => {
           return {value: a?.id, label: a?.fullName}
         }) || []
       )
     })
-    console.log('SELAM')
   }, [])
 
   const [formForEdit] = useState<Model>({
@@ -256,17 +251,16 @@ const EditForm: FC<Props> = ({item}) => {
   }
 
   const handleUserId = (id: any) => (data: any) => {
-    console.log(data)
     let x: any[] = []
     data.map((item: any) => {
       x.push(item.value)
     })
-    console.log(x)
+
     let index = questions.findIndex((question) => question.id === id)
     if (index > -1 && x?.length > 0) {
       questions[index].questionUsers = x
     }
-    console.log(questions)
+
     setQuestions([...questions])
   }
 
@@ -292,7 +286,7 @@ const EditForm: FC<Props> = ({item}) => {
       setQuestions([...questions])
     }
   }
-
+  console.log(units)
   return (
     <div className='card mb-5 mb-xl-10'>
       <div
@@ -454,22 +448,50 @@ const EditForm: FC<Props> = ({item}) => {
                               ))
                             ) : (
                               <>
-                                {units.map((unit: any) =>
-                                  parentUnits.includes(unit.parentUnitName) ? null : (
-                                    <>{parentUnits.push(unit.parentUnitName)}</>
-                                  )
-                                )}
-                                {parentUnits.map((name: any) => (
+                                {/* {units
+                                  .filter((unit) => unit !== null)
+                                  .map(
+                                    (unit: any) =>
+                                      unit?.parentUnitName != null ? (
+                                        !parentUnits.includes(unit.parentUnitName) ? (
+                                          <>{parentUnits.push(unit.parentUnitName)}</>
+                                        ) : null
+                                      ) : null
+                                    // console.log(unit)
+                                  )} */}
+                                {/* {parentUnits.map((name: any) => (
                                   <>
                                     <optgroup label={name as any}></optgroup>
                                     {units
-                                      .filter((u: any) => u.parentUnitName == name)
+                                      .filter((u: any) => u.parentUnitName !== null)
+                                      .filter((u: any) => u.parentUnitName === name)
                                       .map((unit: any) => (
                                         <option value={unit?.id} key={unit?.id as any}>
                                           {unit?.name as any}
                                         </option>
                                       ))}
                                   </>
+                                ))} */}
+
+                                {units.map((unit: any) => {
+                                  if (unit.parentUnitName !== null) {
+                                    if (!parentUnits.includes(unit.parentUnitName)) {
+                                      parentUnits.push(unit.parentUnitName)
+                                    }
+                                  }
+                                  return null
+                                })}
+                                {parentUnits.map((name: any) => (
+                                  <React.Fragment key={name}>
+                                    <optgroup label={name as any}></optgroup>
+                                    {units
+                                      .filter((u: any) => u.parentUnitName === name)
+                                      .map((unit: any) => (
+                                        <option value={unit?.id} key={unit?.id as any}>
+                                          {unit?.name as any}
+                                        </option>
+                                      ))}
+                                  </React.Fragment>
                                 ))}
                               </>
                             )}

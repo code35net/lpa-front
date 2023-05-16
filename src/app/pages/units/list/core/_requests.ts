@@ -11,6 +11,7 @@ const LIST_THING_URL = `${API_URL}/Custom/getPartialUnit`
 const SOME_THING_URL = `${API_URL}/Custom/getSomeUnit`
 const GET_PER_REPORT = `${API_URL}/Custom/getPercentageReport`
 const UPDATE_UNIT = `${API_URL}/Custom/updateUnit`
+const DELETE_UNIT = `${API_URL}/Custom/deleteUnit`
 
 const getThings = (query: string): Promise<QueryResponse> => {
   //console.log(query)
@@ -28,7 +29,7 @@ const listThings = async (): Promise<any> =>
   })
 
 const listOtherThings = async (q: number): Promise<any> =>
-  await axios.get(`${LIST_THING_URL}/${q}`).then((res: AxiosResponse) => {
+  await axios.get(`${LIST_THING_URL}/${q}?page=1&items_per_page=999`).then((res: AxiosResponse) => {
     return res.data
   })
 
@@ -81,6 +82,10 @@ const deleteThing = (thingId: ID): Promise<void> => {
   return axios.delete(`${THING_URL}/${thingId}`).then(() => {})
 }
 
+const deleteCustomThing = (thingId: any): Promise<void> => {
+  return axios.delete(`${DELETE_UNIT}/${thingId}`).then(() => {})
+}
+
 const deleteSelectedThings = (thingIds: Array<ID>): Promise<void> => {
   const requests = thingIds.map((id) => axios.delete(`${THING_URL}/${id}`))
   return axios.all(requests).then(() => {})
@@ -98,4 +103,5 @@ export {
   listOtherThings,
   getPercentageReport,
   updateUnit,
+  deleteCustomThing,
 }
