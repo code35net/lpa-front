@@ -179,14 +179,12 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
 
         */}
 
-        <div className='fv-row mb-7'>
-          {/* begin::Label */}
+        {/* <div className='fv-row mb-7'>
+        
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'QUESTIONS.ADDPAGE.AUDITCATEGORY'})}
           </label>
-          {/* end::Label */}
-
-          {/* begin::Input */}
+          
           <select
             className='form-select form-select-solid form-select-md'
             {...formik.getFieldProps('auditCategoryId')}
@@ -200,9 +198,9 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
               </option>
             ))}
           </select>
-          {/* end::Input */}
-        </div>
-        <div className='fv-row mb-7'>
+        
+        </div> */}
+        {/* <div className='fv-row mb-7'>
           <div className='form-check form-check-solid form-switch'>
             <label className='fw-bold fs-6 mt-3 px-5'>
               {intl.formatMessage({
@@ -222,8 +220,8 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
               id='isAddedQuestionCategory'
             />
           </div>
-        </div>
-        {isQuestionCategory && (
+        </div> */}
+        {/* {isQuestionCategory && (
           <div className='fv-row mb-7'>
             <select
               className='form-select form-select-solid form-select-md'
@@ -236,12 +234,12 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
                 </option>
               ))}
             </select>
-            {/* end::Input */}
+           
           </div>
-        )}
+        )} */}
 
-        <div className='fv-row mb-7'>
-          {/* begin::Label */}
+        {/* <div className='fv-row mb-7'>
+
           <label className='required fw-bold fs-6 mb-2'>
             {intl.formatMessage({id: 'QUESTIONS.EDIT.UNIT'})}
           </label>
@@ -260,7 +258,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
 
         <div className='fv-row mb-7'>
           {/* begin::Label */}
