@@ -19,9 +19,7 @@ type Props = {
   item: Model
 }
 
-const editchema = Yup.object().shape({
-  text: Yup.string().max(50, 'Maximum 50 symbols').required('Question required'),
-})
+const editchema = Yup.object().shape({})
 
 const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
   const intl = useIntl()
