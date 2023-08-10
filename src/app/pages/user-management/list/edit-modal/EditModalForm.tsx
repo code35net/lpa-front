@@ -47,6 +47,7 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
     identity: undefined,
     isDeleteUser: false,
     userId: undefined,
+    email: undefined,
     ...item,
   })
 
@@ -215,6 +216,40 @@ const EditModalForm: FC<Props> = ({item, isQuestionLoading}) => {
               <div className='fv-plugins-message-container'>
                 <div className='fv-help-block'>
                   <span role='alert'>{formik.errors.fullName}</span>
+                </div>
+              </div>
+            )}
+            {/* end::Input */}
+          </div>
+        )}
+        {!isDeleted && (
+          <div className='fv-row mb-7'>
+            {/* begin::Label */}
+            <label className='required fw-bold fs-6 mb-2'>
+              {intl.formatMessage({id: 'AUTH.INPUT.EMAIL'})}
+            </label>
+            {/* end::Label */}
+
+            {/* begin::Input */}
+            <input
+              //placeholder='Full name'
+              {...formik.getFieldProps('email')}
+              type='text'
+              name='email'
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                {'is-invalid': formik.touched.email && formik.errors.email},
+                {
+                  'is-valid': formik.touched.email && !formik.errors.email,
+                }
+              )}
+              autoComplete='off'
+              disabled={formik.isSubmitting || isQuestionLoading}
+            />
+            {formik.touched.email && formik.errors.email && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.email}</span>
                 </div>
               </div>
             )}
