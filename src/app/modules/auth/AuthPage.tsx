@@ -5,6 +5,7 @@ import {Registration} from './components/Registration'
 import {ForgotPassword} from './components/ForgotPassword'
 import {Login} from './components/Login'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
+import {DeleteAccount} from './components/DeleteAccount'
 
 const AuthLayout = () => {
   useEffect(() => {
@@ -15,9 +16,9 @@ const AuthLayout = () => {
   return (
     <div
       className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed'
-      style={{
-        backgroundImage: `url(${toAbsoluteUrl('/media/illustrations/sketchy-1/14.png')})`,
-      }}
+      // style={{
+      //   backgroundImage: `url(${toAbsoluteUrl('/media/illustrations/sketchy-1/14.png')})`,
+      // }}
     >
       {/* begin::Content */}
       <div className='d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20'>
@@ -49,12 +50,9 @@ const AuthLayout = () => {
           {/*<a href='https://nessworldwideservices.com/' className='text-muted text-hover-primary px-2'>
             Ness Worldwide Services
           </a>*/}
-           <a href='https://code35.net/' className='text-muted text-hover-primary px-2'>
-             CODE35 | A Software Company
-            
-          </a> 
-
-          
+          <a href='https://code35.net/' className='text-muted text-hover-primary px-2'>
+            CODE35 | A Software Company
+          </a>
         </div>
       </div>
       {/* end::Footer */}
@@ -68,6 +66,8 @@ const AuthPage = () => (
       <Route path='login' element={<Login />} />
       <Route path='registration' element={<Registration />} />
       <Route path='forgot-password' element={<ForgotPassword />} />
+      <Route path='deleteaccount' element={<DeleteAccount />} />
+
       <Route index element={<Login />} />
     </Route>
   </Routes>

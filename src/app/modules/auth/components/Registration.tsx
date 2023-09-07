@@ -8,69 +8,79 @@ import {getUserByToken, register} from '../core/_requests'
 import {useAuth} from '../core/Auth'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {PasswordMeterComponent} from '../../../../_metronic/assets/ts/components'
+import Swal from 'sweetalert2'
+import {useIntl} from 'react-intl'
 
 const initialValues = {
   firstname: '',
   lastname: '',
   email: '',
   password: '',
-  changepassword: '',
   acceptTerms: false,
 }
-
-const registrationSchema = Yup.object().shape({
-  firstname: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('First name is required'),
-  email: Yup.string()
-    .email('Wrong email format')
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Email is required'),
-  lastname: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Last name is required'),
-  password: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Password is required'),
-  changepassword: Yup.string()
-    .required('Password confirmation is required')
-    .when('password', {
-      is: (val: string) => (val && val.length > 0 ? true : false),
-      then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
-    }),
-  acceptTerms: Yup.bool().required('You must accept the terms and conditions'),
-})
 
 export function Registration() {
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
+  const intl = useIntl()
+  const registrationSchema = Yup.object().shape({
+    firstname: Yup.string().required(intl.formatMessage({id: 'NameRequerment'})),
+    email: Yup.string()
+      .email(intl.formatMessage({id: 'MailNotSuitable'}))
+      .required(intl.formatMessage({id: 'MailRequerment'})),
+    lastname: Yup.string().required(intl.formatMessage({id: 'SurNameRequerment'})),
+    password: Yup.string()
+      .required(intl.formatMessage({id: 'PsswordRequerment'}))
+      .min(3, intl.formatMessage({id: 'MinChar'}))
+      .max(50, intl.formatMessage({id: 'MaxChar'})),
+    // changepassword: Yup.string()
+    //   .required('Password confirmation is required')
+    //   .when('password', {
+    //     is: (val: string) => (val && val.length > 0 ? true : false),
+    //     then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
+    //   }),
+    // acceptTerms: Yup.bool().required('You must accept the terms and conditions'),
+  })
+
   const formik = useFormik({
     initialValues,
     validationSchema: registrationSchema,
     onSubmit: async (values, {setStatus, setSubmitting}) => {
-      setLoading(true)
-      try {
-        const {data: auth} = await register(
-          values.email,
-          values.firstname,
-          values.lastname,
-          values.password,
-          values.changepassword
-        )
-        saveAuth(auth)
-        const {data: user} = await getUserByToken()
-        setCurrentUser(user)
-      } catch (error) {
-        console.error(error)
-        saveAuth(undefined)
-        setStatus('The registration details is incorrect')
-        setSubmitting(false)
-        setLoading(false)
-      }
+      // setLoading(true)
+
+      values.firstname = ''
+      values.lastname = ''
+      values.email = ''
+      values.password = ''
+
+      Swal.fire({
+        title: intl.formatMessage({id: 'SucccesMessage'}),
+        text: intl.formatMessage({id: 'SucccesMessage2'}),
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: true,
+      })
+
+      // try {
+      //   const {data: auth} = await register(
+      //     values.email,
+      //     values.firstname,
+      //     values.lastname,
+      //     values.password,
+      //     values.changepassword
+      //   )
+      //   // saveAuth(auth)
+      //   const {data: user} = await getUserByToken()
+      //   // setCurrentUser(user)
+      //   console.log('üst')
+      // } catch (error) {
+      //   console.log('alt')
+      //   console.error(error)
+      //   saveAuth(undefined)
+      //   setStatus('The registration details is incorrect')
+      //   setSubmitting(false)
+      //   setLoading(false)
+      // }
     },
   })
 
@@ -88,14 +98,13 @@ export function Registration() {
       {/* begin::Heading */}
       <div className='mb-10 text-center'>
         {/* begin::Title */}
-        <h1 className='text-dark mb-3'>Create an Account</h1>
+        <h1 className='text-dark mb-3'>{intl.formatMessage({id: 'NewAccount'})}</h1>
         {/* end::Title */}
 
         {/* begin::Link */}
         <div className='text-gray-400 fw-bold fs-4'>
-          Already have an account?
           <Link to='/auth/login' className='link-primary fw-bolder' style={{marginLeft: '5px'}}>
-            Forgot Password ?
+            {intl.formatMessage({id: 'AlreadyAccount'})}
           </Link>
         </div>
         {/* end::Link */}
@@ -103,19 +112,19 @@ export function Registration() {
       {/* end::Heading */}
 
       {/* begin::Action */}
-      <button type='button' className='btn btn-light-primary fw-bolder w-100 mb-10'>
+      {/* <button type='button' className='btn btn-light-primary fw-bolder w-100 mb-10'>
         <img
           alt='Logo'
           src={toAbsoluteUrl('/media/svg/brand-logos/google-icon.svg')}
           className='h-20px me-3'
         />
         Sign in with Google
-      </button>
+      </button> */}
       {/* end::Action */}
 
       <div className='d-flex align-items-center mb-10'>
         <div className='border-bottom border-gray-300 mw-50 w-100'></div>
-        <span className='fw-bold text-gray-400 fs-7 mx-2'>OR</span>
+        <span className='fw-bold text-gray-400 fs-7 mx-2'>-</span>
         <div className='border-bottom border-gray-300 mw-50 w-100'></div>
       </div>
 
@@ -128,9 +137,11 @@ export function Registration() {
       {/* begin::Form group Firstname */}
       <div className='row fv-row mb-7'>
         <div className='col-xl-6'>
-          <label className='class="form-label fw-bolder text-dark fs-6'>First name</label>
+          <label className='class="form-label fw-bolder text-dark fs-6'>
+            {intl.formatMessage({id: 'NAME'})}
+          </label>
           <input
-            placeholder='First name'
+            placeholder=''
             type='text'
             autoComplete='off'
             {...formik.getFieldProps('firstname')}
@@ -155,9 +166,12 @@ export function Registration() {
         <div className='col-xl-6'>
           {/* begin::Form group Lastname */}
           <div className='fv-row mb-5'>
-            <label className='form-label fw-bolder text-dark fs-6'>Last name</label>
+            <label className='form-label fw-bolder text-dark fs-6'>
+              {' '}
+              {intl.formatMessage({id: 'SURNAME'})}
+            </label>
             <input
-              placeholder='Last name'
+              placeholder=''
               type='text'
               autoComplete='off'
               {...formik.getFieldProps('lastname')}
@@ -186,9 +200,12 @@ export function Registration() {
 
       {/* begin::Form group Email */}
       <div className='fv-row mb-7'>
-        <label className='form-label fw-bolder text-dark fs-6'>Email</label>
+        <label className='form-label fw-bolder text-dark fs-6'>
+          {' '}
+          {intl.formatMessage({id: 'EMAIL'})}
+        </label>
         <input
-          placeholder='Email'
+          placeholder=''
           type='email'
           autoComplete='off'
           {...formik.getFieldProps('email')}
@@ -213,11 +230,14 @@ export function Registration() {
       {/* begin::Form group Password */}
       <div className='mb-10 fv-row' data-kt-password-meter='true'>
         <div className='mb-1'>
-          <label className='form-label fw-bolder text-dark fs-6'>Password</label>
+          <label className='form-label fw-bolder text-dark fs-6'>
+            {' '}
+            {intl.formatMessage({id: 'PASSWORD'})}
+          </label>
           <div className='position-relative mb-3'>
             <input
               type='password'
-              placeholder='Password'
+              placeholder=''
               autoComplete='off'
               {...formik.getFieldProps('password')}
               className={clsx(
@@ -243,21 +263,19 @@ export function Registration() {
             className='d-flex align-items-center mb-3'
             data-kt-password-meter-control='highlight'
           >
+            {/* <div className='flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2'></div>
             <div className='flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2'></div>
             <div className='flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2'></div>
-            <div className='flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2'></div>
-            <div className='flex-grow-1 bg-secondary bg-active-success rounded h-5px'></div>
+            <div className='flex-grow-1 bg-secondary bg-active-success rounded h-5px'></div> */}
           </div>
           {/* end::Meter */}
         </div>
-        <div className='text-muted'>
-          Use 8 or more characters with a mix of letters, numbers & symbols.
-        </div>
+        {/* <div className='text-muted'>Şifreniz en az 8 karakter içermelidir.</div> */}
       </div>
       {/* end::Form group */}
 
       {/* begin::Form group Confirm password */}
-      <div className='fv-row mb-5'>
+      {/* <div className='fv-row mb-5'>
         <label className='form-label fw-bolder text-dark fs-6'>Confirm Password</label>
         <input
           type='password'
@@ -281,7 +299,7 @@ export function Registration() {
             </div>
           </div>
         )}
-      </div>
+      </div> */}
       {/* end::Form group */}
 
       {/* begin::Form group */}
@@ -297,11 +315,9 @@ export function Registration() {
             className='form-check-label fw-bold text-gray-700 fs-6'
             htmlFor='kt_login_toc_agree'
           >
-            I Agree the{' '}
             <Link to='/auth/terms' className='ms-1 link-primary'>
-              terms and conditions
+              {intl.formatMessage({id: 'AcceptTerm'})}
             </Link>
-            .
           </label>
           {formik.touched.acceptTerms && formik.errors.acceptTerms && (
             <div className='fv-plugins-message-container'>
@@ -320,9 +336,9 @@ export function Registration() {
           type='submit'
           id='kt_sign_up_submit'
           className='btn btn-lg btn-primary w-100 mb-5'
-          disabled={formik.isSubmitting || !formik.isValid || !formik.values.acceptTerms}
+          disabled={formik.isSubmitting || !formik.isValid}
         >
-          {!loading && <span className='indicator-label'>Submit</span>}
+          {!loading && <span className='indicator-label'> {intl.formatMessage({id: 'Save'})}</span>}
           {loading && (
             <span className='indicator-progress' style={{display: 'block'}}>
               Please wait...{' '}
@@ -336,7 +352,7 @@ export function Registration() {
             id='kt_login_signup_form_cancel_button'
             className='btn btn-lg btn-light-primary w-100 mb-5'
           >
-            Cancel
+            {intl.formatMessage({id: 'BACK'})}
           </button>
         </Link>
       </div>

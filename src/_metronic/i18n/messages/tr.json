@@ -482,5 +482,40 @@
   "WAIT.AUDITS_DELETE_ALL": "Siliniyor",
   "QUESTIONS.ADDPAGE.ISAUTHORIZED": "Yetkilisi Var mı?",
 
+  "UserInfo": "Kullanıcısına Ait Bilgiler",
+  "AuditCount": "Atandığı Denetim Sayısı",
+  "ActionCount": "Atandığı Aksiyon Sayısı",
+  "FinshedAuditCount": "Biten Denetim Sayısı",
+  "OpenAuditCount": "Açık Denetim Sayısı",
+  "Continue": "Giriş Yap",
+  "ForgotPassword": "Şifre mi Unuttum ?",
+  "CreateAccount": "Kayıt Ol",
+
+  "EnterEmail": "E-Posta Adresinizi Girniz",
+  "EMAIL": "E-Posta",
+  "SEND": "Gönder",
+  "BACK": "Geri",
+  "MailRequerment": "E-Posta gerekli",
+  "MailNotSuitable": "E-Posta formatı Uyumsuz",
+  "SucccesMessage": "Bilgileriniz Başarı İle Gönderilmiştir.'",
+  "SucccesMessage2": "Ekibimiz En Kısa Sürede Sizlere Dönüş Sağlayacaktır.",
+  "MinChar": "En az 3 Karakter",
+  "MaxChar": "En Fazla 50 Karakter'",
+
+  "NewAccount": "Yeni Bir Hesap Yarat",
+  "AlreadyAccount": "Zaten Bir Hesabım Var",
+  "NameRequerment": "Ad gerekli",
+  "SurNameRequerment": "Soyad gerekli",
+  "PsswordRequerment": "Şifre gerekli",
+  "AcceptTerm": "Kullanım Koşullarını Kabul Ediyorum.",
+  "Save": "Kaydet",
+  "NAME": "Ad",
+  "SURNAME": "Soyad",
+  "PASSWORD": "Şifre",
+
+  "DeleteAccount": "Hesap Sil",
+  "DeleteAccount2": "Hesabımı silmek istiyorum",
+  "DeleteRequest": "Hesabınız Silme Talebiniz Alınmıştır",
+
   "boş": "boş"
 }

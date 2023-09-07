@@ -14,9 +14,6 @@ type Props = {
   isChanged: boolean
 }
 
-
-
-
 const ActionsCell: FC<Props> = ({id, isChanged}) => {
   const {setItemIdForUpdate} = useListView()
   const {query} = useQueryResponse()
@@ -28,7 +25,6 @@ const ActionsCell: FC<Props> = ({id, isChanged}) => {
     MenuComponent.reinitialization()
   }, [])
 
-  
   const openEditModal = () => {
     setItemIdForUpdate(id)
   }
@@ -41,46 +37,66 @@ const ActionsCell: FC<Props> = ({id, isChanged}) => {
     },
   })
 
-  return currentUser?.roleName == "Key Account" ? (
+  return currentUser?.roleName == 'Key Account' ? (
     <>
-        
-      
-        <div className='d-flex justify-content-end flex-shrink-0'>
-
-          {!isChanged && (
-            <Link className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1' to ={`/audits/change-request/${id}`}>
-              <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
-            </Link>
-            )
-          }
-          {isChanged && (
-            <Link aria-disabled  className='btn btn-icon btn-danger btn-active-color-danger btn-sm me-1' to ={'#'}>
-              <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
-            </Link>
-            )
-          }
-
-
-          <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-           onClick={openEditModal}
-           >
-            <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
-          </a>
-
-
-          <a className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
-           data-kt-users-table-filter='delete_row'
-          onClick={async () => await deleteItem.mutateAsync()}
+      <div className='d-flex justify-content-end flex-shrink-0'>
+        {!isChanged && (
+          <Link
+            className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+            to={`/audits/change-request/${id}`}
           >
-            <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
-          </a>
-        </div>
-      
+            <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
+          </Link>
+        )}
+        {isChanged && (
+          <Link
+            aria-disabled
+            className='btn btn-icon btn-danger btn-active-color-danger btn-sm me-1'
+            to={'#'}
+          >
+            <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
+          </Link>
+        )}
+
+        <a
+          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+          onClick={openEditModal}
+        >
+          <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+        </a>
+
+        <a
+          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+          data-kt-users-table-filter='delete_row'
+          onClick={async () => await deleteItem.mutateAsync()}
+        >
+          <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
+        </a>
+      </div>
     </>
   ) : (
-    <>
-     <Link to={`/audits/auditquestions/${id}`} className="btn btn-sm btn-icon btn-dark"><KTSVG path='/media/icons/duotune/general/gen016.svg' className='svg-icon-3' /></Link>
-    </>
+    <div className='d-flex gap-2'>
+      {!isChanged && (
+        <Link
+          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+          to={`/audits/change-request/${id}`}
+        >
+          <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
+        </Link>
+      )}
+      {isChanged && (
+        <Link
+          aria-disabled
+          className='btn btn-icon btn-danger btn-active-color-danger btn-sm me-1'
+          to={'#'}
+        >
+          <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
+        </Link>
+      )}
+      <Link to={`/audits/auditquestions/${id}`} className='btn btn-sm btn-icon btn-dark '>
+        <KTSVG path='/media/icons/duotune/general/gen016.svg' className='svg-icon-3' />
+      </Link>
+    </div>
   )
 }
 

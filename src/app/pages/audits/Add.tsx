@@ -91,7 +91,7 @@ const ChangeRequestPage: FC = () => {
         <div>
           <form
             id='kt_modal_add_item_form'
-            className='form'
+            className='form m-16'
             onSubmit={formik.handleSubmit}
             noValidate
           >

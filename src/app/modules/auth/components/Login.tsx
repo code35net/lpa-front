@@ -10,18 +10,6 @@ import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {AuthModel, UserModel} from '../core/_models'
 import {useIntl} from 'react-intl'
 
-const loginSchema = Yup.object().shape({
-  username: Yup.string()
-
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Email is required'),
-  password: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Password is required'),
-})
-
 const initialValues = {
   username: '',
   password: '',
@@ -37,6 +25,18 @@ export function Login() {
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
   const intl = useIntl()
+  const loginSchema = Yup.object().shape({
+    username: Yup.string()
+
+      .min(3, intl.formatMessage({id: 'MinChar'}))
+      .max(50, intl.formatMessage({id: 'MaxChar'}))
+      .required(intl.formatMessage({id: 'MailRequerment'})),
+    password: Yup.string()
+      .min(3, intl.formatMessage({id: 'MinChar'}))
+      .max(50, intl.formatMessage({id: 'MaxChar'}))
+      .required(intl.formatMessage({id: 'PsswordRequerment'})),
+  })
+
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
@@ -68,12 +68,11 @@ export function Login() {
       {/* begin::Heading */}
       <div className='text-center mb-10'>
         <h1 className='text-dark mb-3'>iQualitor | Auditing App</h1>
-        {/* <div className='text-gray-400 fw-bold fs-4'>
-          New Here?{' '}
+        <div className='text-gray-400 fw-bold fs-4'>
           <Link to='/auth/registration' className='link-primary fw-bolder'>
-            Create an Account
+            {intl.formatMessage({id: 'CreateAccount'})}
           </Link>
-        </div> */}
+        </div>
       </div>
       {/* begin::Heading */}
 
@@ -128,13 +127,13 @@ export function Login() {
             </label>
             {/* end::Label */}
             {/* begin::Link */}
-            {/* <Link
+            <Link
               to='/auth/forgot-password'
-              className='link-primary fs-6 fw-bolder'
+              className='link-primary fs-6 fw-bolder mx-4'
               style={{marginLeft: '5px'}}
             >
-              Forgot Password ?
-            </Link> */}
+              {intl.formatMessage({id: 'ForgotPassword'})}
+            </Link>
             {/* end::Link */}
           </div>
         </div>
@@ -170,7 +169,9 @@ export function Login() {
           className='btn btn-lg btn-primary w-100 mb-5'
           disabled={formik.isSubmitting || !formik.isValid}
         >
-          {!loading && <span className='indicator-label'>Continue</span>}
+          {!loading && (
+            <span className='indicator-label'> {intl.formatMessage({id: 'Continue'})}</span>
+          )}
           {loading && (
             <span className='indicator-progress' style={{display: 'block'}}>
               Please wait...
@@ -178,6 +179,11 @@ export function Login() {
             </span>
           )}
         </button>
+      </div>
+      <div className='text-gray-500 text-center fw-semibold fs-6'>
+        <Link to='/auth/deleteaccount' className='link-primary'>
+          {intl.formatMessage({id: 'DeleteAccount2'})}
+        </Link>
       </div>
       {/* end::Action */}
     </form>
