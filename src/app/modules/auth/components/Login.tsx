@@ -96,7 +96,7 @@ export function Login() {
           {intl.formatMessage({id: 'AUTH.INPUT.USERNAME'})}
         </label>
         <input
-          placeholder='Email'
+          
           {...formik.getFieldProps('username')}
           className={clsx(
             'form-control form-control-lg form-control-solid',
