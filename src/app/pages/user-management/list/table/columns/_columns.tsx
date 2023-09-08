@@ -11,6 +11,7 @@ import {SelectionCell} from './SelectionCell'
 import {CustomHeader} from './CustomHeader'
 import {SelectionHeader} from './SelectionHeader'
 import {Model} from '../../core/_models'
+import {LinkCell} from './LinkCell'
 
 const Columns: ReadonlyArray<Column<Model>> = [
   // {
@@ -28,7 +29,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
     ),
     id: 'fullname',
 
-    Cell: ({...props}) => <FullnameCell item={props.data[props.row.index]} />,
+    Cell: ({...props}) => <LinkCell item={props.data[props.row.index]} />,
   },
   {
     Header: (props) => (

@@ -1,7 +1,8 @@
 import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
-import {PageLink, PageTitle} from "../../../_metronic/layout/core"
+import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import {ListWrapper} from './list/List'
 import {useIntl} from 'react-intl'
+import {UserDetail} from './userDetail'
 
 // const Breadcrumbs: Array<PageLink> = [
 //   {
@@ -27,8 +28,17 @@ const Page = () => {
           path='users'
           element={
             <>
-              <PageTitle>{intl.formatMessage({id:'USER.PAGE.TITLE'})}</PageTitle>
+              <PageTitle>{intl.formatMessage({id: 'USER.PAGE.TITLE'})}</PageTitle>
               <ListWrapper />
+            </>
+          }
+        />
+        <Route
+          path='detail'
+          element={
+            <>
+              <PageTitle>{intl.formatMessage({id: 'USER.PAGE.TITLE.INF'})}</PageTitle>
+              <UserDetail />
             </>
           }
         />

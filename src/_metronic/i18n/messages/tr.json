@@ -258,6 +258,7 @@
   "USER.TABLE.COLUMNS.SHIFT": "Shift",
   "USER.TABLE.COLUMNS.ACTIONS": "Aksiyonlar",
   "USER.PAGE.TITLE": "Kullanıcılar",
+  "USER.PAGE.TITLE.INF": "Kullanıcı Detayları",
   "USER.PAGE.INF": "Kullanıcı Ayarları",
   "USER.CHANGE.PASS": "Şifre Değiştir",
   "USER.CHANGE.PASSWORD": "Şifreyi Değiştir",
@@ -483,6 +484,7 @@
   "QUESTIONS.ADDPAGE.ISAUTHORIZED": "Yetkilisi Var mı?",
 
   "UserInfo": "Kullanıcısına Ait Bilgiler",
+  "UserInfo2": "Kullanıcıya Ait Bilgiler",
   "AuditCount": "Atandığı Denetim Sayısı",
   "ActionCount": "Atandığı Aksiyon Sayısı",
   "FinshedAuditCount": "Biten Denetim Sayısı",
