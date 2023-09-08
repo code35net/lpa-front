@@ -42,8 +42,8 @@ const getDashboardData = async (id: any): Promise<any> =>
     return res.data
   })
 
-const getAuditQuestions = async (id: string): Promise<any> =>
-  await axios.get(`${DASHBOARD}?UserId=${id}`).then((res: AxiosResponse) => {
+const getAuditQuestions = async (auditId: string): Promise<any> =>
+  await axios.get(`${AUDIT_QUESTIONS_URL}?auditId=${auditId}`).then((res: AxiosResponse) => {
     return res.data
   })
 
