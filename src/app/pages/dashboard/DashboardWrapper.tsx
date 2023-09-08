@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react'
+import React, {FC, useState, useEffect} from 'react'
 import {
   ChartsWidget1,
   ChartsWidget2,
@@ -11,6 +11,7 @@ import {
 } from '../../../_metronic/partials/widgets'
 import {useAuth} from '../../modules/auth'
 import {useIntl} from 'react-intl'
+import {getDashboardData} from '../audits/list/core/_requests'
 const Charts: FC = () => {
   const [reportsInfoPercentage, setReportsInfoPercentage] = useState()
   const {currentUser}: any = useAuth()
@@ -19,8 +20,15 @@ const Charts: FC = () => {
   const fileUrl2 = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Auditor.pdf'
 
   const intl = useIntl()
+  const [data, setData]: any = useState([])
 
   console.log(currentUser)
+
+  useEffect(() => {
+    getDashboardData(currentUser?.id).then((res: any) => {
+      setData(res)
+    })
+  }, [])
   return (
     <>
       {/* begin::Row */}
@@ -46,7 +54,7 @@ const Charts: FC = () => {
                         <div className='d-flex flex-column'>
                           <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                             <div className='d-flex align-items-center'>
-                              <div className='fs-2 fw-bolder'>0</div>
+                              <div className='fs-2 fw-bolder'>{data?.actionCount}</div>
                             </div>
 
                             <div className='fw-bold fs-6 text-gray-400'>
@@ -55,7 +63,7 @@ const Charts: FC = () => {
                           </div>
                           <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                             <div className='d-flex align-items-center'>
-                              <div className='fs-2 fw-bolder'>0</div>
+                              <div className='fs-2 fw-bolder'>{data?.auditCount}</div>
                             </div>
 
                             <div className='fw-bold fs-6 text-gray-400'>
@@ -64,7 +72,7 @@ const Charts: FC = () => {
                           </div>
                           <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                             <div className='d-flex align-items-center'>
-                              <div className='fs-2 fw-bolder'>0</div>
+                              <div className='fs-2 fw-bolder'>{data?.endedAuditCount}</div>
                             </div>
 
                             <div className='fw-bold fs-6 text-gray-400'>
@@ -73,7 +81,7 @@ const Charts: FC = () => {
                           </div>
                           <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                             <div className='d-flex align-items-center'>
-                              <div className='fs-2 fw-bolder'>0</div>
+                              <div className='fs-2 fw-bolder'>{data?.inProgressAuditCount}</div>
                             </div>
 
                             <div className='fw-bold fs-6 text-gray-400'>

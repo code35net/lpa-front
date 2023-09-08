@@ -14,6 +14,7 @@ const UNITS_URL = `${API_URL}/Custom/listUnits`
 const DELETE_ALL = `${API_URL}/Custom/deleteAllAudit`
 const UPDATE_AUDIT = `${API_URL}/Custom/updateAudit`
 const LIST_UNIT2 = `${API_URL}/Custom/listUnit`
+const DASHBOARD = `${API_URL}/Custom/getUserAuditInfo`
 
 const listUnits = async (SectionId: any): Promise<any> =>
   await axios.get(`${UNITS_URL}?SectionId=${SectionId}`).then((res: AxiosResponse) => {
@@ -36,8 +37,13 @@ const getAuditDetails = async (id: string): Promise<any> =>
     return res.data
   })
 
-const getAuditQuestions = async (auditId: string): Promise<any> =>
-  await axios.get(`${AUDIT_QUESTIONS_URL}?auditId=${auditId}`).then((res: AxiosResponse) => {
+const getDashboardData = async (id: any): Promise<any> =>
+  await axios.get(`${DASHBOARD}?userid=${id}`).then((res: AxiosResponse) => {
+    return res.data
+  })
+
+const getAuditQuestions = async (id: string): Promise<any> =>
+  await axios.get(`${DASHBOARD}?UserId=${id}`).then((res: AxiosResponse) => {
     return res.data
   })
 
@@ -164,4 +170,5 @@ export {
   deleteAllAudit,
   updateAudit2,
   listUnits2,
+  getDashboardData,
 }
