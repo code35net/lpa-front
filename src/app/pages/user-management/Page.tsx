@@ -3,6 +3,7 @@ import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import {ListWrapper} from './list/List'
 import {useIntl} from 'react-intl'
 import {UserDetail} from './userDetail'
+import {CustomerCreate} from './newCustomer'
 
 // const Breadcrumbs: Array<PageLink> = [
 //   {
@@ -39,6 +40,15 @@ const Page = () => {
             <>
               <PageTitle>{intl.formatMessage({id: 'USER.PAGE.TITLE.INF'})}</PageTitle>
               <UserDetail />
+            </>
+          }
+        />
+        <Route
+          path='customer'
+          element={
+            <>
+              <PageTitle>{intl.formatMessage({id: 'Customer.ADD'})}</PageTitle>
+              <CustomerCreate />
             </>
           }
         />

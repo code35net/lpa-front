@@ -14,6 +14,7 @@ import {UserEditForm} from '../pages/user-management/newuser'
 import {EditAuditForm} from '../pages/audits/Planner'
 import {EditAuditForm2} from '../pages/audits/Planner2'
 import {AuditDetails} from '../pages/audits/detail/auditdetail'
+import {Announcement} from '../pages/dashboard/Announcement'
 import {AuditQuestionsForm} from '../pages/audits/detail/auditquestions'
 import {ChangeRequestPage} from '../pages/audits/Add'
 import {Reports} from '../pages/reports/ReportsWrapper'
@@ -41,6 +42,7 @@ const PrivateRoutes = (menus: Array<string>) => {
   const ChangesPassword = lazy(() => import('../pages/changePassword/Page'))
   const ChangesRequests = lazy(() => import('../pages/change-requests/Page'))
   const TableReports = lazy(() => import('../pages/tablereport/Page'))
+  const Toll = lazy(() => import('../pages/tool/Page'))
 
   var usermanagementyetki = Object.keys(menus).some((key: any) => menus[key] == 'useraction')
   var announcementyetki = Object.keys(menus).some((key: any) => menus[key] == 'announcement')
@@ -56,13 +58,14 @@ const PrivateRoutes = (menus: Array<string>) => {
         <Route path='menu-test' element={<MenuTestPage />} />
         <Route path='/audits/auditdetail' element={<AuditDetails />} />
         <Route path='/audits/auditquestions/:auditId' element={<AuditQuestionsForm />} />
-        <Route path='/audits/change-request/:auditId' element={<ChangeRequestPage/>} />
+        <Route path='/audits/change-request/:auditId' element={<ChangeRequestPage />} />
         {/* <Route path='/course' element={<CoursePage />} /> */}
         {/* <Route path='/lesson' element={<LessonPage />} /> */}
         <Route path='/questions/add' element={<EditForm />} />
         <Route path='/user-management/newuser' element={<UserEditForm />} />
         <Route path='/audits/Planner' element={<EditAuditForm />} />
         <Route path='/audits/Planner2' element={<EditAuditForm2 />} />
+        <Route path='/announcement' element={<Announcement />} />
 
         <Route path='reports' element={<Reports />} />
         {/* <Route path='questionreport' element={<QuestionReports />} /> */}
@@ -79,6 +82,14 @@ const PrivateRoutes = (menus: Array<string>) => {
           element={
             <SuspensedView>
               <ChangesPassword />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/tools/*'
+          element={
+            <SuspensedView>
+              <Toll />
             </SuspensedView>
           }
         />
@@ -100,7 +111,7 @@ const PrivateRoutes = (menus: Array<string>) => {
           }
         />
 
-          <Route
+        <Route
           path='/change-requests/*'
           element={
             <SuspensedView>
@@ -109,7 +120,7 @@ const PrivateRoutes = (menus: Array<string>) => {
           }
         />
 
-            <Route
+        <Route
           path='/tablereport/*'
           element={
             <SuspensedView>

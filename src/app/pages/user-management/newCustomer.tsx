@@ -1,0 +1,346 @@
+import React, {FC, useState, useEffect} from 'react'
+import {toAbsoluteUrl} from '../../../_metronic/helpers'
+import {Model} from './list/core/_models'
+import * as Yup from 'yup'
+import clsx from 'clsx'
+import {useFormik, validateYupSchema} from 'formik'
+import {KTSVG} from '../../../_metronic/helpers'
+import {useIntl} from 'react-intl'
+import {useNavigate} from 'react-router-dom'
+
+import {listThings as listUnits} from '../units/list/core/_requests'
+import {listOtherThings as listOtherUnits} from '../units/list/core/_requests'
+import {listThings as listAuditCategories} from '../audit-categories/list/core/_requests'
+import {useQueryResponse} from './list/core/QueryResponseProvider'
+import {useListView} from './list/core/ListViewProvider'
+import {createUser} from './list/core/_requests'
+
+type Props = {
+  //    isPlaceLoading: boolean
+  item?: Model
+}
+
+const editchema = Yup.object().shape({
+  email: Yup.string().email('Wrong email format').required('Email required'),
+  fullName: Yup.string().max(50, 'Maximum 50 symbols').required('Fullname required'),
+  identity: Yup.string().max(50, 'Maximum 50 symbols').required('UserName required'),
+})
+
+const CustomerCreate: FC<Props> = ({item}) => {
+  const navigate = useNavigate()
+  const intl = useIntl()
+  const {setItemIdForUpdate} = useListView()
+  const {refetch} = useQueryResponse()
+  const [units, setUnits] = React.useState([])
+  const [otherunits, setOtherUnits] = React.useState([])
+  const [otherunits2, setOtherUnits2] = React.useState([])
+  const [positions, setPositions] = React.useState([])
+  const [auditcategories, setAuditCategories] = React.useState([])
+
+  useEffect(() => {
+    listUnits().then((res) => {
+      if (res?.data?.length) {
+        setUnits(res.data || [])
+      }
+    })
+
+    listAuditCategories().then((res) => {
+      if (res?.data?.length) {
+        setAuditCategories(res.data || [])
+      }
+    })
+  }, [])
+
+  const [formForEdit] = useState<Model>({
+    ...item,
+    email: undefined,
+    role: undefined,
+    fullName: undefined,
+    // identity: undefined,
+    // positionId: undefined,
+    // auditCategoryId: undefined,
+  })
+
+  //   const updateData = (fieldsToUpdate: Partial<Model>): void => {
+  //     const updatedData = Object.assign(data, fieldsToUpdate)
+  //     setData(updatedData)
+  //   }
+
+  const handleChangeUnitId = async (event: any) => {
+    formik.setFieldValue('punitId', event?.target.value)
+    listOtherUnits(event.target.value).then((res) => {
+      setOtherUnits(res.data)
+      setOtherUnits2([])
+    })
+  }
+
+  const handleChangeUnitId2 = async (event: any) => {
+    formik.setFieldValue('unitId', event?.target.value)
+    listOtherUnits(event.target.value).then((res) => {
+      setOtherUnits2(res.data)
+    })
+  }
+
+  const [loading, setLoading] = useState(false)
+  const formik = useFormik({
+    initialValues: formForEdit,
+    validationSchema: editchema,
+    onSubmit: async (values) => {
+      setLoading(true)
+
+      // console.log(values.punitId)
+
+      // if (!values.unitId && units.length) {
+      //   values.unitId = (units[0] as any)?.id
+      // }
+
+      //   if (!values.positionId && positions.length) {
+      //     values.positionId = (positions[0] as any)?.id
+      //   }
+
+      if (!values.auditCategoryId && auditcategories.length) {
+        values.auditCategoryId = (auditcategories[0] as any)?.id
+      }
+
+      values.role = 'Customer'
+
+      values.identity = values.identity?.toString()
+
+      try {
+        await createUser(values)
+      } catch (error) {
+        console.log(error)
+      }
+
+      setLoading(false)
+      formik.setSubmitting(false)
+    },
+  })
+
+  return (
+    <div className='card mb-5 mb-xl-10'>
+      <div
+        className='card-header border-0'
+        data-bs-target='#kt_account_profile_details'
+        aria-expanded='true'
+        aria-controls='kt_account_profile_details'
+      >
+        <div className='card-title m-0'>
+          <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'Customer.New'})}</h3>
+        </div>
+      </div>
+
+      <div id='kt_account_profile_details' className='collapse show'>
+        <form
+          onSubmit={(e) => {
+            formik.handleSubmit(e)
+          }}
+          noValidate
+          className='form'
+        >
+          <div className='card-body border-top p-9'>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>{intl.formatMessage({id: 'USER.NEWUSER.MAIL'})}</span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+                <input
+                  //placeholder='Email'
+                  {...formik.getFieldProps('email')}
+                  className={clsx(
+                    'form-control form-control-solid mb-3 mb-lg-0',
+                    {'is-invalid': formik.touched.email && formik.errors.email},
+                    {
+                      'is-valid': formik.touched.email && !formik.errors.email,
+                    }
+                  )}
+                  type='email'
+                  name='email'
+                  autoComplete='off'
+                  disabled={formik.isSubmitting}
+                />
+                {/* end::Input */}
+                {formik.touched.email && formik.errors.email && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.email}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>{intl.formatMessage({id: 'USER.NEWUSER.NAME'})}</span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+                <input
+                  // placeholder={formik.errors.fullName}
+                  {...formik.getFieldProps('fullName')}
+                  className={clsx(
+                    'form-control form-control-solid mb-3 mb-lg-0',
+                    {'is-invalid': formik.touched.fullName && formik.errors.fullName},
+                    {
+                      'is-valid': formik.touched.fullName && !formik.errors.fullName,
+                    }
+                  )}
+                  type='text'
+                  name='fullName'
+                  autoComplete='off'
+                  disabled={formik.isSubmitting}
+                />
+                {formik.touched.fullName && formik.errors.fullName && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.fullName}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>{intl.formatMessage({id: 'UserName'})}</span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+                <input
+                  {...formik.getFieldProps('identity')}
+                  className={clsx(
+                    'form-control form-control-solid mb-3 mb-lg-0',
+                    {'is-invalid': formik.touched.identity && formik.errors.identity},
+                    {
+                      'is-valid': formik.touched.identity && !formik.errors.identity,
+                    }
+                  )}
+                  type='text'
+                  name='identity'
+                  autoComplete='off'
+                  disabled={formik.isSubmitting || loading}
+                />
+
+                {formik.touched.identity && formik.errors.identity && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.identity}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <span className='required'>
+                  {intl.formatMessage({id: 'USER.NEWUSER.AUDITCATEGORY'})}
+                </span>
+              </label>
+
+              <div className='col-lg-8 fv-row'>
+                <select
+                  className='form-select form-select-solid form-select-md'
+                  {...formik.getFieldProps('auditCategoryId')}
+                  value={formik.values.auditCategoryId}
+                >
+                  <option value=''>Seçiniz</option>
+                  {auditcategories.map((auditcategory: any) => (
+                    <option value={auditcategory?.id} key={auditcategory?.id as any}>
+                      {auditcategory?.name as any}
+                    </option>
+                  ))}
+                </select>
+                {formik.touched.auditCategoryId && formik.errors.auditCategoryId && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.auditCategoryId}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div> */}
+
+            {/* <div className='row mb-3'>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>{intl.formatMessage({id: 'USER.NEWUSER.ROLE'})}</label>
+
+              <div className='col-lg-8 fv-row'>
+                <div className='d-flex align-items-center mt-3'>
+                  <label className='form-check form-check-inline form-check-solid me-5'>
+                    <input
+                      className='form-check-input'
+                      name='role'
+                      type='radio'
+                      value={"Inspector"}
+                      checked={formik.values.role === "Inspector"}
+                      onChange={() => formik.setFieldValue("role","Inspector")}
+                    />
+                    <span className='fw-bold ps-2 fs-6'>{intl.formatMessage({id: 'USER.NEWUSER.INSPECTOR'})}</span>
+                  </label>
+
+                  <label className='form-check form-check-inline form-check-solid'>
+                    <input
+                      className='form-check-input'
+                      name='role'
+                      type='radio'
+                      value={"Observer"}
+                      checked={formik.values.role === "Observer"}
+                      onChange={() => formik.setFieldValue("role","Observer")}
+                    />
+                    <span className='fw-bold ps-2 fs-6'>{intl.formatMessage({id: 'USER.NEWUSER.MANAGER'})}</span>
+                  </label>
+                </div>
+              </div>
+            </div> */}
+          </div>
+
+          <div className='card-footer d-flex justify-content-end py-6 px-9'>
+            <button
+              type='submit'
+              onClick={() => {
+                formik.submitForm().then(() => {
+                  navigate('/user-management/users')
+                })
+              }}
+              className='btn btn-sm btn-dark'
+              data-kt-items-modal-action='submit'
+              disabled={loading || formik.isSubmitting || !formik.isValid || !formik.touched}
+            >
+              <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
+              {!loading}
+              {loading && (
+                <span className='indicator-progress' style={{display: 'block'}}>
+                  Please wait...{' '}
+                  <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                </span>
+              )}
+            </button>
+            {/*           
+            <button
+              type='submit'
+              onClick={() => {
+                formik.submitForm()
+
+                formik.submitForm().then(() => {
+                  navigate('/user-management/users')
+                })
+              }}
+              className='btn btn-sm btn-dark'
+              disabled={loading || formik.isSubmitting || !formik.isValid || !formik.touched}
+            >
+              {!loading && 'Save Changes'}
+              {loading && (
+                <span className='indicator-progress' style={{display: 'block'}}>
+                  Please wait...{' '}
+                  <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                </span>
+              )}
+            </button> */}
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+export {CustomerCreate}

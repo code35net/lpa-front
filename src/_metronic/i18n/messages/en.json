@@ -512,5 +512,10 @@
   "DeleteAccount2": "I want to delete my account",
   "DeleteRequest": "Your Account Deletion Request Has Been Received",
 
+  "Customer.ADD": "Add Customer",
+  "Customer.New": " New Customer",
+  "UserName": "User Name",
+  "MENU.TOOLS": "Tool Control",
+
   "boş": "boş"
 }

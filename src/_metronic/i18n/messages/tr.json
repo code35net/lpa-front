@@ -519,5 +519,10 @@
   "DeleteAccount2": "Hesabımı silmek istiyorum",
   "DeleteRequest": "Hesabınız Silme Talebiniz Alınmıştır",
 
+  "Customer.ADD": "Müşteri Ekle",
+  "Customer.New": " Yeni Müşteri",
+  "UserName": "Kullanıcı Adı",
+  "MENU.TOOLS": "Parça Kontrolü",
+
   "boş": "boş"
 }
