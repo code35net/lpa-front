@@ -42,7 +42,13 @@ const ListFilter = () => {
     {name: `${intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}`, id: 2},
     {name: `${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`, id: 3},
   ])
+  const [unitType, setUnitType] = useState([
+    {name: `${intl.formatMessage({id: 'FILTER_SETTER'})}`, id: 2},
+    {name: `${intl.formatMessage({id: 'FILTER_LINE'})}`, id: 0},
+    {name: `${intl.formatMessage({id: 'FILTER_OP'})}`, id: 1},
+  ])
   const [selectedStatus, setSelectedStatus] = useState('')
+  const [selectedUnitType, setSelectedUnitType] = useState('')
 
   useEffect(() => {
     Promise.all([listAuditCategories(), listQuestionCategories(), listDepartments()]).then(
@@ -77,11 +83,12 @@ const ListFilter = () => {
     setSelectedSections('')
     setSelectedStatus('')
     setSelectedUsers('')
+    setSelectedUnitType('')
   }
 
   useEffect(() => {
     filterData()
-  }, [selectedUsers, selectedAuditCategories, selectedStatus])
+  }, [selectedUsers, selectedAuditCategories, selectedStatus, selectedUnitType])
 
   useEffect(() => {
     if (selectedDepartments) {
@@ -116,6 +123,10 @@ const ListFilter = () => {
       filter.status = selectedStatus
     }
 
+    if (selectedUnitType) {
+      filter.unitType = selectedUnitType
+    }
+
     updateState({filter: filter})
   }
 
@@ -128,6 +139,10 @@ const ListFilter = () => {
 
   const handleStatus = async (name: any) => {
     setSelectedStatus(name)
+  }
+
+  const handleUnitType = async (name: any) => {
+    setSelectedUnitType(name)
   }
 
   const UserInfo = (item: any) => {
@@ -243,6 +258,33 @@ const ListFilter = () => {
               <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
               {status.map((item: any) => {
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                )
+              })}
+            </select>
+          </div>
+
+          <div className='mb-10'>
+            <label className='form-label fs-6 fw-bold'>
+              {intl.formatMessage({id: 'AUDITS.LIST.UNITTYPE'})}
+            </label>
+            <select
+              className='form-select form-select-solid fw-bolder'
+              data-kt-select2='true'
+              data-placeholder='Select option'
+              data-allow-clear='true'
+              data-kt-item-table-filter='role'
+              data-hide-search='true'
+              // onChange={(e) => setSelectedAuditCategories(e.target.value)}
+              onChange={(e) => handleUnitType(e.target.value)}
+              value={selectedStatus}
+            >
+              <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
+
+              {unitType.map((item: any) => {
                 return (
                   <option key={item?.id} value={item?.id}>
                     {item?.name}
