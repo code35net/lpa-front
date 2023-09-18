@@ -12,7 +12,7 @@ import {CustomHeader} from './CustomHeader'
 import {SelectionHeader} from './SelectionHeader'
 import {Model} from '../../core/_models'
 import {OperatorCell} from './OperatorCell'
-
+import {UnitTypeCell} from './UnitTypeCell'
 const Columns: ReadonlyArray<Column<Model>> = [
   {
     Header: (props) => <SelectionHeader tableProps={props} />,
@@ -40,6 +40,17 @@ const Columns: ReadonlyArray<Column<Model>> = [
     ),
     id: 'fullname',
     Cell: ({...props}) => <OperatorCell item={props.data[props.row.index]} />,
+  },
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'AUDITS.LIST.UNITTYPE'})}
+        className='min-w-125px'
+      />
+    ),
+    id: 'status2',
+    Cell: ({...props}) => <UnitTypeCell item={props.data[props.row.index]} />,
   },
   {
     Header: (props) => (

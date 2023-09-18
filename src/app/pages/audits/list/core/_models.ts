@@ -28,6 +28,7 @@ export type Model = {
   needActionCount?: number
   nonPeriodicDate?: string | null
   isChanged?: boolean
+  unitTypeName?: any
 }
 
 export type QueryResponse = Response<Array<Model>>

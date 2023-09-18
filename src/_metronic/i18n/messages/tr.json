@@ -281,6 +281,7 @@
 
   "AUDITS.LIST.AUDITNAME": "Denetim Adı",
   "AUDITS.LIST.UNITNAME": "Birim Adı",
+  "AUDITS.LIST.UNITTYPE": "Birim Tipi",
   "AUDITS.LIST.DATE": "Denetim Tarihi",
   "AUDITS.LIST.AUDITOR": "Denetmen",
   "AUDITS.LIST.STATUS": "Denetim Durumu",
@@ -525,6 +526,10 @@
   "Customer.New": " Yeni Müşteri",
   "UserName": "Kullanıcı Adı",
   "MENU.TOOLS": "Parça Kontrolü",
+
+  "FILTER_SETTER": "Setter",
+  "FILTER_LINE": "Hat",
+  "FILTER_OP": "Operatör",
 
   "boş": "boş"
 }

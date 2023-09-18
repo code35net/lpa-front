@@ -279,6 +279,7 @@
 
   "AUDITS.LIST.AUDITNAME": "Audit Name",
   "AUDITS.LIST.UNITNAME": "Unit Name",
+  "AUDITS.LIST.UNITTYPE": "Unit Type",
   "AUDITS.LIST.DATE": "Audit Date",
   "AUDITS.LIST.AUDITOR": "Auditor",
   "AUDITS.LIST.STATUS": "Audit Status",
@@ -518,6 +519,10 @@
   "Customer.New": " New Customer",
   "UserName": "User Name",
   "MENU.TOOLS": "Tool Control",
+
+  "FILTER_SETTER": "Setter",
+  "FILTER_LINE": "Line",
+  "FILTER_OP": "Operator",
 
   "boş": "boş"
 }
