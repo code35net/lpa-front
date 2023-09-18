@@ -10,26 +10,29 @@ import {useAuth} from '../../../../../../app/modules/auth'
 import {useLocation, Link} from 'react-router-dom'
 
 type Props = {
-  id: ID
+  item: any
   isChanged: boolean
 }
 
-const ActionsCell: FC<Props> = ({id, isChanged}) => {
+const ActionsCell: FC<Props> = ({item, isChanged}) => {
   const {setItemIdForUpdate} = useListView()
   const {query} = useQueryResponse()
   const queryClient = useQueryClient()
-
+  console.log(item)
   const {currentUser} = useAuth()
+
+  const auditDate = new Date(item?.auditDate)
+  const currentDate = new Date()
 
   useEffect(() => {
     MenuComponent.reinitialization()
   }, [])
 
   const openEditModal = () => {
-    setItemIdForUpdate(id)
+    setItemIdForUpdate(item.id)
   }
 
-  const deleteItem = useMutation(() => deleteAudit(id), {
+  const deleteItem = useMutation(() => deleteAudit(item.id), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: () => {
       // ✅ update detail view directly
@@ -43,7 +46,7 @@ const ActionsCell: FC<Props> = ({id, isChanged}) => {
         {!isChanged && (
           <Link
             className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-            to={`/audits/change-request/${id}`}
+            to={`/audits/change-request/${item.id}`}
           >
             <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
           </Link>
@@ -79,7 +82,7 @@ const ActionsCell: FC<Props> = ({id, isChanged}) => {
       {!isChanged && (
         <Link
           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-          to={`/audits/change-request/${id}`}
+          to={`/audits/change-request/${item.id}`}
         >
           <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
         </Link>
@@ -93,9 +96,11 @@ const ActionsCell: FC<Props> = ({id, isChanged}) => {
           <KTSVG path='/media/icons/duotune/art/art006.svg' className='svg-icon-3' />
         </Link>
       )}
-      <Link to={`/audits/auditquestions/${id}`} className='btn btn-sm btn-icon btn-dark '>
-        <KTSVG path='/media/icons/duotune/general/gen016.svg' className='svg-icon-3' />
-      </Link>
+      {auditDate < currentDate ? (
+        <Link to={`/audits/auditquestions/${item.id}`} className='btn btn-sm btn-icon btn-dark '>
+          <KTSVG path='/media/icons/duotune/general/gen016.svg' className='svg-icon-3' />
+        </Link>
+      ) : null}
     </div>
   )
 }

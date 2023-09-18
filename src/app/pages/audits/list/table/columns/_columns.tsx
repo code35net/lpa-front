@@ -90,7 +90,7 @@ const Columns: ReadonlyArray<Column<Model>> = [
     id: 'actions',
     Cell: ({...props}) => (
       <ActionsCell
-        id={props.data[props.row.index].id}
+        item={props.data[props.row.index]}
         isChanged={props.data[props.row.index].isChanged}
       />
     ),

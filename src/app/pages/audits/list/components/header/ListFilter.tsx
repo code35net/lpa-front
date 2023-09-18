@@ -47,6 +47,7 @@ const ListFilter = () => {
   useEffect(() => {
     Promise.all([listAuditCategories(), listQuestionCategories(), listDepartments()]).then(
       (responses) => {
+        console.log(responses)
         const audits: Array<any> = responses?.[0]?.data || []
         const questions: Array<any> = responses?.[1]?.data || []
         const departments: Array<any> = responses?.[2]?.data || []
@@ -56,8 +57,9 @@ const ListFilter = () => {
             setSections(response.data)
           })
         }
-
-        setAuditCategories([...(audits as never[])])
+        console.log(audits)
+        const filteredAudits = audits.filter((item: any) => item.id != 32)
+        setAuditCategories([...(filteredAudits as never[])])
         setQuestionCategories([...(questions as never[])])
         setDepartments([...(departments as never[])])
       }

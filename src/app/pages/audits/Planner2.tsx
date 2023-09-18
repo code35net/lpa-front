@@ -47,7 +47,7 @@ const EditAuditForm2: FC<Props> = ({item}) => {
 
   useEffect(() => {
     listAuditCategories().then((res2) => {
-      setAuditCategories(res2.data || [])
+      setAuditCategories(res2.data.filter((item: any) => item.id != 32))
     })
     listQuestionCategories().then((res5) => {
       setQuestionCategories(res5.data || [])

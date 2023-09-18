@@ -17,6 +17,28 @@ const Columns: ReadonlyArray<Column<Model>> = [
     Header: (props) => (
       <CustomHeader
         tableProps={props}
+        title={useIntl().formatMessage({id: 'QUESTIONS.LIST.TABLE.QUESTION.USER'})}
+        className='min-w-125px'
+      />
+    ),
+    id: 'questionUser',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].questionUser} />,
+  },
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
+        title={useIntl().formatMessage({id: 'QUESTIONS.LIST.TABLE.QUESTION.CATEGORY'})}
+        className='min-w-125px'
+      />
+    ),
+    id: 'questionCategory',
+    Cell: ({...props}) => <InfoCell item={props.data[props.row.index].questionGroupName} />,
+  },
+  {
+    Header: (props) => (
+      <CustomHeader
+        tableProps={props}
         title={useIntl().formatMessage({id: 'QUESTIONS.LIST.TABLE.QUESTION.TEXT'})}
         className='min-w-125px'
       />
