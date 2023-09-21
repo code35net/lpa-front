@@ -280,7 +280,7 @@ const ListFilter = () => {
               data-hide-search='true'
               // onChange={(e) => setSelectedAuditCategories(e.target.value)}
               onChange={(e) => handleUnitType(e.target.value)}
-              value={selectedStatus}
+              value={selectedUnitType}
             >
               <option value=''>{intl.formatMessage({id: 'QUESTIONS.LIST.HEADER'})}</option>
 
