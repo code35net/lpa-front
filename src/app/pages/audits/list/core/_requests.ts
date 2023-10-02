@@ -15,6 +15,7 @@ const DELETE_ALL = `${API_URL}/Custom/deleteAllAudit`
 const UPDATE_AUDIT = `${API_URL}/Custom/updateAudit`
 const LIST_UNIT2 = `${API_URL}/Custom/listUnit`
 const DASHBOARD = `${API_URL}/Custom/getUserAuditInfo`
+const UPDATE_AUDIT_DATE = `${API_URL}/Custom/updateAuditDate`
 
 const listUnits = async (SectionId: any): Promise<any> =>
   await axios.get(`${UNITS_URL}?SectionId=${SectionId}`).then((res: AxiosResponse) => {
@@ -124,11 +125,18 @@ const createOpAudit = (audit: Model): Promise<Model | undefined> => {
     .then((response: Response<Model>) => response.data)
 }
 
-const updateAudit = (audit: Model): Promise<Model | undefined> => {
+const updateAudit = (audit: any): Promise<any | undefined> => {
   return axios
     .post(`${AUDIT_URL}/${audit.id}`, audit)
-    .then((response: AxiosResponse<Response<Model>>) => response.data)
-    .then((response: Response<Model>) => response.data)
+    .then((response: AxiosResponse<Response<any>>) => response.data)
+    .then((response: Response<any>) => response.data)
+}
+
+const updateAuditDate = (audit: any, id: any): Promise<any | undefined> => {
+  return axios
+    .post(`${UPDATE_AUDIT_DATE}?auditid=${id}`, audit)
+    .then((response: AxiosResponse<Response<any>>) => response.data)
+    .then((response: Response<any>) => response.data)
 }
 
 const updateAudit2 = (auditorId: any, auditDate: any, id: any): Promise<Model | undefined> => {
@@ -171,4 +179,5 @@ export {
   updateAudit2,
   listUnits2,
   getDashboardData,
+  updateAuditDate,
 }

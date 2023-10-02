@@ -16,8 +16,8 @@ const Charts: FC = () => {
   const [reportsInfoPercentage, setReportsInfoPercentage] = useState()
   const {currentUser}: any = useAuth()
 
-  const fileUrl = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Admin.pdf'
-  const fileUrl2 = 'http://freudapi.iqualitor.com/Files/file/Freudenberg_Auditor.pdf'
+  const fileUrl = 'http://freudenapi.iqualitor.com/Files/file/Freudenberg_Admin.pdf'
+  const fileUrl2 = 'http://freudenapi.iqualitor.com/Files/file/Freudenberg_Auditor.pdf'
 
   const intl = useIntl()
   const [data, setData]: any = useState([])

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {FC, useEffect} from 'react'
+import {FC, useEffect, useState} from 'react'
 import {useMutation, useQueryClient} from 'react-query'
 import {MenuComponent} from '../../../../../../_metronic/assets/ts/components'
 import {ID, KTSVG, QUERIES} from '../../../../../../_metronic/helpers'
@@ -8,6 +8,7 @@ import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {deleteAudit} from '../../core/_requests'
 import {useAuth} from '../../../../../../app/modules/auth'
 import {useLocation, Link} from 'react-router-dom'
+import {EditModal} from './DateUpdateModal'
 
 type Props = {
   item: any
@@ -15,6 +16,7 @@ type Props = {
 }
 
 const ActionsCell: FC<Props> = ({item, isChanged}) => {
+  const [showCreateAppModal, setShowCreateAppModal] = useState<boolean>(false)
   const {setItemIdForUpdate} = useListView()
   const {query} = useQueryResponse()
   const queryClient = useQueryClient()
@@ -79,6 +81,26 @@ const ActionsCell: FC<Props> = ({item, isChanged}) => {
     </>
   ) : (
     <div className='d-flex gap-2'>
+      {item.statusEnum == 0 ? (
+        <>
+          <button
+            type='button'
+            className={`btn btn-sm btn-icon btn-light btn-active-color-primary`}
+            data-bs-toggle='modal'
+            data-bs-target='#kt_modal_create_app'
+            id='kt_toolbar_primary_button'
+            onClick={() => setShowCreateAppModal(true)}
+          >
+            <KTSVG path='/media/icons/duotune/general/gen014.svg' className='svg-icon-3' />
+          </button>
+          <EditModal
+            item={item}
+            show={showCreateAppModal}
+            handleClose={() => setShowCreateAppModal(false)}
+          />
+        </>
+      ) : null}
+
       {!isChanged && (
         <Link
           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
