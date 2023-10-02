@@ -8,7 +8,6 @@ import {KTSVG} from '../../../_metronic/helpers'
 import {useIntl} from 'react-intl'
 import {useNavigate} from 'react-router-dom'
 
-
 import {listThings as listUnits} from '../units/list/core/_requests'
 import {listOtherThings as listOtherUnits} from '../units/list/core/_requests'
 import {listThings as listAuditCategories} from '../audit-categories/list/core/_requests'
@@ -22,20 +21,12 @@ type Props = {
 }
 
 const editchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Wrong email format')
-    .required('Email required'),
-  fullName: Yup.string()
-     .max(50, 'Maximum 50 symbols')
-    .required('Fullname required'),
-  identity: Yup.string()
-    .max(50, 'Maximum 50 symbols')
-   .required('Identity required'),
+  email: Yup.string().email('Wrong email format').required('Email required'),
+  fullName: Yup.string().max(50, 'Maximum 50 symbols').required('Fullname required'),
+  identity: Yup.string().max(50, 'Maximum 50 symbols').required('Identity required'),
 })
 
 const UserEditForm: FC<Props> = ({item}) => {
-    
-
   const navigate = useNavigate()
   const intl = useIntl()
   const {setItemIdForUpdate} = useListView()
@@ -55,46 +46,41 @@ const UserEditForm: FC<Props> = ({item}) => {
 
     listAuditCategories().then((res) => {
       if (res?.data?.length) {
-        setAuditCategories(res.data || [])
+        //setAuditCategories(res.data || [])
+        setAuditCategories(res.data.filter((item: any) => item.id != 32))
       }
     })
-   
   }, [])
 
   const [formForEdit] = useState<Model>({
     ...item,
     email: undefined,
     role: undefined,
-    fullName:undefined,
+    fullName: undefined,
     identity: undefined,
-    positionId:undefined,
-    auditCategoryId:undefined,
-
-    })
+    positionId: undefined,
+    auditCategoryId: undefined,
+  })
 
   //   const updateData = (fieldsToUpdate: Partial<Model>): void => {
   //     const updatedData = Object.assign(data, fieldsToUpdate)
   //     setData(updatedData)
   //   }
 
-  
-const handleChangeUnitId = async (event:any) => {
+  const handleChangeUnitId = async (event: any) => {
+    formik.setFieldValue('punitId', event?.target.value)
+    listOtherUnits(event.target.value).then((res) => {
+      setOtherUnits(res.data)
+      setOtherUnits2([])
+    })
+  }
 
-  formik.setFieldValue('punitId',event?.target.value)
-  listOtherUnits(event.target.value).then((res) => {
-    setOtherUnits(res.data)
-    setOtherUnits2([])
-  })
-}
-
-const handleChangeUnitId2 = async (event:any) => {
-
-  formik.setFieldValue('unitId',event?.target.value)
-  listOtherUnits(event.target.value).then((res) => {
-    setOtherUnits2(res.data)
-  })
-}
-
+  const handleChangeUnitId2 = async (event: any) => {
+    formik.setFieldValue('unitId', event?.target.value)
+    listOtherUnits(event.target.value).then((res) => {
+      setOtherUnits2(res.data)
+    })
+  }
 
   const [loading, setLoading] = useState(false)
   const formik = useFormik({
@@ -104,7 +90,7 @@ const handleChangeUnitId2 = async (event:any) => {
       setLoading(true)
 
       // console.log(values.punitId)
-      
+
       // if (!values.unitId && units.length) {
       //   values.unitId = (units[0] as any)?.id
       // }
@@ -117,10 +103,7 @@ const handleChangeUnitId2 = async (event:any) => {
         values.auditCategoryId = (auditcategories[0] as any)?.id
       }
 
-
-      values.role = "Inspector"
-
-      
+      values.role = 'Inspector'
 
       values.identity = values.identity?.toString()
 
@@ -135,8 +118,6 @@ const handleChangeUnitId2 = async (event:any) => {
     },
   })
 
-  
-
   return (
     <div className='card mb-5 mb-xl-10'>
       <div
@@ -146,9 +127,7 @@ const handleChangeUnitId2 = async (event:any) => {
         aria-controls='kt_account_profile_details'
       >
         <div className='card-title m-0'>
-          <h3 className='fw-bolder m-0'>
-          {intl.formatMessage({id: 'USER.NEWUSER.TITLE'})}
-            </h3>
+          <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'USER.NEWUSER.TITLE'})}</h3>
         </div>
       </div>
 
@@ -194,14 +173,12 @@ const handleChangeUnitId2 = async (event:any) => {
             </div>
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>
-                {intl.formatMessage({id: 'USER.NEWUSER.NAME'})}
-                </span>
+                <span className='required'>{intl.formatMessage({id: 'USER.NEWUSER.NAME'})}</span>
               </label>
 
               <div className='col-lg-8 fv-row'>
                 <input
-                 // placeholder={formik.errors.fullName}
+                  // placeholder={formik.errors.fullName}
                   {...formik.getFieldProps('fullName')}
                   className={clsx(
                     'form-control form-control-solid mb-3 mb-lg-0',
@@ -222,16 +199,11 @@ const handleChangeUnitId2 = async (event:any) => {
                     </div>
                   </div>
                 )}
-
-              
-              
               </div>
             </div>
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>
-                {intl.formatMessage({id: 'USER.NEWUSER.ID-NUM'})}
-                </span>
+                <span className='required'>{intl.formatMessage({id: 'USER.NEWUSER.ID-NUM'})}</span>
               </label>
 
               <div className='col-lg-8 fv-row'>
@@ -261,8 +233,7 @@ const handleChangeUnitId2 = async (event:any) => {
               </div>
             </div>
 
-
-             {/* <div className='row mb-3'>
+            {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
                 {intl.formatMessage({id: 'USER.NEWUSER.DEPARTMENT'})}
@@ -356,8 +327,7 @@ const handleChangeUnitId2 = async (event:any) => {
 
               </div>
             </div>  */}
-            
-            
+
             {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
@@ -391,7 +361,7 @@ const handleChangeUnitId2 = async (event:any) => {
             <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>
-                {intl.formatMessage({id: 'USER.NEWUSER.AUDITCATEGORY'})}
+                  {intl.formatMessage({id: 'USER.NEWUSER.AUDITCATEGORY'})}
                 </span>
               </label>
 
@@ -401,7 +371,7 @@ const handleChangeUnitId2 = async (event:any) => {
                   {...formik.getFieldProps('auditCategoryId')}
                   value={formik.values.auditCategoryId}
                 >
-                   <option value=''>Seçiniz</option>
+                  <option value=''>Seçiniz</option>
                   {auditcategories.map((auditcategory: any) => (
                     <option value={auditcategory?.id} key={auditcategory?.id as any}>
                       {auditcategory?.name as any}
@@ -417,8 +387,7 @@ const handleChangeUnitId2 = async (event:any) => {
                 )}
               </div>
             </div>
-            
-            
+
             {/* <div className='row mb-3'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>{intl.formatMessage({id: 'USER.NEWUSER.ROLE'})}</label>
 
@@ -450,34 +419,30 @@ const handleChangeUnitId2 = async (event:any) => {
                 </div>
               </div>
             </div> */}
-           
           </div>
 
           <div className='card-footer d-flex justify-content-end py-6 px-9'>
-          
-
-          <button
-            type='submit'
-            onClick={() => {
-
-              formik.submitForm().then(() => {
-                navigate('/user-management/users')
-              })
-            }}
-            className='btn btn-sm btn-dark'
-            data-kt-items-modal-action='submit'
-            disabled={loading || formik.isSubmitting || !formik.isValid || !formik.touched}
-          >
-            <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
-            {!loading}
+            <button
+              type='submit'
+              onClick={() => {
+                formik.submitForm().then(() => {
+                  navigate('/user-management/users')
+                })
+              }}
+              className='btn btn-sm btn-dark'
+              data-kt-items-modal-action='submit'
+              disabled={loading || formik.isSubmitting || !formik.isValid || !formik.touched}
+            >
+              <span className='indicator-label'> {intl.formatMessage({id: 'MODALFORM.SAVE'})}</span>
+              {!loading}
               {loading && (
                 <span className='indicator-progress' style={{display: 'block'}}>
                   Please wait...{' '}
                   <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                 </span>
               )}
-          </button>
-{/*           
+            </button>
+            {/*           
             <button
               type='submit'
               onClick={() => {

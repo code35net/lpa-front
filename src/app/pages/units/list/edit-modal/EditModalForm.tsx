@@ -73,7 +73,8 @@ const EditModalForm: FC<Props> = ({item, isThingLoading}) => {
   }, [selectedAuditCategories])
   useEffect(() => {
     listAuditCategories().then((res2) => {
-      setAuditCategory(res2.data || [])
+      //setAuditCategory(res2.data || [])
+      setAuditCategory(res2.data.filter((item: any) => item.id != 32))
     })
 
     listParentUnits().then((res2) => {
