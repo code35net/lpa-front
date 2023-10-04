@@ -38,7 +38,7 @@ const ActionsCell: FC<Props> = ({item}) => {
   return (
     <>
       <div className='d-flex justify-content-end flex-shrink-0'>
-        {currentUser?.id == item?.assignedUserId && item?.status == 1 ? (
+        {/* {currentUser?.id == item?.assignedUserId && item?.status == 1 ? (
           <a className='btn btn-icon btn-bg-secondary btn-sm me-1'>
             <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
           </a>
@@ -57,7 +57,13 @@ const ActionsCell: FC<Props> = ({item}) => {
               </a>
             )}
           </>
-        )}
+        )} */}
+        <a
+          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+          onClick={openEditModal}
+        >
+          <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+        </a>
       </div>
     </>
   )

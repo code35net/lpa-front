@@ -15,7 +15,7 @@ const ListToolbar = () => {
   }
 
   const handleDownloadClick = async () => {
-    getActions('').then((res) => {
+    getActions('page=1&items_per_page=999999999').then((res) => {
       const ar = [
         intl.formatMessage({id: 'Id'}),
         intl.formatMessage({id: 'ACTION.LIST.COL.FIND'}),
