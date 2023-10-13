@@ -56,7 +56,7 @@ const EditModalForm: FC<Props> = ({item}) => {
   })
   const [filterData, setFilterData] = useState<any>([])
   useEffect(() => {
-    let query = 'page=1&items_per_page=10'
+    let query = 'page=1&items_per_page=9999'
     getActions(query).then((res: any) => {
       let x = res.data.filter((value: any) => value.actionCode == item.actionCode)
 
@@ -144,28 +144,28 @@ const EditModalForm: FC<Props> = ({item}) => {
               <p className='fw-semibold fs-6 mb-2 min-w-90px'>
                 {intl.formatMessage({id: 'AUDITS.LIST.AUDITOR'})}
               </p>
-              <label className='fw-semibold fs-6 mb-2'>: {filterData.auditorName}</label>
+              <label className='fw-semibold fs-6 mb-2'>: {filterData?.auditorName}</label>
             </div>
 
             <div className='d-flex flex-row gap-2'>
               <p className='fw-semibold fs-6 mb-2 min-w-90px'>
                 {intl.formatMessage({id: 'AUDITS.LIST.AUDITNAME'})}
               </p>
-              <label className='fw-semibold fs-6 mb-2 '>: {filterData.auditName}</label>
+              <label className='fw-semibold fs-6 mb-2 '>: {filterData?.auditName}</label>
             </div>
 
             <div className='d-flex flex-row gap-2'>
               <p className='fw-semibold fs-6 mb-2 min-w-90px'>
                 {intl.formatMessage({id: 'QUESTION.TEXT'})}
               </p>
-              <label className='fw-semibold fs-6 mb-2'>: {filterData.questionText}</label>
+              <label className='fw-semibold fs-6 mb-2'>: {filterData?.questionText}</label>
             </div>
 
             <div className='d-flex flex-row gap-2'>
               <p className='fw-semibold fs-6 mb-2 min-w-90px'>
                 {intl.formatMessage({id: 'LASTDATE'})}
               </p>
-              <label className='fw-semibold fs-6 mb-2'>: {filterData.lastDate}</label>
+              <label className='fw-semibold fs-6 mb-2'>: {filterData?.lastDate}</label>
             </div>
           </div>
 
