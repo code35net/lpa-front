@@ -26,6 +26,8 @@ const ListToolbar = () => {
         intl.formatMessage({id: 'CloseDate'}),
         intl.formatMessage({id: 'IsLate'}),
         intl.formatMessage({id: 'Denetmen'}),
+        intl.formatMessage({id: 'Denetim Adı'}),
+        intl.formatMessage({id: 'Ret Sebebi'}),
       ]
       const data2 = res.data?.reduce((result: any, item: any) => {
         let status = ''
@@ -57,6 +59,8 @@ const ListToolbar = () => {
           item.endDate,
           islate,
           item.auditorName,
+          item.auditName,
+          item.definition,
         ])
         return result
       }, [])
