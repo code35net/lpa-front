@@ -25,6 +25,7 @@ const ListToolbar = () => {
         intl.formatMessage({id: 'ACTION.LIST.COL.STATUS'}),
         intl.formatMessage({id: 'CloseDate'}),
         intl.formatMessage({id: 'IsLate'}),
+        intl.formatMessage({id: 'Denetmen'}),
       ]
       const data2 = res.data?.reduce((result: any, item: any) => {
         let status = ''
@@ -45,7 +46,7 @@ const ListToolbar = () => {
         if (lastDateTime < endDateTime) {
           islate = `${intl.formatMessage({id: 'YES'})}`
         } else islate = `${intl.formatMessage({id: 'No'})}`
-
+        console.log(item)
         result.push([
           item.id,
           item.finding,
@@ -55,6 +56,7 @@ const ListToolbar = () => {
           status,
           item.endDate,
           islate,
+          item.auditorName,
         ])
         return result
       }, [])
