@@ -34,7 +34,7 @@ const StatusCell: FC<Props> = ({item}) => {
             ? `${intl.formatMessage({id: 'ACTION.TABLE.NOTSTART'})}`
             : item?.status == 'Inprogress'
             ? `${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`
-            : `${intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}`} */}
+            : `${intl.formatMessage({id: 'ACTION.TABLE.FINISHED'})}`} sdfsdf*/}
           {value}
         </span>
       </div>
