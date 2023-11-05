@@ -13,7 +13,7 @@ const LinkCell: FC<Props> = ({item}) => (
   <div className='d-flex align-items-center'>
     <div className='d-flex flex-column'>
       <span className='text-gray-800'>
-        <a target={'_blank'} href={`http://localhost:33755/${item.filePath}` } download >
+        <a target={'_blank'} href={`https://freudenapi.iqualitor.com/${item.filePath}` } download >
           {/* {item.filePath} */} File
         </a>
       </span>
