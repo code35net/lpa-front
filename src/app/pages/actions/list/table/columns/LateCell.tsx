@@ -15,65 +15,70 @@ const LateCell: FC<Props> = ({item}) => {
   const [isLate, setIsLate] = useState<any>(`${intl.formatMessage({id: 'No'})}`)
 
   function parseDate(dateStr: any) {
-    console.log('Gelen tarih string:', dateStr)
-    // İlk olarak, gelen string'in formatını kontrol ediyoruz.
+    // Eğer dateStr bir string değilse, hemen hata döndür.
+    if (typeof dateStr !== 'string') {
+      return { error: 'Tarih string türünde olmalıdır.' };
+    }
+  
     const regexPattern = /^\d{2}\.\d{2}\.\d{4}$/;
     if (!regexPattern.test(dateStr)) {
-      throw new Error('Tarih string\'i "GG.AA.YYYY" formatında olmalıdır.');
+      return { error: 'Tarih string\'i "GG.AA.YYYY" formatında olmalıdır.' };
     }
   
-    // Daha sonra, gelen string'i ayırıyoruz ve sayılara çeviriyoruz.
     const [day, month, year] = dateStr.split('.').map(Number);
   
-    // Ay ve yıl için geçerlilik kontrolü yapıyoruz.
     if (month < 1 || month > 12) {
-      throw new Error('Ay 1 ile 12 arasında olmalıdır.');
+      return { error: 'Ay 1 ile 12 arasında olmalıdır.' };
     }
     if (year < 1000 || year > 3000) {
-      throw new Error('Yıl 1000 ile 3000 arasında olmalıdır.');
+      return { error: 'Yıl 1000 ile 3000 arasında olmalıdır.' };
     }
   
-    // JavaScript Date objesi ile tarih objesini oluşturuyoruz.
     const date = new Date(year, month - 1, day);
   
-    // Gün, ay ve yılın doğru olup olmadığını kontrol ediyoruz.
-    console.log('Oluşturulan Date objesi:', date);
-    console.log('Kontroller:', date.getFullYear(), year, date.getMonth() + 1, month, date.getDate(), day);
     if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
-      throw new Error('Geçersiz tarih.');
+      return { error: 'Geçersiz tarih.' };
     }
   
-    // Eğer her şey doğruysa, oluşturulan Date objesini döndürüyoruz.
-    return date;
+    return { date };
   }
-
+  
+  
   useEffect(() => {
-    const today = new Date(); // Şu anki tarih ve saat
+    const today = new Date();
     let lastDateTime;
     let endDateTime;
+    let lastDateError;
+    let endDateError;
   
     if (item?.lastDate) {
-      lastDateTime = parseDate(item.lastDate); // lastDate tarih ve saati
+      const result = parseDate(item.lastDate);
+      if (result.error) {
+        lastDateError = result.error;
+      } else {
+        lastDateTime = result.date;
+      }
     }
   
     if (item?.endDate) {
-      endDateTime = parseDate(item.endDate); // endDate tarih ve saati
+      const result = parseDate(item.endDate);
+      if (result.error) {
+        endDateError = result.error;
+      } else {
+        endDateTime = result.date;
+      }
     }
   
-    console.log('Item:', item);
-    if (lastDateTime && endDateTime) {
-      console.log('Son tarih (lastDateTime):', lastDateTime);
-      console.log('Bitiş tarihi (endDateTime):', endDateTime);
-      
-      if (lastDateTime < endDateTime) {
-        setIsLate(`${intl.formatMessage({id: 'YES'})}`);
-      } else {
-        setIsLate(`${intl.formatMessage({id: 'No'})}`);
-      }
+    if (lastDateError || endDateError) {
+      console.error(lastDateError || endDateError);
+      setIsLate('Error'); // Burada kullanıcıya gösterilecek bir hata mesajı ayarlayabilirsiniz.
+    } else if (lastDateTime && endDateTime) {
+      setIsLate(lastDateTime < endDateTime ? 'YES' : 'No');
     } else {
-      setIsLate(`${intl.formatMessage({id: '-'})}`);
+      setIsLate('-');
     }
-  }, [item, intl]);
+  }, [item]);
+  
   
 
   return (
