@@ -413,6 +413,8 @@
   "ACTION.TABLE.PROGRESS": "Devam Ediyor",
   "ACTION.TABLE.FINISHED": "Bitti",
   "ACTION.TABLE.Canceled": "İptal Edildi",
+  "ACTION.LIST.QUESTIONCATEGORYNAME":"Soru Kategorisi",
+  "ACTION.LIST.AUDITCATEGORYNAME":"Denetim Kategorisi",
 
   "AUDITS.AUDITQUEDTIONS.NOTES": "Notlar",
   "AUDITS.AUDITQUEDTIONS.FILE": "Dosya",

@@ -3,7 +3,9 @@ import {uuid} from 'uuidv4'
 
 export type Model = {
   id?: ID
-  auditname?: string
+  auditName?: string
+  auditCategoryName?: string
+  questionCategoryName?: string
   departmantName?: string
   sectionName?: string
   unitName?: string
