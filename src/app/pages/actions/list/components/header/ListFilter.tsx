@@ -40,7 +40,7 @@ const ListFilter = () => {
   const [selectedUsersName, setSelectedUsersName] = useState('')
   const [status, setStatus] = useState([
     {name: `${intl.formatMessage({id: 'Open'})}`, id: 0},
-    // {name: `${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`, id: 1},
+     {name: `${intl.formatMessage({id: 'ACTION.TABLE.PROGRESS'})}`, id: 1},
     {name: `${intl.formatMessage({id: 'Close'})}`, id: 2},
     // {name: `${intl.formatMessage({id: 'ACTION.TABLE.Canceled'})}`, id: 3},
   ])

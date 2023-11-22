@@ -24,5 +24,6 @@ export type Model = {
   unitId?: number
   definition?: string
   note?: string
+  lateCell?: string
 }
 export type QueryResponse = Response<Array<Model>>
