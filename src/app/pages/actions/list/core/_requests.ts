@@ -30,15 +30,15 @@ const saveAction = (action: any) => {
     .then((response: any) => response.data)
 }
 
-const getActions = (query: string): Promise<QueryResponse> => {
-  return axios.get(`${GET_ACTIONS_URL}/?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
-}
+
 
 const listActions = async (): Promise<any> =>
   await axios.get(`${GET_ACTIONS_URL}/getAll?page=1`).then((res: AxiosResponse) => {
     return res.data
   })
-
+  const getActions = (query: string): Promise<QueryResponse> => {
+    return axios.get(`${GET_ACTIONS_URL}/?${query}`).then((d: AxiosResponse<QueryResponse>) => d.data)
+  }
 const getActionById = (id: ID): Promise<Model | undefined> => {
   return axios
     .get(`${ACTION_URL}/${id}`)
