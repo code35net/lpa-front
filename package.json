@@ -42,7 +42,6 @@
     "source-map-explorer": "^2.5.2",
     "sweetalert2": "^11.6.2",
     "uuidv4": "^6.2.13",
-    "xlsx": "^0.18.5",
     "yup": "0.32.11"
   },
   "devDependencies": {
