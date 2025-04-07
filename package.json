@@ -58,7 +58,7 @@
     "@types/react-dom": "18.0.2",
     "@types/react-table": "^7.7.9",
     "prettier": "2.6.2",
-    "react-app-rewired": "^2.1.8",
+    
     "typescript": "4.6.3"
   },
   "scripts": {
@@ -69,7 +69,8 @@
     "rtl": "webpack --config webpack-rtl.config.js",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-app-rewired start",
-    "build": "DISABLE_ESLINT_PLUGIN=true CI=false react-app-rewired --max_old_space_size=768 build"
+"build": "react-scripts build"
+
   },
   "eslintConfig": {
     "extends": [
