@@ -33,6 +33,7 @@
     "react-query": "3.38.0",
     "react-router-dom": "6.3.0",
     "react-scripts": "5.0.1",
+    "react-select": "^5.10.1",
     "react-table": "^7.7.0",
     "react-topbar-progress-indicator": "4.1.1",
     "react-uuid": "^1.0.3",
@@ -58,7 +59,6 @@
     "@types/react-dom": "18.0.2",
     "@types/react-table": "^7.7.9",
     "prettier": "2.6.2",
-    
     "typescript": "4.6.3"
   },
   "scripts": {
@@ -69,8 +69,7 @@
     "rtl": "webpack --config webpack-rtl.config.js",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-app-rewired start",
-"build": "react-scripts build"
-
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
