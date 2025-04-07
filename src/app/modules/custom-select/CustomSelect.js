@@ -1,6 +1,5 @@
 import React from 'react'
 import Select from 'react-select'
-import {preventDefaults} from 'survey-creator-react'
 
 const CustomSelect = (props) => {
   const handleMenuOpen = (event) => {
