@@ -22,25 +22,28 @@
     "prism-themes": "1.9.0",
     "prismjs": "1.28.0",
     "qs": "6.10.3",
-    "react": "^18.2.0",
+    "react": "18.2.0",
     "react-apexcharts": "1.4.0",
     "react-bootstrap": "2.5.0-beta.1",
     "react-copy-to-clipboard": "5.1.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "18.2.0",
     "react-drag-drop-files": "^2.3.7",
     "react-inlinesvg": "3.0.0",
     "react-intl": "5.25.0",
     "react-query": "3.38.0",
     "react-router-dom": "6.3.0",
     "react-scripts": "5.0.1",
+    "react-select": "^5.10.1",
     "react-table": "^7.7.0",
     "react-topbar-progress-indicator": "4.1.1",
     "react-uuid": "^1.0.3",
     "sass": "1.50.1",
     "socicon": "3.0.5",
     "source-map-explorer": "^2.5.2",
+    "survey-creator-react": "^2.0.3",
     "sweetalert2": "^11.6.2",
     "uuidv4": "^6.2.13",
+    "xlsx": "^0.18.5",
     "yup": "0.32.11"
   },
   "devDependencies": {
@@ -58,7 +61,6 @@
     "@types/react-dom": "18.0.2",
     "@types/react-table": "^7.7.9",
     "prettier": "2.6.2",
-    "react-app-rewired": "^2.1.8",
     "typescript": "4.6.3"
   },
   "scripts": {
@@ -69,7 +71,7 @@
     "rtl": "webpack --config webpack-rtl.config.js",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-app-rewired start",
-    "build": "DISABLE_ESLINT_PLUGIN=true CI=false react-app-rewired --max_old_space_size=768 build"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
