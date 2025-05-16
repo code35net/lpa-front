@@ -8,7 +8,7 @@ type Props = {
   selectedLang: 'de' | 'en' | 'es' | 'tr' | 'ja' | 'zh'
 }
 const initialState: Props = {
-  selectedLang: 'tr',
+  selectedLang: 'en',
 }
 
 function getConfig(): Props {
